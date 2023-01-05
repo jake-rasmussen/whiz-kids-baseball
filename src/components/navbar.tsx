@@ -1,3 +1,3 @@
 export default function NavBar() {
-  return <div>Navbar</div>;
+  return <nav className="bg-[#CC0007] text-center text-[#ffffff] ">Navbar</nav>;
 }

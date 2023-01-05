@@ -1,4 +1,4 @@
-import type { LayoutProps } from "../../types/nextPageWithLayout";
+import type { LayoutProps } from "../../types/pageWithLayout";
 import Footer from "../footer";
 import NavBar from "../navbar";
 

@@ -1,7 +1,9 @@
-import { type NextPage } from "next";
 import Head from "next/head";
+import type { ReactElement } from "react";
+import MainLayout from "../components/layouts/mainLayout";
+import type { NextPageWithLayout } from "./_app";
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   return (
     <>
       <Head>
@@ -200,6 +202,14 @@ const Home: NextPage = () => {
           </div>
         </form>
       </main>
+    </>
+  );
+};
+
+Home.getLayout = (page: ReactElement) => {
+  return (
+    <>
+      <MainLayout>{page}</MainLayout>
     </>
   );
 };
