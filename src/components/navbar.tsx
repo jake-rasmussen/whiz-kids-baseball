@@ -1,118 +1,231 @@
-import Image from "next/image";
+import {
+  createStyles,
+  Header,
+  HoverCard,
+  Group,
+  Button,
+  UnstyledButton,
+  Text,
+  SimpleGrid,
+  Divider,
+  Center,
+  Box,
+  Burger,
+  Drawer,
+  Collapse,
+  ScrollArea,
+} from "@mantine/core";
+
+import { useDisclosure } from "@mantine/hooks";
+import { IconChevronDown, IconPlaceholder } from "@tabler/icons";
+
+const useStyles = createStyles((theme) => ({
+  link: {
+    display: "flex",
+    alignItems: "center",
+    height: "100%",
+    paddingLeft: theme.spacing.md,
+    paddingRight: theme.spacing.md,
+    textDecoration: "none",
+    color: "#FFF",
+    fontWeight: 800,
+    fontSize: theme.fontSizes.md,
+
+    [theme.fn.smallerThan("sm")]: {
+      height: 42,
+      display: "flex",
+      alignItems: "center",
+      width: "100%",
+    },
+
+    ...theme.fn.hover({
+      backgroundColor: "#C2C2C2",
+    }),
+  },
+
+  subLink: {
+    width: "100%",
+    padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+    borderRadius: theme.radius.md,
+    color: "#FFF",
+
+    ...theme.fn.hover({
+      backgroundColor: "#C2C2C2",
+    }),
+
+    "&:active": theme.activeStyles,
+  },
+
+  hiddenMobile: {
+    [theme.fn.smallerThan("sm")]: {
+      display: "none",
+    },
+  },
+
+  hiddenDesktop: {
+    [theme.fn.largerThan("sm")]: {
+      display: "none",
+    },
+    backgroundColor: "#1F1F1F",
+    color: "#FFF",
+    fontWeight: 800,
+    fontSize: 50,
+  },
+}));
+
+const mockdata = [
+  {
+    title: "Team 1",
+    description: "This Pokémon’s cry is very loud and distracting",
+  },
+  {
+    title: "Team 2",
+    description: "The fluid of Smeargle’s tail secretions changes",
+  },
+  {
+    title: "Team 3",
+    description: "Yanma is capable of seeing 360 degrees without",
+  },
+  {
+    title: "Team 4",
+    description: "The shell’s rounded shape and the grooves on its.",
+  },
+  {
+    title: "Team 5",
+    description: "This Pokémon uses its flying ability to quickly chase",
+  },
+  {
+    title: "Team 6",
+    description: "Combusken battles with the intensely hot flames it spews",
+  },
+];
 
 export default function NavBar() {
-  return (
-    <nav className="fixed w-full bg-[#1F1F1F]">
-      <div className="container mx-auto flex flex-wrap items-center justify-between">
-        <a href="https://flowbite.com/" className="flex items-center">
-          <Image
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="mr-3 h-6"
-            alt="Flowbite Logo"
-            width={30}
-            height={30}
-          />
-          <span className="self-center whitespace-nowrap text-xl font-semibold text-white">
-            Whiz Kids
-          </span>
-        </a>
-        <button
-          data-collapse-toggle="navbar-default"
-          type="button"
-          className="
-          ml-3 
-          inline-flex 
-          items-center 
-          rounded-lg 
-          p-2 
-          text-sm 
-          text-gray-500 
-          hover:bg-gray-100 
-          focus:outline-none 
-          focus:ring-2 
-          focus:ring-gray-200 
-          md:hidden
-          "
-          aria-controls="navbar-default"
-          aria-expanded="false"
-        >
-          <span className="sr-only">Open main menu</span>
-          <svg
-            className="h-6 w-6"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-        </button>
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul
-            className="
-            mt-4 
-            flex 
-            flex-col 
-            rounded-lg 
-            border 
-            border-gray-100 
-            p-4 
-            md:mt-0 
-            md:flex-row 
-            md:space-x-8 
-            md:border-0 
-            md:text-sm 
-            md:font-medium
-            "
-          >
-            <li>
-              <a
-                href="#"
-                className="block rounded py-2 pl-3 pr-4 text-white md:text-[#FFFFFF]"
-                aria-current="page"
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block rounded py-2 pl-3 pr-4 text-[#C2C2C2] hover:bg-[#C2C2C2] md:border-0 md:hover:bg-transparent md:hover:text-[#FFFFFF]"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block rounded py-2 pl-3 pr-4 text-[#C2C2C2] hover:bg-[#C2C2C2] md:border-0 md:hover:bg-transparent md:hover:text-[#FFFFFF]"
-              >
-                Services
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block rounded py-2 pl-3 pr-4 text-[#C2C2C2] hover:bg-[#C2C2C2] md:border-0 md:hover:bg-transparent md:hover:text-[#FFFFFF]"
-              >
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block rounded py-2 pl-3 pr-4 text-[#C2C2C2] hover:bg-[#C2C2C2] md:border-0 md:hover:bg-transparent md:hover:text-[#FFFFFF]"
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
+  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+  const { classes } = useStyles();
+
+  const links = mockdata.map((item) => (
+    <UnstyledButton className={classes.subLink} key={item.title}>
+      <Group noWrap align="flex-start">
+        <div>
+          <Text size="sm" weight={500}>
+            {item.title}
+          </Text>
+          <Text size="xs" color="dimmed">
+            {item.description}
+          </Text>
         </div>
-      </div>
-    </nav>
+      </Group>
+    </UnstyledButton>
+  ));
+
+  return (
+    <Box pb={20}>
+      <Header height={60} px="md" fixed={true} bg="#1F1F1F">
+        <Group position="apart" sx={{ height: "100%" }}>
+          <IconPlaceholder /> {/*TODO: Replace with Whiz Kids Logo*/}
+          <Group
+            sx={{ height: "100%" }}
+            spacing={0}
+            className={classes.hiddenMobile}
+          >
+            <a href="#" className={classes.link}>
+              Home
+            </a>
+            <a href="#" className={classes.link}>
+              Services
+            </a>
+            <HoverCard
+              width={600}
+              position="bottom"
+              radius="md"
+              shadow="md"
+              withinPortal
+            >
+              <HoverCard.Target>
+                <a href="#" className={classes.link}>
+                  <Center inline>
+                    <Box component="span" mr={5}>
+                      Teams
+                    </Box>
+                    <IconChevronDown size={16} color="#FF141A" />
+                  </Center>
+                </a>
+              </HoverCard.Target>
+
+              <HoverCard.Dropdown sx={{ overflow: "hidden" }}>
+                {/* <Group position="apart" px="md">
+                  <Text weight={500}>Teams</Text>
+                  <Anchor href="#" size="xs">
+                    View all
+                  </Anchor>
+                </Group> */}
+
+                <SimpleGrid cols={2} spacing={0}>
+                  {links}
+                </SimpleGrid>
+              </HoverCard.Dropdown>
+            </HoverCard>
+
+            <a href="#" className={classes.link}>
+              Pricing
+            </a>
+          </Group>
+          <Group className={classes.hiddenMobile}>
+            <Button variant="default">Log in</Button>
+            <Button variant="default">Sign up</Button>
+          </Group>
+          <Burger
+            opened={drawerOpened}
+            onClick={toggleDrawer}
+            className={classes.hiddenDesktop}
+          />
+        </Group>
+      </Header>
+
+      {/* Mobile/Small Screen View */}
+      <Drawer
+        opened={drawerOpened}
+        onClose={closeDrawer}
+        size="100%"
+        padding="md"
+        title="Whiz Kids"
+        className={classes.hiddenDesktop}
+        zIndex={1000000}
+      >
+        <ScrollArea bg="#1F1F1F" sx={{ height: "calc(100vh - 60px)" }} mx="-md">
+          <Divider my="sm" color="#C2C2C2" />
+
+          <a href="#" className={classes.link}>
+            Home
+          </a>
+          <a href="#" className={classes.link}>
+            Services
+          </a>
+          <UnstyledButton className={classes.link} onClick={toggleLinks}>
+            <Center inline>
+              <Box component="span" mr={5}>
+                Teams
+              </Box>
+              <IconChevronDown size={16} color="#FF141A" />
+            </Center>
+          </UnstyledButton>
+          <Collapse in={linksOpened}>{links}</Collapse>
+
+          <a href="#" className={classes.link}>
+            Pricing
+          </a>
+
+          <Divider my="sm" color="#C2C2C2" />
+
+          <Group position="center" grow pb="xl" px="md">
+            <Button variant="default">Log in</Button>
+            <Button variant="default">Sign up</Button>
+          </Group>
+        </ScrollArea>
+      </Drawer>
+    </Box>
   );
 }
