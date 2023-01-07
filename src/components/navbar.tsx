@@ -17,7 +17,7 @@ import {
 } from "@mantine/core";
 
 import { useDisclosure } from "@mantine/hooks";
-import { IconChevronDown, IconPlaceholder } from "@tabler/icons";
+import { IconPlaceholder } from "@tabler/icons";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -39,7 +39,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     ...theme.fn.hover({
-      backgroundColor: "#C2C2C2",
+      color: "#CC0007",
     }),
   },
 
@@ -50,7 +50,7 @@ const useStyles = createStyles((theme) => ({
     color: "#FFF",
 
     ...theme.fn.hover({
-      backgroundColor: "#C2C2C2",
+      color: "#CC0007",
     }),
 
     "&:active": theme.activeStyles,
@@ -150,19 +150,11 @@ export default function NavBar() {
                     <Box component="span" mr={5}>
                       Teams
                     </Box>
-                    <IconChevronDown size={16} color="#FF141A" />
                   </Center>
                 </a>
               </HoverCard.Target>
 
               <HoverCard.Dropdown sx={{ overflow: "hidden" }}>
-                {/* <Group position="apart" px="md">
-                  <Text weight={500}>Teams</Text>
-                  <Anchor href="#" size="xs">
-                    View all
-                  </Anchor>
-                </Group> */}
-
                 <SimpleGrid cols={2} spacing={0}>
                   {links}
                 </SimpleGrid>
@@ -209,7 +201,6 @@ export default function NavBar() {
               <Box component="span" mr={5}>
                 Teams
               </Box>
-              <IconChevronDown size={16} color="#FF141A" />
             </Center>
           </UnstyledButton>
           <Collapse in={linksOpened}>{links}</Collapse>
