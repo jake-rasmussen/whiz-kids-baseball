@@ -20,9 +20,16 @@ const useStyles = createStyles((_theme, _params, getRef) => ({
   root: {
     "&:hover": {
       [`& .${getRef("controls")}`]: {
-        opacity: 0.75,
+        opacity: 1,
       },
     },
+  },
+
+  control: {
+    outline: 0,
+    border: 0,
+    background: "transparent",
+    boxShadow: "none",
   },
 }));
 
@@ -61,6 +68,7 @@ const Home: NextPageWithLayout = () => {
           controlsOffset="xs"
           nextControlIcon={<IconChevronRight color="white" size={50} />}
           previousControlIcon={<IconChevronLeft color="white" size={50} />}
+
           //TODO: Remove border around control icon
         >
           {slides}
