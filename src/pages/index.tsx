@@ -1,40 +1,69 @@
 import type { ReactElement } from "react";
 import { useRef } from "react";
-import MainLayout from "../components/layouts/mainLayout";
 import type { NextPageWithLayout } from "./_app";
 import { Carousel } from "@mantine/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import sampleImg1 from "../../assets/images/sample.jpg";
 import sampleImg2 from "../../assets/images/sample2.webp";
 import Image from "next/image";
+import MainLayout from "../components/layouts/MainLayout";
+import { createStyles } from "@mantine/core";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
+
+const useStyles = createStyles((_theme, _params, getRef) => ({
+  controls: {
+    ref: getRef("controls"),
+    transition: "opacity 150ms ease",
+    opacity: 0,
+  },
+
+  root: {
+    "&:hover": {
+      [`& .${getRef("controls")}`]: {
+        opacity: 0.75,
+      },
+    },
+  },
+}));
 
 const Home: NextPageWithLayout = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
+  const { classes } = useStyles();
+  const images = [sampleImg1, sampleImg2];
+  const slides = images.map((image) => {
+    return (
+      <>
+        <Carousel.Slide className="flex items-center">
+          <Image
+            className="mx-auto h-full w-full object-cover "
+            src={image}
+            alt="sample"
+          />
+          <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-black bg-fixed opacity-30" />
+          <h1 className=" absolute top-0 left-0 right-0 bottom-0 flex  flex-col items-center justify-center text-7xl font-extrabold text-[#CC0007]">
+            Whiz Kids Baseball
+          </h1>
+        </Carousel.Slide>
+      </>
+    );
+  });
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#FFFFFF] to-[#C2C2C2]">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-10">
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[7rem]">
-            <span className="font-extrabold text-[#CC0007]">Whiz Kids</span>
-            <span className="text-[#1F1F1F] sm:text-[4rem]">Baseball</span>
-          </h1>
-        </div>
+      <main className="flex flex-col items-center justify-center bg-gradient-to-b from-[#FFFFFF] to-[#C2C2C2]">
         <Carousel
-          className="z-0 pb-10"
-          slideSize="70%"
-          slideGap="xs"
-          controlSize={22}
+          classNames={classes}
           loop
+          align="center"
           plugins={[autoplay.current]}
           onMouseEnter={autoplay.current.stop}
           onMouseLeave={autoplay.current.reset}
-          align="start"
-          sx={{ maxWidth: 1000 }}
           controlsOffset="xs"
+          nextControlIcon={<IconChevronRight color="white" size={50} />}
+          previousControlIcon={<IconChevronLeft color="white" size={50} />}
+          //TODO: Remove border around control icon
         >
-          <Image src={sampleImg2} alt="sample" />
-          <Image src={sampleImg1} alt="sample" />
+          {slides}
         </Carousel>
       </main>
 
