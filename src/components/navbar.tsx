@@ -1,15 +1,9 @@
 import {
-  createStyles,
-  Header,
   HoverCard,
-  Group,
   Button,
   UnstyledButton,
   Text,
   SimpleGrid,
-  Divider,
-  Center,
-  Box,
   Burger,
   Drawer,
   Collapse,
@@ -17,61 +11,9 @@ import {
 } from "@mantine/core";
 
 import { useDisclosure } from "@mantine/hooks";
-import { IconPlaceholder } from "@tabler/icons";
+import Image from "next/image";
 
-const useStyles = createStyles((theme) => ({
-  link: {
-    display: "flex",
-    alignItems: "center",
-    height: "100%",
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.md,
-    textDecoration: "none",
-    color: "#FFF",
-    fontWeight: 800,
-    fontSize: theme.fontSizes.md,
-
-    [theme.fn.smallerThan("sm")]: {
-      height: 42,
-      display: "flex",
-      alignItems: "center",
-      width: "100%",
-    },
-
-    ...theme.fn.hover({
-      color: "#CC0007",
-    }),
-  },
-
-  subLink: {
-    width: "100%",
-    padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
-    borderRadius: theme.radius.md,
-    color: "#FFF",
-
-    ...theme.fn.hover({
-      color: "#CC0007",
-    }),
-
-    "&:active": theme.activeStyles,
-  },
-
-  hiddenMobile: {
-    [theme.fn.smallerThan("sm")]: {
-      display: "none",
-    },
-  },
-
-  hiddenDesktop: {
-    [theme.fn.largerThan("sm")]: {
-      display: "none",
-    },
-    backgroundColor: "#1F1F1F",
-    color: "#FFF",
-    fontWeight: 800,
-    fontSize: 50,
-  },
-}));
+import logo from "../../assets/images/logo.png";
 
 const mockdata = [
   {
@@ -104,119 +46,140 @@ export default function NavBar() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-  const { classes } = useStyles();
 
   const links = mockdata.map((item) => (
-    <UnstyledButton className={classes.subLink} key={item.title}>
-      <Group noWrap align="flex-start">
+    <UnstyledButton key={item.title}>
+      <div className="flex-no-wrap flex-start">
         <div>
-          <Text size="sm" weight={500}>
-            {item.title}
-          </Text>
-          <Text size="xs" color="dimmed">
-            {item.description}
-          </Text>
+          <Text className="text-md">{item.title}</Text>
+          <Text className="text-sm text-[#C2C2C2]">{item.description}</Text>
         </div>
-      </Group>
+      </div>
     </UnstyledButton>
   ));
 
   return (
-    <Box pb={20}>
-      <Header height={60} px="md" fixed={true} bg="#1F1F1F">
-        <Group position="apart" sx={{ height: "100%" }}>
-          <IconPlaceholder /> {/*TODO: Replace with Whiz Kids Logo*/}
-          <Group
-            sx={{ height: "100%" }}
-            spacing={0}
-            className={classes.hiddenMobile}
+    <>
+      <div className="fixed z-10 flex w-screen flex-row items-center justify-items-stretch bg-[#1F1F1F] p-3">
+        <Image src={logo} alt="Whiz Kids Logo" className="mx-5 h-12 w-auto" />
+
+        <div className="hidden grow flex-row md:flex">
+          <a
+            href="#"
+            className="mx-2 block font-extrabold text-[#FFFFFF] hover:text-[#CC0007]"
           >
-            <a href="#" className={classes.link}>
-              Home
-            </a>
-            <a href="#" className={classes.link}>
-              Services
-            </a>
-            <HoverCard
-              width={600}
-              position="bottom"
-              radius="md"
-              shadow="md"
-              withinPortal
-            >
-              <HoverCard.Target>
-                <a href="#" className={classes.link}>
-                  <Center inline>
-                    <Box component="span" mr={5}>
-                      Teams
-                    </Box>
-                  </Center>
-                </a>
-              </HoverCard.Target>
+            Home
+          </a>
 
-              <HoverCard.Dropdown sx={{ overflow: "hidden" }}>
-                <SimpleGrid cols={2} spacing={0}>
-                  {links}
-                </SimpleGrid>
-              </HoverCard.Dropdown>
-            </HoverCard>
+          <HoverCard>
+            <HoverCard.Target>
+              <a
+                href="#"
+                className="mx-2 block font-extrabold text-[#FFFFFF] hover:text-[#CC0007]"
+              >
+                Teams
+              </a>
+            </HoverCard.Target>
 
-            <a href="#" className={classes.link}>
-              Pricing
-            </a>
-          </Group>
-          <Group className={classes.hiddenMobile}>
-            <Button variant="default">Log in</Button>
-            <Button variant="default">Sign up</Button>
-          </Group>
+            <HoverCard.Dropdown className="mt-4">
+              <SimpleGrid cols={2}>{links}</SimpleGrid>
+            </HoverCard.Dropdown>
+          </HoverCard>
+
+          <a
+            href="#"
+            className="mx-2 block font-extrabold text-[#FFFFFF] hover:text-[#CC0007]"
+          >
+            Training
+          </a>
+          <a
+            href="#"
+            className="mx-2 block font-extrabold text-[#FFFFFF] hover:text-[#CC0007]"
+          >
+            Tryouts
+          </a>
+          <a
+            href="#"
+            className="mx-2 block font-extrabold text-[#FFFFFF] hover:text-[#CC0007]"
+          >
+            Alumni
+          </a>
+        </div>
+
+        <div className="hidden justify-self-end md:flex">
+          <Button className="mx-3 bg-gradient-to-r from-[#CC0007] to-[#FF141A]">
+            Log in
+          </Button>
+          <Button className="mx-3 bg-gradient-to-r from-[#CC0007] to-[#FF141A]">
+            Sign up
+          </Button>
+        </div>
+
+        <div className="flex grow justify-end md:hidden">
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
-            className={classes.hiddenDesktop}
+            color="#FFFFFF"
+            size={25}
+            className="z-10"
           />
-        </Group>
-      </Header>
+        </div>
+      </div>
 
-      {/* Mobile/Small Screen View */}
       <Drawer
         opened={drawerOpened}
         onClose={closeDrawer}
-        size="100%"
-        padding="md"
+        withOverlay={false}
         title="Whiz Kids"
-        className={classes.hiddenDesktop}
-        zIndex={1000000}
+        className="z-0 h-[100%] w-[100%] p-md text-5xl font-extrabold text-[#1F1F1F] md:hidden"
       >
-        <ScrollArea bg="#1F1F1F" sx={{ height: "calc(100vh - 60px)" }} mx="-md">
-          <Divider my="sm" color="#C2C2C2" />
-
-          <a href="#" className={classes.link}>
+        <ScrollArea className="mx-8 h-[calc(100vh-120px)] text-[#C2C2C2]">
+          <a
+            href="#"
+            className="my-2 block font-extrabold text-[#1F1F1F] hover:text-[#CC0007]"
+          >
             Home
           </a>
-          <a href="#" className={classes.link}>
-            Services
-          </a>
-          <UnstyledButton className={classes.link} onClick={toggleLinks}>
-            <Center inline>
-              <Box component="span" mr={5}>
-                Teams
-              </Box>
-            </Center>
+
+          <UnstyledButton onClick={toggleLinks}>
+            <Text className="my-2 block text-5xl font-extrabold text-[#1F1F1F] hover:text-[#CC0007]">
+              Teams
+            </Text>
           </UnstyledButton>
-          <Collapse in={linksOpened}>{links}</Collapse>
 
-          <a href="#" className={classes.link}>
-            Pricing
+          <Collapse className="mx-5 p-5" in={linksOpened}>
+            <div className="flex flex-col">{links}</div>
+          </Collapse>
+
+          <a
+            href="#"
+            className="my-2 block font-extrabold text-[#1F1F1F] hover:text-[#CC0007]"
+          >
+            Training
+          </a>
+          <a
+            href="#"
+            className="my-4 block font-extrabold text-[#1F1F1F] hover:text-[#CC0007]"
+          >
+            Tryouts
+          </a>
+          <a
+            href="#"
+            className="my-6 block font-extrabold text-[#1F1F1F] hover:text-[#CC0007]"
+          >
+            Alumni
           </a>
 
-          <Divider my="sm" color="#C2C2C2" />
-
-          <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button variant="default">Sign up</Button>
-          </Group>
+          <div className="mt-20 flex grow items-center justify-center">
+            <Button className="mx-7 w-[30%] bg-gradient-to-r from-[#CC0007] to-[#FF141A]">
+              Log in
+            </Button>
+            <Button className="mx-7 w-[30%] bg-gradient-to-r from-[#CC0007] to-[#FF141A]">
+              Sign up
+            </Button>
+          </div>
         </ScrollArea>
       </Drawer>
-    </Box>
+    </>
   );
 }
