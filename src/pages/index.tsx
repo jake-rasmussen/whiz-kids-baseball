@@ -3,8 +3,8 @@ import { useRef } from "react";
 import type { NextPageWithLayout } from "./_app";
 import { Carousel } from "@mantine/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import sampleImg1 from "../../assets/images/sample.jpg";
-import sampleImg2 from "../../assets/images/sample2.webp";
+import sample from "../../assets/images/sample.png";
+import banner from "../../assets/images/whizkidsbanner.png";
 import Image from "next/image";
 import MainLayout from "../components/layouts/MainLayout";
 import { createStyles } from "@mantine/core";
@@ -29,16 +29,17 @@ const useStyles = createStyles((_theme, _params, getRef) => ({
 const Home: NextPageWithLayout = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const { classes } = useStyles();
-  const images = [sampleImg1, sampleImg2];
+  const images = [sample, sample, sample];
   const slides = images.map((image) => {
     return (
       <>
         <Carousel.Slide className="flex items-center">
           <Image
-            className="mx-auto h-full w-full object-cover "
+            className="mx-auto h-screen w-full object-cover "
             src={image}
             alt="Whiz Kids Photo"
           />
+          <div className="absolute h-screen w-screen bg-gradient-to-b from-red to-white opacity-40" />
         </Carousel.Slide>
       </>
     );
@@ -46,24 +47,31 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <>
-      <main className="flex flex-col items-center justify-center">
-        <Carousel
-          classNames={classes}
-          loop
-          align="center"
-          plugins={[autoplay.current]}
-          onMouseEnter={autoplay.current.stop}
-          onMouseLeave={autoplay.current.reset}
-          controlsOffset="xs"
-          nextControlIcon={<IconChevronRight color="white" size={50} />}
-          previousControlIcon={<IconChevronLeft color="white" size={50} />}
-          //TODO: Remove border around control icon
-        >
-          {slides}
-        </Carousel>
-      </main>
+      <div className="h-screen w-screen">
+        <main className="fixed flex flex-col items-center justify-center overflow-hidden ">
+          <Carousel
+            classNames={classes}
+            loop
+            align="center"
+            plugins={[autoplay.current]}
+            controlsOffset="xs"
+            nextControlIcon={<IconChevronRight color="white" size={75} />}
+            previousControlIcon={<IconChevronLeft color="white" size={75} />}
+            withIndicators={false}
+            //TODO: Remove border around control icon
+          >
+            {slides}
+          </Carousel>
 
-      <main className="flex flex-col items-center bg-dark-gray">
+          <Image
+            className="absolute h-auto w-[75vh]"
+            src={banner}
+            alt="Whiz Kids Banner"
+          />
+        </main>
+      </div>
+
+      <main className="relative flex flex-col items-center bg-dark-gray">
         <div className="container flex flex-col items-center px-[5vh] pt-12 pb-16 text-center">
           <div className="inline-flex w-full items-center justify-center">
             <hr className="mt-8 h-px w-96 -translate-y-4 border-0 bg-red" />
@@ -115,7 +123,7 @@ const Home: NextPageWithLayout = () => {
         </div>
       </main>
 
-      <main className="flex flex-col items-center justify-center bg-gradient-to-b from-white to-light-gray pb-[10vh]">
+      <main className="relative flex flex-col items-center justify-center bg-gradient-to-b from-white to-light-gray pb-[10vh]">
         <div className="flex flex-col items-center gap-2 p-10">
           <h1 className="text-5xl text-[4rem] font-extrabold tracking-tight text-dark-gray">
             Contact Us
