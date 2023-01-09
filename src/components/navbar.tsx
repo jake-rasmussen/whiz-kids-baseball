@@ -50,10 +50,10 @@ export default function NavBar() {
     <UnstyledButton key={item.title}>
       <div className="flex-no-wrap flex-start">
         <div>
-          <Text className="text-md font-extrabold text-[#1F1F1F] hover:text-[#CC0007]">
+          <Text className="text-md font-extrabold text-dark-gray hover:text-red">
             {item.title}
           </Text>
-          <Text className="text-sm text-[#C2C2C2]">{item.description}</Text>
+          <Text className="text-sm text-light-gray">{item.description}</Text>
         </div>
       </div>
     </UnstyledButton>
@@ -61,13 +61,13 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="fixed z-10 flex w-screen flex-row items-center justify-items-stretch bg-[#1F1F1F] p-3">
+      <div className="fixed z-10 flex w-screen flex-row items-center justify-items-stretch bg-dark-gray p-3 shadow-xl">
         <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
 
         <div className="hidden grow flex-row text-lg md:flex">
           <a
             href="#"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-[#FFFFFF] hover:text-[#CC0007]"
+            className="link link-underline link-underline-black mx-2 block font-extrabold text-white hover:text-red"
           >
             Home
           </a>
@@ -76,7 +76,7 @@ export default function NavBar() {
             <HoverCard.Target>
               <a
                 href="#"
-                className="link link-underline link-underline-black mx-2 block font-extrabold text-[#FFFFFF] hover:text-[#CC0007]"
+                className="link link-underline link-underline-black mx-2 block font-extrabold text-white hover:text-red"
               >
                 Teams
               </a>
@@ -89,29 +89,29 @@ export default function NavBar() {
 
           <a
             href="#"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-[#FFFFFF] hover:text-[#CC0007]"
+            className="link link-underline link-underline-black mx-2 block font-extrabold text-white hover:text-red"
           >
             Training
           </a>
           <a
             href="#"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-[#FFFFFF] hover:text-[#CC0007]"
+            className="link link-underline link-underline-black mx-2 block font-extrabold text-white hover:text-red"
           >
             Tryouts
           </a>
           <a
             href="#"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-[#FFFFFF] hover:text-[#CC0007]"
+            className="link link-underline link-underline-black mx-2 block font-extrabold text-white hover:text-red"
           >
             Alumni
           </a>
         </div>
 
         <div className="hidden justify-self-end md:flex">
-          <Button className="mx-3 bg-gradient-to-r from-[#CC0007] to-[#FF141A]">
+          <Button className="mx-3 bg-gradient-to-r from-red to-secondary-red">
             Log in
           </Button>
-          <Button className="mx-3 bg-gradient-to-r from-[#CC0007] to-[#FF141A]">
+          <Button className="mx-3 bg-gradient-to-r from-red to-secondary-red">
             Sign up
           </Button>
         </div>
@@ -120,7 +120,7 @@ export default function NavBar() {
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
-            color="#FFFFFF"
+            color="white"
             size={25}
             className="z-10"
           />
@@ -132,18 +132,18 @@ export default function NavBar() {
         onClose={closeDrawer}
         withOverlay={false}
         withCloseButton={false}
-        className="z-0 flex h-[100%] w-[100%] justify-center p-md text-5xl font-extrabold text-[#1F1F1F] md:hidden"
+        className="z-0 flex h-[100%] w-[100%] justify-center p-md text-5xl font-extrabold text-dark-gray md:hidden"
       >
-        <ScrollArea className="mx-8 mt-[12vh] h-[calc(100vh-120px)] text-center text-[#C2C2C2]">
+        <ScrollArea className="mx-8 mt-[12vh] h-[calc(100vh-120px)] text-center text-dark-gray">
           <a
             href="#"
-            className="my-2 block font-extrabold text-[#1F1F1F] hover:text-[#CC0007]"
+            className="my-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Home
           </a>
 
           <UnstyledButton onClick={toggleLinks}>
-            <Text className="my-2 block text-5xl font-extrabold text-[#1F1F1F] hover:text-[#CC0007]">
+            <Text className="my-2 block text-5xl font-extrabold text-dark-gray hover:text-red">
               Teams
             </Text>
           </UnstyledButton>
@@ -154,28 +154,28 @@ export default function NavBar() {
 
           <a
             href="#"
-            className="my-2 block font-extrabold text-[#1F1F1F] hover:text-[#CC0007]"
+            className="my-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Training
           </a>
           <a
             href="#"
-            className="my-4 block font-extrabold text-[#1F1F1F] hover:text-[#CC0007]"
+            className="my-4 block font-extrabold text-dark-gray hover:text-red"
           >
             Tryouts
           </a>
           <a
             href="#"
-            className="my-6 block font-extrabold text-[#1F1F1F] hover:text-[#CC0007]"
+            className="my-6 block font-extrabold text-dark-gray hover:text-red"
           >
             Alumni
           </a>
 
           <div className="mt-20 flex grow items-center justify-center">
-            <Button className="mx-7 flex bg-gradient-to-r from-[#CC0007] to-[#FF141A] px-20 text-center">
+            <Button className="mx-7 flex bg-gradient-to-r from-red to-secondary-red px-20 text-center">
               Log in
             </Button>
-            <Button className="mx-7 flex bg-gradient-to-r from-[#CC0007] to-[#FF141A] px-20 text-center">
+            <Button className="mx-7 flex bg-gradient-to-r from-red to-secondary-red px-20 text-center">
               Sign up
             </Button>
           </div>
