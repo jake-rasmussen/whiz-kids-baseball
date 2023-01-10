@@ -31,9 +31,16 @@ const useStyles = createStyles((_theme, _params, getRef) => ({
   root: {
     "&:hover": {
       [`& .${getRef("controls")}`]: {
-        opacity: 0.75,
+        opacity: 1,
       },
     },
+  },
+
+  control: {
+    outline: 0,
+    border: 0,
+    background: "transparent",
+    boxShadow: "none",
   },
 }));
 

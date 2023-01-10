@@ -41,7 +41,7 @@ const mockdata = [
   },
 ];
 
-export default function NavBar() {
+const NavBar: React.FC = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -195,4 +195,6 @@ export default function NavBar() {
       </Drawer>
     </>
   );
-}
+};
+
+export default NavBar;
