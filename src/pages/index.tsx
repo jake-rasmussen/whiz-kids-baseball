@@ -15,6 +15,7 @@ import {
   IconUsers,
   IconCalendarEvent,
 } from "@tabler/icons";
+import ContactForm from "../components/contactForm";
 
 const useStyles = createStyles((_theme, _params, getRef) => ({
   controls: {
@@ -34,13 +35,6 @@ const useStyles = createStyles((_theme, _params, getRef) => ({
         opacity: 1,
       },
     },
-  },
-
-  control: {
-    outline: 0,
-    border: 0,
-    background: "transparent",
-    boxShadow: "none",
   },
 }));
 
@@ -62,7 +56,7 @@ const Home: NextPageWithLayout = () => {
       </>
     );
   });
-
+  const controllerIconSize = 35;
   return (
     <>
       <div className="h-screen w-screen">
@@ -73,10 +67,13 @@ const Home: NextPageWithLayout = () => {
             align="center"
             plugins={[autoplay.current]}
             controlsOffset="xs"
-            nextControlIcon={<IconChevronRight color="white" size={50} />}
-            previousControlIcon={<IconChevronLeft color="white" size={50} />}
+            nextControlIcon={
+              <IconChevronRight color="white" size={controllerIconSize} />
+            }
+            previousControlIcon={
+              <IconChevronLeft color="white" size={controllerIconSize} />
+            }
             withIndicators={false}
-            //TODO: Remove border around control icon
           >
             {slides}
           </Carousel>
@@ -206,192 +203,7 @@ const Home: NextPageWithLayout = () => {
         </div>
       </main>
 
-      <main className="relative flex flex-col items-center justify-center bg-gradient-to-b from-white to-light-gray pb-[10vh]">
-        <div className="flex flex-col items-center gap-2 p-10">
-          <h1 className="text-5xl text-[4rem] font-extrabold tracking-tight text-dark-gray">
-            Contact Us
-          </h1>
-          <h5 className="block text-xs font-bold uppercase tracking-wide text-dark-gray">
-            Interested in Whiz Kids and have any questions? Feel free to reach
-            out to us!
-          </h5>
-        </div>
-
-        <form action="#" method="POST" className="">
-          <div className="max-w-[75vh] rounded-[40px] bg-dark-gray p-10">
-            <div className="row-auto grid grid-cols-6 gap-6">
-              <div className="col-span-3 my-2">
-                <label
-                  htmlFor="given-name"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-white"
-                >
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  name="given-name"
-                  id="given-name"
-                  autoComplete="given-name"
-                  className="
-                    bg-gray-200 
-                    text-gray-700 
-                    mb-3 
-                    block 
-                    w-full 
-                    rounded-[10px]
-                    border
-                    border-red 
-                    py-3 
-                    px-4 
-                    leading-tight 
-                    focus:bg-white 
-                    focus:outline-none
-                  "
-                />
-              </div>
-
-              <div className="col-span-3 my-2">
-                <label
-                  htmlFor="family-name"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-white"
-                >
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  name="family-name"
-                  id="family-name"
-                  autoComplete="family-name"
-                  className="
-                    bg-gray-200 
-                    text-gray-700 
-                    mb-3 
-                    block 
-                    w-full 
-                    rounded-[10px]
-                    border
-                    border-red 
-                    py-3 
-                    px-4 
-                    leading-tight 
-                    focus:bg-white 
-                    focus:outline-none
-                  "
-                />
-              </div>
-
-              <div className="col-span-4 my-2">
-                <label
-                  htmlFor="email"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-white"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  autoComplete="email"
-                  className="
-                    bg-gray-200 
-                    text-gray-700 
-                    mb-3 
-                    block 
-                    w-full 
-                    rounded-[10px]
-                    border
-                    border-red 
-                    py-3 
-                    px-4 
-                    leading-tight 
-                    focus:bg-white 
-                    focus:outline-none
-                  "
-                />
-              </div>
-
-              <div className="col-span-2 my-2">
-                <label
-                  htmlFor="email"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-white"
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="text"
-                  name="tel"
-                  id="tel"
-                  autoComplete="tel"
-                  className="
-                    bg-gray-200 
-                    text-gray-700 
-                    mb-3 
-                    block 
-                    w-full 
-                    rounded-[10px]
-                    border
-                    border-red 
-                    py-3 
-                    px-4 
-                    leading-tight 
-                    focus:bg-white 
-                    focus:outline-none
-                  "
-                />
-              </div>
-
-              <div className="col-span-6">
-                <label
-                  htmlFor="message"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-white"
-                >
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  id="message"
-                  autoComplete="message"
-                  className="
-                    bg-gray-200
-                    text-gray-700 
-                    mb-3
-                    block 
-                    min-h-[45px] 
-                    w-full 
-                    rounded-[10px]
-                    border
-                    border-red 
-                    py-3 
-                    px-4 
-                    leading-tight 
-                    focus:bg-white 
-                    focus:outline-none
-                  "
-                />
-              </div>
-            </div>
-
-            <div className="text-center">
-              <button
-                type="submit"
-                className="
-                    m-5
-                    rounded-lg
-                    bg-red
-                    px-10
-                    py-3
-                    text-[20px]
-                    font-medium 
-                    text-white 
-                    hover:bg-secondary-red
-                  "
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </form>
-      </main>
+      <ContactForm />
     </>
   );
 };
