@@ -61,13 +61,13 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="fixed z-10 flex w-screen flex-row items-center justify-items-stretch bg-dark-gray p-3 shadow-xl">
+      <div className="fixed z-10 flex w-screen flex-row items-center justify-items-stretch bg-white p-3 shadow-2xl">
         <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
 
         <div className="hidden grow flex-row text-lg md:flex">
           <a
             href="#"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-white hover:text-red"
+            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Home
           </a>
@@ -76,7 +76,7 @@ export default function NavBar() {
             <HoverCard.Target>
               <a
                 href="#"
-                className="link link-underline link-underline-black mx-2 block font-extrabold text-white hover:text-red"
+                className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
               >
                 Teams
               </a>
@@ -89,29 +89,35 @@ export default function NavBar() {
 
           <a
             href="#"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-white hover:text-red"
+            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Training
           </a>
           <a
             href="#"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-white hover:text-red"
+            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Tryouts
           </a>
           <a
             href="#"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-white hover:text-red"
+            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Alumni
           </a>
         </div>
 
         <div className="hidden justify-self-end md:flex">
-          <Button className="mx-3 bg-gradient-to-r from-red to-secondary-red">
+          <Button
+            className="mx-3 bg-gradient-to-r from-red to-secondary-red
+            transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+          >
             Log in
           </Button>
-          <Button className="mx-3 bg-gradient-to-r from-red to-secondary-red">
+          <Button
+            className="mx-3 bg-gradient-to-r from-red to-secondary-red
+            transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+          >
             Sign up
           </Button>
         </div>
@@ -120,7 +126,7 @@ export default function NavBar() {
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
-            color="white"
+            color="black"
             size={25}
             className="z-10"
           />
@@ -172,10 +178,16 @@ export default function NavBar() {
           </a>
 
           <div className="mt-20 flex grow items-center justify-center">
-            <Button className="mx-7 flex bg-gradient-to-r from-red to-secondary-red px-20 text-center">
+            <Button
+              className="mx-7 flex bg-gradient-to-r from-red to-secondary-red px-20 text-center
+              transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+            >
               Log in
             </Button>
-            <Button className="mx-7 flex bg-gradient-to-r from-red to-secondary-red px-20 text-center">
+            <Button
+              className="mx-7 flex bg-gradient-to-r from-red to-secondary-red px-20 text-center
+              transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+            >
               Sign up
             </Button>
           </div>
