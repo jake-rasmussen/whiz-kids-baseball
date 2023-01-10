@@ -9,6 +9,7 @@ import Image from "next/image";
 import MainLayout from "../components/layouts/MainLayout";
 import { createStyles } from "@mantine/core";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
+import ContactForm from "../components/contactForm";
 
 const useStyles = createStyles((_theme, _params, getRef) => ({
   controls: {
@@ -66,10 +67,8 @@ const Home: NextPageWithLayout = () => {
           onMouseEnter={autoplay.current.stop}
           onMouseLeave={autoplay.current.reset}
           controlsOffset="xs"
-          nextControlIcon={<IconChevronRight color="white" size={50} />}
-          previousControlIcon={<IconChevronLeft color="white" size={50} />}
-
-          //TODO: Remove border around control icon
+          nextControlIcon={<IconChevronRight color="white" size={40} />}
+          previousControlIcon={<IconChevronLeft color="white" size={40} />}
         >
           {slides}
         </Carousel>
@@ -113,192 +112,7 @@ const Home: NextPageWithLayout = () => {
         </div>
       </main>
 
-      <main className="flex flex-col items-center justify-center bg-gradient-to-b from-[#FFFFFF] to-[#C2C2C2] pb-[10vh]">
-        <div className="flex flex-col items-center gap-2 p-10">
-          <h1 className="text-5xl text-[4rem] font-extrabold tracking-tight text-[#1F1F1F]">
-            Contact Us
-          </h1>
-          <h5 className="block text-xs font-bold uppercase tracking-wide text-[#C2C2C2]">
-            Interested in Whiz Kids and have any questions? Feel free to reach
-            out to us!
-          </h5>
-        </div>
-
-        <form action="#" method="POST" className="">
-          <div className="max-w-[75vh] rounded-[40px] bg-[#1F1F1F] p-10">
-            <div className="row-auto grid grid-cols-6 gap-6">
-              <div className="col-span-3 my-2">
-                <label
-                  htmlFor="given-name"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#FFFFFF]"
-                >
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  name="given-name"
-                  id="given-name"
-                  autoComplete="given-name"
-                  className="
-                    mb-3 
-                    block 
-                    w-full 
-                    rounded-[10px] 
-                    border 
-                    border-[#CC0007]
-                    bg-gray-200
-                    py-3 
-                    px-4 
-                    leading-tight 
-                    text-gray-700 
-                    focus:bg-white 
-                    focus:outline-none
-                  "
-                />
-              </div>
-
-              <div className="col-span-3 my-2">
-                <label
-                  htmlFor="family-name"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#FFFFFF]"
-                >
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  name="family-name"
-                  id="family-name"
-                  autoComplete="family-name"
-                  className="
-                    mb-3 
-                    block 
-                    w-full 
-                    rounded-[10px] 
-                    border 
-                    border-[#CC0007]
-                    bg-gray-200
-                    py-3 
-                    px-4 
-                    leading-tight 
-                    text-gray-700 
-                    focus:bg-white 
-                    focus:outline-none
-                  "
-                />
-              </div>
-
-              <div className="col-span-4 my-2">
-                <label
-                  htmlFor="email"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#FFFFFF]"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  autoComplete="email"
-                  className="
-                    mb-3 
-                    block 
-                    w-full 
-                    rounded-[10px] 
-                    border 
-                    border-[#CC0007]
-                    bg-gray-200
-                    py-3 
-                    px-4 
-                    leading-tight 
-                    text-gray-700 
-                    focus:bg-white 
-                    focus:outline-none
-                  "
-                />
-              </div>
-
-              <div className="col-span-2 my-2">
-                <label
-                  htmlFor="email"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#FFFFFF]"
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="text"
-                  name="tel"
-                  id="tel"
-                  autoComplete="tel"
-                  className="
-                    mb-3 
-                    block 
-                    w-full 
-                    rounded-[10px] 
-                    border 
-                    border-[#CC0007]
-                    bg-gray-200
-                    py-3 
-                    px-4 
-                    leading-tight 
-                    text-gray-700 
-                    focus:bg-white 
-                    focus:outline-none
-                  "
-                />
-              </div>
-
-              <div className="col-span-6">
-                <label
-                  htmlFor="message"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#FFFFFF]"
-                >
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  id="message"
-                  autoComplete="message"
-                  className="
-                    mb-3
-                    block 
-                    min-h-[45px]
-                    w-full 
-                    rounded-[10px] 
-                    border 
-                    border-[#CC0007]
-                    bg-gray-200
-                    py-3 
-                    px-4 
-                    leading-tight 
-                    text-gray-700 
-                    focus:bg-white 
-                    focus:outline-none
-                  "
-                />
-              </div>
-            </div>
-
-            <div className="text-center">
-              <button
-                type="submit"
-                className="
-                    m-5
-                    rounded-lg
-                    bg-[#CC0007]
-                    px-10
-                    py-3
-                    text-[20px]
-                    font-medium 
-                    text-white 
-                    hover:bg-[#FF141A]
-                  "
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </form>
-      </main>
+      <ContactForm />
     </>
   );
 };

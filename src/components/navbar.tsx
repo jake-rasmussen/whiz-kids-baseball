@@ -18,6 +18,7 @@ import {
 
 import { useDisclosure } from "@mantine/hooks";
 import { IconPlaceholder } from "@tabler/icons";
+import React from "react";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -100,7 +101,7 @@ const mockdata = [
   },
 ];
 
-export default function NavBar() {
+const NavBar: React.FC = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -219,4 +220,6 @@ export default function NavBar() {
       </Drawer>
     </Box>
   );
-}
+};
+
+export default NavBar;
