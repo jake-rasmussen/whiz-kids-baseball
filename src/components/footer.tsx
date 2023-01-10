@@ -1,11 +1,11 @@
 export default function Footer() {
   return (
     <>
-      <footer className="bg-[#1F1F1F] pt-4 text-center">
+      <footer className="relative bg-dark-gray pt-4 text-center">
         <div className="flex justify-center">
           <a
             href="https://www.facebook.com/WhizKidsBaseball/"
-            className="mx-5 text-gray-800"
+            className="text-gray-800 mx-5"
           >
             <svg
               aria-hidden="true"
@@ -25,7 +25,7 @@ export default function Footer() {
           </a>
           <a
             href="https://twitter.com/whizkidsbb"
-            className="mx-5  text-gray-800"
+            className="text-gray-800  mx-5"
           >
             <svg
               aria-hidden="true"
@@ -45,7 +45,7 @@ export default function Footer() {
           </a>
           <a
             href="https://www.instagram.com/phillywhizkids/"
-            className="mx-5  text-gray-800"
+            className="text-gray-800  mx-5"
           >
             <svg
               aria-hidden="true"
@@ -65,9 +65,12 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="p-4 text-center text-[#FFFFFF]">
+        <div className="p-4 text-center text-white">
           © 2023 Copyright:
-          <a className="text-[#C2C2C2]" href="http://www.whizkidsbaseball.com/">
+          <a
+            className="text-light-gray"
+            href="http://www.whizkidsbaseball.com/"
+          >
             {" "}
             Whiz Kids Baseball
           </a>

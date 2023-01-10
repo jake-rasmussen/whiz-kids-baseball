@@ -3,12 +3,18 @@ import { useRef } from "react";
 import type { NextPageWithLayout } from "./_app";
 import { Carousel } from "@mantine/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import sampleImg1 from "../../assets/images/sample.jpg";
-import sampleImg2 from "../../assets/images/sample2.webp";
+import sample from "../../assets/images/sample.png";
+import banner from "../../assets/images/whizkidsbanner.png";
 import Image from "next/image";
 import MainLayout from "../components/layouts/MainLayout";
 import { createStyles } from "@mantine/core";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconBallBaseball,
+  IconUsers,
+  IconCalendarEvent,
+} from "@tabler/icons";
 
 const useStyles = createStyles((_theme, _params, getRef) => ({
   controls: {
@@ -16,7 +22,12 @@ const useStyles = createStyles((_theme, _params, getRef) => ({
     transition: "opacity 150ms ease",
     opacity: 0,
   },
-
+  control: {
+    outline: 0,
+    border: 0,
+    background: "transparent",
+    boxShadow: "none",
+  },
   root: {
     "&:hover": {
       [`& .${getRef("controls")}`]: {
@@ -29,20 +40,17 @@ const useStyles = createStyles((_theme, _params, getRef) => ({
 const Home: NextPageWithLayout = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const { classes } = useStyles();
-  const images = [sampleImg1, sampleImg2];
+  const images = [sample, sample, sample];
   const slides = images.map((image) => {
     return (
       <>
         <Carousel.Slide className="flex items-center">
           <Image
-            className="mx-auto h-full w-full object-cover "
+            className="mx-auto h-screen w-full object-cover "
             src={image}
-            alt="sample"
+            alt="Whiz Kids Photo"
           />
-          <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-black bg-fixed opacity-30" />
-          <h1 className=" absolute top-0 left-0 right-0 bottom-0 flex  flex-col items-center justify-center text-7xl font-extrabold text-[#CC0007]">
-            Whiz Kids Baseball
-          </h1>
+          <div className="absolute h-screen w-screen bg-gradient-to-b from-red to-white opacity-40" />
         </Carousel.Slide>
       </>
     );
@@ -50,79 +58,165 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <>
-      <main className="flex flex-col items-center justify-center bg-gradient-to-b from-[#FFFFFF] to-[#C2C2C2]">
-        <Carousel
-          classNames={classes}
-          loop
-          align="center"
-          plugins={[autoplay.current]}
-          onMouseEnter={autoplay.current.stop}
-          onMouseLeave={autoplay.current.reset}
-          controlsOffset="xs"
-          nextControlIcon={<IconChevronRight color="white" size={50} />}
-          previousControlIcon={<IconChevronLeft color="white" size={50} />}
-          //TODO: Remove border around control icon
-        >
-          {slides}
-        </Carousel>
-      </main>
+      <div className="h-screen w-screen">
+        <main className="fixed flex h-screen flex-col items-center justify-center overflow-hidden">
+          <Carousel
+            classNames={classes}
+            loop
+            align="center"
+            plugins={[autoplay.current]}
+            controlsOffset="xs"
+            nextControlIcon={<IconChevronRight color="white" size={50} />}
+            previousControlIcon={<IconChevronLeft color="white" size={50} />}
+            withIndicators={false}
+            //TODO: Remove border around control icon
+          >
+            {slides}
+          </Carousel>
 
-      <main className="flex flex-col items-center bg-[#1F1F1F] pb-5">
-        <div className="container flex flex-col items-center gap-12 py-16 px-20 text-center">
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[4rem]">
-            <span className="font-extrabold text-[#FFFFFF]">About Us</span>
-          </h1>
-          <h5>
-            <span className="text-[1.25rem] font-light text-[#C2C2C2]">
-              We aren&rsquo;t one of those organizations that makes claims like
-              &apos;Only the best play here.&apos; We aren&rsquo;t going to
-              posture for your business by promising exposure or leveraging
-              relationships with head coaches. As far as exposure goes, our
-              stance is pretty straight forward. If you aren&rsquo;t driven to
-              be the best version of yourself in the game of baseball, you will
-              eventually get exposed.
-              <br />
-              <br />
-              Great players get recruited. Great players can play anywhere and
-              get recruited. Great players need guidance to push themselves
-              beyond the scope of their immediate competitive standing. There is
-              a good chance that you aren&rsquo;t currently great. Perhaps you
-              dream of greatness. That&rsquo;s awesome. We will do our best to
-              educate you on where y ou currenlty stand and guide you through
-              the process of reaching your potential. Stop worrying about your
-              opportunities and your exposure. Get in the drivers seat.
-              <br />
-              <br />
-              This is an environment where normal baseball players with big
-              dreams show up to work consistently and ultimately transform
-              themselves. We aim to mentor players who eventually get recruited.
-              <br />
-              <br />
-              We are passionate, straight forward and very well informed. Our
-              mission is to always be equipped to push you further.
+          <Image
+            className="absolute h-auto w-[75vh]"
+            src={banner}
+            alt="Whiz Kids Banner"
+          />
+        </main>
+      </div>
+
+      <main className="relative flex flex-col items-center bg-dark-gray">
+        <div className="container flex flex-col items-center pt-12 pb-16 text-center">
+          <div className="inline-flex w-full items-center justify-center">
+            <hr className="mt-8 h-1 w-96 -translate-y-4 border-0 bg-red" />
+            <span className="font-md absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-white">
+              <h1 className="text-3xl font-extrabold uppercase tracking-wide text-white">
+                About Us
+              </h1>
             </span>
-          </h5>
+          </div>
+
+          <h2 className="pb-5 text-lg tracking-wide text-light-gray">
+            All substance, little show. Get in the drivers seat
+          </h2>
+
+          <div className="text-left text-lg font-light lg:grid lg:grid-cols-2">
+            <div className="px-3 pt-5 text-white">
+              <h5>
+                At Whiz Kids baseball, we provide many resources to support
+                success. Among all our teams we proivde...
+              </h5>
+              <div className="pl-10 text-sm">
+                <ul className="list-disc tracking-wide text-light-gray marker:text-red">
+                  <li>
+                    Numerous tournaments and practices throughout the summer and
+                    spring season
+                  </li>
+                  <li>
+                    Year-round training clinics to work on various skillsets
+                  </li>
+                  <li>
+                    A dedicated and experienced coaching staff throughout all
+                    age groups
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="px-3 pt-5">
+              <h5 className="text-md text-left font-light text-white">
+                This is an environment where normal baseball players with big
+                dreams show up to work consistently and ultimately transform
+                themselves. We aim to mentor players who eventually get
+                recruited. We are passionate, straight forward and very well
+                informed. Our mission is to always be equipped to push you
+                further.
+              </h5>
+            </div>
+          </div>
         </div>
       </main>
 
-      <main className="flex flex-col items-center justify-center bg-gradient-to-b from-[#FFFFFF] to-[#C2C2C2] pb-[10vh]">
+      <main className="relative grid bg-light-gray pb-3 lg:grid-cols-3 lg:p-0">
+        <div className="group mx-2 mt-3 flex w-full justify-center lg:m-5 lg:w-auto lg:justify-end">
+          <div
+            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:scale-110
+          group-hover:bg-red lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg"
+          >
+            <IconCalendarEvent
+              size={55}
+              className="text-red group-hover:text-white"
+            />
+            <div>
+              <div className="block pt-5 text-xl font-black uppercase text-dark-gray lg:text-2xl">
+                12 Teams
+              </div>
+              <div className="my-5 h-1 w-[30%] bg-red group-hover:bg-white" />
+              <div className="leading-tight text-dark-gray group-hover:text-white lg:text-light-gray">
+                Within our organization, we have 12 teams, ranging from ages 12
+                to 18
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="group mx-2 mt-3 flex justify-center lg:m-5 lg:justify-center">
+          <div
+            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:scale-110 
+          group-hover:bg-red lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg"
+          >
+            <IconBallBaseball
+              size={55}
+              className="text-red group-hover:text-white"
+            />
+            <div>
+              <div className="block pt-5 text-xl font-black uppercase text-dark-gray lg:text-2xl">
+                8 Tournaments
+              </div>
+              <div className="my-5 h-1 w-[30%] bg-red group-hover:bg-white" />
+              <div className="leading-tight text-dark-gray group-hover:text-white lg:text-light-gray">
+                Each summer, each team will play in 8 tournaments ranging across
+                the east coast to gain exposure
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="group mx-2 mt-3 flex justify-center lg:m-5 lg:justify-start">
+          <div
+            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:scale-110
+          group-hover:bg-red lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg"
+          >
+            <IconUsers size={55} className="text-red group-hover:text-white" />
+            <div>
+              <div className="block pt-5 text-xl font-black uppercase text-dark-gray lg:text-2xl">
+                365 Players
+              </div>
+              <div className="my-5 h-1 w-[30%] bg-red group-hover:bg-white" />
+              <div className="leading-tight text-dark-gray group-hover:text-white lg:text-light-gray">
+                We are proud to have well over 300 active players within our
+                organization
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <main className="relative flex flex-col items-center justify-center bg-gradient-to-b from-white to-light-gray pb-[10vh]">
         <div className="flex flex-col items-center gap-2 p-10">
-          <h1 className="text-5xl text-[4rem] font-extrabold tracking-tight text-[#1F1F1F]">
+          <h1 className="text-5xl text-[4rem] font-extrabold tracking-tight text-dark-gray">
             Contact Us
           </h1>
-          <h5 className="block text-xs font-bold uppercase tracking-wide text-[#C2C2C2]">
+          <h5 className="block text-xs font-bold uppercase tracking-wide text-dark-gray">
             Interested in Whiz Kids and have any questions? Feel free to reach
             out to us!
           </h5>
         </div>
 
         <form action="#" method="POST" className="">
-          <div className="max-w-[75vh] rounded-[40px] bg-[#1F1F1F] p-10">
+          <div className="max-w-[75vh] rounded-[40px] bg-dark-gray p-10">
             <div className="row-auto grid grid-cols-6 gap-6">
               <div className="col-span-3 my-2">
                 <label
                   htmlFor="given-name"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#FFFFFF]"
+                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-white"
                 >
                   First Name
                 </label>
@@ -132,17 +226,17 @@ const Home: NextPageWithLayout = () => {
                   id="given-name"
                   autoComplete="given-name"
                   className="
+                    bg-gray-200 
+                    text-gray-700 
                     mb-3 
                     block 
                     w-full 
-                    rounded-[10px] 
-                    border 
-                    border-[#CC0007]
-                    bg-gray-200
+                    rounded-[10px]
+                    border
+                    border-red 
                     py-3 
                     px-4 
                     leading-tight 
-                    text-gray-700 
                     focus:bg-white 
                     focus:outline-none
                   "
@@ -152,7 +246,7 @@ const Home: NextPageWithLayout = () => {
               <div className="col-span-3 my-2">
                 <label
                   htmlFor="family-name"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#FFFFFF]"
+                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-white"
                 >
                   Last Name
                 </label>
@@ -162,17 +256,17 @@ const Home: NextPageWithLayout = () => {
                   id="family-name"
                   autoComplete="family-name"
                   className="
+                    bg-gray-200 
+                    text-gray-700 
                     mb-3 
                     block 
                     w-full 
-                    rounded-[10px] 
-                    border 
-                    border-[#CC0007]
-                    bg-gray-200
+                    rounded-[10px]
+                    border
+                    border-red 
                     py-3 
                     px-4 
                     leading-tight 
-                    text-gray-700 
                     focus:bg-white 
                     focus:outline-none
                   "
@@ -182,7 +276,7 @@ const Home: NextPageWithLayout = () => {
               <div className="col-span-4 my-2">
                 <label
                   htmlFor="email"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#FFFFFF]"
+                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-white"
                 >
                   Email Address
                 </label>
@@ -192,17 +286,17 @@ const Home: NextPageWithLayout = () => {
                   id="email"
                   autoComplete="email"
                   className="
+                    bg-gray-200 
+                    text-gray-700 
                     mb-3 
                     block 
                     w-full 
-                    rounded-[10px] 
-                    border 
-                    border-[#CC0007]
-                    bg-gray-200
+                    rounded-[10px]
+                    border
+                    border-red 
                     py-3 
                     px-4 
                     leading-tight 
-                    text-gray-700 
                     focus:bg-white 
                     focus:outline-none
                   "
@@ -212,7 +306,7 @@ const Home: NextPageWithLayout = () => {
               <div className="col-span-2 my-2">
                 <label
                   htmlFor="email"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#FFFFFF]"
+                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-white"
                 >
                   Phone Number
                 </label>
@@ -222,17 +316,17 @@ const Home: NextPageWithLayout = () => {
                   id="tel"
                   autoComplete="tel"
                   className="
+                    bg-gray-200 
+                    text-gray-700 
                     mb-3 
                     block 
                     w-full 
-                    rounded-[10px] 
-                    border 
-                    border-[#CC0007]
-                    bg-gray-200
+                    rounded-[10px]
+                    border
+                    border-red 
                     py-3 
                     px-4 
                     leading-tight 
-                    text-gray-700 
                     focus:bg-white 
                     focus:outline-none
                   "
@@ -242,7 +336,7 @@ const Home: NextPageWithLayout = () => {
               <div className="col-span-6">
                 <label
                   htmlFor="message"
-                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-[#FFFFFF]"
+                  className="mb-2 block text-xs font-bold uppercase tracking-wide text-white"
                 >
                   Message
                 </label>
@@ -251,18 +345,18 @@ const Home: NextPageWithLayout = () => {
                   id="message"
                   autoComplete="message"
                   className="
+                    bg-gray-200
+                    text-gray-700 
                     mb-3
                     block 
-                    min-h-[45px]
+                    min-h-[45px] 
                     w-full 
-                    rounded-[10px] 
-                    border 
-                    border-[#CC0007]
-                    bg-gray-200
+                    rounded-[10px]
+                    border
+                    border-red 
                     py-3 
                     px-4 
                     leading-tight 
-                    text-gray-700 
                     focus:bg-white 
                     focus:outline-none
                   "
@@ -276,13 +370,13 @@ const Home: NextPageWithLayout = () => {
                 className="
                     m-5
                     rounded-lg
-                    bg-[#CC0007]
+                    bg-red
                     px-10
                     py-3
                     text-[20px]
                     font-medium 
                     text-white 
-                    hover:bg-[#FF141A]
+                    hover:bg-secondary-red
                   "
               >
                 Submit
