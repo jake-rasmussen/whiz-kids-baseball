@@ -42,11 +42,12 @@ const Home: NextPageWithLayout = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const { classes } = useStyles();
   const images = [sample, sample, sample];
-  const slides = images.map((image) => {
+  const slides = images.map((image, index) => {
     return (
       <>
         <Carousel.Slide className="flex items-center">
           <Image
+            key={index}
             className="mx-auto h-screen w-full object-cover "
             src={image}
             alt="Whiz Kids Photo"
@@ -79,9 +80,10 @@ const Home: NextPageWithLayout = () => {
           </Carousel>
 
           <Image
-            className="absolute h-auto w-[75vh]"
+            className="absolute h-auto w-[75vh] "
             src={banner}
             alt="Whiz Kids Banner"
+            priority
           />
         </main>
       </div>
