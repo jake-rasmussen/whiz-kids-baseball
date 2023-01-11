@@ -92,14 +92,14 @@ const Home: NextPageWithLayout = () => {
         <div className="container flex flex-col items-center pt-12 pb-16 text-center">
           <div className="inline-flex w-full items-center justify-center">
             <hr className="mt-8 h-1 w-96 -translate-y-4 border-0 bg-red" />
-            <span className="font-md absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-white">
+            <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-white">
               <h1 className="text-3xl font-extrabold uppercase tracking-wide text-white">
                 About Us
               </h1>
             </span>
           </div>
 
-          <h2 className="pb-5 text-lg tracking-wide text-light-gray">
+          <h2 className="2pb-5 hidden text-lg tracking-wide text-light-gray sm:contents">
             All substance, little show. Get in the drivers seat
           </h2>
 
@@ -143,7 +143,7 @@ const Home: NextPageWithLayout = () => {
       <main className="relative grid bg-light-gray pb-3 lg:grid-cols-3 lg:p-0">
         <div className="group mt-3 flex w-full justify-center lg:m-5 lg:mx-2 lg:w-auto lg:justify-end">
           <div
-            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:bg-red
+            className="w-screen rounded-2xl p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red
           lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
           >
             <IconCalendarEvent
@@ -165,7 +165,7 @@ const Home: NextPageWithLayout = () => {
 
         <div className="group mt-3 flex justify-center lg:m-5 lg:mx-2 lg:justify-center">
           <div
-            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:bg-red 
+            className="w-screen rounded-2xl p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red 
           lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
           >
             <IconBallBaseball
@@ -187,7 +187,7 @@ const Home: NextPageWithLayout = () => {
 
         <div className="group mt-3 flex justify-center lg:m-5 lg:mx-2 lg:justify-start">
           <div
-            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:bg-red
+            className="w-screen rounded-2xl p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red
           lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
           >
             <IconUsers size={55} className="text-red group-hover:text-white" />

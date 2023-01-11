@@ -20,11 +20,11 @@ const ContactForm: React.FC = () => {
   });
 
   return (
-    <main id="contact-form" className="relative bg-dark-gray py-10 px-4">
-      <div className=" mx-auto flex max-w-6xl flex-col items-center">
+    <main id="contact-form" className="relative bg-dark-gray py-10 lg:px-4">
+      <div className="flex w-full flex-col items-center lg:mx-auto lg:max-w-6xl">
         <div className="mb-10 inline-flex w-full items-center justify-center">
           <hr className="mt-8 h-1 w-96 -translate-y-4 border-0 bg-red" />
-          <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-3xl font-bold uppercase tracking-wide text-white">
+          <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-center text-3xl font-bold uppercase tracking-wide text-white">
             Contact Us
           </span>
         </div>
@@ -34,41 +34,45 @@ const ContactForm: React.FC = () => {
             id="contact-info-section"
             className="flex w-full flex-col lg:w-[56%] lg:space-y-3"
           >
-            <div
-              id="contact-icon-list"
-              className="my-4 mb-6 ml-12 flex justify-center space-y-3 p-1 sm:flex-col md:ml-0 md:flex-row lg:mb-0 lg:flex-col"
-            >
-              <div className="mx-5 flex items-center justify-start space-x-5 md:justify-center lg:mx-0 lg:justify-start">
-                <IconPhoneCall className="h-auto w-10 justify-start rounded-full bg-red p-2 text-white transition duration-150 ease-in-out hover:-translate-y-1  hover:scale-110 hover:bg-white hover:text-red" />
-                <div className="flex md:flex-col">
-                  <h1 className="text-lg font-medium font-black uppercase tracking-wide text-white">
-                    Call
-                  </h1>
-                  <h2 className="text-md ml-3 font-normal text-light-gray md:ml-0">
-                    +1 347 000 0000
-                  </h2>
+            <div className="hidden sm:contents">
+              <div
+                id="contact-icon-list"
+                className="my mb-6 ml-[4%] flex flex-col justify-center space-y-3 p-1 md:ml-0 md:flex-row lg:mb-0 lg:flex-col"
+              >
+                <div className="mx-5 flex items-center justify-start space-x-5 md:justify-center lg:mx-0 lg:justify-start">
+                  <IconPhoneCall className="h-auto w-10 justify-start rounded-full bg-red p-2 text-white transition duration-150 ease-in-out hover:-translate-y-1  hover:scale-110 hover:bg-white hover:text-red" />
+                  <div className="flex md:flex-col">
+                    <h1 className="text-lg font-medium font-black uppercase tracking-wide text-white">
+                      Call
+                    </h1>
+                    <h2 className="text-md ml-3 font-normal text-light-gray md:ml-0">
+                      +1 347 000 0000
+                    </h2>
+                  </div>
                 </div>
-              </div>
-              <div className="mx-5 flex w-auto items-center justify-start space-x-5 md:justify-center lg:mx-0 lg:justify-start">
-                <IconMail className="h-auto w-10 justify-start rounded-full bg-red p-2 text-white transition duration-150 ease-in-out hover:-translate-y-1  hover:scale-110 hover:bg-white hover:text-red" />
-                <div className="flex md:flex-col">
-                  <h1 className="text-lg font-medium font-black uppercase tracking-wide text-white">
-                    Email
-                  </h1>
-                  <h2 className="text-md ml-3 font-normal text-light-gray md:ml-0">
-                    info@gmail.com
-                  </h2>
+
+                <div className="mx-5 flex items-center justify-start space-x-5 md:justify-center lg:mx-0 lg:justify-start">
+                  <IconMail className="h-auto w-10 justify-start rounded-full bg-red p-2 text-white transition duration-150 ease-in-out hover:-translate-y-1  hover:scale-110 hover:bg-white hover:text-red" />
+                  <div className="flex md:flex-col">
+                    <h1 className="text-lg font-medium font-black uppercase tracking-wide text-white">
+                      Email
+                    </h1>
+                    <h2 className="text-md ml-3 font-normal text-light-gray md:ml-0">
+                      info@example.com
+                    </h2>
+                  </div>
                 </div>
-              </div>
-              <div className="mx-5 flex w-auto items-center justify-start space-x-5 md:justify-center lg:mx-0 lg:justify-start">
-                <IconMapPin className="h-auto w-10 justify-start rounded-full bg-red p-2 text-white transition duration-150 ease-in-out hover:-translate-y-1  hover:scale-110 hover:bg-white hover:text-red" />
-                <div className="flex md:flex-col">
-                  <h1 className="text-lg font-medium font-black uppercase tracking-wide text-white">
-                    Location
-                  </h1>
-                  <h2 className="text-md ml-3 font-normal text-light-gray md:ml-0">
-                    1234 Location Drive
-                  </h2>
+
+                <div className="mx-5 flex items-center justify-start space-x-5 md:justify-center lg:mx-0 lg:justify-start">
+                  <IconMapPin className="h-auto w-10 justify-start rounded-full bg-red p-2 text-white transition duration-150 ease-in-out hover:-translate-y-1  hover:scale-110 hover:bg-white hover:text-red" />
+                  <div className="flex md:flex-col">
+                    <h1 className="text-lg font-medium font-black uppercase tracking-wide text-white">
+                      Location
+                    </h1>
+                    <h2 className="text-md ml-3 font-normal text-light-gray md:ml-0">
+                      1234 Location Drive
+                    </h2>
+                  </div>
                 </div>
               </div>
             </div>
@@ -86,7 +90,7 @@ const ContactForm: React.FC = () => {
           <div className="flex w-full flex-col place-content-center space-y-3 py-5  ">
             <form
               onSubmit={form.onSubmit(console.log)}
-              className="mx-20 flex flex-col space-y-3 lg:m-0"
+              className="mx-[4%] flex flex-col space-y-3 md:mx-20 lg:m-0"
             >
               <div className="flex w-full place-content-start space-x-2">
                 <div className="w-full">
