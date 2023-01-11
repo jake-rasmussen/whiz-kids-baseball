@@ -141,10 +141,10 @@ const Home: NextPageWithLayout = () => {
       </main>
 
       <main className="relative grid bg-light-gray pb-3 lg:grid-cols-3 lg:p-0">
-        <div className="group mx-2 mt-3 flex w-full justify-center lg:m-5 lg:w-auto lg:justify-end">
+        <div className="group mt-3 flex w-full justify-center lg:m-5 lg:mx-2 lg:w-auto lg:justify-end">
           <div
-            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:scale-110
-          group-hover:bg-red lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg"
+            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:bg-red
+          lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
           >
             <IconCalendarEvent
               size={55}
@@ -163,10 +163,10 @@ const Home: NextPageWithLayout = () => {
           </div>
         </div>
 
-        <div className="group mx-2 mt-3 flex justify-center lg:m-5 lg:justify-center">
+        <div className="group mt-3 flex justify-center lg:m-5 lg:mx-2 lg:justify-center">
           <div
-            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:scale-110 
-          group-hover:bg-red lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg"
+            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:bg-red 
+          lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
           >
             <IconBallBaseball
               size={55}
@@ -185,10 +185,10 @@ const Home: NextPageWithLayout = () => {
           </div>
         </div>
 
-        <div className="group mx-2 mt-3 flex justify-center lg:m-5 lg:justify-start">
+        <div className="group mt-3 flex justify-center lg:m-5 lg:mx-2 lg:justify-start">
           <div
-            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:scale-110
-          group-hover:bg-red lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg"
+            className="w-screen rounded-2xl p-5 px-20 transition duration-300 ease-in-out group-hover:bg-red
+          lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
           >
             <IconUsers size={55} className="text-red group-hover:text-white" />
             <div>
