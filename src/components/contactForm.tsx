@@ -36,7 +36,7 @@ const ContactForm: React.FC = () => {
       <div className=" mx-auto flex max-w-6xl flex-col items-center">
         <div className="mb-10 inline-flex w-full items-center justify-center">
           <hr className="mt-8 h-1 w-96 -translate-y-4 border-0 bg-red" />
-          <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-3xl font-bold text-white">
+          <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-3xl font-bold uppercase tracking-wide text-white">
             Contact Us
           </span>
         </div>
