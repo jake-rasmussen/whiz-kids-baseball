@@ -42,12 +42,13 @@ const Home: NextPageWithLayout = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const { classes } = useStyles();
   const images = [sample, sample, sample];
+
   const slides = images.map((image, index) => {
     return (
       <>
         <Carousel.Slide className="flex items-center">
           <Image
-            key={index}
+            key={`image${index}`}
             className="mx-auto h-screen w-full object-cover "
             src={image}
             alt="Whiz Kids Photo"
@@ -57,7 +58,9 @@ const Home: NextPageWithLayout = () => {
       </>
     );
   });
+
   const controllerIconSize = 35;
+
   return (
     <>
       <div className="h-screen w-screen">
@@ -111,14 +114,14 @@ const Home: NextPageWithLayout = () => {
               </h5>
               <div className="pl-10 text-sm">
                 <ul className="list-disc tracking-wide text-light-gray marker:text-red">
-                  <li>
+                  <li key="tournaments">
                     Numerous tournaments and practices throughout the summer and
                     spring season
                   </li>
-                  <li>
+                  <li key="training">
                     Year-round training clinics to work on various skillsets
                   </li>
-                  <li>
+                  <li key="coaches">
                     A dedicated and experienced coaching staff throughout all
                     age groups
                   </li>
