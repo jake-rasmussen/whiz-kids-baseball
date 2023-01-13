@@ -30,7 +30,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
     "High School": string;
     "Graduation Year": string;
   }> = [];
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < 26; i++) {
     cardData.push({
       Name: "John Smith",
       "Position(s)": "Position 1, Position 2, Position 3 Position 4",
@@ -57,7 +57,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
   ];
 
   const practiceRows = mockPractices.map((data, index) => (
-    <tr key={index} className="border-b border-dark-gray hover:bg-gray-200">
+    <tr key={index} className="border-b border-light-gray hover:bg-gray-200">
       <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
         {data.weekday}
       </td>
@@ -74,7 +74,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
   ));
 
   const tournamentRows = mockTournamnets.map((data, index) => (
-    <tr key={index} className="border-b border-dark-gray hover:bg-gray-200">
+    <tr key={index} className="border-b border-light-gray hover:bg-gray-200">
       <td className="whitespace-nowrap py-2 text-center text-sm text-dark-gray">
         {data.weekday}
       </td>
@@ -133,8 +133,8 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
         <div className="flex flex-col md:place-content-center md:px-5 xl:flex-row xl:space-x-10">
           <div className="flex overflow-x-auto  md:place-content-center">
             <table className=" h-auto w-full table-auto">
-              <thead className="border-b border-dark-gray">
-                <tr className="border-b border-dark-gray">
+              <thead className="border-b border-light-gray">
+                <tr className="border-b border-light-gray">
                   <th
                     colSpan={4}
                     className="py-2 text-xl font-extrabold uppercase tracking-tight text-dark-gray sm:text-2xl"
@@ -164,8 +164,8 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
           <div className="flex flex-col">
             <div className="top-0 mb-10 flex overflow-x-auto md:place-content-center ">
               <table className="h-auto w-full table-auto">
-                <thead className="border-b border-dark-gray">
-                  <tr className="border-b border-dark-gray">
+                <thead className="border-b border-light-gray">
+                  <tr className="border-b border-light-gray">
                     <th
                       colSpan={4}
                       className="py-2 text-xl font-extrabold uppercase tracking-tight text-dark-gray sm:text-2xl"
