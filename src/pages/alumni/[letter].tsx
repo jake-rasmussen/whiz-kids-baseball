@@ -56,7 +56,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
     // TODO redirect to 404
   }
 
-  const mockData: AlumniData[] = [
+  const mockdata: AlumniData[] = [
     { name: "Adam Estrada", team: "USciences", year: 2019 },
     { name: "Andrew Sicinski", team: "UMBC", year: 2019 },
     { name: "Anthony Morabito", team: "Georgetown University", year: 2015 },
@@ -64,7 +64,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
     { name: "Mike Siani", team: "Cincinnati Reds", year: 2018 },
   ];
 
-  const curData: AlumniData[] = mockData.filter(
+  const curData: AlumniData[] = mockdata.filter(
     (data) => data.name.charAt(0).toLowerCase() === letter
   );
   const sortedData = getYearsAndSort(curData);
