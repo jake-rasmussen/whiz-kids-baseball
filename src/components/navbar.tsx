@@ -12,6 +12,7 @@ import {
 
 import { useDisclosure } from "@mantine/hooks";
 import Image from "next/image";
+import Link from "next/link";
 import logo from "../../assets/images/logo.png";
 
 const mockdata = [
@@ -46,13 +47,16 @@ const NavBar: React.FC = () => {
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
 
-  const links = mockdata.map((item) => (
+  const links = mockdata.map((item, index) => (
     <UnstyledButton key={item.title}>
       <div className="flex-no-wrap flex-start">
         <div>
-          <Text className="text-md font-extrabold text-dark-gray hover:text-red">
+          <Link
+            href={`/teams/${index}`}
+            className="text-md font-extrabold text-dark-gray hover:text-red"
+          >
             {item.title}
-          </Text>
+          </Link>
           <Text className="text-sm text-light-gray">{item.description}</Text>
         </div>
       </div>
@@ -65,21 +69,18 @@ const NavBar: React.FC = () => {
         <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
 
         <div className="hidden grow flex-row text-lg md:flex">
-          <a
-            href="#"
+          <Link
+            href="/"
             className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Home
-          </a>
+          </Link>
 
           <HoverCard>
             <HoverCard.Target>
-              <a
-                href="#"
-                className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
-              >
+              <div className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red">
                 Teams
-              </a>
+              </div>
             </HoverCard.Target>
 
             <HoverCard.Dropdown className="mt-4">
@@ -87,24 +88,24 @@ const NavBar: React.FC = () => {
             </HoverCard.Dropdown>
           </HoverCard>
 
-          <a
+          <Link
             href="#"
             className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Training
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Tryouts
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Alumni
-          </a>
+          </Link>
         </div>
 
         <div className="hidden justify-self-end md:flex">
