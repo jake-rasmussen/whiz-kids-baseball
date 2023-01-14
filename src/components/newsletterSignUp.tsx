@@ -41,7 +41,7 @@ const NewsletterSignUp: React.FC<Props> = ({
         <div className="text-center text-xl font-extrabold uppercase tracking-tight text-dark-gray sm:text-2xl">
           The {teamName} Newsletter
         </div>
-        <div className="text-center text-dark-gray">
+        <div className="text-center text-sm text-dark-gray">
           Feel free to sign up for email notifications. We will let you know of
           any practice changes or tournamnet updates this way!
         </div>
@@ -49,10 +49,11 @@ const NewsletterSignUp: React.FC<Props> = ({
           onSubmit={form.onSubmit(console.log)}
           className="flex flex-col place-content-center space-y-2"
         >
+          <h1 className="text-sm font-black uppercase tracking-wide text-dark-gray ">
+            Email <span className="text-red">*</span>
+          </h1>
           <TextInput
-            label="Email"
             placeholder="info@example.com"
-            withAsterisk
             classNames={classes}
             className="w-full"
             {...form.getInputProps("email")}

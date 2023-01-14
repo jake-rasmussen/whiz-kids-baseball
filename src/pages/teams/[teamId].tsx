@@ -2,6 +2,9 @@ import type { GetServerSideProps } from "next";
 import type { ReactElement } from "react";
 import MainLayout from "../../components/layouts/MainLayout";
 import NewsletterSignUp from "../../components/newsletterSignUp";
+import { Modal, Button } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { IconInfoCircle } from "@tabler/icons";
 
 import type { NextPageWithLayout } from "../_app";
 
@@ -22,20 +25,17 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 };
 
 const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
-  console.log(teamId);
-
   const cardData: Array<{
     Name: string;
     "Position(s)": string;
     "High School": string;
     "Graduation Year": string;
   }> = [];
-  for (let i = 0; i < 26; i++) {
+  for (let i = 0; i < 15; i++) {
     cardData.push({
       Name: "John Smith",
-      "Position(s)": "Position 1, Position 2, Position 3 Position 4",
-      "High School":
-        "Abraham Lincoln High School LONG NAMEN digbsd igbasdiugabe giuadbfiuasb",
+      "Position(s)": "Position 1, Position 2",
+      "High School": "Abraham Lincoln High School",
       "Graduation Year": "YYYY",
     });
   }
@@ -46,163 +46,312 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
     { weekday: "Sat, Sun", start: "6pm", end: "8pm" },
   ];
   const mockTournamnets = [
-    { weekday: "Mon, Wed, Fri", start: "6pm", end: "8pm" },
-    { weekday: "Sat, Sun", start: "6pm", end: "8pm" },
-    { weekday: "Mon, Wed, Fri", start: "6pm", end: "8pm" },
-    { weekday: "Sat, Sun", start: "6pm", end: "8pm" },
-    { weekday: "Mon, Wed, Fri", start: "6pm", end: "8pm" },
-    { weekday: "Sat, Sun", start: "6pm", end: "8pm" },
-    { weekday: "Mon, Wed, Fri", start: "6pm", end: "8pm" },
-    { weekday: "Sat, Sun", start: "6pm", end: "8pm" },
+    {
+      weekday: "Mon, Wed, Fri",
+      start: "6pm",
+      end: "8pm",
+      location: "Diamond Nation",
+    },
+    {
+      weekday: "Sat, Sun",
+      start: "6pm",
+      end: "8pm",
+      location: "Diamond Nation",
+    },
+    {
+      weekday: "Mon, Wed, Fri",
+      start: "6pm",
+      end: "8pm",
+      location: "Diamond Nation",
+    },
+    {
+      weekday: "Sat, Sun",
+      start: "6pm",
+      end: "8pm",
+      location: "Diamond Nation",
+    },
+    {
+      weekday: "Mon, Wed, Fri",
+      start: "6pm",
+      end: "8pm",
+      location: "Diamond Nation",
+    },
+    {
+      weekday: "Sat, Sun",
+      start: "6pm",
+      end: "8pm",
+      location: "Diamond Nation",
+    },
+    {
+      weekday: "Mon, Wed, Fri",
+      start: "6pm",
+      end: "8pm",
+      location: "Diamond Nation",
+    },
+    {
+      weekday: "Sat, Sun",
+      start: "6pm",
+      end: "8pm",
+      location: "Diamond Nation",
+    },
   ];
 
+  const [openModal, { toggle: toggleModal, close: closeModal }] =
+    useDisclosure(false);
+
   const practiceRows = mockPractices.map((data, index) => (
-    <tr key={index} className="border-b border-light-gray hover:bg-gray-200">
-      <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
-        {data.weekday}
+    <tr
+      key={index}
+      className="border-b border-light-gray transition duration-200 ease-in-out hover:bg-light-gray"
+    >
+      <td className="flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray md:table-cell">
+        <div className="flex w-[70%] justify-center md:w-full">
+          {data.weekday}
+        </div>
+
+        <button onClick={toggleModal} className="bg-transparent">
+          <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red md:hidden" />
+        </button>
+
+        <Modal
+          opened={openModal}
+          onClose={closeModal}
+          className="text-xl font-black tracking-wide text-dark-gray md:hidden"
+          centered
+          title={data.weekday}
+          withCloseButton={false}
+          transition="fade"
+          transitionDuration={300}
+          exitTransitionDuration={300}
+        >
+          <div className="flex-col text-lg font-medium text-dark-gray">
+            <div>
+              <span className="font-black text-red">Location: </span>
+              {data.start}
+            </div>
+            <div>
+              <span className="font-black text-red">Start: </span>
+              {data.end}
+            </div>
+            <div>
+              <span className="font-black text-red">End: </span>
+              {data.weekday}
+            </div>
+            <div className="flex justify-center py-5">
+              <Button
+                className="mx-3 bg-light-gray
+                transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
+                onClick={toggleModal}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </Modal>
       </td>
-      <td className="whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray">
+
+      <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray md:table-cell">
         {data.start}
       </td>
-      <td className="whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray">
+      <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray md:table-cell">
         {data.end}
       </td>
-      <td className="py-2 text-center text-sm  text-dark-gray">
-        asofbaobaoabdsgkjakd sjsajkdbgsdkjgbsdkjgbsdkj
+      <td className="hidden py-2 text-center text-sm text-dark-gray md:table-cell">
+        Lasalle College High School
       </td>
     </tr>
   ));
 
   const tournamentRows = mockTournamnets.map((data, index) => (
-    <tr key={index} className="border-b border-light-gray hover:bg-gray-200">
-      <td className="whitespace-nowrap py-2 text-center text-sm text-dark-gray">
-        {data.weekday}
+    <tr
+      key={index}
+      className="border-b border-light-gray transition duration-200 ease-in-out hover:bg-light-gray"
+    >
+      <td className="flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray md:table-cell">
+        <div className="flex w-[70%] justify-center md:w-full">
+          {data.location}
+        </div>
+
+        <button onClick={toggleModal} className="bg-transparent">
+          <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red md:hidden" />
+        </button>
+
+        <Modal
+          opened={openModal}
+          onClose={closeModal}
+          className="text-xl font-black tracking-wide text-dark-gray md:hidden"
+          centered
+          title={data.weekday}
+          withCloseButton={false}
+          transition="fade"
+          transitionDuration={300}
+          exitTransitionDuration={300}
+        >
+          <div className="flex-col text-lg font-medium text-dark-gray">
+            <div>
+              <span className="font-black text-red">Location: </span>
+              {data.location}
+            </div>
+            <div>
+              <span className="font-black text-red">Date: </span>
+              {data.weekday}
+            </div>
+            <div>
+              <span className="font-black text-red">Time: </span>
+              {data.start}
+            </div>
+            <div>
+              <span className="font-black text-red">Time: </span>
+              {data.end}
+            </div>
+            <div className="flex justify-center py-5">
+              <Button
+                className="mx-3 bg-light-gray
+                transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
+                onClick={toggleModal}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </Modal>
       </td>
-      <td className="whitespace-nowrap  py-2 text-center text-sm text-dark-gray">
+
+      <td className="hidden  whitespace-nowrap py-2 text-center text-sm text-dark-gray md:table-cell">
         {data.start}
       </td>
-      <td className="whitespace-nowrap py-2 text-center text-sm  text-dark-gray">
+      <td className="hidden whitespace-nowrap py-2 text-center text-sm text-dark-gray md:table-cell">
         {data.end}
       </td>
-      <td className="py-2 text-center text-sm  text-dark-gray">
-        asofbaob aoabdsgk jakdsjsaj kdbgsdkjgbsdkjgbm sdkj
+      <td className="hidden py-2 text-center text-sm text-dark-gray md:table-cell">
+        {data.location}
       </td>
     </tr>
   ));
 
   const cards = cardData.map((data, index) => (
-    <div
-      key={index}
-      className="rounded-md bg-light-gray p-3 hover:scale-105 hover:bg-red lg:w-[45%] xl:w-[30%]"
-    >
-      <table className="w-full table-auto space-x-2 text-sm text-white">
-        {Object.entries(data).map(([key, val]) => {
-          return (
-            <tr key={index + key}>
-              <td className="whitespace-nowrap py-1 align-text-top font-bold">
-                {key}:
-              </td>
-              <td className="justify-start py-1 align-text-top font-semibold">
-                {val}
-              </td>
-            </tr>
-          );
-        })}
-      </table>
-    </div>
+    <main key={index} className="group lg:w-[45%] xl:w-[30%]">
+      <div
+        className="rounded-md bg-white p-3 transition duration-300
+          ease-in-out group-hover:scale-[110%] group-hover:bg-red"
+      >
+        <table className="w-full table-auto space-x-2 text-sm text-dark-gray group-hover:text-white">
+          {Object.entries(data).map(([key, val]) => {
+            return (
+              <tr key={index + key}>
+                <td className="whitespace-nowrap py-1 align-text-top font-bold">
+                  {key}:
+                </td>
+                <td className="justify-start py-1 align-text-top font-semibold">
+                  {val}
+                </td>
+              </tr>
+            );
+          })}
+        </table>
+      </div>
+    </main>
   ));
 
   return (
     <>
-      <main className="flex flex-col items-center">
-        <div className="mt-36 w-full px-1 sm:mt-28 sm:px-5 lg:mx-auto lg:max-w-7xl">
+      <main className="flex min-h-screen w-screen flex-col items-center">
+        <main className="flex w-full bg-dark-gray pb-[8vh] pt-[15vh]">
           <div className="inline-flex w-full items-center justify-center">
-            <hr className="mt-8 h-[0.175rem] w-full -translate-y-4 border-0 bg-red md:h-1" />
-            <span className="absolute left-1/2 -translate-x-1/2 bg-white text-center text-3xl font-extrabold uppercase text-dark-gray md:px-2 lg:text-4xl">
-              {teamId} : Whiz Kids National Team
+            <hr className="mt-8 h-1 w-[1000px] -translate-y-4 border-0 bg-red" />
+            <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-white">
+              <h1 className="text-center text-3xl font-extrabold uppercase tracking-wide text-white md:text-6xl">
+                Whiz Kids National
+              </h1>
             </span>
           </div>
-        </div>
-      </main>
+        </main>
 
-      <main>
-        <div className="pt-16 pb-5 text-center text-3xl font-extrabold uppercase tracking-tight text-dark-gray">
-          Practices and Tournaments
-        </div>
-
-        <div className="flex flex-col md:place-content-center md:px-5 xl:flex-row xl:space-x-10">
-          <div className="flex overflow-x-auto  md:place-content-center">
-            <table className=" h-auto w-full table-auto">
-              <thead className="border-b border-light-gray">
-                <tr className="border-b border-light-gray">
-                  <th
-                    colSpan={4}
-                    className="py-2 text-xl font-extrabold uppercase tracking-tight text-dark-gray sm:text-2xl"
-                  >
-                    Our Tournament Schedule
-                  </th>
-                </tr>
-                <tr>
-                  <th className="text-md py-2 px-4 font-bold text-red">
-                    Tournament
-                  </th>
-                  <th className="text-md py-2 px-4 font-bold text-red">
-                    Dates
-                  </th>
-                  <th className="text-md py-2 px-4 font-bold text-red">
-                    Style
-                  </th>
-                  <th className="text-md py-2 px-4 font-bold text-red">
-                    Location
-                  </th>
-                </tr>
-              </thead>
-              <tbody>{tournamentRows}</tbody>
-            </table>
-          </div>
-
-          <div className="flex flex-col">
-            <div className="top-0 mb-10 flex overflow-x-auto md:place-content-center ">
-              <table className="h-auto w-full table-auto">
+        <main className="flex w-full justify-center overflow-scroll py-[8vh]">
+          <div className="flex flex-col md:place-content-center md:px-5 xl:flex-row xl:space-x-10">
+            <div className="flex overflow-x-auto  px-10 pb-10 md:place-content-center">
+              <table className=" h-auto w-full table-auto">
                 <thead className="border-b border-light-gray">
                   <tr className="border-b border-light-gray">
-                    <th
-                      colSpan={4}
-                      className="py-2 text-xl font-extrabold uppercase tracking-tight text-dark-gray sm:text-2xl"
-                    >
-                      Our Practice Schedule
+                    <th colSpan={4} className="py-2 text-dark-gray sm:text-2xl">
+                      Tournament Schedule
                     </th>
                   </tr>
                   <tr>
-                    <th className="text-md py-2 px-4 font-bold text-red">
-                      Days Of the Week
+                    <th className="py-2 px-4 text-sm font-black uppercase tracking-wide text-red">
+                      Tournament
                     </th>
-                    <th className="text-md py-2 px-4 font-bold text-red">
-                      Start Time
+                    <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
+                      Dates
                     </th>
-                    <th className="text-md py-2 px-4 font-bold text-red">
-                      End Time
+                    <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
+                      Style
                     </th>
-                    <th className="text-md py-2 px-4 font-bold text-red">
+                    <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
                       Location
                     </th>
                   </tr>
                 </thead>
-                <tbody>{practiceRows}</tbody>
+                <tbody>{tournamentRows}</tbody>
               </table>
             </div>
-            <NewsletterSignUp teamId={teamId} teamName={"Sample Team Name"} />{" "}
-            {/* TODO: Change this */}
+
+            <div className="flex flex-col items-center">
+              <div className="top-0 mb-10 flex w-full overflow-x-auto md:place-content-center">
+                <table className="h-auto w-full table-auto">
+                  <thead className="border-b border-light-gray">
+                    <tr className="border-b border-light-gray">
+                      <th
+                        colSpan={4}
+                        className="py-2 text-dark-gray sm:text-2xl"
+                      >
+                        Practice Schedule
+                      </th>
+                    </tr>
+                    <tr>
+                      <th className="py-2 px-4 text-sm font-black uppercase tracking-wide text-red">
+                        Days Of the Week
+                      </th>
+                      <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
+                        Start Time
+                      </th>
+                      <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
+                        End Time
+                      </th>
+                      <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
+                        Location
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>{practiceRows}</tbody>
+                </table>
+              </div>
+
+              <div className="flex hidden justify-center rounded-2xl bg-light-gray p-[5vh] md:block md:h-[50%] md:w-[70%]">
+                <NewsletterSignUp
+                  teamId={teamId}
+                  teamName={"Sample Team Name"}
+                />{" "}
+                {/* TODO: Change this */}
+              </div>
+            </div>
           </div>
-        </div>
+        </main>
       </main>
 
-      <main>
-        <div className="pt-12 text-center text-3xl font-extrabold uppercase tracking-tight text-dark-gray">
-          Our Roster
-        </div>
+      <main className="bg-dark-gray">
+        <main className="mx-auto w-[70%] bg-dark-gray pt-[5vh]">
+          <div className="inline-flex w-full items-center justify-center">
+            <hr className="mt-8 h-1 w-[700px] -translate-y-4 border-0 bg-red" />
+            <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-white">
+              <h1 className="text-3xl font-extrabold uppercase tracking-wide text-white md:text-6xl">
+                Roster
+              </h1>
+            </span>
+          </div>
+        </main>
 
-        <div className="mx-auto flex w-full max-w-7xl flex-wrap place-content-center gap-5 py-5 px-5">
+        <div className="mx-auto flex w-full max-w-7xl flex-wrap place-content-center gap-5 py-[5vh] px-5">
           {cards}
         </div>
       </main>
