@@ -65,7 +65,7 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <div className="fixed z-10 flex w-screen flex-row items-center justify-items-stretch bg-white p-3 shadow-2xl">
+      <div className="fixed z-10 flex w-screen flex-row items-center justify-items-stretch bg-white p-3 shadow-xl">
         <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
 
         <div className="hidden grow flex-row text-lg md:flex">
@@ -89,19 +89,19 @@ const NavBar: React.FC = () => {
           </HoverCard>
 
           <Link
-            href="#"
+            href="/training"
             className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Training
           </Link>
           <Link
-            href="#"
+            href="/tryouts"
             className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Tryouts
           </Link>
           <Link
-            href="#"
+            href="/alumni/a"
             className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Alumni
