@@ -3,12 +3,7 @@ import type { ReactElement } from "react";
 
 import type { NextPageWithLayout } from "./_app";
 import React from "react";
-import {
-  TextInput,
-  Select,
-  SegmentedControl,
-  MultiSelect,
-} from "@mantine/core";
+import { TextInput, Select, MultiSelect, Checkbox } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { IconSend } from "@tabler/icons";
 
@@ -107,10 +102,10 @@ const Tryouts: NextPageWithLayout = () => {
 
           <div className="flex w-full flex-col lg:flex-row lg:space-x-20">
             <div className="flex w-full flex-col place-content-center space-y-3 py-5  ">
-              <form className="mx-[4%] flex flex-col gap-4 space-y-3 md:mx-20 lg:m-0">
-                <div className="flex w-full place-content-start space-x-2">
+              <form className="mx-[4%] flex flex-col items-center gap-5 space-y-3 md:mx-20 lg:m-0">
+                <div className="flex w-full flex-col place-content-start gap-5 md:flex-row">
                   <div className="w-full">
-                    <h1 className="text-sm font-black uppercase tracking-wide text-white ">
+                    <h1 className="text-sm font-black uppercase tracking-wide text-white">
                       Player Name
                     </h1>
                     <TextInput placeholder="Name" />
@@ -124,7 +119,7 @@ const Tryouts: NextPageWithLayout = () => {
                   </div>
                 </div>
 
-                <div className="flex w-full flex-row items-end justify-center space-x-2">
+                <div className="flex w-full flex-row items-end justify-center gap-5">
                   <div className="flex w-full flex-col justify-end">
                     <h1 className="text-sm font-black uppercase tracking-wide text-white">
                       Which Team Are You Interested In?
@@ -139,22 +134,9 @@ const Tryouts: NextPageWithLayout = () => {
                       ]}
                     />
                   </div>
-                  <div className="w-full">
-                    <h1 className="text-sm font-black uppercase tracking-wide text-white">
-                      Have You Played With Whiz Kids Before?
-                    </h1>
-                    <SegmentedControl
-                      data={[
-                        { label: "Yes", value: "yes" },
-                        { label: "No", value: "no" },
-                      ]}
-                      className="w-full"
-                      size="xs"
-                    />
-                  </div>
                 </div>
 
-                <div className="flex w-full place-content-start items-end space-x-2">
+                <div className="flex w-full flex-col place-content-start items-end gap-5 md:flex-row">
                   <div className="w-full">
                     <h1 className="text-sm font-black uppercase tracking-wide text-white ">
                       City or Town
@@ -177,7 +159,7 @@ const Tryouts: NextPageWithLayout = () => {
                   </div>
                 </div>
 
-                <div className="flex w-full items-center space-x-2">
+                <div className="flex w-full flex-col items-center gap-5 md:flex-row">
                   <div className="w-full">
                     <h1 className="text-sm font-black uppercase tracking-wide text-white ">
                       Position
@@ -199,31 +181,40 @@ const Tryouts: NextPageWithLayout = () => {
                       maxSelectedValues={3}
                     />
                   </div>
-                  <div className="flex w-full flex-col">
+                  <div className="w-full">
                     <h1 className="text-sm font-black uppercase tracking-wide text-white ">
                       Bats
                     </h1>
-                    <SegmentedControl
+                    <MultiSelect
+                      placeholder="Bats"
                       data={[
                         { label: "Right", value: "right" },
                         { label: "Left", value: "left" },
                         { label: "Switch", value: "switch" },
                       ]}
-                      size="xs"
+                      maxSelectedValues={3}
                     />
                   </div>
                   <div className="flex w-full flex-col">
                     <h1 className="text-sm font-black uppercase tracking-wide text-white ">
                       Throws
                     </h1>
-                    <SegmentedControl
+                    <MultiSelect
+                      placeholder="Throws"
                       data={[
                         { label: "Right", value: "right" },
                         { label: "Left", value: "left" },
                       ]}
-                      size="xs"
+                      maxSelectedValues={3}
                     />
                   </div>
+                </div>
+
+                <div className="flex flex-row justify-center md:w-[50%]">
+                  <Checkbox className="pr-5" size="md" color="red.8"></Checkbox>
+                  <h1 className="text-center text-sm font-black uppercase tracking-wide text-white">
+                    Have You Played With Whiz Kids Before?
+                  </h1>
                 </div>
 
                 <div className="p-5">
