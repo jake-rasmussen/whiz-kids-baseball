@@ -49,15 +49,15 @@ const NavBar: React.FC = () => {
 
   const links = mockdata.map((item, index) => (
     <UnstyledButton key={item.title}>
-      <div className="flex-no-wrap flex-start">
-        <div>
+      <div className="mx-8 flex flex-wrap justify-center">
+        <div className="flex flex-col justify-center text-center">
           <Link
             href={`/teams/${index}`}
             className="text-md font-extrabold text-dark-gray hover:text-red"
+            onClick={toggleDrawer}
           >
             {item.title}
           </Link>
-          <Text className="text-sm text-light-gray">{item.description}</Text>
         </div>
       </div>
     </UnstyledButton>
@@ -111,13 +111,13 @@ const NavBar: React.FC = () => {
         <div className="hidden justify-self-end md:flex">
           <Button
             className="mx-3 bg-gradient-to-r from-red to-secondary-red
-            transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+              transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
           >
             Log in
           </Button>
           <Button
             className="mx-3 bg-gradient-to-r from-red to-secondary-red
-            transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+              transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
           >
             Sign up
           </Button>
@@ -142,12 +142,12 @@ const NavBar: React.FC = () => {
         className="z-0 flex h-[100%] w-[100%] justify-center p-md text-5xl font-extrabold text-dark-gray md:hidden"
       >
         <ScrollArea className="mx-8 mt-[12vh] h-[calc(100vh-120px)] text-center text-dark-gray">
-          <a
-            href="#"
+          <Link
+            href="/"
             className="my-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Home
-          </a>
+          </Link>
 
           <UnstyledButton onClick={toggleLinks}>
             <Text className="my-2 block text-5xl font-extrabold text-dark-gray hover:text-red">
@@ -159,35 +159,40 @@ const NavBar: React.FC = () => {
             <div className="flex flex-col">{links}</div>
           </Collapse>
 
-          <a
-            href="#"
+          <Link
+            href="/training"
             className="my-2 block font-extrabold text-dark-gray hover:text-red"
+            onClick={toggleDrawer}
           >
             Training
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href="/tryouts"
             className="my-4 block font-extrabold text-dark-gray hover:text-red"
+            onClick={toggleDrawer}
           >
             Tryouts
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href="/alumni/a"
             className="my-6 block font-extrabold text-dark-gray hover:text-red"
+            onClick={toggleDrawer}
           >
             Alumni
-          </a>
+          </Link>
 
-          <div className="mt-20 flex grow items-center justify-center">
+          <div className="mx-5 mt-20 flex items-center justify-center">
             <Button
-              className="mx-7 flex bg-gradient-to-r from-red to-secondary-red px-20 text-center
-              transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+              className="mx-2 flex bg-gradient-to-r from-red to-secondary-red text-center transition
+              duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 md:px-20"
+              onClick={toggleDrawer}
             >
               Log in
             </Button>
             <Button
-              className="mx-7 flex bg-gradient-to-r from-red to-secondary-red px-20 text-center
-              transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+              className="mx-2 flex bg-gradient-to-r from-red to-secondary-red text-center transition
+              duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 md:px-20"
+              onClick={toggleDrawer}
             >
               Sign up
             </Button>
