@@ -41,84 +41,114 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
   }
 
   const mockPractices = [
-    { weekday: "Mon, Wed, Fri", start: "6pm", end: "8pm" },
-    { weekday: "Sat, Sun", start: "6pm", end: "8pm" },
-    { weekday: "Sat, Sun", start: "6pm", end: "8pm" },
+    {
+      weekday: "Mon, Wed, Fri",
+      start: "6pm",
+      end: "8pm",
+      location: "Lasalle College High School",
+    },
+    {
+      weekday: "Sat, Sun",
+      start: "6pm",
+      end: "8pm",
+      location: "Lasalle College High School",
+    },
+    {
+      weekday: "Sat, Sun",
+      start: "6pm",
+      end: "8pm",
+      location: "Lasalle College High School",
+    },
   ];
   const mockTournamnets = [
     {
+      name: "Diamond Nation",
       weekday: "Mon, Wed, Fri",
       start: "6pm",
       end: "8pm",
-      location: "Diamond Nation",
+      location: "1234 Drive",
     },
     {
-      weekday: "Sat, Sun",
-      start: "6pm",
-      end: "8pm",
-      location: "Diamond Nation",
-    },
-    {
+      name: "Diamond Nation",
       weekday: "Mon, Wed, Fri",
       start: "6pm",
       end: "8pm",
-      location: "Diamond Nation",
+      location: "1234 Drive",
     },
     {
-      weekday: "Sat, Sun",
-      start: "6pm",
-      end: "8pm",
-      location: "Diamond Nation",
-    },
-    {
+      name: "Diamond Nation",
       weekday: "Mon, Wed, Fri",
       start: "6pm",
       end: "8pm",
-      location: "Diamond Nation",
+      location: "1234 Drive",
     },
     {
-      weekday: "Sat, Sun",
-      start: "6pm",
-      end: "8pm",
-      location: "Diamond Nation",
-    },
-    {
+      name: "Diamond Nation",
       weekday: "Mon, Wed, Fri",
       start: "6pm",
       end: "8pm",
-      location: "Diamond Nation",
+      location: "1234 Drive",
     },
     {
-      weekday: "Sat, Sun",
+      name: "Diamond Nation",
+      weekday: "Mon, Wed, Fri",
       start: "6pm",
       end: "8pm",
-      location: "Diamond Nation",
+      location: "1234 Drive",
+    },
+    {
+      name: "Diamond Nation",
+      weekday: "Mon, Wed, Fri",
+      start: "6pm",
+      end: "8pm",
+      location: "1234 Drive",
+    },
+    {
+      name: "Diamond Nation",
+      weekday: "Mon, Wed, Fri",
+      start: "6pm",
+      end: "8pm",
+      location: "1234 Drive",
+    },
+    {
+      name: "Diamond Nation",
+      weekday: "Mon, Wed, Fri",
+      start: "6pm",
+      end: "8pm",
+      location: "1234 Drive",
     },
   ];
 
-  const [openModal, { toggle: toggleModal, close: closeModal }] =
-    useDisclosure(false);
+  const [
+    openPracticeModal,
+    { toggle: togglePracticeModal, close: closePracticeModal },
+  ] = useDisclosure(false);
+
+  const [
+    openTournamentModal,
+    { toggle: toggleTournamentModal, close: closeTournamentModal },
+  ] = useDisclosure(false);
 
   const practiceRows = mockPractices.map((data, index) => (
     <tr
       key={index}
       className="border-b border-light-gray transition duration-200 ease-in-out hover:bg-light-gray"
     >
-      <td className="flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray md:table-cell">
+      <td className="my-2 flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
         <div className="flex w-[70%] justify-center md:w-full">
           {data.weekday}
         </div>
 
-        <button onClick={toggleModal} className="bg-transparent">
+        <button onClick={togglePracticeModal} className="bg-transparent">
           <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red md:hidden" />
         </button>
 
         <Modal
-          opened={openModal}
-          onClose={closeModal}
+          opened={openPracticeModal}
+          onClose={closePracticeModal}
           className="text-xl font-black tracking-wide text-dark-gray md:hidden"
           centered
-          title={data.weekday}
+          title={data.weekday + " Practice"}
           withCloseButton={false}
           transition="fade"
           transitionDuration={300}
@@ -127,21 +157,21 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
           <div className="flex-col text-lg font-medium text-dark-gray">
             <div>
               <span className="font-black text-red">Location: </span>
-              {data.start}
+              {data.location}
             </div>
             <div>
-              <span className="font-black text-red">Start: </span>
+              <span className="font-black text-red">Start Time: </span>
               {data.end}
             </div>
             <div>
-              <span className="font-black text-red">End: </span>
-              {data.weekday}
+              <span className="font-black text-red">End Time: </span>
+              {data.end}
             </div>
             <div className="flex justify-center py-5">
               <Button
                 className="mx-3 bg-light-gray
                 transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
-                onClick={toggleModal}
+                onClick={togglePracticeModal}
               >
                 Close
               </Button>
@@ -157,7 +187,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
         {data.end}
       </td>
       <td className="hidden py-2 text-center text-sm text-dark-gray md:table-cell">
-        Lasalle College High School
+        {data.location}
       </td>
     </tr>
   ));
@@ -167,21 +197,21 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
       key={index}
       className="border-b border-light-gray transition duration-200 ease-in-out hover:bg-light-gray"
     >
-      <td className="flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray md:table-cell">
+      <td className="my-2 flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
         <div className="flex w-[70%] justify-center md:w-full">
-          {data.location}
+          {data.weekday}
         </div>
 
-        <button onClick={toggleModal} className="bg-transparent">
+        <button onClick={toggleTournamentModal} className="bg-transparent">
           <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red md:hidden" />
         </button>
 
         <Modal
-          opened={openModal}
-          onClose={closeModal}
+          opened={openTournamentModal}
+          onClose={closeTournamentModal}
           className="text-xl font-black tracking-wide text-dark-gray md:hidden"
           centered
-          title={data.weekday}
+          title={data.name + " Tournament"}
           withCloseButton={false}
           transition="fade"
           transitionDuration={300}
@@ -197,18 +227,18 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               {data.weekday}
             </div>
             <div>
-              <span className="font-black text-red">Time: </span>
+              <span className="font-black text-red">Start Time: </span>
               {data.start}
             </div>
             <div>
-              <span className="font-black text-red">Time: </span>
+              <span className="font-black text-red">End Time: </span>
               {data.end}
             </div>
             <div className="flex justify-center py-5">
               <Button
                 className="mx-3 bg-light-gray
                 transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
-                onClick={toggleModal}
+                onClick={toggleTournamentModal}
               >
                 Close
               </Button>
@@ -268,9 +298,9 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
         </main>
 
         <main className="flex w-full justify-center overflow-scroll py-[8vh]">
-          <div className="flex flex-col md:place-content-center md:px-5 xl:flex-row xl:space-x-10">
-            <div className="flex overflow-x-auto  px-10 pb-10 md:place-content-center">
-              <table className=" h-auto w-full table-auto">
+          <div className="mx-10 flex w-full flex-col md:place-content-center md:px-5 xl:flex-row xl:space-x-10">
+            <div className="flex flex-col items-center pb-10">
+              <table className="h-auto w-full table-auto">
                 <thead className="border-b border-light-gray">
                   <tr className="border-b border-light-gray">
                     <th colSpan={4} className="py-2 text-dark-gray sm:text-2xl">
