@@ -1,4 +1,4 @@
-import MainLayout from "./../components/layouts/MainLayout";
+import MainLayout from "./../components/layouts/mainLayout";
 import type { ReactElement } from "react";
 
 import type { NextPageWithLayout } from "./_app";

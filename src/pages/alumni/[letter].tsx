@@ -1,4 +1,4 @@
-import MainLayout from "../../components/layouts/MainLayout";
+import MainLayout from "../../components/layouts/mainLayout";
 import type { ReactElement } from "react";
 
 import type { NextPageWithLayout } from "../_app";
@@ -70,6 +70,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
   const sortedData = getYearsAndSort(curData);
 
   const paginationTable = [];
+
   for (let i = 0; i < 26; i++) {
     paginationTable.push(
       <>

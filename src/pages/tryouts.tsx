@@ -1,4 +1,4 @@
-import MainLayout from "./../components/layouts/MainLayout";
+import MainLayout from "./../components/layouts/mainLayout";
 import type { ReactElement } from "react";
 
 import type { NextPageWithLayout } from "./_app";
@@ -54,7 +54,7 @@ const Tryouts: NextPageWithLayout = () => {
         </h5>
       </main>
 
-      <main className="flex flex-col items-center">
+      <main className="flex flex-col items-center pb-[5vh]">
         <table className="w-[50%] table-auto pb-[10vh]">
           <thead>
             <tr className="w-full">

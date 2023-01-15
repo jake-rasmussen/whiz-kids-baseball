@@ -15,30 +15,30 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../../assets/images/logo.png";
 
-const mockdata = [
+export const mockdataTeam = [
   {
-    title: "Team 1",
-    description: "This Pokémon’s cry is very loud and distracting",
+    title: "Whiz Kids National",
   },
   {
-    title: "Team 2",
-    description: "The fluid of Smeargle’s tail secretions changes",
+    title: "Whiz Kids Elite",
   },
   {
-    title: "Team 3",
-    description: "Yanma is capable of seeing 360 degrees without",
+    title: "Whiz Kids American",
   },
   {
-    title: "Team 4",
-    description: "The shell’s rounded shape and the grooves on its.",
+    title: "Whiz Kids Play Ball Stars",
   },
   {
-    title: "Team 5",
-    description: "This Pokémon uses its flying ability to quickly chase",
+    title: "Whiz Kids Futures",
   },
   {
-    title: "Team 6",
-    description: "Combusken battles with the intensely hot flames it spews",
+    title: "Whiz Kids Stars",
+  },
+  {
+    title: "Whiz Kids Future Stars",
+  },
+  {
+    title: "Whiz Kids 12U",
   },
 ];
 
@@ -47,13 +47,14 @@ const NavBar: React.FC = () => {
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
 
-  const links = mockdata.map((item, index) => (
+  const links = mockdataTeam.map((item, index) => (
     <UnstyledButton key={item.title}>
       <div className="mx-8 flex flex-wrap justify-center">
         <div className="flex flex-col justify-center text-center">
           <Link
             href={`/teams/${index}`}
-            className="text-md font-extrabold text-dark-gray hover:text-red"
+            className="text-md font-extrabold text-dark-gray transition
+              duration-200 ease-in-out hover:text-red"
             onClick={toggleDrawer}
           >
             {item.title}
@@ -83,7 +84,7 @@ const NavBar: React.FC = () => {
               </div>
             </HoverCard.Target>
 
-            <HoverCard.Dropdown className="mt-4">
+            <HoverCard.Dropdown className="mt-4 transition duration-200 ease-in-out">
               <SimpleGrid cols={2}>{links}</SimpleGrid>
             </HoverCard.Dropdown>
           </HoverCard>
