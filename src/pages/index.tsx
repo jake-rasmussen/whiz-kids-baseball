@@ -6,7 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 import sample from "../../assets/images/sample.png";
 import banner from "../../assets/images/whizkidsbanner.png";
 import Image from "next/image";
-import MainLayout from "../components/layouts/mainLayout";
+import MainLayout from "../components/layouts/MainLayout";
 import { createStyles } from "@mantine/core";
 import {
   IconChevronLeft,
@@ -45,7 +45,7 @@ const Home: NextPageWithLayout = () => {
 
   const slides = images.map((image, index) => {
     return (
-      <React.Fragment key={index}>
+      <React.Fragment key={`carousel${index}`}>
         <Carousel.Slide className="flex items-center">
           <Image
             className="mx-auto h-screen w-full object-cover "

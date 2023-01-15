@@ -134,7 +134,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
 
   const practiceRows = mockPractices.map((data, index) => (
     <tr
-      key={index}
+      key={`practiceRow${index}`}
       className="border-b border-light-gray transition duration-200 ease-in-out hover:bg-light-gray"
     >
       <td className="my-2 flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
@@ -197,7 +197,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
 
   const tournamentRows = mockTournamnets.map((data, index) => (
     <tr
-      key={index}
+      key={`tournamentRow${index}`}
       className="border-b border-light-gray transition duration-200 ease-in-out hover:bg-light-gray"
     >
       <td className="my-2 flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
@@ -271,7 +271,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
           <div className="inline-flex w-full items-center justify-center">
             <hr className="mt-8 h-1 w-[1000px] -translate-y-4 border-0 bg-red" />
             <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-white">
-              <h1 className="text-center text-3xl font-extrabold uppercase tracking-wide text-white md:text-6xl">
+              <h1 className="text-center text-4xl font-extrabold uppercase tracking-wide text-white xl:text-6xl">
                 {teamName}
               </h1>
             </span>
@@ -308,7 +308,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
             </div>
 
             <div className="flex flex-col items-center">
-              <div className="top-0 mb-10 flex w-full overflow-x-auto md:place-content-center">
+              <div className="top-0 mb-10 flex w-full overflow-x-hidden md:place-content-center">
                 <table className="h-auto w-full table-auto">
                   <thead className="border-b border-light-gray">
                     <tr className="border-b border-light-gray">
@@ -364,15 +364,18 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
 
         <div className="mx-auto flex w-full max-w-7xl flex-wrap place-content-center gap-5 py-[5vh] px-5">
           {cardData.map((data, index) => (
-            <main key={index} className="group lg:w-[45%] xl:w-[30%]">
+            <main
+              key={`player${index}`}
+              className="group lg:w-[45%] xl:w-[30%]"
+            >
               <div
                 className="rounded-md bg-white p-3 transition duration-300
                   ease-in-out group-hover:scale-[110%] group-hover:bg-red"
               >
                 <div className="group">
-                  {Object.entries(data).map(([key, val]) => {
+                  {Object.entries(data).map(([key, val], cardIndex) => {
                     return (
-                      <div key={index}>
+                      <div key={`card${cardIndex}`}>
                         <span className="text-sm font-black uppercase text-red group-hover:text-white">
                           {key}:
                         </span>

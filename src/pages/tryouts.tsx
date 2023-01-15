@@ -1,4 +1,4 @@
-import MainLayout from "./../components/layouts/mainLayout";
+import MainLayout from "./../components/layouts/MainLayout";
 import type { ReactElement } from "react";
 
 import type { NextPageWithLayout } from "./_app";
@@ -67,10 +67,13 @@ const Tryouts: NextPageWithLayout = () => {
           </thead>
 
           <tbody>
-            {mockdata?.map((tryoutData: TryoutData) => {
+            {mockdata?.map((tryoutData: TryoutData, index) => {
               return (
                 <>
-                  <tr className="border-y border-light-gray">
+                  <tr
+                    className="border-y border-light-gray"
+                    key={`tryout${index}`}
+                  >
                     <td className="whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray">
                       {tryoutData.location}
                     </td>
