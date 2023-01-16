@@ -58,6 +58,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
 
   const mockdata: AlumniData[] = [
     { name: "Adam Estrada", team: "USciences", year: 2019 },
+    { name: "Adam Exc", team: "USciences", year: 2019 },
     { name: "Andrew Sicinski", team: "UMBC", year: 2019 },
     { name: "Anthony Morabito", team: "Georgetown University", year: 2015 },
     { name: "Addison Bliss", team: "Bucknell University", year: 2013 },
@@ -105,9 +106,9 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
 
   return (
     <div className="flex flex-col md:bg-dark-gray">
-      <main className="mx-auto w-[70%] bg-white pt-[15vh]">
+      <main className="mx-auto w-[85%] bg-white pt-[15vh]">
         <div className="inline-flex w-full items-center justify-center">
-          <hr className="mt-8 h-1 w-[80%] -translate-y-4 border-0 bg-red" />
+          <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
           <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
             <h1 className="text-3xl font-extrabold uppercase tracking-wide text-dark-gray md:text-6xl">
               Alumni
@@ -117,17 +118,17 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
       </main>
 
       <main className="flex w-full items-center justify-center">
-        <nav className="flex w-[70%] flex-row justify-center bg-white py-8 px-10">
+        <nav className="flex w-[85%] flex-row justify-center bg-white py-8 px-10">
           <ul className="flex w-full flex-wrap items-center justify-center text-white">
             {paginationTable}
           </ul>
         </nav>
       </main>
 
-      <main className="mx-auto flex min-h-[60vh] w-full flex-col items-center bg-white md:w-[70%]">
+      <main className="mx-auto flex min-h-[60vh] w-full flex-col items-center bg-white md:w-[85%]">
         {sortedData?.map((data: [][], index) => {
           return (
-            <div className="pb-10 md:w-[50%]" key={`${index}_${letter}`}>
+            <div className="pb-10 md:w-[60%]" key={`${index}${letter}`}>
               <table className="w-full table-auto">
                 <thead className="border-b border-dark-gray">
                   <tr>
@@ -136,8 +137,10 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
                     </th>
                   </tr>
                   <tr className="">
-                    <th className="text-md py-2 font-black text-red">Player</th>
-                    <th className="text-md py-2 font-black text-red">
+                    <th className="py-2 text-base font-black text-red">
+                      Player
+                    </th>
+                    <th className="py-2 text-base font-black text-red">
                       School or Organization
                     </th>
                   </tr>
@@ -148,7 +151,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
                     return (
                       <tr
                         className="border-b border-dark-gray"
-                        key={`${data[0]}_${letter}_${playerIndex}`}
+                        key={`${data[0]}${letter}${playerIndex}`}
                       >
                         <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
                           {playerInfo.name}

@@ -266,23 +266,21 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
 
   return (
     <>
-      <main className="flex min-h-screen w-screen flex-col items-center">
-        <div id="navbarPadding" className="h-[10vh] w-screen bg-dark-gray" />
+      <main className="flex min-h-screen w-full flex-col items-center">
+        <div id="navbarPadding" className="h-[16vh] w-full bg-dark-gray" />
 
-        <div className="flex w-full bg-dark-gray py-[8vh]">
-          <div className="inline-flex w-full items-center justify-center">
-            <hr className="mt-8 h-1 w-[80%] -translate-y-4 border-0 bg-red" />
-            <span className="absolute left-1/2 w-[60%] -translate-x-1/2 bg-dark-gray px-3 text-white md:w-auto">
-              <h1 className="text-center text-3xl font-extrabold uppercase tracking-wide text-white xl:text-6xl">
-                {teamName}
-              </h1>
-            </span>
-          </div>
+        <div className="inline-flex w-full items-center justify-center bg-dark-gray pb-12">
+          <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
+          <span className="absolute left-1/2  w-auto -translate-x-1/2 bg-dark-gray px-3">
+            <h1 className="text-center text-3xl font-extrabold uppercase tracking-wide text-white md:min-w-max lg:text-4xl xl:text-6xl">
+              {teamName}
+            </h1>
+          </span>
         </div>
 
-        <div className="flex w-full justify-center overflow-scroll py-[8vh]">
-          <div className="mx-10 flex w-full flex-col md:place-content-center md:px-5 xl:flex-row xl:space-x-10">
-            <div className="flex flex-col items-center pb-10">
+        <div className="flex w-full justify-center py-[8vh] ">
+          <div className="mx-10 flex w-full flex-col md:place-content-center md:px-5 xl:flex-row xl:space-x-10 ">
+            <div className="flex flex-col items-center overflow-x-hidden pb-10 xl:w-1/2">
               <table className="h-auto w-full table-auto">
                 <thead className="border-b border-light-gray">
                   <tr className="border-b border-light-gray">
@@ -309,8 +307,8 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               </table>
             </div>
 
-            <div className="flex flex-col items-center">
-              <div className="top-0 mb-10 flex w-full overflow-x-hidden md:place-content-center">
+            <div className="flex flex-col items-center xl:w-1/2">
+              <div className="top-0 mb-8 flex w-full overflow-x-hidden md:place-content-center">
                 <table className="h-auto w-full table-auto">
                   <thead className="border-b border-light-gray">
                     <tr className="border-b border-light-gray">
@@ -340,24 +338,23 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
                 </table>
               </div>
 
-              <div className="hidden justify-center rounded-2xl bg-light-gray p-[5vh] md:block md:h-[50%] md:w-[70%]">
+              <div className="hidden justify-center rounded-xl bg-light-gray py-[3vh] px-[6vh] md:flex md:w-4/5">
                 <NewsletterSignUp
                   teamId={teamId}
                   teamName={"Sample Team Name"}
-                />{" "}
-                {/* TODO: Change this */}
+                />
               </div>
             </div>
           </div>
         </div>
       </main>
 
-      <main className="bg-dark-gray">
+      <main className="w-full bg-dark-gray">
         <div className="mx-auto w-[70%] bg-dark-gray pt-[5vh]">
           <div className="inline-flex w-full items-center justify-center">
-            <hr className="mt-8 h-1 w-[700px] -translate-y-4 border-0 bg-red" />
+            <hr className="mt-8 hidden h-1 w-2/3 -translate-y-4 border-0 bg-red sm:inline" />
             <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-white">
-              <h1 className="text-3xl font-extrabold uppercase tracking-wide text-white md:text-6xl">
+              <h1 className="text-2xl font-extrabold uppercase tracking-wide text-white lg:text-3xl">
                 Roster
               </h1>
             </span>

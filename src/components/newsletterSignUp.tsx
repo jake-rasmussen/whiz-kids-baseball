@@ -16,10 +16,7 @@ interface Props {
   teamName: string;
 }
 
-const NewsletterSignUp: React.FC<Props> = ({
-  teamId,
-  teamName = "Whiz Kids National Team",
-}) => {
+const NewsletterSignUp: React.FC<Props> = ({ teamId, teamName }) => {
   const { classes } = useStyles();
 
   const form = useForm({
