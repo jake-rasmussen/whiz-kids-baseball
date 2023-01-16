@@ -32,9 +32,9 @@ const getYearsAndSort = (data: AlumniData[]) => {
   const dataMap = new Map();
 
   for (let i = 0; i < data.length; i++) {
-    if (data[i] === undefined) return;
-
-    if (dataMap.has(data[i]?.year)) {
+    if (!data[i]) {
+      return;
+    } else if (dataMap.has(data[i]?.year)) {
       dataMap
         .get(data[i]?.year)
         .push({ name: data[i]?.name, team: data[i]?.team });
@@ -68,13 +68,12 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
     (data) => data.name.charAt(0).toLowerCase() === letter
   );
   const sortedData = getYearsAndSort(curData);
-  console.log(sortedData);
 
   const paginationTable = [];
 
   for (let i = 0; i < 26; i++) {
     paginationTable.push(
-      <>
+      <React.Fragment key={i}>
         {i + 1 === page ? (
           <li
             key={`key${i}`}
@@ -100,7 +99,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
             </Link>
           </li>
         )}
-      </>
+      </React.Fragment>
     );
   }
 
@@ -128,44 +127,41 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
       <main className="mx-auto flex min-h-[60vh] w-full flex-col items-center bg-white md:w-[70%]">
         {sortedData?.map((data: [][], index) => {
           return (
-            <React.Fragment key={`alumn${index}${letter}`}>
-              <div className="pb-10 md:w-[50%]">
-                <table className="w-full table-auto">
-                  <thead className="border-b border-dark-gray">
-                    <tr>
-                      <th className="text-left text-5xl font-black tracking-wide text-dark-gray">
-                        {data[0]}
-                      </th>
-                    </tr>
-                    <tr className="">
-                      <th className="text-md py-2 font-black text-red">
-                        Player
-                      </th>
-                      <th className="text-md py-2 font-black text-red">
-                        School or Organization
-                      </th>
-                    </tr>
-                  </thead>
+            <div className="pb-10 md:w-[50%]" key={`${index}_${letter}`}>
+              <table className="w-full table-auto">
+                <thead className="border-b border-dark-gray">
+                  <tr>
+                    <th className="text-left text-5xl font-black tracking-wide text-dark-gray">
+                      {data[0]}
+                    </th>
+                  </tr>
+                  <tr className="">
+                    <th className="text-md py-2 font-black text-red">Player</th>
+                    <th className="text-md py-2 font-black text-red">
+                      School or Organization
+                    </th>
+                  </tr>
+                </thead>
 
-                  <tbody>
-                    {data[1]?.map((playerInfo: AlumniData, playerIndex) => {
-                      return (
-                        <React.Fragment key={`player${playerIndex}${data[0]}`}>
-                          <tr className="border-b border-dark-gray">
-                            <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
-                              {playerInfo.name}
-                            </td>
-                            <td className="whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray">
-                              {playerInfo.team}
-                            </td>
-                          </tr>
-                        </React.Fragment>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </React.Fragment>
+                <tbody>
+                  {data[1]?.map((playerInfo: AlumniData, playerIndex) => {
+                    return (
+                      <tr
+                        className="border-b border-dark-gray"
+                        key={`${data[0]}_${letter}_${playerIndex}`}
+                      >
+                        <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
+                          {playerInfo.name}
+                        </td>
+                        <td className="whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray">
+                          {playerInfo.team}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           );
         })}
       </main>

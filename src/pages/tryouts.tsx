@@ -69,7 +69,7 @@ const Tryouts: NextPageWithLayout = () => {
           <tbody>
             {mockdata?.map((tryoutData: TryoutData, index) => {
               return (
-                <>
+                <React.Fragment key={index}>
                   <tr
                     className="border-y border-light-gray"
                     key={`tryout${index}`}
@@ -84,7 +84,7 @@ const Tryouts: NextPageWithLayout = () => {
                       {tryoutData.time}
                     </td>
                   </tr>
-                </>
+                </React.Fragment>
               );
             })}
           </tbody>

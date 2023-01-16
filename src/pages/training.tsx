@@ -123,9 +123,9 @@ const Training: NextPageWithLayout = () => {
             </thead>
 
             <tbody>
-              {mockdata?.map((trainingInfo: TrainingData) => {
+              {mockdata?.map((trainingInfo: TrainingData, index) => {
                 return (
-                  <>
+                  <React.Fragment key={index}>
                     <tr className="border-y border-light-gray">
                       <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-white">
                         <div className="flex flex-row justify-center">
@@ -213,7 +213,7 @@ const Training: NextPageWithLayout = () => {
                         </Button>
                       </td>
                     </tr>
-                  </>
+                  </React.Fragment>
                 );
               })}
             </tbody>
