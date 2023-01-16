@@ -2,11 +2,13 @@ import type { GetServerSideProps } from "next";
 import type { ReactElement } from "react";
 import MainLayout from "../../components/layouts/MainLayout";
 import NewsletterSignUp from "../../components/newsletterSignUp";
+
 import { Modal, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconInfoCircle } from "@tabler/icons";
 
 import type { NextPageWithLayout } from "../_app";
+import { mockdataTeam } from "../../components/navbar";
 
 interface Props {
   teamId: number;
@@ -36,7 +38,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
       Name: "John Smith",
       "Position(s)": "Position 1, Position 2",
       "High School": "Abraham Lincoln High School",
-      "Graduation Year": "YYYY",
+      "Graduation Year": "2021",
     });
   }
 
@@ -60,6 +62,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
       location: "Lasalle College High School",
     },
   ];
+
   const mockTournamnets = [
     {
       name: "Diamond Nation",
@@ -131,7 +134,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
 
   const practiceRows = mockPractices.map((data, index) => (
     <tr
-      key={index}
+      key={`practiceRow${index}`}
       className="border-b border-light-gray transition duration-200 ease-in-out hover:bg-light-gray"
     >
       <td className="my-2 flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
@@ -194,7 +197,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
 
   const tournamentRows = mockTournamnets.map((data, index) => (
     <tr
-      key={index}
+      key={`tournamentRow${index}`}
       className="border-b border-light-gray transition duration-200 ease-in-out hover:bg-light-gray"
     >
       <td className="my-2 flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
@@ -259,45 +262,25 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
     </tr>
   ));
 
-  const cards = cardData.map((data, index) => (
-    <main key={index} className="group lg:w-[45%] xl:w-[30%]">
-      <div
-        className="rounded-md bg-white p-3 transition duration-300
-          ease-in-out group-hover:scale-[110%] group-hover:bg-red"
-      >
-        <table className="w-full table-auto space-x-2 text-sm text-dark-gray group-hover:text-white">
-          {Object.entries(data).map(([key, val]) => {
-            return (
-              <tr key={index + key}>
-                <td className="whitespace-nowrap py-1 align-text-top font-bold">
-                  {key}:
-                </td>
-                <td className="justify-start py-1 align-text-top font-semibold">
-                  {val}
-                </td>
-              </tr>
-            );
-          })}
-        </table>
-      </div>
-    </main>
-  ));
+  const teamName = <>{mockdataTeam[teamId]?.title}</>;
 
   return (
     <>
       <main className="flex min-h-screen w-screen flex-col items-center">
-        <main className="flex w-full bg-dark-gray pb-[8vh] pt-[15vh]">
+        <div id="navbarPadding" className="h-[10vh] w-screen bg-dark-gray" />
+
+        <div className="flex w-full bg-dark-gray py-[8vh]">
           <div className="inline-flex w-full items-center justify-center">
-            <hr className="mt-8 h-1 w-[1000px] -translate-y-4 border-0 bg-red" />
-            <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-white">
-              <h1 className="text-center text-3xl font-extrabold uppercase tracking-wide text-white md:text-6xl">
-                Whiz Kids National
+            <hr className="mt-8 h-1 w-[80%] -translate-y-4 border-0 bg-red" />
+            <span className="absolute left-1/2 w-[60%] -translate-x-1/2 bg-dark-gray px-3 text-white md:w-auto">
+              <h1 className="text-center text-3xl font-extrabold uppercase tracking-wide text-white xl:text-6xl">
+                {teamName}
               </h1>
             </span>
           </div>
-        </main>
+        </div>
 
-        <main className="flex w-full justify-center overflow-scroll py-[8vh]">
+        <div className="flex w-full justify-center overflow-scroll py-[8vh]">
           <div className="mx-10 flex w-full flex-col md:place-content-center md:px-5 xl:flex-row xl:space-x-10">
             <div className="flex flex-col items-center pb-10">
               <table className="h-auto w-full table-auto">
@@ -312,10 +295,10 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
                       Tournament
                     </th>
                     <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
-                      Dates
+                      Start Time
                     </th>
                     <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
-                      Style
+                      End Time
                     </th>
                     <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
                       Location
@@ -327,7 +310,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
             </div>
 
             <div className="flex flex-col items-center">
-              <div className="top-0 mb-10 flex w-full overflow-x-auto md:place-content-center">
+              <div className="top-0 mb-10 flex w-full overflow-x-hidden md:place-content-center">
                 <table className="h-auto w-full table-auto">
                   <thead className="border-b border-light-gray">
                     <tr className="border-b border-light-gray">
@@ -357,7 +340,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
                 </table>
               </div>
 
-              <div className="flex hidden justify-center rounded-2xl bg-light-gray p-[5vh] md:block md:h-[50%] md:w-[70%]">
+              <div className="hidden justify-center rounded-2xl bg-light-gray p-[5vh] md:block md:h-[50%] md:w-[70%]">
                 <NewsletterSignUp
                   teamId={teamId}
                   teamName={"Sample Team Name"}
@@ -366,11 +349,11 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               </div>
             </div>
           </div>
-        </main>
+        </div>
       </main>
 
       <main className="bg-dark-gray">
-        <main className="mx-auto w-[70%] bg-dark-gray pt-[5vh]">
+        <div className="mx-auto w-[70%] bg-dark-gray pt-[5vh]">
           <div className="inline-flex w-full items-center justify-center">
             <hr className="mt-8 h-1 w-[700px] -translate-y-4 border-0 bg-red" />
             <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-white">
@@ -379,10 +362,33 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               </h1>
             </span>
           </div>
-        </main>
+        </div>
 
         <div className="mx-auto flex w-full max-w-7xl flex-wrap place-content-center gap-5 py-[5vh] px-5">
-          {cards}
+          {cardData.map((data, index) => (
+            <main
+              key={`player${index}`}
+              className="group lg:w-[45%] xl:w-[30%]"
+            >
+              <div
+                className="rounded-md bg-white p-3 transition duration-300
+                  ease-in-out group-hover:scale-[110%] group-hover:bg-red"
+              >
+                <div className="group">
+                  {Object.entries(data).map(([key, val], cardIndex) => {
+                    return (
+                      <div key={`card${cardIndex}`}>
+                        <span className="text-sm font-black uppercase text-red group-hover:text-white">
+                          {key}:
+                        </span>
+                        <span className="text-sm text-dark-gray"> {val}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </main>
+          ))}
         </div>
       </main>
     </>

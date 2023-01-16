@@ -76,7 +76,7 @@ const Training: NextPageWithLayout = () => {
 
         <main className="w-screen bg-white py-[8vh]">
           <div className="inline-flex w-full items-center justify-center">
-            <hr className="mt-8 h-1 w-[700px] -translate-y-4 border-0 bg-red" />
+            <hr className="mt-8 h-1 w-[50%] -translate-y-4 border-0 bg-red" />
             <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
               <h1 className="text-3xl font-extrabold uppercase tracking-wide text-dark-gray md:text-6xl">
                 Training
@@ -123,9 +123,9 @@ const Training: NextPageWithLayout = () => {
             </thead>
 
             <tbody>
-              {mockdata?.map((trainingInfo: TrainingData) => {
+              {mockdata?.map((trainingInfo: TrainingData, index) => {
                 return (
-                  <>
+                  <React.Fragment key={index}>
                     <tr className="border-y border-light-gray">
                       <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-white">
                         <div className="flex flex-row justify-center">
@@ -213,7 +213,7 @@ const Training: NextPageWithLayout = () => {
                         </Button>
                       </td>
                     </tr>
-                  </>
+                  </React.Fragment>
                 );
               })}
             </tbody>

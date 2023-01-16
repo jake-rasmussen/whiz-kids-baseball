@@ -137,7 +137,8 @@ const ContactForm: React.FC = () => {
                 />
                 <button
                   type="submit"
-                  className="mx-auto mt-3 flex max-w-min items-center justify-center space-x-1 rounded-full bg-red py-2 px-4 font-bold text-white transition duration-150 ease-in-out hover:-translate-y-1  hover:scale-110 hover:bg-light-gray  hover:text-red "
+                  className="mx-auto mt-3 flex max-w-min items-center justify-center space-x-1 rounded-full bg-red py-2 px-4 
+                    font-bold text-white transition duration-150 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-white hover:text-red "
                 >
                   <IconSend /> <span className="px-2">Send</span>
                 </button>

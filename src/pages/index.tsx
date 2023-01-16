@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import type { NextPageWithLayout } from "./_app";
 import { Carousel } from "@mantine/carousel";
 import Autoplay from "embla-carousel-autoplay";
@@ -45,17 +45,16 @@ const Home: NextPageWithLayout = () => {
 
   const slides = images.map((image, index) => {
     return (
-      <>
+      <React.Fragment key={`carousel${index}`}>
         <Carousel.Slide className="flex items-center">
           <Image
-            key={`image${index}`}
             className="mx-auto h-screen w-full object-cover "
             src={image}
             alt="Whiz Kids Photo"
           />
           <div className="absolute h-screen w-screen bg-gradient-to-b from-red to-white opacity-40" />
         </Carousel.Slide>
-      </>
+      </React.Fragment>
     );
   });
 
@@ -113,7 +112,7 @@ const Home: NextPageWithLayout = () => {
                 success. Among all our teams we proivde...
               </h5>
               <div className="pl-10 text-sm">
-                <ul className="list-disc tracking-wide text-light-gray marker:text-red">
+                <ul className="list-disc py-2 tracking-wide text-light-gray marker:text-red">
                   <li key="tournaments">
                     Numerous tournaments and practices throughout the summer and
                     spring season
@@ -130,7 +129,7 @@ const Home: NextPageWithLayout = () => {
             </div>
 
             <div className="px-3 pt-5">
-              <h5 className="text-md text-left font-light text-white">
+              <h5 className="text-md text-justify font-light text-white">
                 This is an environment where normal baseball players with big
                 dreams show up to work consistently and ultimately transform
                 themselves. We aim to mentor players who eventually get
@@ -155,12 +154,13 @@ const Home: NextPageWithLayout = () => {
             />
             <div>
               <div className="block pt-5 text-xl font-black uppercase text-dark-gray lg:text-2xl">
-                12 Teams
+                Competitive Teams
               </div>
               <div className="my-5 h-1 w-[30%] bg-red group-hover:bg-white" />
               <div className="leading-tight text-dark-gray group-hover:text-white lg:text-light-gray">
-                Within our organization, we have 12 teams, ranging from ages 12
-                to 18
+                We have 12 teams, which range from ages 12U to 18U. Each team is
+                equipped with a dedicated coaching staff and will have many
+                practices throughout the season
               </div>
             </div>
           </div>
@@ -175,14 +175,23 @@ const Home: NextPageWithLayout = () => {
               size={55}
               className="text-red group-hover:text-white"
             />
-            <div>
+            <div className="group">
               <div className="block pt-5 text-xl font-black uppercase text-dark-gray lg:text-2xl">
-                8 Tournaments
+                Robust Tournament Schedule
               </div>
               <div className="my-5 h-1 w-[30%] bg-red group-hover:bg-white" />
               <div className="leading-tight text-dark-gray group-hover:text-white lg:text-light-gray">
-                Each summer, each team will play in 8 tournaments ranging across
-                the east coast to gain exposure
+                Each team will play in
+                <span className="text-secondary-red group-hover:text-white">
+                  {" "}
+                  8+{" "}
+                </span>
+                summer and
+                <span className="text-secondary-red group-hover:text-white">
+                  {" "}
+                  6+
+                </span>{" "}
+                fall tournaments ranging across the east coast to gain exposure
               </div>
             </div>
           </div>
@@ -196,12 +205,12 @@ const Home: NextPageWithLayout = () => {
             <IconUsers size={55} className="text-red group-hover:text-white" />
             <div>
               <div className="block pt-5 text-xl font-black uppercase text-dark-gray lg:text-2xl">
-                365 Players
+                Hundreds of Passionate Players
               </div>
               <div className="my-5 h-1 w-[30%] bg-red group-hover:bg-white" />
               <div className="leading-tight text-dark-gray group-hover:text-white lg:text-light-gray">
                 We are proud to have well over 300 active players within our
-                organization
+                organization, and a large supporting alumni network
               </div>
             </div>
           </div>
