@@ -76,7 +76,7 @@ const Training: NextPageWithLayout = () => {
 
         <main className="w-screen bg-white py-[8vh]">
           <div className="inline-flex w-full items-center justify-center">
-            <hr className="mt-8 h-1 w-[700px] -translate-y-4 border-0 bg-red" />
+            <hr className="mt-8 h-1 w-[50%] -translate-y-4 border-0 bg-red" />
             <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
               <h1 className="text-3xl font-extrabold uppercase tracking-wide text-dark-gray md:text-6xl">
                 Training

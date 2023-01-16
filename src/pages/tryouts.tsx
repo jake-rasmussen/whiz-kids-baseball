@@ -40,7 +40,7 @@ const Tryouts: NextPageWithLayout = () => {
     <>
       <main className="w-screen bg-white pb-10 pt-[15vh]">
         <div className="inline-flex w-full items-center justify-center">
-          <hr className="mt-8 h-1 w-[700px] -translate-y-4 border-0 bg-red" />
+          <hr className="mt-8 h-1 w-[50%] -translate-y-4 border-0 bg-red" />
           <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
             <h1 className="text-3xl font-extrabold uppercase tracking-wide text-dark-gray md:text-6xl">
               Tryouts
@@ -97,7 +97,7 @@ const Tryouts: NextPageWithLayout = () => {
       >
         <div className="flex w-full flex-col items-center lg:mx-auto lg:max-w-6xl">
           <div className="mb-10 inline-flex w-full items-center justify-center">
-            <hr className="mt-8 h-1 w-96 -translate-y-4 border-0 bg-red" />
+            <hr className="mt-8 h-1 w-[40%] -translate-y-4 border-0 bg-red" />
             <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-center text-3xl font-bold uppercase tracking-wide text-white">
               Interest Form
             </span>

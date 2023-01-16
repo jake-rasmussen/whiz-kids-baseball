@@ -68,6 +68,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
     (data) => data.name.charAt(0).toLowerCase() === letter
   );
   const sortedData = getYearsAndSort(curData);
+  console.log(sortedData);
 
   const paginationTable = [];
 
@@ -107,7 +108,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
     <div className="flex flex-col md:bg-dark-gray">
       <main className="mx-auto w-[70%] bg-white pt-[15vh]">
         <div className="inline-flex w-full items-center justify-center">
-          <hr className="mt-8 h-1 w-[700px] -translate-y-4 border-0 bg-red" />
+          <hr className="mt-8 h-1 w-[80%] -translate-y-4 border-0 bg-red" />
           <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
             <h1 className="text-3xl font-extrabold uppercase tracking-wide text-dark-gray md:text-6xl">
               Alumni
@@ -117,7 +118,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
       </main>
 
       <main className="flex w-full items-center justify-center">
-        <nav className="flex w-[70%] flex-row justify-center bg-white py-8">
+        <nav className="flex w-[70%] flex-row justify-center bg-white py-8 px-10">
           <ul className="flex w-full flex-wrap items-center justify-center text-white">
             {paginationTable}
           </ul>
@@ -125,9 +126,9 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
       </main>
 
       <main className="mx-auto flex min-h-[60vh] w-full flex-col items-center bg-white md:w-[70%]">
-        {sortedData?.map((data: [][]) => {
+        {sortedData?.map((data: [][], index) => {
           return (
-            <>
+            <React.Fragment key={`alumn${index}${letter}`}>
               <div className="pb-10 md:w-[50%]">
                 <table className="w-full table-auto">
                   <thead className="border-b border-dark-gray">
@@ -147,9 +148,9 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
                   </thead>
 
                   <tbody>
-                    {data[1]?.map((playerInfo: AlumniData) => {
+                    {data[1]?.map((playerInfo: AlumniData, playerIndex) => {
                       return (
-                        <>
+                        <React.Fragment key={`player${playerIndex}${data[0]}`}>
                           <tr className="border-b border-dark-gray">
                             <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
                               {playerInfo.name}
@@ -158,13 +159,13 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
                               {playerInfo.team}
                             </td>
                           </tr>
-                        </>
+                        </React.Fragment>
                       );
                     })}
                   </tbody>
                 </table>
               </div>
-            </>
+            </React.Fragment>
           );
         })}
       </main>

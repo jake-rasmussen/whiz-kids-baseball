@@ -267,11 +267,13 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
   return (
     <>
       <main className="flex min-h-screen w-screen flex-col items-center">
-        <div className="flex w-full bg-dark-gray pb-[8vh] pt-[15vh]">
+        <div id="navbarPadding" className="h-[10vh] w-screen bg-dark-gray" />
+
+        <div className="flex w-full bg-dark-gray py-[8vh]">
           <div className="inline-flex w-full items-center justify-center">
-            <hr className="mt-8 h-1 w-[1000px] -translate-y-4 border-0 bg-red" />
-            <span className="absolute left-1/2 -translate-x-1/2 bg-dark-gray px-3 text-white">
-              <h1 className="text-center text-4xl font-extrabold uppercase tracking-wide text-white xl:text-6xl">
+            <hr className="mt-8 h-1 w-[80%] -translate-y-4 border-0 bg-red" />
+            <span className="absolute left-1/2 w-[60%] -translate-x-1/2 bg-dark-gray px-3 text-white md:w-auto">
+              <h1 className="text-center text-3xl font-extrabold uppercase tracking-wide text-white xl:text-6xl">
                 {teamName}
               </h1>
             </span>
@@ -338,7 +340,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
                 </table>
               </div>
 
-              <div className="flex hidden justify-center rounded-2xl bg-light-gray p-[5vh] md:block md:h-[50%] md:w-[70%]">
+              <div className="hidden justify-center rounded-2xl bg-light-gray p-[5vh] md:block md:h-[50%] md:w-[70%]">
                 <NewsletterSignUp
                   teamId={teamId}
                   teamName={"Sample Team Name"}

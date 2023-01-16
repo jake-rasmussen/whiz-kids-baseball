@@ -66,7 +66,7 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <div className="fixed z-10 flex w-screen flex-row items-center justify-items-stretch bg-white p-3 shadow-xl">
+      <div className="fixed z-10 flex min-h-[10vh] w-screen flex-row items-center justify-items-stretch bg-white p-3 shadow-xl">
         <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
 
         <div className="hidden grow flex-row text-lg md:flex">

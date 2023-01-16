@@ -129,7 +129,7 @@ const Home: NextPageWithLayout = () => {
             </div>
 
             <div className="px-3 pt-5">
-              <h5 className="text-md text-left font-light text-white">
+              <h5 className="text-md text-justify font-light text-white">
                 This is an environment where normal baseball players with big
                 dreams show up to work consistently and ultimately transform
                 themselves. We aim to mentor players who eventually get
