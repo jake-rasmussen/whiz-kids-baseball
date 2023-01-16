@@ -38,9 +38,9 @@ const Tryouts: NextPageWithLayout = () => {
 
   return (
     <>
-      <main className="w-screen bg-white pb-10 pt-[15vh]">
+      <main className="w-full bg-white pb-10 pt-[15vh]">
         <div className="inline-flex w-full items-center justify-center">
-          <hr className="mt-8 h-1 w-[50%] -translate-y-4 border-0 bg-red" />
+          <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
           <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
             <h1 className="text-3xl font-extrabold uppercase tracking-wide text-dark-gray md:text-6xl">
               Tryouts
@@ -48,21 +48,21 @@ const Tryouts: NextPageWithLayout = () => {
           </span>
         </div>
 
-        <h5 className="text-md flex justify-center pt-[2vh] text-center font-black uppercase tracking-wide text-light-gray">
+        <h5 className="flex justify-center pt-[2vh] text-center text-base font-black uppercase tracking-wide text-light-gray">
           Interested in trying out? Check out our tryout schedule and fill out
           the form if you are interested
         </h5>
       </main>
 
       <main className="flex flex-col items-center pb-[5vh]">
-        <table className="w-[50%] table-auto pb-[10vh]">
+        <table className="w-4/5 table-auto pb-[10vh] md:w-7/12 ">
           <thead>
             <tr className="w-full">
-              <th className="text-md py-2 px-5 font-black text-red">
+              <th className="py-2 px-5 text-base font-black text-red">
                 Location
               </th>
-              <th className="text-md py-2 px-5 font-black text-red">Date</th>
-              <th className="text-md py-2 px-5 font-black text-red">Time</th>
+              <th className="py-2 px-5 text-base font-black text-red">Date</th>
+              <th className="py-2 px-5 text-base font-black text-red">Time</th>
             </tr>
           </thead>
 

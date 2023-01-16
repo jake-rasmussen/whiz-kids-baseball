@@ -52,7 +52,7 @@ const Home: NextPageWithLayout = () => {
             src={image}
             alt="Whiz Kids Photo"
           />
-          <div className="absolute h-screen w-screen bg-gradient-to-b from-red to-white opacity-40" />
+          <div className="absolute h-screen w-full bg-gradient-to-b from-red to-white opacity-40" />
         </Carousel.Slide>
       </React.Fragment>
     );
@@ -62,8 +62,8 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="h-screen w-screen">
-        <main className="fixed flex h-screen flex-col items-center justify-center overflow-hidden">
+      <div className="h-screen w-full">
+        <main className=" fixed flex h-screen flex-col items-center justify-center overflow-hidden">
           <Carousel
             classNames={classes}
             loop
@@ -90,7 +90,7 @@ const Home: NextPageWithLayout = () => {
         </main>
       </div>
 
-      <main className="relative flex flex-col items-center bg-dark-gray">
+      <main className="relative flex w-full flex-col items-center bg-dark-gray">
         <div className="container flex flex-col items-center pt-12 pb-16 text-center">
           <div className="inline-flex w-full items-center justify-center">
             <hr className="mt-8 h-1 w-96 -translate-y-4 border-0 bg-red" />
@@ -129,7 +129,7 @@ const Home: NextPageWithLayout = () => {
             </div>
 
             <div className="px-3 pt-5">
-              <h5 className="text-md text-justify font-light text-white">
+              <h5 className="text-justify text-base font-light text-white">
                 This is an environment where normal baseball players with big
                 dreams show up to work consistently and ultimately transform
                 themselves. We aim to mentor players who eventually get
@@ -145,8 +145,8 @@ const Home: NextPageWithLayout = () => {
       <main className="relative grid bg-light-gray pb-3 lg:grid-cols-3 lg:p-0">
         <div className="group mt-3 flex w-full justify-center lg:m-5 lg:mx-2 lg:w-auto lg:justify-end">
           <div
-            className="w-screen rounded-2xl p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red
-          lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
+            className="w-full p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red lg:my-[10%]
+          lg:w-[40vh] lg:rounded-2xl lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
           >
             <IconCalendarEvent
               size={55}
@@ -168,8 +168,8 @@ const Home: NextPageWithLayout = () => {
 
         <div className="group mt-3 flex justify-center lg:m-5 lg:mx-2 lg:justify-center">
           <div
-            className="w-screen rounded-2xl p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red 
-          lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
+            className="w-full p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red lg:my-[10%] 
+          lg:w-[40vh] lg:rounded-2xl lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
           >
             <IconBallBaseball
               size={55}
@@ -199,8 +199,8 @@ const Home: NextPageWithLayout = () => {
 
         <div className="group mt-3 flex justify-center lg:m-5 lg:mx-2 lg:justify-start">
           <div
-            className="w-screen rounded-2xl p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red
-          lg:my-[10%] lg:w-[40vh] lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
+            className="w-full p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red lg:my-[10%]
+          lg:w-[40vh] lg:rounded-2xl lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
           >
             <IconUsers size={55} className="text-red group-hover:text-white" />
             <div>

@@ -53,7 +53,7 @@ const NavBar: React.FC = () => {
         <div className="flex flex-col justify-center text-center">
           <Link
             href={`/teams/${index}`}
-            className="text-md my-3 font-extrabold text-dark-gray
+            className="my-3 text-base font-extrabold text-dark-gray
               transition duration-200 ease-in-out hover:text-red"
             onClick={toggleDrawer}
           >
@@ -66,7 +66,7 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <div className="fixed z-10 flex min-h-[10vh] w-screen flex-row items-center justify-items-stretch bg-white p-3 shadow-xl">
+      <div className="fixed z-10 flex min-h-[10vh] w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl">
         <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
 
         <div className="hidden grow flex-row text-lg md:flex">

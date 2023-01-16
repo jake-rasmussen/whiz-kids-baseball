@@ -3,14 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "docker:up": "docker compose up --detach --no-recreate --wait",
+    "docker:down": "docker compose down --timeout 5",
+    "prisma:format": "prisma format",
+    "prisma:generate": "prisma generate",
+    "prisma:seed": "prisma db seed",
+    "prisma:dev": "npm run docker:up && dotenv -e .env -- prisma migrate dev",
+    "prisma:dev:studio": "npm run docker:up && dotenv -e .env -- prisma studio",
+    "prisma:dev:reset": "npm run docker:up && dotenv -e .env -- prisma migrate reset --force",
     "build": "next build",
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ./src/**/* ./prisma/**/*",
-    "eslint": "eslint './**/*.{ts,tsx}' --max-warnings 0",
-    "eslint:fix": "eslint './**/*.{ts,tsx}' --fix",
-    "postinstall": "prisma generate && husky install"
+    "format": "prettier --write \"{prisma,src}/**/*.{ts,tsx}\"",
+    "eslint": "eslint \"./**/*.{ts,tsx}\" --max-warnings 0",
+    "eslint:fix": "eslint \"./**/*.{ts,tsx}\" --fix",
+    "cleanup": "npm run eslint:fix && npm run format",
+    "postinstall": "npm run prisma:generate && husky install"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -49,6 +61,7 @@
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
     "autoprefixer": "^10.4.7",
+    "dotenv-cli": "^6.0.0",
     "eslint": "^8.31.0",
     "eslint-config-next": "13.1.1",
     "eslint-config-prettier": "^8.6.0",
@@ -62,6 +75,7 @@
     "prettier-plugin-tailwindcss": "^0.2.1",
     "prisma": "^4.8.0",
     "tailwindcss": "^3.2.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   },
   "ct3aMetadata": {

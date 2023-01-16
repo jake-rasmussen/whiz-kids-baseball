@@ -59,9 +59,9 @@ const Training: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="flex w-screen flex-col items-center bg-dark-gray pt-[7vh]">
+      <div className="flex w-full flex-col items-center bg-dark-gray pt-[7vh]">
         <div className="invisible h-0 md:visible md:h-auto">
-          <main className="flex w-screen justify-center bg-black">
+          <main className="flex w-full justify-center bg-black">
             <iframe
               src={
                 "https://www.youtube.com/embed/XF_q1VIMXTk?autoplay=1&loop=1&mute=1&playlist=XF_q1VIMXTk"
@@ -74,9 +74,9 @@ const Training: NextPageWithLayout = () => {
           </main>
         </div>
 
-        <main className="w-screen bg-white py-[8vh]">
+        <main className="w-full bg-white py-[8vh]">
           <div className="inline-flex w-full items-center justify-center">
-            <hr className="mt-8 h-1 w-[50%] -translate-y-4 border-0 bg-red" />
+            <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
             <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
               <h1 className="text-3xl font-extrabold uppercase tracking-wide text-dark-gray md:text-6xl">
                 Training
@@ -84,11 +84,11 @@ const Training: NextPageWithLayout = () => {
             </span>
           </div>
 
-          <h5 className="text-md flex justify-center pt-[2vh] text-center font-black uppercase tracking-wide text-light-gray">
+          <h5 className="flex justify-center pt-[2vh] text-center text-base font-black uppercase tracking-wide text-light-gray">
             Level up your game by attending one of our trainings
           </h5>
 
-          <h6 className="text-md mx-[15%] flex justify-center pt-[4vh] text-center text-dark-gray">
+          <h6 className="mx-[15%] flex justify-center pt-[4vh] text-center text-base text-dark-gray">
             Put a blurb about what training is and differentiate it from what
             practices are Lorem ipsum, dolor sit amet consectetur adipisicing
             elit. Dolorem voluptate officia excepturi voluptatibus id
@@ -97,26 +97,26 @@ const Training: NextPageWithLayout = () => {
           </h6>
         </main>
 
-        <main className="flex w-screen items-center bg-dark-gray py-[8vh]">
+        <main className="flex w-full items-center bg-dark-gray py-[8vh]">
           <table className="mx-[10%] w-full table-auto pb-[10vh]">
             <thead>
               <tr className="w-full">
-                <th className="text-md py-2 px-5 font-black text-red">
+                <th className="py-2 px-5 text-base font-black text-red">
                   Training Session
                 </th>
-                <th className="text-md hidden py-2 px-5 font-black text-red md:table-cell">
+                <th className="hidden py-2 px-5 text-base font-black text-red md:table-cell">
                   Location
                 </th>
-                <th className="text-md hidden py-2 px-5 font-black text-red md:table-cell">
+                <th className="hidden py-2 px-5 text-base font-black text-red md:table-cell">
                   Dates
                 </th>
-                <th className="text-md hidden py-2 px-5 font-black text-red md:table-cell">
+                <th className="hidden py-2 px-5 text-base font-black text-red md:table-cell">
                   Time
                 </th>
-                <th className="text-md hidden py-2 px-5 font-black text-red md:table-cell">
+                <th className="hidden py-2 px-5 text-base font-black text-red md:table-cell">
                   Price
                 </th>
-                <th className="text-md py-2 px-5 font-black text-red">
+                <th className="py-2 px-5 text-base font-black text-red">
                   Interested?
                 </th>
               </tr>
