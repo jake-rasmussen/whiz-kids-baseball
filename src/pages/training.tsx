@@ -59,17 +59,16 @@ const Training: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="flex w-full flex-col items-center bg-dark-gray pt-[7vh]">
-        <div className="invisible h-0 md:visible md:h-auto">
-          <main className="flex w-full justify-center bg-black">
+      <div className="flex w-full flex-col items-center bg-dark-gray">
+        <div className="invisible h-0 md:visible md:h-[60vh] md:w-full">
+          <main className="flex h-full w-full w-full justify-center">
             <iframe
               src={
                 "https://www.youtube.com/embed/XF_q1VIMXTk?autoplay=1&loop=1&mute=1&playlist=XF_q1VIMXTk"
               }
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               title="Whiz Kids Practice Video"
-              height={"600"}
-              width={"1280"}
+              className="w-full"
             />
           </main>
         </div>

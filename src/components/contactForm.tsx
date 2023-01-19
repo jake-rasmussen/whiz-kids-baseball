@@ -43,7 +43,7 @@ const ContactForm: React.FC = () => {
                 <div className="mx-5 flex items-center justify-start space-x-5 md:justify-center lg:mx-0 lg:justify-start">
                   <IconPhoneCall className="h-auto w-10 justify-start rounded-full bg-red p-2 text-white transition duration-150 ease-in-out hover:-translate-y-1  hover:scale-110 hover:bg-white hover:text-red" />
                   <div className="flex md:flex-col">
-                    <h1 className="text-lg font-medium uppercase tracking-wide text-white">
+                    <h1 className="text-lg font-black uppercase tracking-wide text-white">
                       Call
                     </h1>
                     <h2 className="ml-3 text-base font-normal text-light-gray md:ml-0">
@@ -55,7 +55,7 @@ const ContactForm: React.FC = () => {
                 <div className="mx-5 flex items-center justify-start space-x-5 md:justify-center lg:mx-0 lg:justify-start">
                   <IconMail className="h-auto w-10 justify-start rounded-full bg-red p-2 text-white transition duration-150 ease-in-out hover:-translate-y-1  hover:scale-110 hover:bg-white hover:text-red" />
                   <div className="flex md:flex-col">
-                    <h1 className="text-lg font-medium  uppercase tracking-wide text-white">
+                    <h1 className="text-lg font-black  uppercase tracking-wide text-white">
                       Email
                     </h1>
                     <h2 className="ml-3 text-base font-normal text-light-gray md:ml-0">
@@ -67,7 +67,7 @@ const ContactForm: React.FC = () => {
                 <div className="mx-5 flex items-center justify-start space-x-5 md:justify-center lg:mx-0 lg:justify-start">
                   <IconMapPin className="h-auto w-10 justify-start rounded-full bg-red p-2 text-white transition duration-150 ease-in-out hover:-translate-y-1  hover:scale-110 hover:bg-white hover:text-red" />
                   <div className="flex md:flex-col">
-                    <h1 className="text-lg font-medium  uppercase tracking-wide text-white">
+                    <h1 className="text-lg font-black  uppercase tracking-wide text-white">
                       Location
                     </h1>
                     <h2 className="ml-3 text-base font-normal text-light-gray md:ml-0">

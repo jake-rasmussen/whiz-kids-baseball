@@ -267,12 +267,10 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
   return (
     <>
       <main className="flex min-h-screen w-full flex-col items-center">
-        <div id="navbarPadding" className="h-[16vh] w-full bg-dark-gray" />
-
-        <div className="inline-flex w-full items-center justify-center bg-dark-gray pb-12">
+        <div className="inline-flex w-full items-center justify-center bg-dark-gray py-12">
           <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
           <span className="absolute left-1/2  w-auto -translate-x-1/2 bg-dark-gray px-3">
-            <h1 className="text-center text-3xl font-extrabold uppercase tracking-wide text-white md:min-w-max lg:text-4xl xl:text-6xl">
+            <h1 className="text-center text-2xl font-extrabold uppercase tracking-wide text-white md:min-w-max lg:text-4xl xl:text-6xl">
               {teamName}
             </h1>
           </span>

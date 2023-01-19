@@ -38,7 +38,7 @@ const Tryouts: NextPageWithLayout = () => {
 
   return (
     <>
-      <main className="w-full bg-white pb-10 pt-[15vh]">
+      <main className="w-full bg-white py-12">
         <div className="inline-flex w-full items-center justify-center">
           <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
           <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
@@ -188,27 +188,25 @@ const Tryouts: NextPageWithLayout = () => {
                     <h1 className="text-sm font-black uppercase tracking-wide text-white ">
                       Bats
                     </h1>
-                    <MultiSelect
+                    <Select
                       placeholder="Bats"
                       data={[
                         { label: "Right", value: "right" },
                         { label: "Left", value: "left" },
                         { label: "Switch", value: "switch" },
                       ]}
-                      maxSelectedValues={3}
                     />
                   </div>
                   <div className="flex w-full flex-col">
                     <h1 className="text-sm font-black uppercase tracking-wide text-white ">
                       Throws
                     </h1>
-                    <MultiSelect
+                    <Select
                       placeholder="Throws"
                       data={[
                         { label: "Right", value: "right" },
                         { label: "Left", value: "left" },
                       ]}
-                      maxSelectedValues={3}
                     />
                   </div>
                 </div>
