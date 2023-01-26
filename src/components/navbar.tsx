@@ -53,7 +53,7 @@ const NavBar: React.FC = () => {
         <div className="flex flex-col justify-center text-center">
           <Link
             href={`/teams/${index}`}
-            className="my-3 text-base font-extrabold text-dark-gray
+            className="my-2 text-base font-extrabold leading-none text-dark-gray
               transition duration-200 ease-in-out hover:text-red"
             onClick={toggleDrawer}
           >

@@ -47,7 +47,7 @@ const ContactForm: React.FC = () => {
                       Call
                     </h1>
                     <h2 className="ml-3 text-base font-normal text-light-gray md:ml-0">
-                      +1 347 000 0000
+                      (267) 228-3615
                     </h2>
                   </div>
                 </div>
@@ -59,7 +59,7 @@ const ContactForm: React.FC = () => {
                       Email
                     </h1>
                     <h2 className="ml-3 text-base font-normal text-light-gray md:ml-0">
-                      info@example.com
+                      angelabing@aol.com
                     </h2>
                   </div>
                 </div>
@@ -71,7 +71,7 @@ const ContactForm: React.FC = () => {
                       Location
                     </h1>
                     <h2 className="ml-3 text-base font-normal text-light-gray md:ml-0">
-                      1234 Location Drive
+                      Conshohocken, PA 19428
                     </h2>
                   </div>
                 </div>

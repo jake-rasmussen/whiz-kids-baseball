@@ -64,7 +64,7 @@ const Training: NextPageWithLayout = () => {
           <main className="flex h-full w-full w-full justify-center">
             <iframe
               src={
-                "https://www.youtube.com/embed/XF_q1VIMXTk?autoplay=1&loop=1&mute=1&playlist=XF_q1VIMXTk"
+                "https://www.youtube.com/embed/XF_q1VIMXTk?controls=0&showinfo=0&autoplay=1&loop=1&mute=1&playlist=XF_q1VIMXTk"
               }
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               title="Whiz Kids Practice Video"
@@ -73,7 +73,7 @@ const Training: NextPageWithLayout = () => {
           </main>
         </div>
 
-        <main className="w-full bg-white py-[8vh]">
+        <main className="w-full bg-white py-12">
           <div className="inline-flex w-full items-center justify-center">
             <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
             <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
@@ -83,7 +83,7 @@ const Training: NextPageWithLayout = () => {
             </span>
           </div>
 
-          <h5 className="flex justify-center pt-[2vh] text-center text-base font-black uppercase tracking-wide text-light-gray">
+          <h5 className="mx-5 flex justify-center pt-[2vh] text-center text-base font-black uppercase tracking-wide text-light-gray">
             Level up your game by attending one of our trainings
           </h5>
 
@@ -170,7 +170,7 @@ const Training: NextPageWithLayout = () => {
                                 <span className="font-black text-red">
                                   Price:{" "}
                                 </span>
-                                {trainingInfo.price}
+                                {`$${trainingInfo.price}`}
                               </div>
                               <div className="flex justify-center py-5">
                                 <Button
@@ -201,7 +201,7 @@ const Training: NextPageWithLayout = () => {
                         {trainingInfo.time}
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
-                        {trainingInfo.price}
+                        {`$${trainingInfo.price}`}
                       </td>
                       <td className="whitespace-nowrap py-2 text-center text-sm font-light text-white">
                         <Button
