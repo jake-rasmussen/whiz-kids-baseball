@@ -1,38 +1,19 @@
-import type { NextPage } from "next";
-import type { AppProps } from "next/app";
 import { type AppType } from "next/app";
-import type { ReactElement, ReactNode } from "react";
-import { MantineProvider } from "@mantine/core";
+import { type Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
 
 import { api } from "../utils/api";
 
 import "../styles/globals.css";
-import Head from "next/head";
-import { ClerkProvider } from "@clerk/nextjs";
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
-
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
-
-const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
-  const getLayout = Component.getLayout ?? ((page) => page);
-
+const MyApp: AppType<{ session: Session | null }> = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}) => {
   return (
-    <>
-      <Head>
-        <title>Whiz Kids Baseball</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <ClerkProvider>
-        <MantineProvider withGlobalStyles withNormalizeCSS>
-          {getLayout(<Component {...pageProps} />)}
-        </MantineProvider>
-      </ClerkProvider>
-    </>
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
   );
 };
 
