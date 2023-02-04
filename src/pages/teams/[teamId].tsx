@@ -1,6 +1,6 @@
 import type { GetServerSideProps } from "next";
 import type { ReactElement } from "react";
-import MainLayout from "../../components/layouts/MainLayout";
+import MainLayout from "../../layouts/MainLayout";
 import NewsletterSignUp from "../../components/newsletterSignUp";
 
 import { Modal, Button } from "@mantine/core";

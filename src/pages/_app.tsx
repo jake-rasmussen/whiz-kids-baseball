@@ -1,6 +1,4 @@
 import type { NextPage } from "next";
-import { type Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { type AppType } from "next/app";
 import type { ReactElement, ReactNode } from "react";
@@ -10,6 +8,7 @@ import { api } from "../utils/api";
 
 import "../styles/globals.css";
 import Head from "next/head";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -19,23 +18,20 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const MyApp: AppType<{ session: Session | null }> = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppPropsWithLayout) => {
+const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <>
       <Head>
         <title>Whiz Kids Baseball</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <MantineProvider withGlobalStyles withNormalizeCSS>
-        <SessionProvider session={session}>
+      <ClerkProvider>
+        <MantineProvider withGlobalStyles withNormalizeCSS>
           {getLayout(<Component {...pageProps} />)}
-        </SessionProvider>
-      </MantineProvider>
+        </MantineProvider>
+      </ClerkProvider>
     </>
   );
 };

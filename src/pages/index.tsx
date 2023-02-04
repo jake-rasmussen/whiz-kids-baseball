@@ -8,7 +8,7 @@ import sample2 from "../../assets/images/sample2.png";
 
 import banner from "../../assets/images/whizkidsbanner.png";
 import Image from "next/image";
-import MainLayout from "../components/layouts/MainLayout";
+import MainLayout from "../layouts/MainLayout";
 import { createStyles } from "@mantine/core";
 import {
   IconChevronLeft,
