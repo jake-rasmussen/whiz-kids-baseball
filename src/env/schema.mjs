@@ -9,19 +9,28 @@ export const serverSchema = z.object({
   DATABASE_URL: z.string().url(),
   HOST_PORT: z.preprocess((val) => Number(val), z.number()),
   NODE_ENV: z.enum(["development", "test", "production"]),
-  NEXTAUTH_SECRET:
+  // GOOGLE_CLIENT_ID: z.string(),
+  // GOOGLE_CLIENT_SECRET: z.string(),
+  EMAIL_SERVER_HOST:
     process.env.NODE_ENV === "production"
       ? z.string().min(1)
       : z.string().min(1).optional(),
-  NEXTAUTH_URL: z.preprocess(
-    // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
-    // Since NextAuth.js automatically uses the VERCEL_URL if present.
-    (str) => process.env.VERCEL_URL ?? str,
-    // VERCEL_URL doesn't include `https` so it cant be validated as a URL
-    process.env.VERCEL ? z.string() : z.string().url()
-  ),
-  GOOGLE_CLIENT_ID: z.string(),
-  GOOGLE_CLIENT_SECRET: z.string(),
+  EMAIL_SERVER_PORT:
+    process.env.NODE_ENV === "production"
+      ? z.preprocess((val) => Number(val), z.number())
+      : z.preprocess((val) => Number(val), z.number()).optional(),
+  EMAIL_SERVER_USER:
+    process.env.NODE_ENV === "production"
+      ? z.string().min(1)
+      : z.string().min(1).optional(),
+  EMAIL_SERVER_PASSWORD:
+    process.env.NODE_ENV === "production"
+      ? z.string().min(1)
+      : z.string().min(1).optional(),
+  EMAIL_FROM:
+    process.env.NODE_ENV === "production"
+      ? z.string().min(1)
+      : z.string().min(1).optional(),
 });
 
 /**

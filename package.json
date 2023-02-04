@@ -8,9 +8,9 @@
     "prisma:format": "prisma format",
     "prisma:generate": "prisma generate",
     "prisma:seed": "prisma db seed",
-    "prisma:dev": "npm run docker:up && dotenv -e .env -- prisma migrate dev",
-    "prisma:dev:studio": "npm run docker:up && dotenv -e .env -- prisma studio",
-    "prisma:dev:reset": "npm run docker:up && dotenv -e .env -- prisma migrate reset --force",
+    "prisma:dev": "yarn docker:up && dotenv -e .env -- prisma migrate dev",
+    "prisma:dev:studio": "yarn docker:up && dotenv -e .env -- prisma studio",
+    "prisma:dev:reset": "yarn docker:up && dotenv -e .env -- prisma migrate reset --force",
     "build": "next build",
     "dev": "next dev",
     "start": "next start",
@@ -18,8 +18,8 @@
     "format": "prettier --write \"{prisma,src}/**/*.{ts,tsx}\"",
     "eslint": "eslint \"./**/*.{ts,tsx}\" --max-warnings 0",
     "eslint:fix": "eslint \"./**/*.{ts,tsx}\" --fix",
-    "cleanup": "npm run eslint:fix && npm run format",
-    "postinstall": "npm run prisma:generate && husky install"
+    "cleanup": "yarn eslint:fix && npm run format",
+    "postinstall": "yarn prisma:generate && husky install"
   },
   "prisma": {
     "seed": "ts-node ./prisma/seed.ts"
@@ -33,7 +33,6 @@
     "@mantine/form": "^5.10.0",
     "@mantine/hooks": "^5.10.0",
     "@mantine/next": "^5.10.0",
-    "@next-auth/prisma-adapter": "^1.0.5",
     "@prisma/client": "^4.8.0",
     "@tabler/icons": "^1.119.0",
     "@tanstack/react-query": "^4.20.0",
@@ -45,8 +44,8 @@
     "embla-carousel-autoplay": "^7.0.5",
     "embla-carousel-react": "^7.0.5",
     "next": "13.1.1",
-    "next-auth": "^4.18.7",
     "next-videos": "^1.4.1",
+    "nodemailer": "^6.9.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "superjson": "1.9.1",
@@ -55,6 +54,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
+    "@types/nodemailer": "^6.4.7",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
