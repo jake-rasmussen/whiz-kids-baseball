@@ -1,3 +1,4 @@
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import {
   HoverCard,
   Button,
@@ -110,18 +111,22 @@ const NavBar: React.FC = () => {
         </div>
 
         <div className="hidden justify-self-end md:flex">
-          <Button
-            className="mx-3 bg-gradient-to-r from-red to-secondary-red
+          <SignInButton mode="modal">
+            <Button
+              className="mx-3 bg-gradient-to-r from-red to-secondary-red
               transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-          >
-            Log in
-          </Button>
-          <Button
-            className="mx-3 bg-gradient-to-r from-red to-secondary-red
+            >
+              Log in
+            </Button>
+          </SignInButton>
+          <SignUpButton mode="modal">
+            <Button
+              className="mx-3 bg-gradient-to-r from-red to-secondary-red
               transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-          >
-            Sign up
-          </Button>
+            >
+              Sign up
+            </Button>
+          </SignUpButton>
         </div>
 
         <div className="flex grow justify-end md:hidden">

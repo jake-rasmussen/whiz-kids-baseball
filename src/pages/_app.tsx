@@ -8,6 +8,7 @@ import { api } from "../utils/api";
 
 import "../styles/globals.css";
 import Head from "next/head";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -26,10 +27,11 @@ const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
         <title>Whiz Kids Baseball</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <MantineProvider withGlobalStyles withNormalizeCSS>
-        {getLayout(<Component {...pageProps} />)}
-      </MantineProvider>
+      <ClerkProvider>
+        <MantineProvider withGlobalStyles withNormalizeCSS>
+          {getLayout(<Component {...pageProps} />)}
+        </MantineProvider>
+      </ClerkProvider>
     </>
   );
 };

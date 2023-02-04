@@ -6,7 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 import sample from "../../assets/images/sample.png";
 import banner from "../../assets/images/whizkidsbanner.png";
 import Image from "next/image";
-import MainLayout from "../components/layouts/MainLayout";
+import MainLayout from "../layouts/MainLayout";
 import { createStyles } from "@mantine/core";
 import {
   IconChevronLeft,

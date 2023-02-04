@@ -16,7 +16,9 @@
  * processing a request
  *
  */
-
+import type * as trpcNext from "@trpc/server/adapters/next";
+import { getAuth, clerkClient } from "@clerk/nextjs/server";
+import type { User } from "@clerk/nextjs/dist/api";
 import { prisma } from "../db";
 
 /**
@@ -28,9 +30,10 @@ import { prisma } from "../db";
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = async () => {
+const createInnerTRPCContext = (user: User | null) => {
   return {
     prisma,
+    user,
   };
 };
 
@@ -39,8 +42,19 @@ const createInnerTRPCContext = async () => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = async () => {
-  return await createInnerTRPCContext();
+export const createTRPCContext = async (
+  opts: trpcNext.CreateNextContextOptions
+) => {
+  async function getUser() {
+    // get userId from request
+    const { userId } = getAuth(opts.req);
+    // get full user object
+    const user = userId ? await clerkClient.users.getUser(userId) : null;
+    return user;
+  }
+  const user = await getUser();
+
+  return createInnerTRPCContext(user);
 };
 
 /**
@@ -49,17 +63,15 @@ export const createTRPCContext = async () => {
  * This is where the trpc api is initialized, connecting the context and
  * transformer
  */
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 
-const t = initTRPC
-  .context<Awaited<ReturnType<typeof createTRPCContext>>>()
-  .create({
-    transformer: superjson,
-    errorFormatter({ shape }) {
-      return shape;
-    },
-  });
+const t = initTRPC.context<typeof createTRPCContext>().create({
+  transformer: superjson,
+  errorFormatter({ shape }) {
+    return shape;
+  },
+});
 
 /**
  * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)
@@ -82,3 +94,17 @@ export const createTRPCRouter = t.router;
  * can still access user session data if they are logged in
  */
 export const publicProcedure = t.procedure;
+
+const isAuthed = t.middleware(({ next, ctx }) => {
+  if (!ctx.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  return next({
+    ctx: {
+      user: ctx.user,
+    },
+  });
+});
+
+// export this procedure to be used anywhere in your application
+export const protectedProcedure = t.procedure.use(isAuthed);
