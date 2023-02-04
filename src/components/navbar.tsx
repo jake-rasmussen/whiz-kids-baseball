@@ -53,7 +53,7 @@ const NavBar: React.FC = () => {
         <div className="flex flex-col justify-center text-center">
           <Link
             href={`/teams/${index}`}
-            className="my-3 text-base font-extrabold text-dark-gray
+            className="my-2 text-base font-extrabold leading-none text-dark-gray
               transition duration-200 ease-in-out hover:text-red"
             onClick={toggleDrawer}
           >
@@ -66,7 +66,7 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <div className="fixed z-10 flex min-h-[10vh] w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl">
+      <div className="sticky top-0 z-10 flex min-h-[7vh] w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl">
         <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
 
         <div className="hidden grow flex-row text-lg md:flex">
@@ -84,7 +84,7 @@ const NavBar: React.FC = () => {
               </div>
             </HoverCard.Target>
 
-            <HoverCard.Dropdown className="mt-4 transition duration-200 ease-in-out">
+            <HoverCard.Dropdown className="mt-[1vh] border-none shadow-lg transition duration-200 ease-in-out">
               <SimpleGrid cols={2}>{links}</SimpleGrid>
             </HoverCard.Dropdown>
           </HoverCard>

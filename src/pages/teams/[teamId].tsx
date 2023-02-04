@@ -66,58 +66,50 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
   const mockTournamnets = [
     {
       name: "Diamond Nation",
-      weekday: "Mon, Wed, Fri",
-      start: "6pm",
-      end: "8pm",
+      date: "June 16th",
+      type: "Tournament",
       location: "1234 Drive",
     },
     {
       name: "Diamond Nation",
-      weekday: "Mon, Wed, Fri",
-      start: "6pm",
-      end: "8pm",
+      date: "June 16th",
+      type: "Showcase",
       location: "1234 Drive",
     },
     {
       name: "Diamond Nation",
-      weekday: "Mon, Wed, Fri",
-      start: "6pm",
-      end: "8pm",
+      date: "June 16th",
+      type: "Tournament",
       location: "1234 Drive",
     },
     {
       name: "Diamond Nation",
-      weekday: "Mon, Wed, Fri",
-      start: "6pm",
-      end: "8pm",
+      date: "June 16th",
+      type: "Tournament",
       location: "1234 Drive",
     },
     {
       name: "Diamond Nation",
-      weekday: "Mon, Wed, Fri",
-      start: "6pm",
-      end: "8pm",
+      date: "June 16th",
+      type: "Tournament",
       location: "1234 Drive",
     },
     {
       name: "Diamond Nation",
-      weekday: "Mon, Wed, Fri",
-      start: "6pm",
-      end: "8pm",
+      date: "June 16th",
+      type: "Showcase",
       location: "1234 Drive",
     },
     {
       name: "Diamond Nation",
-      weekday: "Mon, Wed, Fri",
-      start: "6pm",
-      end: "8pm",
+      date: "June 16th",
+      type: "Tournament",
       location: "1234 Drive",
     },
     {
       name: "Diamond Nation",
-      weekday: "Mon, Wed, Fri",
-      start: "6pm",
-      end: "8pm",
+      date: "June 16th",
+      type: "Showcase",
       location: "1234 Drive",
     },
   ];
@@ -164,7 +156,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
             </div>
             <div>
               <span className="font-black text-red">Start Time: </span>
-              {data.end}
+              {data.start}
             </div>
             <div>
               <span className="font-black text-red">End Time: </span>
@@ -201,9 +193,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
       className="border-b border-light-gray transition duration-200 ease-in-out hover:bg-light-gray"
     >
       <td className="my-2 flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
-        <div className="flex w-[70%] justify-center md:w-full">
-          {data.weekday}
-        </div>
+        <div className="flex w-[70%] justify-center md:w-full">{data.name}</div>
 
         <button onClick={toggleTournamentModal} className="bg-transparent">
           <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red md:hidden" />
@@ -222,20 +212,16 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
         >
           <div className="flex-col text-lg font-medium text-dark-gray">
             <div>
+              <span className="font-black text-red">Date: </span>
+              {data.date}
+            </div>
+            <div>
               <span className="font-black text-red">Location: </span>
               {data.location}
             </div>
             <div>
-              <span className="font-black text-red">Date: </span>
-              {data.weekday}
-            </div>
-            <div>
-              <span className="font-black text-red">Start Time: </span>
-              {data.start}
-            </div>
-            <div>
-              <span className="font-black text-red">End Time: </span>
-              {data.end}
+              <span className="font-black text-red">Type: </span>
+              {data.type}
             </div>
             <div className="flex justify-center py-5">
               <Button
@@ -251,13 +237,13 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
       </td>
 
       <td className="hidden  whitespace-nowrap py-2 text-center text-sm text-dark-gray md:table-cell">
-        {data.start}
+        {data.date}
       </td>
       <td className="hidden whitespace-nowrap py-2 text-center text-sm text-dark-gray md:table-cell">
-        {data.end}
+        {data.location}
       </td>
       <td className="hidden py-2 text-center text-sm text-dark-gray md:table-cell">
-        {data.location}
+        {data.type}
       </td>
     </tr>
   ));
@@ -266,21 +252,19 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
 
   return (
     <>
-      <main className="flex min-h-screen w-full flex-col items-center">
-        <div id="navbarPadding" className="h-[16vh] w-full bg-dark-gray" />
-
-        <div className="inline-flex w-full items-center justify-center bg-dark-gray pb-12">
+      <main className="flex w-full flex-col items-center">
+        <div className="inline-flex w-full items-center justify-center bg-dark-gray py-12">
           <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
           <span className="absolute left-1/2  w-auto -translate-x-1/2 bg-dark-gray px-3">
-            <h1 className="text-center text-3xl font-extrabold uppercase tracking-wide text-white md:min-w-max lg:text-4xl xl:text-6xl">
+            <h1 className="text-center text-2xl font-extrabold uppercase tracking-wide text-white md:min-w-max lg:text-4xl lg:text-6xl">
               {teamName}
             </h1>
           </span>
         </div>
 
-        <div className="flex w-full justify-center py-[8vh] ">
-          <div className="mx-10 flex w-full flex-col md:place-content-center md:px-5 xl:flex-row xl:space-x-10 ">
-            <div className="flex flex-col items-center overflow-x-hidden pb-10 xl:w-1/2">
+        <div className="flex w-full justify-center py-[4vh]">
+          <div className="mx-10 flex w-full flex-col md:place-content-center md:px-5 lg:flex-row lg:space-x-10 ">
+            <div className="flex flex-col items-center overflow-x-hidden pb-10 lg:w-1/2">
               <table className="h-auto w-full table-auto">
                 <thead className="border-b border-light-gray">
                   <tr className="border-b border-light-gray">
@@ -293,13 +277,13 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
                       Tournament
                     </th>
                     <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
-                      Start Time
-                    </th>
-                    <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
-                      End Time
+                      Date(s)
                     </th>
                     <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
                       Location
+                    </th>
+                    <th className="hidden py-2 px-4 text-sm font-black uppercase tracking-wide text-red md:table-cell">
+                      Type
                     </th>
                   </tr>
                 </thead>
@@ -307,7 +291,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               </table>
             </div>
 
-            <div className="flex flex-col items-center xl:w-1/2">
+            <div className="flex flex-col items-center lg:w-1/2">
               <div className="top-0 mb-8 flex w-full overflow-x-hidden md:place-content-center">
                 <table className="h-auto w-full table-auto">
                   <thead className="border-b border-light-gray">
@@ -338,7 +322,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
                 </table>
               </div>
 
-              <div className="hidden justify-center rounded-xl bg-light-gray py-[3vh] px-[6vh] md:flex md:w-4/5">
+              <div className="hidden justify-center rounded-xl bg-light-gray py-[3vh] px-[3vh] md:flex lg:px-[6vh] xl:w-4/5">
                 <NewsletterSignUp
                   teamId={teamId}
                   teamName={"Sample Team Name"}
@@ -365,7 +349,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
           {cardData.map((data, index) => (
             <main
               key={`player${index}`}
-              className="group lg:w-[45%] xl:w-[30%]"
+              className="group lg:w-[45%] lg:w-[30%]"
             >
               <div
                 className="rounded-md bg-white p-3 transition duration-300

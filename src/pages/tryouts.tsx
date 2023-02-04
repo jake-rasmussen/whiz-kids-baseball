@@ -17,19 +17,19 @@ interface TryoutData {
 const Tryouts: NextPageWithLayout = () => {
   const mockdata: TryoutData[] = [
     {
-      location: "Steelyard",
+      location: "Proving Grounds",
       date: "10/24/2023",
       time: "5:00PM",
       ages: "14U-17U",
     },
     {
-      location: "Steelyard",
+      location: "Proving Grounds",
       date: "10/24/2023",
       time: "5:00PM",
       ages: "14U-17U",
     },
     {
-      location: "Steelyard",
+      location: "Proving Grounds",
       date: "10/24/2023",
       time: "5:00PM",
       ages: "14U-17U",
@@ -38,7 +38,7 @@ const Tryouts: NextPageWithLayout = () => {
 
   return (
     <>
-      <main className="w-full bg-white pb-10 pt-[15vh]">
+      <main className="w-full bg-white py-12">
         <div className="inline-flex w-full items-center justify-center">
           <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
           <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
@@ -48,7 +48,7 @@ const Tryouts: NextPageWithLayout = () => {
           </span>
         </div>
 
-        <h5 className="flex justify-center pt-[2vh] text-center text-base font-black uppercase tracking-wide text-light-gray">
+        <h5 className="mx-5 flex justify-center pt-[2vh] text-center text-base font-black uppercase tracking-wide text-light-gray">
           Interested in trying out? Check out our tryout schedule and fill out
           the form if you are interested
         </h5>
@@ -130,11 +130,34 @@ const Tryouts: NextPageWithLayout = () => {
                     <Select
                       placeholder="Pick one"
                       data={[
-                        { value: "react", label: "React" },
-                        { value: "ng", label: "Angular" },
-                        { value: "svelte", label: "Svelte" },
-                        { value: "vue", label: "Vue" },
+                        {
+                          value: "Whiz Kids National",
+                          label: "Whiz Kids National",
+                        },
+                        {
+                          value: "Whiz Kids American",
+                          label: "Whiz Kids American",
+                        },
+                        {
+                          value: "Whiz Kids Futures",
+                          label: "Whiz Kids Futures",
+                        },
+                        { value: "Whiz Kids Stars", label: "Whiz Kids Stars" },
                       ]}
+                      styles={(theme) => ({
+                        item: {
+                          // applies styles to selected item
+                          "&[data-selected]": {
+                            "&, &:hover": {
+                              backgroundColor: theme.colors.red,
+                              color: theme.white,
+                            },
+                          },
+
+                          // applies styles to hovered item (with mouse or keyboard)
+                          "&[data-hovered]": {},
+                        },
+                      })}
                     />
                   </div>
                 </div>
@@ -149,7 +172,7 @@ const Tryouts: NextPageWithLayout = () => {
 
                   <div className="w-full">
                     <h1 className="text-sm font-black uppercase tracking-wide text-white ">
-                      School Attending
+                      Current School
                     </h1>
                     <TextInput placeholder="School" />
                   </div>
@@ -182,33 +205,73 @@ const Tryouts: NextPageWithLayout = () => {
                         { label: "RF", value: "RF" },
                       ]}
                       maxSelectedValues={3}
+                      styles={(theme) => ({
+                        item: {
+                          // applies styles to selected item
+                          "&[data-selected]": {
+                            "&, &:hover": {
+                              backgroundColor: theme.colors.red,
+                              color: theme.white,
+                            },
+                          },
+
+                          // applies styles to hovered item (with mouse or keyboard)
+                          "&[data-hovered]": {},
+                        },
+                      })}
                     />
                   </div>
                   <div className="w-full">
                     <h1 className="text-sm font-black uppercase tracking-wide text-white ">
                       Bats
                     </h1>
-                    <MultiSelect
+                    <Select
                       placeholder="Bats"
                       data={[
                         { label: "Right", value: "right" },
                         { label: "Left", value: "left" },
                         { label: "Switch", value: "switch" },
                       ]}
-                      maxSelectedValues={3}
+                      styles={(theme) => ({
+                        item: {
+                          // applies styles to selected item
+                          "&[data-selected]": {
+                            "&, &:hover": {
+                              backgroundColor: theme.colors.red,
+                              color: theme.white,
+                            },
+                          },
+
+                          // applies styles to hovered item (with mouse or keyboard)
+                          "&[data-hovered]": {},
+                        },
+                      })}
                     />
                   </div>
                   <div className="flex w-full flex-col">
                     <h1 className="text-sm font-black uppercase tracking-wide text-white ">
                       Throws
                     </h1>
-                    <MultiSelect
+                    <Select
                       placeholder="Throws"
                       data={[
                         { label: "Right", value: "right" },
                         { label: "Left", value: "left" },
                       ]}
-                      maxSelectedValues={3}
+                      styles={(theme) => ({
+                        item: {
+                          // applies styles to selected item
+                          "&[data-selected]": {
+                            "&, &:hover": {
+                              backgroundColor: theme.colors.red,
+                              color: theme.white,
+                            },
+                          },
+
+                          // applies styles to hovered item (with mouse or keyboard)
+                          "&[data-hovered]": {},
+                        },
+                      })}
                     />
                   </div>
                 </div>
@@ -223,7 +286,7 @@ const Tryouts: NextPageWithLayout = () => {
                 <div className="p-5">
                   <button
                     type="submit"
-                    className="mx-auto flex max-w-min items-center justify-center space-x-1 rounded-full bg-red py-2 px-4 font-bold text-white transition duration-150 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-light-gray  hover:text-red "
+                    className="mx-auto flex max-w-min items-center justify-center space-x-1 rounded-full bg-red py-2 px-4 font-bold text-white transition duration-150 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-white  hover:text-red "
                   >
                     <IconSend /> <span className="px-2">Send</span>
                   </button>

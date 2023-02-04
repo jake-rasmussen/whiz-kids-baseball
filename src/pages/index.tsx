@@ -3,7 +3,9 @@ import React, { useRef } from "react";
 import type { NextPageWithLayout } from "./_app";
 import { Carousel } from "@mantine/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import sample from "../../assets/images/sample.png";
+import sample1 from "../../assets/images/sample.png";
+import sample2 from "../../assets/images/sample2.png";
+
 import banner from "../../assets/images/whizkidsbanner.png";
 import Image from "next/image";
 import MainLayout from "../components/layouts/MainLayout";
@@ -41,7 +43,7 @@ const useStyles = createStyles((_theme, _params, getRef) => ({
 const Home: NextPageWithLayout = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const { classes } = useStyles();
-  const images = [sample, sample, sample];
+  const images = [sample1, sample2];
 
   const slides = images.map((image, index) => {
     return (
@@ -62,8 +64,8 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="h-screen w-full">
-        <main className=" fixed flex h-screen flex-col items-center justify-center overflow-hidden">
+      <div className="h-screen w-full bg-dark-gray">
+        <main className="fixed flex h-screen min-w-full flex-col items-center justify-center overflow-hidden">
           <Carousel
             classNames={classes}
             loop
@@ -101,11 +103,11 @@ const Home: NextPageWithLayout = () => {
             </span>
           </div>
 
-          <h2 className="2pb-5 hidden text-lg tracking-wide text-light-gray sm:contents">
+          <h2 className="2pb-5 hidden text-lg tracking-tight tracking-wide text-light-gray sm:contents">
             All substance, little show. Get in the drivers seat
           </h2>
 
-          <div className="text-left text-lg font-light lg:grid lg:grid-cols-2">
+          <div className="mx-5 text-left text-lg font-light lg:grid lg:grid-cols-2">
             <div className="px-3 pt-5 text-white">
               <h5>
                 At Whiz Kids baseball, we provide many resources to support
@@ -129,7 +131,7 @@ const Home: NextPageWithLayout = () => {
             </div>
 
             <div className="px-3 pt-5">
-              <h5 className="text-justify text-base font-light text-white">
+              <h5 className="text-justify text-lg font-light text-white">
                 This is an environment where normal baseball players with big
                 dreams show up to work consistently and ultimately transform
                 themselves. We aim to mentor players who eventually get
@@ -142,22 +144,22 @@ const Home: NextPageWithLayout = () => {
         </div>
       </main>
 
-      <main className="relative grid bg-light-gray pb-3 lg:grid-cols-3 lg:p-0">
+      <main className="relative grid bg-white pb-3 lg:grid-cols-3 lg:bg-light-gray lg:p-0">
         <div className="group mt-3 flex w-full justify-center lg:m-5 lg:mx-2 lg:w-auto lg:justify-end">
           <div
-            className="w-full p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red lg:my-[10%]
-          lg:w-[40vh] lg:rounded-2xl lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
+            className="w-full p-5 px-12 md:px-[20%] lg:my-[10%] lg:ml-[4vw] lg:rounded-2xl lg:border-dark-gray lg:bg-white lg:p-8
+          lg:shadow-lg lg:transition lg:duration-300 lg:ease-in-out lg:group-hover:scale-110 lg:group-hover:bg-red"
           >
             <IconCalendarEvent
               size={55}
-              className="text-red group-hover:text-white"
+              className="text-red lg:group-hover:text-white"
             />
             <div>
               <div className="block pt-5 text-xl font-black uppercase text-dark-gray lg:text-2xl">
                 Competitive Teams
               </div>
-              <div className="my-5 h-1 w-[30%] bg-red group-hover:bg-white" />
-              <div className="leading-tight text-dark-gray group-hover:text-white lg:text-light-gray">
+              <div className="my-5 h-1 w-[30%] bg-red lg:group-hover:bg-white" />
+              <div className="leading-tight text-dark-gray lg:text-light-gray lg:group-hover:text-white">
                 We have 12 teams, which range from ages 12U to 18U. Each team is
                 equipped with a dedicated coaching staff and will have many
                 practices throughout the season
@@ -166,28 +168,28 @@ const Home: NextPageWithLayout = () => {
           </div>
         </div>
 
-        <div className="group mt-3 flex justify-center lg:m-5 lg:mx-2 lg:justify-center">
+        <div className="group mt-3 flex w-full justify-center lg:m-5 lg:mx-2 lg:w-auto lg:justify-end">
           <div
-            className="w-full p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red lg:my-[10%] 
-          lg:w-[40vh] lg:rounded-2xl lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
+            className="w-full p-5 px-12 md:px-[20%] lg:mx-[2vw] lg:my-[10%] lg:rounded-2xl lg:border-dark-gray lg:bg-white lg:p-8
+          lg:shadow-lg lg:transition lg:duration-300 lg:ease-in-out lg:group-hover:scale-110 lg:group-hover:bg-red"
           >
             <IconBallBaseball
               size={55}
-              className="text-red group-hover:text-white"
+              className="text-red lg:group-hover:text-white"
             />
-            <div className="group">
+            <div>
               <div className="block pt-5 text-xl font-black uppercase text-dark-gray lg:text-2xl">
                 Robust Tournament Schedule
               </div>
-              <div className="my-5 h-1 w-[30%] bg-red group-hover:bg-white" />
-              <div className="leading-tight text-dark-gray group-hover:text-white lg:text-light-gray">
+              <div className="my-5 h-1 w-[30%] bg-red lg:group-hover:bg-white" />
+              <div className="leading-tight text-dark-gray lg:text-light-gray lg:group-hover:text-white">
                 Each team will play in
-                <span className="text-secondary-red group-hover:text-white">
+                <span className="font-bold text-secondary-red lg:group-hover:text-white">
                   {" "}
                   8+{" "}
                 </span>
                 summer and
-                <span className="text-secondary-red group-hover:text-white">
+                <span className="font-bold text-secondary-red lg:group-hover:text-white">
                   {" "}
                   6+
                 </span>{" "}
@@ -197,18 +199,21 @@ const Home: NextPageWithLayout = () => {
           </div>
         </div>
 
-        <div className="group mt-3 flex justify-center lg:m-5 lg:mx-2 lg:justify-start">
+        <div className="group mt-3 flex w-full justify-center lg:m-5 lg:mx-2 lg:w-auto lg:justify-end">
           <div
-            className="w-full p-5 px-[10%] transition duration-300 ease-in-out group-hover:bg-red lg:my-[10%]
-          lg:w-[40vh] lg:rounded-2xl lg:border-dark-gray lg:bg-white lg:p-8 lg:shadow-lg lg:group-hover:scale-110"
+            className="w-full p-5 px-12 md:px-[20%] lg:my-[10%] lg:mr-[4vw] lg:rounded-2xl lg:border-dark-gray lg:bg-white lg:p-8
+          lg:shadow-lg lg:transition lg:duration-300 lg:ease-in-out lg:group-hover:scale-110 lg:group-hover:bg-red"
           >
-            <IconUsers size={55} className="text-red group-hover:text-white" />
+            <IconUsers
+              size={55}
+              className="text-red lg:group-hover:text-white"
+            />
             <div>
               <div className="block pt-5 text-xl font-black uppercase text-dark-gray lg:text-2xl">
                 Hundreds of Passionate Players
               </div>
-              <div className="my-5 h-1 w-[30%] bg-red group-hover:bg-white" />
-              <div className="leading-tight text-dark-gray group-hover:text-white lg:text-light-gray">
+              <div className="my-5 h-1 w-[30%] bg-red lg:group-hover:bg-white" />
+              <div className="leading-tight text-dark-gray lg:text-light-gray lg:group-hover:text-white">
                 We are proud to have well over 300 active players within our
                 organization, and a large supporting alumni network
               </div>
