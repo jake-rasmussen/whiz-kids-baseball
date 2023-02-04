@@ -106,7 +106,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
 
   return (
     <div className="flex flex-col md:bg-dark-gray">
-      <main className="mx-auto w-[85%] bg-white pt-[15vh]">
+      <main className="mx-auto w-[85%] bg-white py-12">
         <div className="inline-flex w-full items-center justify-center">
           <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
           <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
@@ -118,7 +118,7 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
       </main>
 
       <main className="flex w-full items-center justify-center">
-        <nav className="flex w-[85%] flex-row justify-center bg-white py-8 px-10">
+        <nav className="flex w-[85%] flex-row justify-center bg-white px-10 pb-12">
           <ul className="flex w-full flex-wrap items-center justify-center text-white">
             {paginationTable}
           </ul>
