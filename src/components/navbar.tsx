@@ -1,8 +1,6 @@
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import {
   HoverCard,
-  Button,
-  UnstyledButton,
   Text,
   SimpleGrid,
   Burger,
@@ -49,7 +47,7 @@ const NavBar: React.FC = () => {
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
 
   const links = mockdataTeam.map((item, index) => (
-    <UnstyledButton key={item.title}>
+    <button key={item.title}>
       <div className="mx-8 flex flex-wrap justify-center">
         <div className="flex flex-col justify-center text-center">
           <Link
@@ -62,7 +60,7 @@ const NavBar: React.FC = () => {
           </Link>
         </div>
       </div>
-    </UnstyledButton>
+    </button>
   ));
 
   return (
@@ -73,14 +71,14 @@ const NavBar: React.FC = () => {
         <div className="hidden grow flex-row text-lg md:flex">
           <Link
             href="/"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
+            className="link-underline link-underline-black link mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Home
           </Link>
 
           <HoverCard>
             <HoverCard.Target>
-              <div className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red">
+              <div className="link-underline link-underline-black link mx-2 block font-extrabold text-dark-gray hover:text-red">
                 Teams
               </div>
             </HoverCard.Target>
@@ -92,19 +90,19 @@ const NavBar: React.FC = () => {
 
           <Link
             href="/training"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
+            className="link-underline link-underline-black link mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Training
           </Link>
           <Link
             href="/tryouts"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
+            className="link-underline link-underline-black link mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Tryouts
           </Link>
           <Link
             href="/alumni/a"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
+            className="link-underline link-underline-black link mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Alumni
           </Link>
@@ -112,20 +110,20 @@ const NavBar: React.FC = () => {
 
         <div className="hidden justify-self-end md:flex">
           <SignInButton mode="modal">
-            <Button
-              className="mx-3 bg-gradient-to-r from-red to-secondary-red
+            <button
+              className="mx-3 rounded-lg bg-gradient-to-r from-red to-secondary-red p-3
               transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
             >
               Log in
-            </Button>
+            </button>
           </SignInButton>
           <SignUpButton mode="modal">
-            <Button
-              className="mx-3 bg-gradient-to-r from-red to-secondary-red
+            <button
+              className="mx-3 rounded-lg bg-gradient-to-r from-red to-secondary-red p-3
               transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
             >
               Sign up
-            </Button>
+            </button>
           </SignUpButton>
         </div>
 
@@ -155,11 +153,11 @@ const NavBar: React.FC = () => {
             Home
           </Link>
 
-          <UnstyledButton onClick={toggleLinks}>
+          <button onClick={toggleLinks}>
             <Text className="my-2 block text-5xl font-extrabold text-dark-gray hover:text-red">
               Teams
             </Text>
-          </UnstyledButton>
+          </button>
 
           <Collapse className="mx-5 p-5" in={linksOpened}>
             <div className="flex flex-col">{links}</div>
@@ -188,20 +186,20 @@ const NavBar: React.FC = () => {
           </Link>
 
           <div className="mx-5 mt-20 flex items-center justify-center">
-            <Button
-              className="mx-2 flex bg-gradient-to-r from-red to-secondary-red text-center transition
-              duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 md:px-20"
+            <button
+              className="mx-2 flex rounded-lg bg-gradient-to-r from-red to-secondary-red px-10 py-5
+              text-center text-2xl transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
               onClick={toggleDrawer}
             >
               Log in
-            </Button>
-            <Button
-              className="mx-2 flex bg-gradient-to-r from-red to-secondary-red text-center transition
-              duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 md:px-20"
+            </button>
+            <button
+              className="mx-2 flex rounded-lg bg-gradient-to-r from-red to-secondary-red px-10 py-5
+              text-center text-2xl transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
               onClick={toggleDrawer}
             >
               Sign up
-            </Button>
+            </button>
           </div>
         </ScrollArea>
       </Drawer>

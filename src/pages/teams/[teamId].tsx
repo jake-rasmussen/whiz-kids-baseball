@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import NewsletterSignUp from "../../components/newsletterSignUp";
 
-import { Modal, Button } from "@mantine/core";
+import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconInfoCircle } from "@tabler/icons";
 
@@ -163,13 +163,13 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               {data.end}
             </div>
             <div className="flex justify-center py-5">
-              <Button
+              <button
                 className="mx-3 bg-light-gray
                 transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
                 onClick={togglePracticeModal}
               >
                 Close
-              </Button>
+              </button>
             </div>
           </div>
         </Modal>
@@ -224,13 +224,13 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               {data.type}
             </div>
             <div className="flex justify-center py-5">
-              <Button
+              <button
                 className="mx-3 bg-light-gray
                 transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
                 onClick={toggleTournamentModal}
               >
                 Close
-              </Button>
+              </button>
             </div>
           </div>
         </Modal>

@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 
 import type { NextPageWithLayout } from "./_app";
 import React from "react";
-import { Button, Modal } from "@mantine/core";
+import { Modal } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -173,19 +173,19 @@ const Training: NextPageWithLayout = () => {
                                 {`$${trainingInfo.price}`}
                               </div>
                               <div className="flex justify-center py-5">
-                                <Button
-                                  className="mx-3 bg-gradient-to-r from-red to-secondary-red
+                                <button
+                                  className="mx-3 rounded-lg bg-gradient-to-r from-red to-secondary-red p-3
                                   transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                                 >
                                   Register
-                                </Button>
-                                <Button
-                                  className="mx-3 bg-light-gray
+                                </button>
+                                <button
+                                  className="mx-3 rounded-lg bg-light-gray p-3 text-white
                                   transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
                                   onClick={toggleModal}
                                 >
                                   Close
-                                </Button>
+                                </button>
                               </div>
                             </div>
                           </Modal>
@@ -204,12 +204,12 @@ const Training: NextPageWithLayout = () => {
                         {`$${trainingInfo.price}`}
                       </td>
                       <td className="whitespace-nowrap py-2 text-center text-sm font-light text-white">
-                        <Button
-                          className="mx-3 bg-gradient-to-r from-red to-secondary-red
+                        <button
+                          className="mx-3 rounded-lg bg-gradient-to-r from-red to-secondary-red p-4
                         transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                         >
                           Register
-                        </Button>
+                        </button>
                       </td>
                     </tr>
                   </React.Fragment>
