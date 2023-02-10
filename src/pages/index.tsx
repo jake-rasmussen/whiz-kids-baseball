@@ -1,83 +1,29 @@
 import type { ReactElement } from "react";
-import { useEffect, useState } from "react";
 import React from "react";
 import type { NextPageWithLayout } from "./_app";
-import sample1 from "../../assets/images/sample.png";
-import sample2 from "../../assets/images/sample2.png";
-import router from "next/router";
-
-import banner from "../../assets/images/whizkidsbanner.png";
-import Image from "next/image";
+import Carousel from "../components/carousel";
 import MainLayout from "../layouts/MainLayout";
 import { IconBallBaseball, IconUsers, IconCalendarEvent } from "@tabler/icons";
 import ContactForm from "../components/contactForm";
 
+import sample1 from "../../assets/images/sample.png";
+import sample2 from "../../assets/images/sample2.png";
+
+import type { EmblaOptionsType } from "embla-carousel-react";
+
 const Home: NextPageWithLayout = () => {
   const images = [sample1, sample2];
-  const imagesLength = images.length;
-
-  const [imageIndex, setImageIndex] = useState(0);
-
-  useEffect(() => {
-    router.push(`/#slide${imageIndex}`, undefined, { shallow: true });
-
-    const intervalID = setInterval(() => {
-      setImageIndex((imageIndex + 1) % imagesLength);
-    }, 2000);
-
-    return () => {
-      clearInterval(intervalID);
-    };
-  }, [imageIndex, imagesLength]);
-
-  const slides = images.map((image, index) => {
-    return (
-      <div
-        id={`slide${index}`}
-        key={`carousel${index}`}
-        className="carousel-item relative w-full"
-      >
-        <Image
-          className="mx-auto h-screen w-full object-cover"
-          src={image}
-          alt="Whiz Kids Photo"
-        />
-        <div className="absolute h-screen w-full bg-gradient-to-b from-red to-white opacity-40" />
-      </div>
-    );
-  });
+  const options: EmblaOptionsType = {
+    inViewThreshold: 0,
+    loop: true,
+    draggable: false,
+  };
 
   return (
     <>
       <div className="h-screen w-full bg-dark-gray">
         <main className="fixed flex h-screen min-w-full flex-col items-center justify-center overflow-hidden">
-          <div className="carousel h-full w-full">{slides}</div>
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a
-              onClick={() =>
-                setImageIndex(
-                  imageIndex - 1 < 0
-                    ? imagesLength - 1
-                    : (imageIndex - 1) % imagesLength
-                )
-              }
-              className="btn-circle btn"
-            >
-              ❮
-            </a>
-            <a
-              onClick={() => setImageIndex((imageIndex + 1) % imagesLength)}
-              className="btn-circle btn"
-            >
-              ❯
-            </a>
-          </div>
-
-          <Image
-            className="absolute h-auto w-[60vh] "
-            src={banner}
-            alt="Whiz Kids Banner"
-          />
+          <Carousel images={images} options={options} />
         </main>
       </div>
 
