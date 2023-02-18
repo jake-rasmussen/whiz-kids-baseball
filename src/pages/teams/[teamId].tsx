@@ -2,12 +2,13 @@ import type { GetServerSideProps } from "next";
 import type { ReactElement } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import NewsletterSignUp from "../../components/newsletterSignUp";
+
+import { Modal, Button } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { IconInfoCircle } from "@tabler/icons";
 
 import type { NextPageWithLayout } from "../_app";
 import { mockdataTeam } from "../../components/navbar";
-import PracticeModal from "../../components/practiceModal";
-import TournamentModal from "../../components/tournamentModal";
 
 interface Props {
   teamId: number;
@@ -113,6 +114,15 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
     },
   ];
 
+  const [
+    openPracticeModal,
+    { toggle: togglePracticeModal, close: closePracticeModal },
+  ] = useDisclosure(false);
+
+  const [
+    openTournamentModal,
+    { toggle: toggleTournamentModal, close: closeTournamentModal },
+  ] = useDisclosure(false);
 
   const practiceRows = mockPractices.map((data, index) => (
     <tr
@@ -124,19 +134,45 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
           {data.weekday}
         </div>
 
-        <label
-          htmlFor={`practiceModal-${index}`}
-          className="bg-transparent"
-        >
+        <button onClick={togglePracticeModal} className="bg-transparent">
           <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red md:hidden" />
-        </label>
-        <PracticeModal
-          modalId={`practiceModal-${index}`}
-          title={`${data.weekday} Practice`}
-          location={data.location}
-          startTime={data.start}
-          endTime={data.end}
-        />
+        </button>
+
+        <Modal
+          opened={openPracticeModal}
+          onClose={closePracticeModal}
+          className="text-xl font-black tracking-wide text-dark-gray md:hidden"
+          centered
+          title={data.weekday + " Practice"}
+          withCloseButton={false}
+          transition="fade"
+          transitionDuration={300}
+          exitTransitionDuration={300}
+        >
+          <div className="flex-col text-lg font-medium text-dark-gray">
+            <div>
+              <span className="font-black text-red">Location: </span>
+              {data.location}
+            </div>
+            <div>
+              <span className="font-black text-red">Start Time: </span>
+              {data.start}
+            </div>
+            <div>
+              <span className="font-black text-red">End Time: </span>
+              {data.end}
+            </div>
+            <div className="flex justify-center py-5">
+              <Button
+                className="mx-3 bg-light-gray
+                transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
+                onClick={togglePracticeModal}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </Modal>
       </td>
 
       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray md:table-cell">
@@ -159,17 +195,45 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
       <td className="my-2 flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
         <div className="flex w-[70%] justify-center md:w-full">{data.name}</div>
 
-        <label htmlFor={`tournamentModal-${index}`} className="bg-transparent">
+        <button onClick={toggleTournamentModal} className="bg-transparent">
           <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red md:hidden" />
-        </label>
+        </button>
 
-        <TournamentModal
-          modalId={`tournamentModal-${index}`}
-          tournamentName={data.name}
-          location={data.location}
-          date={data.date}
-          type={data.type}
-        />
+        <Modal
+          opened={openTournamentModal}
+          onClose={closeTournamentModal}
+          className="text-xl font-black tracking-wide text-dark-gray md:hidden"
+          centered
+          title={data.name + " Tournament"}
+          withCloseButton={false}
+          transition="fade"
+          transitionDuration={300}
+          exitTransitionDuration={300}
+        >
+          <div className="flex-col text-lg font-medium text-dark-gray">
+            <div>
+              <span className="font-black text-red">Date: </span>
+              {data.date}
+            </div>
+            <div>
+              <span className="font-black text-red">Location: </span>
+              {data.location}
+            </div>
+            <div>
+              <span className="font-black text-red">Type: </span>
+              {data.type}
+            </div>
+            <div className="flex justify-center py-5">
+              <Button
+                className="mx-3 bg-light-gray
+                transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
+                onClick={toggleTournamentModal}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </Modal>
       </td>
 
       <td className="hidden  whitespace-nowrap py-2 text-center text-sm text-dark-gray md:table-cell">
