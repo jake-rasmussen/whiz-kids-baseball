@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { type AppType } from "next/app";
 import type { ReactElement, ReactNode } from "react";
+import { MantineProvider } from "@mantine/core";
 
 import { api } from "../utils/api";
 
@@ -26,7 +27,11 @@ const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
         <title>Whiz Kids Baseball</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ClerkProvider>{getLayout(<Component {...pageProps} />)}</ClerkProvider>
+      <ClerkProvider>
+        <MantineProvider withGlobalStyles withNormalizeCSS>
+          {getLayout(<Component {...pageProps} />)}
+        </MantineProvider>
+      </ClerkProvider>
     </>
   );
 };
