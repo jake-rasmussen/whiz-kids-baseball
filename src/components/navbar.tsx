@@ -1,17 +1,4 @@
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
-import {
-  HoverCard,
-  Button,
-  UnstyledButton,
-  Text,
-  SimpleGrid,
-  Burger,
-  Drawer,
-  Collapse,
-  ScrollArea,
-} from "@mantine/core";
-
-import { useDisclosure } from "@mantine/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../assets/images/logo.png";
@@ -73,14 +60,14 @@ const NavBar: React.FC = () => {
         <div className="hidden grow flex-row text-lg md:flex">
           <Link
             href="/"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
+            className="link-underline link-underline-black link mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Home
           </Link>
 
           <HoverCard>
             <HoverCard.Target>
-              <div className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red">
+              <div className="link-underline link-underline-black link mx-2 block font-extrabold text-dark-gray hover:text-red">
                 Teams
               </div>
             </HoverCard.Target>
@@ -92,19 +79,19 @@ const NavBar: React.FC = () => {
 
           <Link
             href="/training"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
+            className="link-underline link-underline-black link mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Training
           </Link>
           <Link
             href="/tryouts"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
+            className="link-underline link-underline-black link mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Tryouts
           </Link>
           <Link
             href="/alumni/a"
-            className="link link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
+            className="link-underline link-underline-black link mx-2 block font-extrabold text-dark-gray hover:text-red"
           >
             Alumni
           </Link>
