@@ -6,7 +6,6 @@ import { IconInfoCircle } from "@tabler/icons";
 
 import type { NextPageWithLayout } from "../_app";
 import { mockdataTeam } from "../../components/navbar";
-import PracticeModal from "../../components/practiceModal";
 import TournamentModal from "../../components/tournamentModal";
 
 interface Props {
@@ -113,13 +112,12 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
     },
   ];
 
-
   const practiceRows = mockPractices.map((data, index) => (
     <tr
       key={`practiceRow${index}`}
       className="border-b border-light-gray transition duration-200 ease-in-out hover:bg-light-gray"
     >
-      <td className="my-2 flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
+      {/* <td className="my-2 flex flex-row whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
         <div className="flex w-[70%] justify-center md:w-full">
           {data.weekday}
         </div>
@@ -128,16 +126,30 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
           htmlFor={`practiceModal-${index}`}
           className="bg-transparent"
         >
-          <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red md:hidden" />
-        </label>
-        <PracticeModal
-          modalId={`practiceModal-${index}`}
-          title={`${data.weekday} Practice`}
-          location={data.location}
-          startTime={data.start}
-          endTime={data.end}
-        />
-      </td>
+          <div className="flex-col text-lg font-medium text-dark-gray">
+            <div>
+              <span className="font-black text-red">Location: </span>
+              {data.location}
+            </div>
+            <div>
+              <span className="font-black text-red">Start Time: </span>
+              {data.start}
+            </div>
+            <div>
+              <span className="font-black text-red">End Time: </span>
+              {data.end}
+            </div>
+            <div className="flex justify-center py-5">
+              <button
+                className="mx-3 bg-light-gray
+                transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+          </label>
+      </td> */}
 
       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray md:table-cell">
         {data.start}

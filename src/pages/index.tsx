@@ -1,94 +1,29 @@
 import type { ReactElement } from "react";
-import React, { useRef } from "react";
+import React from "react";
 import type { NextPageWithLayout } from "./_app";
-import { Carousel } from "@mantine/carousel";
-import Autoplay from "embla-carousel-autoplay";
+import Carousel from "../components/carousel";
+import MainLayout from "../layouts/MainLayout";
+import { IconBallBaseball, IconUsers, IconCalendarEvent } from "@tabler/icons";
+import ContactForm from "../components/contactForm";
+
 import sample1 from "../../assets/images/sample.png";
 import sample2 from "../../assets/images/sample2.png";
 
-import banner from "../../assets/images/whizkidsbanner.png";
-import Image from "next/image";
-import MainLayout from "../layouts/MainLayout";
-import { createStyles } from "@mantine/core";
-import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconBallBaseball,
-  IconUsers,
-  IconCalendarEvent,
-} from "@tabler/icons";
-import ContactForm from "../components/contactForm";
-
-const useStyles = createStyles((_theme, _params, getRef) => ({
-  controls: {
-    ref: getRef("controls"),
-    transition: "opacity 150ms ease",
-    opacity: 0,
-  },
-  control: {
-    outline: 0,
-    border: 0,
-    background: "transparent",
-    boxShadow: "none",
-  },
-  root: {
-    "&:hover": {
-      [`& .${getRef("controls")}`]: {
-        opacity: 1,
-      },
-    },
-  },
-}));
+import type { EmblaOptionsType } from "embla-carousel-react";
 
 const Home: NextPageWithLayout = () => {
-  const autoplay = useRef(Autoplay({ delay: 5000 }));
-  const { classes } = useStyles();
   const images = [sample1, sample2];
-
-  const slides = images.map((image, index) => {
-    return (
-      <React.Fragment key={`carousel${index}`}>
-        <Carousel.Slide className="flex items-center">
-          <Image
-            className="mx-auto h-screen w-full object-cover "
-            src={image}
-            alt="Whiz Kids Photo"
-          />
-          <div className="absolute h-screen w-full bg-gradient-to-b from-red to-white opacity-40" />
-        </Carousel.Slide>
-      </React.Fragment>
-    );
-  });
-
-  const controllerIconSize = 35;
+  const options: EmblaOptionsType = {
+    inViewThreshold: 0,
+    loop: true,
+    draggable: false,
+  };
 
   return (
     <>
       <div className="h-screen w-full bg-dark-gray">
         <main className="fixed flex h-screen min-w-full flex-col items-center justify-center overflow-hidden">
-          <Carousel
-            classNames={classes}
-            loop
-            align="center"
-            plugins={[autoplay.current]}
-            controlsOffset="xs"
-            nextControlIcon={
-              <IconChevronRight color="white" size={controllerIconSize} />
-            }
-            previousControlIcon={
-              <IconChevronLeft color="white" size={controllerIconSize} />
-            }
-            withIndicators={false}
-          >
-            {slides}
-          </Carousel>
-
-          <Image
-            className="absolute h-auto w-[75vh] "
-            src={banner}
-            alt="Whiz Kids Banner"
-            priority
-          />
+          <Carousel images={images} options={options} />
         </main>
       </div>
 

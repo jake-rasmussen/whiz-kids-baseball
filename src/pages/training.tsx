@@ -155,10 +155,7 @@ const Training: NextPageWithLayout = () => {
                         {`$${trainingInfo.price}`}
                       </td>
                       <td className="whitespace-nowrap py-2 text-center text-sm font-light text-white">
-                        <button
-                          className="mx-3 bg-gradient-to-r from-red to-secondary-red
-                        transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-                        >
+                        <button className="btn-sm btn mx-3 border-none bg-gradient-to-r from-red to-secondary-red transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
                           Register
                         </button>
                       </td>

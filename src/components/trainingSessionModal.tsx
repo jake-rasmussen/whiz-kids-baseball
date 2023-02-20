@@ -1,6 +1,5 @@
 import Modal from "./modal";
 
-
 type Props = {
   modalId: string;
   training: string;

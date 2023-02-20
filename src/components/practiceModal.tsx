@@ -17,7 +17,7 @@ function PracticeModal({
 }: Props) {
   return (
     <Modal modalId={modalId}>
-      <div className="flex flex-col text-lg font-medium text-dark-gray items-start w-full truncate">
+      <div className="flex w-full flex-col items-start truncate text-lg font-medium text-dark-gray">
         <div className="pb-3 text-2xl font-black text-dark-gray">{title}</div>
         <div>
           <span className="font-black text-red">Location: </span>
