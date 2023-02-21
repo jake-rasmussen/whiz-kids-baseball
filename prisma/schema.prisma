@@ -10,8 +10,71 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Example {
-  id        String   @id @default(cuid())
+enum Position {
+  FIRST_BASE
+  SECOND_BASE
+  THIRD_BASE
+  SHORTSTOP
+  CATCHER
+  LEFT_FIELD
+  CENTER_FIELD
+  RIGHT_FIELD
+  PITCHER
+}
+
+enum Day {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model Team {
+  id          Int          @id @default(autoincrement())
+  name        String
+  players     Player[]
+  tournaments Tournament[]
+  practices   Practice[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Player {
+  id             Int        @id @default(autoincrement())
+  firstName      String
+  lastName       String
+  graduationYear Int
+  school         String
+  positions      Position[]
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  teamId         Int?
+  team           Team?      @relation(fields: [teamId], references: [id], onDelete: SetNull)
+}
+
+model Tournament {
+  id        Int        @id @default(autoincrement())
+  name      String
+  dates     DateTime[]
+  location  String
+  type      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  teamId    Int
+  team      Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}
+
+model Practice {
+  id        Int      @id @default(autoincrement())
+  days      Day[]
+  location  String
+  startTime DateTime
+  endTime   DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  teamId    Int
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
 }
