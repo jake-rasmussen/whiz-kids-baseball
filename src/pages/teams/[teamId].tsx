@@ -121,7 +121,6 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
         <div className="flex w-[70%] justify-center md:w-full">
           {data.weekday}
         </div>
-
         <label
           htmlFor={`practiceModal-${index}`}
           className="bg-transparent"

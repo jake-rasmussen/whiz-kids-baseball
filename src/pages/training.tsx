@@ -3,9 +3,9 @@ import type { ReactElement } from "react";
 
 import type { NextPageWithLayout } from "./_app";
 import React from "react";
+import { Button, Modal } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons";
-
-import TrainingSessionModal from "../components/trainingSessionModal";
+import { useDisclosure } from "@mantine/hooks";
 
 interface TrainingData {
   training: string;
@@ -16,6 +16,9 @@ interface TrainingData {
 }
 
 const Training: NextPageWithLayout = () => {
+  const [openModal, { toggle: toggleModal, close: closeModal }] =
+    useDisclosure(false);
+
   const mockdata: TrainingData[] = [
     {
       training: "Catchers",
@@ -27,28 +30,28 @@ const Training: NextPageWithLayout = () => {
     {
       training: "Catchers",
       location: "Steelyard",
-      date: "10/25/2023",
+      date: "10/24/2023",
       time: "7:00PM",
       price: 400,
     },
     {
       training: "Catchers",
       location: "Steelyard",
-      date: "10/26/2023",
+      date: "10/24/2023",
       time: "7:00PM",
       price: 400,
     },
     {
       training: "Catchers",
       location: "Steelyard",
-      date: "10/28/2023",
+      date: "10/24/2023",
       time: "7:00PM",
       price: 400,
     },
     {
       training: "Catchers",
       location: "Steelyard",
-      date: "10/29/2023",
+      date: "10/24/2023",
       time: "7:00PM",
       price: 400,
     },
@@ -58,7 +61,7 @@ const Training: NextPageWithLayout = () => {
     <>
       <div className="flex w-full flex-col items-center bg-dark-gray">
         <div className="invisible h-0 md:visible md:h-[60vh] md:w-full">
-          <main className="flex h-full w-full justify-center">
+          <main className="flex h-full w-full w-full justify-center">
             <iframe
               src={
                 "https://www.youtube.com/embed/XF_q1VIMXTk?controls=0&showinfo=0&autoplay=1&loop=1&mute=1&playlist=XF_q1VIMXTk"
@@ -126,20 +129,66 @@ const Training: NextPageWithLayout = () => {
                       <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-white">
                         <div className="flex flex-row justify-center">
                           {trainingInfo.training}
-                          <label
-                            htmlFor={index.toString()}
+                          <button
+                            onClick={toggleModal}
                             className="bg-transparent"
                           >
                             <IconInfoCircle className="mx-2 text-white transition duration-300 ease-in-out hover:text-red md:hidden" />
-                          </label>
-                          <TrainingSessionModal
-                            modalId={index.toString()}
-                            training={trainingInfo.training}
-                            location={trainingInfo.location}
-                            date={trainingInfo.date}
-                            time={trainingInfo.time}
-                            price={trainingInfo.price}
-                          />
+                          </button>
+
+                          <Modal
+                            opened={openModal}
+                            onClose={closeModal}
+                            className="text-xl font-black tracking-wide text-dark-gray md:hidden"
+                            centered
+                            title={trainingInfo.training}
+                            withCloseButton={false}
+                            transition="fade"
+                            transitionDuration={300}
+                            exitTransitionDuration={300}
+                          >
+                            <div className="flex-col text-lg font-medium text-dark-gray">
+                              <div>
+                                <span className="font-black text-red">
+                                  Location:{" "}
+                                </span>
+                                {trainingInfo.location}
+                              </div>
+                              <div>
+                                <span className="font-black text-red">
+                                  Date:{" "}
+                                </span>
+                                {trainingInfo.date}
+                              </div>
+                              <div>
+                                <span className="font-black text-red">
+                                  Time:{" "}
+                                </span>
+                                {trainingInfo.time}
+                              </div>
+                              <div>
+                                <span className="font-black text-red">
+                                  Price:{" "}
+                                </span>
+                                {`$${trainingInfo.price}`}
+                              </div>
+                              <div className="flex justify-center py-5">
+                                <Button
+                                  className="mx-3 bg-gradient-to-r from-red to-secondary-red
+                                  transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                                >
+                                  Register
+                                </Button>
+                                <Button
+                                  className="mx-3 bg-light-gray
+                                  transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
+                                  onClick={toggleModal}
+                                >
+                                  Close
+                                </Button>
+                              </div>
+                            </div>
+                          </Modal>
                         </div>
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
