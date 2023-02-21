@@ -102,21 +102,21 @@ const NavBar: React.FC = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu bg-white rounded-box mt-4 w-52 p-4 text-xl shadow"
+                className="dropdown-content menu rounded-box mt-4 w-52 bg-white p-4 text-xl shadow"
               >
-                <li className="git text-3xl bg-white font-extrabold text-dark-gray hover:text-red">
+                <li className="git bg-white text-3xl font-extrabold text-dark-gray hover:text-red">
                   <a>Home</a>
                 </li>
-                <li className="text-3xl bg-white font-extrabold text-dark-gray hover:text-red">
+                <li className="bg-white text-3xl font-extrabold text-dark-gray hover:text-red">
                   <a>Teams</a>
                 </li>
-                <li className="text-3xl bg-white font-extrabold text-dark-gray hover:text-red">
+                <li className="bg-white text-3xl font-extrabold text-dark-gray hover:text-red">
                   <a>Training</a>
                 </li>
-                <li className="text-3xl bg-white font-extrabold text-dark-gray hover:text-red">
+                <li className="bg-white text-3xl font-extrabold text-dark-gray hover:text-red">
                   <a>Tryouts</a>
                 </li>
-                <li className="text-3xl bg-white font-extrabold text-dark-gray hover:text-red">
+                <li className="bg-white text-3xl font-extrabold text-dark-gray hover:text-red">
                   <a>Alumni</a>
                 </li>
               </ul>
