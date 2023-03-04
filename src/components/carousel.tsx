@@ -37,6 +37,7 @@ const Carousel = (props: PropType) => {
             <div className="embla__slide" key={index}>
               <div className="absolute h-screen w-full bg-gradient-to-b from-red to-white opacity-40" />
               <Image
+                priority
                 className="h-screen object-cover"
                 src={image}
                 alt="Whiz Kids Photo"
@@ -45,13 +46,13 @@ const Carousel = (props: PropType) => {
           ))}
         </div>
         <button
-          className="embla__prev absolute left-0 top-[50%]"
+          className="embla__prev absolute left-0 top-[50%] hidden md:block"
           onClick={scrollPrev}
         >
           <IconChevronLeft className="h-20 w-20 text-white" />
         </button>
         <button
-          className="embla__next absolute right-0 top-[50%]"
+          className="embla__next absolute right-0 top-[50%] hidden md:block"
           onClick={scrollNext}
         >
           <IconChevronRight className="h-20 w-20 text-white" />
