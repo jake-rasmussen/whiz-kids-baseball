@@ -142,7 +142,7 @@ const Tryouts: NextPageWithLayout = () => {
                   className="select-bordered select w-full bg-white text-base text-dark-gray"
                   defaultValue={"Pick One"}
                 >
-                  <option disabled selected value={"Pick One"}></option>{" "}
+                  <option disabled value={"Pick One"}></option>{" "}
                   {/* // TODO: Use actual Team Data */}
                   <option value={"Whiz Kids American"}>
                     Whiz Kids American
