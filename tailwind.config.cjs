@@ -52,6 +52,9 @@ module.exports = {
         neutral: colors.blueGray,
         stone: colors.stone,
       },
+      fontFamily: {
+        'sans': ['Oswald'],
+      }
     },
   },
   plugins: [
