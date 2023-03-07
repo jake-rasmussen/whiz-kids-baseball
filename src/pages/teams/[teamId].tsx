@@ -130,7 +130,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               className={
                 activeTab == 0
                   ? "border-b-4 border-red px-5 py-1 text-dark-gray"
-                  : "border-b-4 border-light-gray px-5 py-1"
+                  : "border-b-4 border-light-gray px-5 py-1 transition duration-500 ease-in-out hover:text-red"
               }
               onClick={() => setActiveTab(0)}
             >
@@ -140,7 +140,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               className={
                 activeTab == 1
                   ? "border-b-4 border-red px-5 py-1 text-dark-gray"
-                  : "border-b-4 border-light-gray px-5 py-1"
+                  : "border-b-4 border-light-gray px-5 py-1 transition duration-500 ease-in-out hover:text-red"
               }
               onClick={() => setActiveTab(1)}
             >
@@ -150,7 +150,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               className={
                 activeTab == 2
                   ? "border-b-4 border-red px-5 py-1 text-dark-gray"
-                  : "border-b-4 border-light-gray px-5 py-1"
+                  : "border-b-4 border-light-gray px-5 py-1 transition duration-500 ease-in-out hover:text-red"
               }
               onClick={() => setActiveTab(2)}
             >
@@ -208,7 +208,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
                                   className="modal-toggle"
                                 />
                                 <div className="modal">
-                                  <div className="modal-box relative bg-dark-gray text-left">
+                                  <div className="modal-box relative gap-0 bg-dark-gray text-left">
                                     <label
                                       htmlFor="modal"
                                       className="btn-ghost btn-sm btn absolute right-2 top-2 text-white"
@@ -218,13 +218,13 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
                                     <h1 className="py-4 px-5 font-black uppercase leading-tight tracking-wide text-red">
                                       {tournamentData.name}
                                     </h1>
-                                    <p className="px-4 py-4 text-lg text-white">
+                                    <p className="px-4 py-1 text-lg text-white">
                                       Location: {tournamentData.location}
                                     </p>
-                                    <p className="px-4 py-4 text-lg text-white">
+                                    <p className="px-4 py-1 text-lg text-white">
                                       Date: {tournamentData.date}
                                     </p>
-                                    <p className="px-4 py-4 text-lg text-white">
+                                    <p className="px-4 py-1 text-lg text-white">
                                       Time: {tournamentData.type}
                                     </p>
                                   </div>
@@ -264,7 +264,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
                         Location
                       </th>
                       <th className="text-md px-5 font-black text-red md:text-xl">
-                        Date
+                        Weekday
                       </th>
                       <th className="text-md px-5 font-black text-red md:text-xl">
                         Time
@@ -284,10 +284,10 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
                               {practiceData.weekday}
                             </td>
                             <td className="whitespace-nowrap py-8 text-center text-base font-light text-dark-gray md:text-lg">
-                              {practiceData.start}
+                              {practiceData.weekday}
                             </td>
                             <td className="whitespace-nowrap py-8 text-center text-base font-light text-dark-gray md:text-lg">
-                              {practiceData.end}
+                              {practiceData.start} to {practiceData.end}
                             </td>
                           </tr>
                         </React.Fragment>

@@ -20,7 +20,7 @@ const Teams: NextPageWithLayout = () => {
   return (
     <>
       <div className="flex min-h-[83vh] w-full justify-center bg-dark-gray">
-        <div className="max-w-96 card my-20 overflow-scroll bg-white p-2 shadow-xl">
+        <div className="card w-full overflow-scroll rounded-none bg-white p-2 shadow-xl sm:my-20 sm:w-auto sm:rounded-xl">
           <div className="card-body flex flex-col justify-center">
             <h1 className="text-center text-5xl font-bold leading-none">
               Our <span className="text-red">Teams</span>
@@ -28,7 +28,7 @@ const Teams: NextPageWithLayout = () => {
             <div className="tracking-none divider font-black text-light-gray">
               Select Your Team
             </div>
-            <div className="flex flex-grow flex-col items-center justify-center text-center">
+            <div className="flex flex-col items-center justify-center text-center">
               {mockTeams.map((entry, index) => (
                 <Link
                   href={`/teams/${index}`}

@@ -4,7 +4,7 @@ import type { NextPageWithLayout } from "./_app";
 import React from "react";
 import Image from "next/image";
 
-import sample from "../../assets/images/glove.png";
+import sample from "../../assets/images/sample2.png";
 
 interface TryoutData {
   location: string;
@@ -124,15 +124,13 @@ const Tryouts: NextPageWithLayout = () => {
                 <label className="text-sm">Player Name</label>
                 <input
                   type="name"
-                  placeholder="John Smith"
-                  className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray placeholder-light-gray shadow-sm"
+                  className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
                 />
               </div>
               <div className="col-span-full sm:col-span-3">
                 <label className="text-sm">Email</label>
                 <input
                   type="email"
-                  placeholder="info@email.com"
                   className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
                 />
               </div>
@@ -144,9 +142,7 @@ const Tryouts: NextPageWithLayout = () => {
                   className="select-bordered select w-full bg-white text-base text-dark-gray"
                   defaultValue={"Pick One"}
                 >
-                  <option disabled value={"Pick One"}>
-                    Pick One
-                  </option>{" "}
+                  <option disabled selected value={"Pick One"}></option>{" "}
                   {/* // TODO: Use actual Team Data */}
                   <option value={"Whiz Kids American"}>
                     Whiz Kids American
@@ -158,7 +154,6 @@ const Tryouts: NextPageWithLayout = () => {
                 <label className="text-sm">City or Town</label>
                 <input
                   type="home"
-                  placeholder="City or Town"
                   className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
                 />
               </div>
@@ -166,7 +161,6 @@ const Tryouts: NextPageWithLayout = () => {
                 <label className="text-sm">Current School</label>
                 <input
                   type="school"
-                  placeholder="School"
                   className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
                 />
               </div>
@@ -174,7 +168,6 @@ const Tryouts: NextPageWithLayout = () => {
                 <label className="text-sm">Date Of Birth</label>
                 <input
                   type="home"
-                  placeholder="01/01/2000"
                   className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
                 />
               </div>
@@ -182,7 +175,6 @@ const Tryouts: NextPageWithLayout = () => {
                 <label className="text-sm">Position (Up to 3)</label>
                 <input
                   type="position"
-                  placeholder="2nd, C"
                   className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
                 />
               </div>
@@ -192,9 +184,7 @@ const Tryouts: NextPageWithLayout = () => {
                   className="select-bordered select w-full bg-white text-base text-dark-gray"
                   defaultValue={"Pick One"}
                 >
-                  <option disabled value={"Pick One"}>
-                    Pick One
-                  </option>
+                  <option disabled value={"Pick One"}></option>
                   <option value={"Right"}>Right</option>
                   <option value={"Left"}>Left</option>
                   <option value={"Both"}>Both</option>
@@ -206,9 +196,7 @@ const Tryouts: NextPageWithLayout = () => {
                   className="select-bordered select w-full bg-white text-base text-dark-gray"
                   defaultValue={"Pick One"}
                 >
-                  <option disabled value={"Pick One"}>
-                    Pick One
-                  </option>
+                  <option disabled value={"Pick One"}></option>
                   <option value={"Right"}>Right</option>
                   <option value={"Left"}>Left</option>
                 </select>

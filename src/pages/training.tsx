@@ -139,16 +139,16 @@ const Training: NextPageWithLayout = () => {
                               <h1 className="py-4 px-5 font-black uppercase leading-tight tracking-wide text-red">
                                 Training Session
                               </h1>
-                              <p className="px-4 py-2 text-lg">
+                              <p className="px-4 py-1 text-lg">
                                 Location: {trainingInfo.location}
                               </p>
-                              <p className="px-4 py-2 text-lg">
+                              <p className="px-4 py-1 text-lg">
                                 Date: {trainingInfo.date}
                               </p>
-                              <p className="px-4 py-2 text-lg">
+                              <p className="px-4 py-1 text-lg">
                                 Time: {trainingInfo.time}
                               </p>
-                              <p className="px-4 py-2 text-lg">
+                              <p className="py- px-4 text-lg">
                                 Price: ${trainingInfo.price}
                               </p>
                             </div>
@@ -169,7 +169,7 @@ const Training: NextPageWithLayout = () => {
                       </td>
                       <td className="whitespace-nowrap py-2 text-center text-sm font-light text-white">
                         <button
-                          className="text-md btn self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red px-3 py-2 font-black uppercase tracking-wide text-white
+                          className="text-md btn self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red font-black uppercase tracking-wide text-white
                             transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                         >
                           Register
