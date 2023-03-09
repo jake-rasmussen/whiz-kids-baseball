@@ -1,8 +1,9 @@
 import type { GetServerSideProps } from "next";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
-import { type NextPage } from "next";
 import Table from "../../../components/edit/Table";
+import EditLayout from "../../../layouts/editLayout";
+import { NextPageWithLayout } from "../../_app";
 
 interface Props {
   teamId: number;
@@ -92,96 +93,73 @@ const mockPractices = [
   },
 ];
 
-const TeamPage: NextPage<Props> = ({ teamId }) => {
-  const [tab, setTab] = useState("tournaments");
-
-  const tournamentRows = mockTournamnets.map((data, index) => (
-    <tr
-      key={`tournamentRow${index}`}
-      className="transition duration-200 ease-in-out"
-    >
-      <td className="hidden bg-white text-center text-sm text-dark-gray md:table-cell">
-        <input
-          type="text"
-          placeholder={data.name}
-          className="input-ghost input w-full max-w-xs"
-        />
-      </td>
-      <td className="hidden bg-white text-center text-sm text-dark-gray md:table-cell">
-        <input
-          type="text"
-          placeholder={data.date}
-          className="input-ghost input w-full max-w-xs"
-        />
-      </td>
-      <td className="hidden bg-white text-center text-sm text-dark-gray md:table-cell">
-        <input
-          type="text"
-          placeholder={data.location}
-          className="input-ghost input w-full max-w-xs"
-        />
-      </td>
-      <td className="hidden bg-white text-center text-sm text-dark-gray md:table-cell">
-        <input
-          type="text"
-          placeholder={data.type}
-          className="input-ghost input w-full max-w-xs"
-        />
-      </td>
-    </tr>
-  ));
+const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
     <>
-      <div className="w-full bg-dark-gray">
-        <main className="flex min-h-screen min-w-full flex-col items-center justify-center gap-12">
-          <div className="tabs">
-            <a
-              className={
-                tab === "tournaments"
-                  ? "tab tab-bordered tab-active"
-                  : "tab tab-bordered"
-              }
-              onClick={() => setTab("tournaments")}
-            >
-              Tournaments
-            </a>
-            <a
-              className={
-                tab === "practices"
-                  ? "tab tab-bordered tab-active"
-                  : "tab tab-bordered"
-              }
-              onClick={() => setTab("practices")}
-            >
-              Practices
-            </a>
-            <a
-              className={
-                tab === "roster"
-                  ? "tab tab-bordered tab-active"
-                  : "tab tab-bordered"
-              }
-              onClick={() => setTab("roster")}
-            >
-              Roster
-            </a>
-          </div>
+      <div className="w-full">
+        <main className="flex min-h-screen min-w-full flex-col items-center">
+          <nav className="flex w-full justify-center py-[4vh]">
+            <div className="flex items-center text-dark-gray">
+              <button
+                className={
+                  activeTab == 0
+                    ? "border-b-4 border-red px-5 py-1 text-dark-gray"
+                    : "border-b-4 border-light-gray px-5 py-1 text-light-gray transition duration-500 ease-in-out hover:text-red"
+                }
+                onClick={() => setActiveTab(0)}
+              >
+                Tournament Schedule
+              </button>
+              <button
+                className={
+                  activeTab == 1
+                    ? "border-b-4 border-red px-5 py-1 text-dark-gray"
+                    : "border-b-4 border-light-gray px-5 py-1 text-light-gray transition duration-500 ease-in-out hover:text-red"
+                }
+                onClick={() => setActiveTab(1)}
+              >
+                Practice Schedule
+              </button>
+              <button
+                className={
+                  activeTab == 2
+                    ? "border-b-4 border-red px-5 py-1 text-dark-gray"
+                    : "border-b-4 border-light-gray px-5 py-1 text-light-gray transition duration-500 ease-in-out hover:text-red"
+                }
+                onClick={() => setActiveTab(2)}
+              >
+                Team Roster
+              </button>
+            </div>
+          </nav>
 
-          {tab === "tournaments" ? (
-            <Table name={"tournaments"} entries={mockTournamnets}></Table>
-          ) : (
-            <></>
-          )}
-          {tab === "practices" ? (
-            <Table name={"practices"} entries={mockPractices}></Table>
-          ) : (
-            <></>
-          )}
-
-          <button className="btn-outline btn-error btn">Save</button>
+          <section className="flex w-full flex-grow flex-col items-center justify-start overflow-x-scroll">
+            {activeTab === 0 ? (
+              <Table name={"tournaments"} entries={mockTournamnets}></Table>
+            ) : (
+              <></>
+            )}
+            {activeTab === 1 ? (
+              <Table name={"practices"} entries={mockPractices}></Table>
+            ) : (
+              <></>
+            )}
+            <button className="btn-outline btn-error btn flex flex-shrink">
+              Save
+            </button>
+          </section>
         </main>
       </div>
+    </>
+  );
+};
+
+TeamPage.getLayout = (page: ReactElement) => {
+  return (
+    <>
+      <EditLayout>{page}</EditLayout>
     </>
   );
 };

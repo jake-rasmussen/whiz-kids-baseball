@@ -24,40 +24,30 @@ module.exports = {
         "secondary-red": "#FF141A",
         "dark-gray": "#1F1F1F",
         "light-gray": "#C2C2C2",
-
-        transparent: 'transparent',
-        current: 'currentColor',
-        black: colors.black,
-        white: colors.white,
-        rose: colors.rose,
-        pink: colors.pink,
-        fuchsia: colors.fuchsia,
-        purple: colors.purple,
-        violet: colors.violet,
-        indigo: colors.indigo,
-        blue: colors.blue,
-        lightBlue: colors.lightBlue, // Only in Tailwind CSS <=v2.1
-        sky: colors.sky, // As of Tailwind CSS v2.2, `lightBlue` has been renamed to `sky`  
-        cyan: colors.cyan,
-        teal: colors.teal,
-        emerald: colors.emerald,
-        green: colors.green,
-        lime: colors.lime,
-        yellow: colors.yellow,
-        amber: colors.amber,
-        orange: colors.orange,
-        slate: colors.slate,
-        zinc: colors.zinc,
-        gray: colors.gray,
-        neutral: colors.blueGray,
-        stone: colors.stone,
       },
       fontFamily: {
-        'sans': ['Oswald'],
+        // 'sans': ['Oswald'],
       }
     },
   },
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          "primary": "#CC0007",
+          "secondary": "#FF141A",
+          "accent": "#C2C2C2",
+          "neutral": "#1F1F1F",
+          "base-100": "#FFFFFF",
+          "info": "#3ABFF8",
+          "success": "#36D399",
+          "warning": "#FBBD23",
+          "error": "#F87272",
+        },
+      },
+    ],
+  },
   plugins: [
-    require("daisyui")
+    require("@tailwindcss/typography"), require("daisyui")
   ],
 };
