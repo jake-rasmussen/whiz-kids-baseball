@@ -5,36 +5,6 @@ import logo from "../../assets/images/logo.png";
 import { IconMenu2, IconX } from "@tabler/icons";
 import { useState } from "react";
 
-export const mockdataTeam = [
-  {
-    title: "Whiz Kids National",
-  },
-  {
-    title: "Whiz Kids Elite",
-  },
-  {
-    title: "Whiz Kids American",
-  },
-  {
-    title: "Whiz Kids Play Ball Stars",
-  },
-  {
-    title: "Whiz Kids Futures",
-  },
-  {
-    title: "Whiz Kids Stars",
-  },
-  {
-    title: "Whiz Kids Future Stars",
-  },
-  {
-    title: "Whiz Kids 12U",
-  },
-  {
-    title: "Whiz Kids 11U",
-  },
-];
-
 const NavBar: React.FC = () => {
   const [displayMenu, setDisplayMenu] = useState(false);
 
