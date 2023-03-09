@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -23,7 +25,29 @@ module.exports = {
         "dark-gray": "#1F1F1F",
         "light-gray": "#C2C2C2",
       },
+      fontFamily: {
+        // 'sans': ['Oswald'],
+      }
     },
   },
-  plugins: [],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          "primary": "#CC0007",
+          "secondary": "#FF141A",
+          "accent": "#C2C2C2",
+          "neutral": "#1F1F1F",
+          "base-100": "#FFFFFF",
+          "info": "#3ABFF8",
+          "success": "#36D399",
+          "warning": "#FBBD23",
+          "error": "#F87272",
+        },
+      },
+    ],
+  },
+  plugins: [
+    require("@tailwindcss/typography"), require("daisyui")
+  ],
 };

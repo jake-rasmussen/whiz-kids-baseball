@@ -3,9 +3,7 @@ import type { ReactElement } from "react";
 
 import type { NextPageWithLayout } from "./_app";
 import React from "react";
-import { Button, Modal } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons";
-import { useDisclosure } from "@mantine/hooks";
 
 interface TrainingData {
   training: string;
@@ -16,9 +14,6 @@ interface TrainingData {
 }
 
 const Training: NextPageWithLayout = () => {
-  const [openModal, { toggle: toggleModal, close: closeModal }] =
-    useDisclosure(false);
-
   const mockdata: TrainingData[] = [
     {
       training: "Catchers",
@@ -73,28 +68,21 @@ const Training: NextPageWithLayout = () => {
           </main>
         </div>
 
-        <main className="w-full bg-white py-12">
-          <div className="inline-flex w-full items-center justify-center">
-            <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
-            <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
-              <h1 className="text-3xl font-extrabold uppercase tracking-wide text-dark-gray md:text-6xl">
-                Training
-              </h1>
-            </span>
+        <section className="w-full bg-white py-6">
+          <div className="container mx-auto flex flex-col items-center justify-center space-y-8 p-4 md:p-10 md:px-24 xl:px-48">
+            <h1 className="text-center text-5xl font-bold leading-none">
+              Level up your game at one of our{" "}
+              <span className="text-red">trainings</span>
+            </h1>
+            <p className="pt-2 pb-8 text-center text-xl font-medium">
+              This is an environment where normal baseball players with big
+              dreams show up to work consistently and ultimately transform
+              themselves. We aim to mentor players who eventually get recruited.
+              We are passionate, straight forward and very well informed. Our
+              mission is to always be equipped to push you further.
+            </p>
           </div>
-
-          <h5 className="mx-5 flex justify-center pt-[2vh] text-center text-base font-black uppercase tracking-wide text-light-gray">
-            Level up your game by attending one of our trainings
-          </h5>
-
-          <h6 className="mx-[15%] flex justify-center pt-[4vh] text-center text-base text-dark-gray">
-            Put a blurb about what training is and differentiate it from what
-            practices are Lorem ipsum, dolor sit amet consectetur adipisicing
-            elit. Dolorem voluptate officia excepturi voluptatibus id
-            blanditiis? Molestias adipisci tenetur ex blanditiis! Laudantium
-            dolores ipsa est accusantium ut velit molestiae, cupiditate odit.
-          </h6>
-        </main>
+        </section>
 
         <main className="flex w-full items-center bg-dark-gray py-[8vh]">
           <table className="mx-[10%] w-full table-auto pb-[10vh]">
@@ -126,69 +114,45 @@ const Training: NextPageWithLayout = () => {
                 return (
                   <React.Fragment key={index}>
                     <tr className="border-y border-light-gray">
-                      <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-white">
+                      <td className="py-2 text-center text-sm font-medium text-white">
                         <div className="flex flex-row justify-center">
                           {trainingInfo.training}
-                          <button
-                            onClick={toggleModal}
-                            className="bg-transparent"
-                          >
-                            <IconInfoCircle className="mx-2 text-white transition duration-300 ease-in-out hover:text-red md:hidden" />
-                          </button>
+                          <button className="bg-transparent"></button>
 
-                          <Modal
-                            opened={openModal}
-                            onClose={closeModal}
-                            className="text-xl font-black tracking-wide text-dark-gray md:hidden"
-                            centered
-                            title={trainingInfo.training}
-                            withCloseButton={false}
-                            transition="fade"
-                            transitionDuration={300}
-                            exitTransitionDuration={300}
-                          >
-                            <div className="flex-col text-lg font-medium text-dark-gray">
-                              <div>
-                                <span className="font-black text-red">
-                                  Location:{" "}
-                                </span>
-                                {trainingInfo.location}
-                              </div>
-                              <div>
-                                <span className="font-black text-red">
-                                  Date:{" "}
-                                </span>
-                                {trainingInfo.date}
-                              </div>
-                              <div>
-                                <span className="font-black text-red">
-                                  Time:{" "}
-                                </span>
-                                {trainingInfo.time}
-                              </div>
-                              <div>
-                                <span className="font-black text-red">
-                                  Price:{" "}
-                                </span>
-                                {`$${trainingInfo.price}`}
-                              </div>
-                              <div className="flex justify-center py-5">
-                                <Button
-                                  className="mx-3 bg-gradient-to-r from-red to-secondary-red
-                                  transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-                                >
-                                  Register
-                                </Button>
-                                <Button
-                                  className="mx-3 bg-light-gray
-                                  transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-dark-gray"
-                                  onClick={toggleModal}
-                                >
-                                  Close
-                                </Button>
-                              </div>
+                          <label htmlFor="modal">
+                            <IconInfoCircle className="mx-2 text-white transition duration-300 ease-in-out hover:text-red md:hidden" />
+                          </label>
+
+                          <input
+                            type="checkbox"
+                            id="modal"
+                            className="modal-toggle"
+                          />
+                          <div className="modal">
+                            <div className="modal-box relative bg-dark-gray text-left">
+                              <label
+                                htmlFor="modal"
+                                className="btn-ghost btn-sm btn absolute right-2 top-2"
+                              >
+                                ✕
+                              </label>
+                              <h1 className="py-4 px-5 font-black uppercase leading-tight tracking-wide text-red">
+                                Training Session
+                              </h1>
+                              <p className="px-4 py-1 text-lg">
+                                Location: {trainingInfo.location}
+                              </p>
+                              <p className="px-4 py-1 text-lg">
+                                Date: {trainingInfo.date}
+                              </p>
+                              <p className="px-4 py-1 text-lg">
+                                Time: {trainingInfo.time}
+                              </p>
+                              <p className="py- px-4 text-lg">
+                                Price: ${trainingInfo.price}
+                              </p>
                             </div>
-                          </Modal>
+                          </div>
                         </div>
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
@@ -204,12 +168,12 @@ const Training: NextPageWithLayout = () => {
                         {`$${trainingInfo.price}`}
                       </td>
                       <td className="whitespace-nowrap py-2 text-center text-sm font-light text-white">
-                        <Button
-                          className="mx-3 bg-gradient-to-r from-red to-secondary-red
-                        transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                        <button
+                          className="text-md btn self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red font-black uppercase tracking-wide text-white
+                            transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                         >
                           Register
-                        </Button>
+                        </button>
                       </td>
                     </tr>
                   </React.Fragment>

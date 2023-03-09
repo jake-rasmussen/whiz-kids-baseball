@@ -106,15 +106,13 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
 
   return (
     <div className="flex flex-col md:bg-dark-gray">
-      <main className="mx-auto w-[85%] bg-white py-12">
+      <main className="mx-auto w-[85%] bg-white pt-12">
         <div className="inline-flex w-full items-center justify-center">
-          <hr className="mt-8 h-1 w-[75%] -translate-y-4 border-0 bg-red" />
-          <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-white">
-            <h1 className="text-3xl font-extrabold uppercase tracking-wide text-dark-gray md:text-6xl">
-              Alumni
-            </h1>
-          </span>
+          <h1 className="text-center text-4xl font-black uppercase leading-none tracking-wide text-dark-gray lg:text-6xl">
+            Alumni
+          </h1>
         </div>
+        <div className="divider"></div>
       </main>
 
       <main className="flex w-full items-center justify-center">
