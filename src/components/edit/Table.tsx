@@ -1,5 +1,12 @@
 import React, { type ReactNode, useState } from "react";
-import { IconEdit, IconCircleCheck, IconTrash, IconCheck, IconSquareRoundedPlus, IconCirclePlus } from "@tabler/icons";
+import {
+  IconEdit,
+  IconCircleCheck,
+  IconTrash,
+  IconCheck,
+  IconSquareRoundedPlus,
+  IconCirclePlus,
+} from "@tabler/icons";
 
 type PropType = {
   name: string;
@@ -95,9 +102,11 @@ const Table = (props: PropType) => {
           <tr>{header}</tr>
         </tfoot>
       </table>
-      <div className="w-full flex justify-end">
-        <button  className="mt-4 mr-4 min-w-8 min-h-8
-            transition duration-300 ease-in-out hover:scale-150 hover:text-red">
+      <div className="flex w-full justify-end">
+        <button
+          className="min-w-8 min-h-8 mt-4 mr-4
+            transition duration-300 ease-in-out hover:scale-150 hover:text-red"
+        >
           <IconCirclePlus />
         </button>
       </div>

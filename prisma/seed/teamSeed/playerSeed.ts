@@ -17,7 +17,7 @@ const generateFakePlayer = (teamId: number) => {
       Position.PITCHER,
     ],
     getRandomInt(1, 3)
-  );
+  ) as Position[];
   return prisma.player.create({
     data: {
       firstName: faker.name.firstName(),

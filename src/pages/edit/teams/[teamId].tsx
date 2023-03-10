@@ -2,6 +2,7 @@ import type { GetServerSideProps } from "next";
 import { ReactElement, useState } from "react";
 
 import Table from "../../../components/edit/Table";
+import Tab from "../../../components/Tab";
 import EditLayout from "../../../layouts/editLayout";
 import { NextPageWithLayout } from "../../_app";
 
@@ -100,40 +101,9 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
     <>
       <div className="w-full">
         <main className="flex min-h-screen min-w-full flex-col items-center">
-          <nav className="flex w-full justify-center py-[4vh]">
-            <div className="flex items-center text-dark-gray">
-              <button
-                className={
-                  activeTab == 0
-                    ? "border-b-4 border-red px-5 py-1 text-dark-gray"
-                    : "border-b-4 border-light-gray px-5 py-1 text-light-gray transition duration-500 ease-in-out hover:text-red"
-                }
-                onClick={() => setActiveTab(0)}
-              >
-                Tournament Schedule
-              </button>
-              <button
-                className={
-                  activeTab == 1
-                    ? "border-b-4 border-red px-5 py-1 text-dark-gray"
-                    : "border-b-4 border-light-gray px-5 py-1 text-light-gray transition duration-500 ease-in-out hover:text-red"
-                }
-                onClick={() => setActiveTab(1)}
-              >
-                Practice Schedule
-              </button>
-              <button
-                className={
-                  activeTab == 2
-                    ? "border-b-4 border-red px-5 py-1 text-dark-gray"
-                    : "border-b-4 border-light-gray px-5 py-1 text-light-gray transition duration-500 ease-in-out hover:text-red"
-                }
-                onClick={() => setActiveTab(2)}
-              >
-                Team Roster
-              </button>
-            </div>
-          </nav>
+          <section className="py-[4vh]">
+            <Tab activeTab={activeTab} setActiveTab={setActiveTab} />
+          </section>
 
           <section className="flex w-full flex-grow flex-col items-center justify-start overflow-x-scroll">
             {activeTab === 0 ? (

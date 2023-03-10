@@ -15,7 +15,7 @@ const generateFakePractice = (teamId: number) => {
       Day.SATURDAY,
     ],
     getRandomInt(1, 3)
-  );
+  ) as Day[];
 
   const startTime = new Date("1995-12-17T04:30:00").toISOString();
   const endTime = new Date("1995-12-17T06:30:00").toISOString();
