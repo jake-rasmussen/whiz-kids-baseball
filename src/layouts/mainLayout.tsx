@@ -1,6 +1,6 @@
-import type { LayoutProps } from "../types/pageWithLayout";
 import Footer from "../components/footer";
 import NavBar from "../components/navbar";
+import type { LayoutProps } from "../types/pageWithLayout";
 
 const MainLayout: LayoutProps = ({ children }) => {
   return (

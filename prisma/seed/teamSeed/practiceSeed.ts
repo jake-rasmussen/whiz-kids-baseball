@@ -1,9 +1,9 @@
-import { faker } from "@faker-js/faker";
-import { prisma } from "../seed_db";
 import { getRandomInt, getSome } from "../helper";
+import { prisma } from "../seed_db";
+import { faker } from "@faker-js/faker";
 import { Day } from "@prisma/client";
 
-const generateFakePractice = (teamId: number) => {
+const generateFakePractice = (teamId: string) => {
   const days = getSome(
     [
       Day.SUNDAY,
@@ -35,7 +35,7 @@ const generateFakePractice = (teamId: number) => {
 };
 
 export const generateFakePractices = async (
-  teamId: number,
+  teamId: string,
   numPractices: number
 ) => {
   for (let i = 0; i < numPractices; i++) {

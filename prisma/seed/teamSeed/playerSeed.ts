@@ -1,9 +1,9 @@
+import { getRandomInt, getSome } from "../helper";
+import { prisma } from "../seed_db";
 import { faker } from "@faker-js/faker";
 import { Position } from "@prisma/client";
-import { prisma } from "../seed_db";
-import { getRandomInt, getSome } from "../helper";
 
-const generateFakePlayer = (teamId: number) => {
+const generateFakePlayer = (teamId: string) => {
   const positions = getSome(
     [
       Position.FIRST_BASE,
@@ -35,7 +35,7 @@ const generateFakePlayer = (teamId: number) => {
 };
 
 export const generateFakePlayers = async (
-  teamId: number,
+  teamId: string,
   numPlayers: number
 ) => {
   for (let i = 0; i < numPlayers; i++) {

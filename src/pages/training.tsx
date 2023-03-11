@@ -1,9 +1,8 @@
 import MainLayout from "../layouts/MainLayout";
-import type { ReactElement } from "react";
-
 import type { NextPageWithLayout } from "./_app";
-import React from "react";
 import { IconInfoCircle } from "@tabler/icons";
+import type { ReactElement } from "react";
+import React from "react";
 
 interface TrainingData {
   training: string;
@@ -55,7 +54,7 @@ const Training: NextPageWithLayout = () => {
   return (
     <>
       <div className="flex w-full flex-col items-center bg-dark-gray">
-        <div className="invisible h-0 md:visible md:h-[60vh] md:w-full">
+        <div className=" h-0 md:visible md:h-[60vh] md:w-full invisible">
           <main className="flex h-full w-full w-full justify-center">
             <iframe
               src={
@@ -113,7 +112,7 @@ const Training: NextPageWithLayout = () => {
               {mockdata?.map((trainingInfo: TrainingData, index) => {
                 return (
                   <React.Fragment key={index}>
-                    <tr className="border-y border-light-gray">
+                    <tr className="  border-y border-light-gray">
                       <td className="py-2 text-center text-sm font-medium text-white">
                         <div className="flex flex-row justify-center">
                           {trainingInfo.training}

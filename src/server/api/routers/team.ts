@@ -1,14 +1,14 @@
-import { z } from "zod";
-
 import { createTRPCRouter, publicProcedure } from "../trpc";
+import { z } from "zod";
 
 export const teamRouter = createTRPCRouter({
   getTeamById: publicProcedure
-    .input(z.object({ id: z.coerce.number() }))
+    .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
+      const { id } = input;
       const team = await ctx.prisma.team.findUniqueOrThrow({
         where: {
-          id: input.id,
+          id,
         },
         include: {
           players: true,
@@ -39,7 +39,7 @@ export const teamRouter = createTRPCRouter({
     }),
 
   updateTeamName: publicProcedure
-    .input(z.object({ id: z.coerce.number(), name: z.string() }))
+    .input(z.object({ id: z.string(), name: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id, name } = input;
       const team = await ctx.prisma.team.update({
@@ -55,7 +55,7 @@ export const teamRouter = createTRPCRouter({
     }),
 
   deleteTeam: publicProcedure
-    .input(z.object({ id: z.coerce.number(), deletePlayers: z.boolean() }))
+    .input(z.object({ id: z.string(), deletePlayers: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
       const { id, deletePlayers } = input;
       const deletedTeam = await ctx.prisma.team.delete({

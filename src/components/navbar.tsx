@@ -1,8 +1,8 @@
+import logo from "../../assets/images/logo.png";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import { IconMenu2, IconX } from "@tabler/icons";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../assets/images/logo.png";
-import { IconMenu2, IconX } from "@tabler/icons";
 import { useState } from "react";
 
 const NavBar: React.FC = () => {

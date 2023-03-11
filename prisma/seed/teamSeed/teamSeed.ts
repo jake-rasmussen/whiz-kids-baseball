@@ -1,11 +1,10 @@
 //Seed data will go here
-import { faker } from "@faker-js/faker";
-
-import { prisma } from "../seed_db";
 import { getRandomInt } from "../helper";
+import { prisma } from "../seed_db";
 import { generateFakePlayers } from "./playerSeed";
 import { generateFakePractices } from "./practiceSeed";
 import { generateFakeTournaments } from "./tournamentSeed";
+import { faker } from "@faker-js/faker";
 
 const generateFakeTeam = () => {
   return prisma.team.create({

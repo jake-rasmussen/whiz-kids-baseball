@@ -1,10 +1,10 @@
+import { createTRPCRouter, publicProcedure } from "../trpc";
 import { Day } from "@prisma/client";
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const practiceRouter = createTRPCRouter({
   getPracticeById: publicProcedure
-    .input(z.object({ id: z.coerce.number() }))
+    .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
       const { id } = input;
       const practice = await ctx.prisma.practice.findUniqueOrThrow({
@@ -20,7 +20,7 @@ export const practiceRouter = createTRPCRouter({
     }),
 
   getPracticesByTeamId: publicProcedure
-    .input(z.object({ teamId: z.coerce.number() }))
+    .input(z.object({ teamId: z.string() }))
     .query(async ({ ctx, input }) => {
       const { teamId } = input;
       const practices = await ctx.prisma.practice.findMany({
@@ -42,7 +42,7 @@ export const practiceRouter = createTRPCRouter({
         location: z.string(),
         startTime: z.date(),
         endTime: z.date(),
-        teamId: z.coerce.number(),
+        teamId: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -67,12 +67,12 @@ export const practiceRouter = createTRPCRouter({
   updatePractice: publicProcedure
     .input(
       z.object({
-        id: z.coerce.number(),
+        id: z.string(),
         days: z.nativeEnum(Day).optional(),
         location: z.string().optional(),
         startTime: z.date().optional(),
         endTime: z.date().optional(),
-        teamId: z.coerce.number().optional(),
+        teamId: z.string().optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {

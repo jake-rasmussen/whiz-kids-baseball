@@ -1,14 +1,14 @@
-import { z } from "zod";
-
 import { createTRPCRouter, publicProcedure } from "../trpc";
+import { z } from "zod";
 
 export const tournamentRouter = createTRPCRouter({
   getTournamentById: publicProcedure
-    .input(z.object({ id: z.coerce.number() }))
+    .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
+      const { id } = input;
       const tournament = await ctx.prisma.tournament.findUniqueOrThrow({
         where: {
-          id: input.id,
+          id,
         },
         include: {
           team: true,
@@ -19,7 +19,7 @@ export const tournamentRouter = createTRPCRouter({
     }),
 
   getTournamnetsByTeamId: publicProcedure
-    .input(z.object({ teamId: z.coerce.number() }))
+    .input(z.object({ teamId: z.string() }))
     .query(async ({ ctx, input }) => {
       const { teamId } = input;
       const tournaments = await ctx.prisma.tournament.findMany({
@@ -38,7 +38,7 @@ export const tournamentRouter = createTRPCRouter({
         dates: z.date().array(),
         location: z.string(),
         type: z.string(),
-        teamId: z.coerce.number(),
+        teamId: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -63,7 +63,7 @@ export const tournamentRouter = createTRPCRouter({
   updateTournamentDetails: publicProcedure
     .input(
       z.object({
-        id: z.coerce.number(),
+        id: z.string(),
         name: z.string().optional(),
         dates: z.date().array().optional(),
         location: z.string().optional(),
@@ -90,8 +90,8 @@ export const tournamentRouter = createTRPCRouter({
   changeTournamentTeam: publicProcedure
     .input(
       z.object({
-        id: z.coerce.number(),
-        teamId: z.coerce.number(),
+        id: z.string(),
+        teamId: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -113,7 +113,7 @@ export const tournamentRouter = createTRPCRouter({
     }),
 
   deleteTournament: publicProcedure
-    .input(z.object({ id: z.coerce.number() }))
+    .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = input;
       const tournament = await ctx.prisma.tournament.delete({

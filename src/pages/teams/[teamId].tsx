@@ -1,25 +1,23 @@
-import { ReactElement, useEffect } from "react";
-import { useState } from "react";
-import MainLayout from "../../layouts/MainLayout";
-
-import type { NextPageWithLayout } from "../_app";
-
-import React from "react";
-import { api } from "../../utils/api";
-import { useRouter } from "next/router";
-import TournamentTable from "../../components/team/TournamentTable";
-import PracticeTable from "../../components/team/PracticeTable";
 import Tab from "../../components/Tab";
+import PracticeTable from "../../components/team/PracticeTable";
 import Roster from "../../components/team/Roster";
+import TournamentTable from "../../components/team/TournamentTable";
+import MainLayout from "../../layouts/MainLayout";
+import { api } from "../../utils/api";
+import type { NextPageWithLayout } from "../_app";
+import { useRouter } from "next/router";
+import type { ReactElement } from "react";
+import { useState } from "react";
+import React from "react";
 
 const TeamPage: NextPageWithLayout = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const router = useRouter();
+  const router = useRouter()
+  const id = router.query.teamId as string;
+  console.log(typeof id)
 
-  const teamId: number = router.query.teamId as unknown as number;
-  
   const { data, isError, isLoading } = api.team.getTeamById.useQuery({
-    id: +teamId,
+    id
   });
 
   if (isLoading) {
@@ -37,7 +35,7 @@ const TeamPage: NextPageWithLayout = () => {
             {teamName}
           </h1>
         </div>
-        
+
         <Tab activeTab={activeTab} setActiveTab={setActiveTab} />
 
         <section>

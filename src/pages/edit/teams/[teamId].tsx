@@ -1,10 +1,9 @@
-import type { GetServerSideProps } from "next";
-import { ReactElement, useState } from "react";
-
-import Table from "../../../components/edit/Table";
 import Tab from "../../../components/Tab";
+import Table from "../../../components/edit/Table";
 import EditLayout from "../../../layouts/editLayout";
 import { NextPageWithLayout } from "../../_app";
+import type { GetServerSideProps } from "next";
+import { ReactElement, useState } from "react";
 
 interface Props {
   teamId: number;

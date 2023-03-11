@@ -1,13 +1,12 @@
-import type { ReactElement } from "react";
-import React from "react";
-import type { NextPageWithLayout } from "./_app";
 import MainLayout from "../layouts/MainLayout";
+import { api } from "../utils/api";
+import type { NextPageWithLayout } from "./_app";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { api } from "../utils/api";
+import type { ReactElement } from "react";
+import React from "react";
 
 const Teams: NextPageWithLayout = () => {
-
   const router = useRouter();
   const { data, isError, isLoading } = api.team.getAllTeams.useQuery();
 

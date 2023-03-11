@@ -1,13 +1,13 @@
-import React, { type ReactNode, useState } from "react";
 import {
-  IconEdit,
-  IconCircleCheck,
-  IconTrash,
   IconCheck,
-  IconSquareRoundedPlus,
+  IconCircleCheck,
   IconCirclePlus,
+  IconEdit,
   IconInfoCircle,
+  IconSquareRoundedPlus,
+  IconTrash,
 } from "@tabler/icons";
+import React, { type ReactNode, useState } from "react";
 
 type PropType = {
   tournamentData: any;
@@ -15,7 +15,7 @@ type PropType = {
 
 const Table = (props: PropType) => {
   const { tournamentData: data } = props;
-  
+
   const month = [
     "January",
     "February",

@@ -1,12 +1,12 @@
-import React, { type ReactNode, useState } from "react";
 import {
-  IconEdit,
-  IconCircleCheck,
-  IconTrash,
   IconCheck,
-  IconSquareRoundedPlus,
+  IconCircleCheck,
   IconCirclePlus,
+  IconEdit,
+  IconSquareRoundedPlus,
+  IconTrash,
 } from "@tabler/icons";
+import React, { type ReactNode, useState } from "react";
 
 type PropType = {
   name: string;

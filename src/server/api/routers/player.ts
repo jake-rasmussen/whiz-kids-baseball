@@ -1,10 +1,10 @@
+import { createTRPCRouter, publicProcedure } from "../trpc";
 import { Position } from "@prisma/client";
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const playerRouter = createTRPCRouter({
   getPlayerById: publicProcedure
-    .input(z.object({ id: z.coerce.number() }))
+    .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
       const { id } = input;
       const player = await ctx.prisma.player.findUniqueOrThrow({
@@ -55,7 +55,7 @@ export const playerRouter = createTRPCRouter({
   }),
 
   getPlayersByTeamId: publicProcedure
-    .input(z.object({ teamId: z.coerce.number() }))
+    .input(z.object({ teamId: z.string() }))
     .query(async ({ ctx, input }) => {
       const { teamId } = input;
       const players = await ctx.prisma.player.findMany({
@@ -78,7 +78,7 @@ export const playerRouter = createTRPCRouter({
         graduationYear: z.coerce.number(),
         school: z.string(),
         positions: z.nativeEnum(Position),
-        teamId: z.coerce.number(),
+        teamId: z.string(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -105,13 +105,13 @@ export const playerRouter = createTRPCRouter({
   updatePlayer: publicProcedure
     .input(
       z.object({
-        id: z.coerce.number(),
+        id: z.string(),
         firstName: z.string().optional(),
         lastName: z.string().optional(),
         graduationYear: z.coerce.number().optional(),
         school: z.string().optional(),
         positions: z.nativeEnum(Position).optional(),
-        teamId: z.coerce.number().optional(),
+        teamId: z.string().optional(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -146,7 +146,7 @@ export const playerRouter = createTRPCRouter({
     }),
 
   deletePlayer: publicProcedure
-    .input(z.object({ id: z.coerce.number() }))
+    .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
       const { id } = input;
       const player = await ctx.prisma.player.delete({

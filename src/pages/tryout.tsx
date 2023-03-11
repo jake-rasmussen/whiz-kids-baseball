@@ -1,10 +1,9 @@
-import MainLayout from "../layouts/MainLayout";
-import type { ReactElement } from "react";
-import type { NextPageWithLayout } from "./_app";
-import React from "react";
-import Image from "next/image";
-
 import sample from "../../assets/images/sample2.png";
+import MainLayout from "../layouts/MainLayout";
+import type { NextPageWithLayout } from "./_app";
+import Image from "next/image";
+import type { ReactElement } from "react";
+import React from "react";
 
 interface TryoutData {
   location: string;

@@ -33,7 +33,7 @@ enum Day {
 }
 
 model Team {
-  id          Int          @id @default(autoincrement())
+  id          String          @id @default(cuid())
   name        String
   players     Player[]
   tournaments Tournament[]
@@ -43,7 +43,7 @@ model Team {
 }
 
 model Player {
-  id             Int        @id @default(autoincrement())
+  id             String        @id @default(cuid())
   firstName      String
   lastName       String
   graduationYear Int
@@ -51,30 +51,30 @@ model Player {
   positions      Position[]
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
-  teamId         Int?
+  teamId         String?
   team           Team?      @relation(fields: [teamId], references: [id], onDelete: SetNull)
 }
 
 model Tournament {
-  id        Int        @id @default(autoincrement())
+  id        String        @id @default(cuid())
   name      String
   dates     DateTime[]
   location  String
   type      String
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  teamId    Int
+  teamId    String
   team      Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
 }
 
 model Practice {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(cuid())
   days      Day[]
   location  String
   startTime DateTime
   endTime   DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  teamId    Int
+  teamId    String
   team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
 }

@@ -1,13 +1,11 @@
+import "../styles/globals.css";
+import { api } from "../utils/api";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { type AppType } from "next/app";
-import type { ReactElement, ReactNode } from "react";
-
-import { api } from "../utils/api";
-
-import "../styles/globals.css";
 import Head from "next/head";
-import { ClerkProvider } from "@clerk/nextjs";
+import type { ReactElement, ReactNode } from "react";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;

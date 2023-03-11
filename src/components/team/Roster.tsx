@@ -10,7 +10,10 @@ const Roster = (props: PropType) => {
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-wrap place-content-center gap-5 pb-10">
       {playerData.map((data: any, index: number) => (
-        <div className="card w-96 bg-dark-gray shadow-xl" key={`roster${index}`}>
+        <div
+          className="card w-96 bg-dark-gray shadow-xl"
+          key={`roster${index}`}
+        >
           <div className="card-body">
             <h2 className="card-title text-red">{`${data.firstName} ${data.lastName}`}</h2>
             <p className="text-white">Graduation Year: {data.graduationYear}</p>

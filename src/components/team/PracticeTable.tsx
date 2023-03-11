@@ -1,7 +1,5 @@
+import { IconInfoCircle } from "@tabler/icons";
 import React from "react";
-import {
-  IconInfoCircle
-} from "@tabler/icons";
 
 type PropType = {
   practiceData: any;
@@ -69,16 +67,18 @@ const Table = (props: PropType) => {
                             <React.Fragment key={`day0${index}`}>
                               {index != entry.days.length - 1
                                 ? `${day.toLowerCase()}, `
-                                : `${day.toLowerCase()}`
-                              }
+                                : `${day.toLowerCase()}`}
                             </React.Fragment>
                           ))}
                         </p>
                         <p className="px-4 py-1 text-lg text-white">
-                          Time:{" "}
-                          {entry.startTime.getHours() % 12}:{entry.startTime.getMinutes()}{entry.startTime.getHours() > 12 ? 'AM' : 'PM'}
+                          Time: {entry.startTime.getHours() % 12}:
+                          {entry.startTime.getMinutes()}
+                          {entry.startTime.getHours() > 12 ? "AM" : "PM"}
                           <span className="lowercase"> to </span>
-                          {entry.endTime.getHours() % 12}:{entry.endTime.getMinutes()}{entry.endTime.getHours() > 12 ? 'AM' : 'PM'}
+                          {entry.endTime.getHours() % 12}:
+                          {entry.endTime.getMinutes()}
+                          {entry.endTime.getHours() > 12 ? "AM" : "PM"}
                         </p>
                       </div>
                     </div>
@@ -96,16 +96,17 @@ const Table = (props: PropType) => {
                     <React.Fragment key={`day1${index}`}>
                       {index != entry.days.length - 1
                         ? `${day.toLowerCase()}, `
-                        : `${day.toLowerCase()}`
-                      }
+                        : `${day.toLowerCase()}`}
                     </React.Fragment>
                   ))}
                 </td>
                 <td className="hidden whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray md:table-cell">
-                  {entry.startTime.getHours() % 12}:{entry.startTime.getMinutes()}{entry.startTime.getHours() > 12 ? 'AM' : 'PM'}
+                  {entry.startTime.getHours() % 12}:
+                  {entry.startTime.getMinutes()}
+                  {entry.startTime.getHours() > 12 ? "AM" : "PM"}
                   <span className="lowercase"> to </span>
-                  {entry.endTime.getHours() % 12}:{entry.endTime.getMinutes()}{entry.endTime.getHours() > 12 ? 'AM' : 'PM'}
-                  
+                  {entry.endTime.getHours() % 12}:{entry.endTime.getMinutes()}
+                  {entry.endTime.getHours() > 12 ? "AM" : "PM"}
                 </td>
               </tr>
             </React.Fragment>
