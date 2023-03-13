@@ -12,12 +12,11 @@ import React from "react";
 
 const TeamPage: NextPageWithLayout = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const router = useRouter()
+  const router = useRouter();
   const id = router.query.teamId as string;
-  console.log(typeof id)
-
+  
   const { data, isError, isLoading } = api.team.getTeamById.useQuery({
-    id
+    id,
   });
 
   if (isLoading) {
@@ -29,7 +28,7 @@ const TeamPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <main className="flex w-full flex-col items-center overflow-hidden gap-8">
+      <main className="flex w-full flex-col items-center gap-8 overflow-hidden">
         <div className="inline-flex w-full items-center justify-center bg-dark-gray py-12">
           <h1 className="text-center text-2xl font-extrabold uppercase tracking-wide text-white md:min-w-max lg:text-4xl lg:text-6xl">
             {teamName}

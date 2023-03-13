@@ -1,9 +1,14 @@
 import Tab from "../../../components/Tab";
-import Table from "../../../components/edit/Table";
 import EditLayout from "../../../layouts/editLayout";
 import { NextPageWithLayout } from "../../_app";
 import type { GetServerSideProps } from "next";
 import { ReactElement, useState } from "react";
+import { useRouter } from "next/router";
+import { api } from "../../../utils/api";
+import PracticeTable from "../../../components/edit/PracticeTable";
+import TournamentTable from "../../../components/edit/TournamentTable";
+import Roster from "../../../components/edit/Roster";
+import Loading from "../../../components/Loading";
 
 interface Props {
   teamId: number;
@@ -21,80 +26,23 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   };
 };
 
-export const mockTournamnets = [
-  {
-    name: "Diamond Nation",
-    date: "June 16th",
-    type: "Tournament",
-    location: "1234 Drive",
-  },
-  {
-    name: "Diamond Nation",
-    date: "June 16th",
-    type: "Showcase",
-    location: "1234 Drive",
-  },
-  {
-    name: "Diamond Nation",
-    date: "June 16th",
-    type: "Tournament",
-    location: "1234 Drive",
-  },
-  {
-    name: "Diamond Nation",
-    date: "June 16th",
-    type: "Tournament",
-    location: "1234 Drive",
-  },
-  {
-    name: "Diamond Nation",
-    date: "June 16th",
-    type: "Tournament",
-    location: "1234 Drive",
-  },
-  {
-    name: "Diamond Nation",
-    date: "June 16th",
-    type: "Showcase",
-    location: "1234 Drive",
-  },
-  {
-    name: "Diamond Nation",
-    date: "June 16th",
-    type: "Tournament",
-    location: "1234 Drive",
-  },
-  {
-    name: "Diamond Nation",
-    date: "June 16th",
-    type: "Showcase",
-    location: "1234 Drive",
-  },
-];
-
-const mockPractices = [
-  {
-    weekday: "Mon, Wed, Fri",
-    start: "6pm",
-    end: "8pm",
-    location: "Lasalle College High School",
-  },
-  {
-    weekday: "Sat, Sun",
-    start: "6pm",
-    end: "8pm",
-    location: "Lasalle College High School",
-  },
-  {
-    weekday: "Sat, Sun",
-    start: "6pm",
-    end: "8pm",
-    location: "Lasalle College High School",
-  },
-];
-
 const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
   const [activeTab, setActiveTab] = useState(0);
+
+  const router = useRouter();
+  const id = router.query.teamId as string;
+
+  const { data, isError, isLoading } = api.team.getTeamById.useQuery({
+    id,
+  });
+
+  if (isLoading) {
+    return <Loading />;
+  } else if (isError) {
+    return <div>Error...</div>;
+  }
+
+  const { name: teamName, players, tournaments, practices } = data;
 
   return (
     <>
@@ -106,12 +54,25 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
 
           <section className="flex w-full flex-grow flex-col items-center justify-start overflow-x-scroll">
             {activeTab === 0 ? (
-              <Table name={"tournaments"} entries={mockTournamnets}></Table>
+              <TournamentTable
+                name={"practices"}
+                entries={tournaments}
+              ></TournamentTable>
             ) : (
               <></>
             )}
             {activeTab === 1 ? (
-              <Table name={"practices"} entries={mockPractices}></Table>
+              <PracticeTable
+                name={"practices"}
+                entries={practices}
+              ></PracticeTable>
+            ) : (
+              <></>
+            )}
+            {activeTab === 2 ? (
+              <Roster
+                playerData={players}
+              ></Roster>
             ) : (
               <></>
             )}

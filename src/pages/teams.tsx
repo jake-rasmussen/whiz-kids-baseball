@@ -31,7 +31,7 @@ const Teams: NextPageWithLayout = () => {
               {data.map((entry: any, index: number) => (
                 <Link
                   href={`/teams/${index}`}
-                  className="tracking-none text-lg font-black text-dark-gray hover:text-red uppercase tracking-none py-4"
+                  className="tracking-none tracking-none py-4 text-lg font-black uppercase text-dark-gray hover:text-red"
                   key={`team${index}`}
                 >
                   {entry.name}

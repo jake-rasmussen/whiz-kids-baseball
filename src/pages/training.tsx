@@ -54,7 +54,7 @@ const Training: NextPageWithLayout = () => {
   return (
     <>
       <div className="flex w-full flex-col items-center bg-dark-gray">
-        <div className=" h-0 md:visible md:h-[60vh] md:w-full invisible">
+        <div className=" invisible h-0 md:visible md:h-[60vh] md:w-full">
           <main className="flex h-full w-full w-full justify-center">
             <iframe
               src={
