@@ -24,64 +24,69 @@ const Roster = (props: PropType) => {
             <div className="flex flex-col justify-center">
               <div className="flex flex-row">
                 <div>
-                  <p className="text-white">Name: 
+                  <p className="text-white">
+                    Name:
                     <input
                       type="text"
                       placeholder={`${data.firstName} ${data.lastName}`}
                       className="input input-sm w-full overflow-ellipsis bg-light-gray capitalize
-                        text-red placeholder-dark-gray disabled:border-none disabled:placeholder-light-gray disabled:text-red disabled:bg-dark-gray"
+                        text-red placeholder-dark-gray disabled:border-none disabled:bg-dark-gray disabled:text-red disabled:placeholder-light-gray"
                       disabled={edit !== index}
                     />
                   </p>
-                  <p className="text-white">Graduation Year: 
+                  <p className="text-white">
+                    Graduation Year:
                     <input
                       type="text"
                       placeholder={`${data.graduationYear}`}
                       className="input input-sm w-full overflow-ellipsis bg-light-gray capitalize
-                          text-red placeholder-dark-gray disabled:border-none disabled:placeholder-light-gray disabled:text-red disabled:bg-dark-gray"
+                          text-red placeholder-dark-gray disabled:border-none disabled:bg-dark-gray disabled:text-red disabled:placeholder-light-gray"
                       disabled={edit !== index}
                     />
                   </p>
-                  <p className="text-white">School: 
+                  <p className="text-white">
+                    School:
                     <input
                       type="text"
                       placeholder={`${data.school}`}
                       className="input input-sm w-full overflow-ellipsis bg-light-gray capitalize
-                          text-red placeholder-dark-gray disabled:border-none disabled:placeholder-light-gray disabled:text-red disabled:bg-dark-gray"
+                          text-red placeholder-dark-gray disabled:border-none disabled:bg-dark-gray disabled:text-red disabled:placeholder-light-gray"
                       disabled={edit !== index}
                     />
                   </p>
-                  <p className="text-white">Position: 
+                  <p className="text-white">
+                    Position:
                     <input
                       type="text"
-                      placeholder={data.positions.map((position: string, index: number) => (
+                      placeholder={data.positions.map(
+                        (position: string, index: number) =>
                           index != data.positions.length - 1
                             ? `${position}`
                             : ` ${position}`
-                      ))}
+                      )}
                       className="input input-sm w-full overflow-ellipsis bg-light-gray capitalize
-                          text-red placeholder-dark-gray disabled:border-none disabled:placeholder-light-gray disabled:text-red disabled:bg-dark-gray"
+                          text-red placeholder-dark-gray disabled:border-none disabled:bg-dark-gray disabled:text-red disabled:placeholder-light-gray"
                       disabled={edit !== index}
                     />
                   </p>
                 </div>
-                
+
                 {edit === -1 ? (
                   <div className="flex flex-col p-2">
                     <button onClick={() => setEdit(index)}>
-                      <IconEdit className="mx-2 transition duration-300 ease-in-out hover:scale-150 text-white hover:text-red" />
+                      <IconEdit className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                     </button>
                     <button onClick={() => handleRemove(index)}>
-                      <IconTrash className="mx-2 transition duration-300 ease-in-out hover:scale-150 text-white hover:text-red" />
+                      <IconTrash className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                     </button>
                   </div>
                 ) : edit === index ? (
                   <div className="flex flex-col p-2">
                     <button onClick={() => setEdit(-1)}>
-                      <IconCheck className="mx-2 transition duration-300 ease-in-out hover:scale-150 text-white hover:text-red" />
+                      <IconCheck className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                     </button>
                     <button>
-                      <IconTrash className="mx-2 transition duration-300 ease-in-out hover:scale-150 text-white hover:text-red" />
+                      <IconTrash className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                     </button>
                   </div>
                 ) : (
@@ -95,11 +100,7 @@ const Roster = (props: PropType) => {
                   </div>
                 )}
               </div>
-             
             </div>
-            
-            
-            
           </div>
         </div>
       ))}

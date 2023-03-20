@@ -8,10 +8,6 @@ type PropType = {
 const Table = (props: PropType) => {
   const { practiceData: data } = props;
 
-  const handleRemove = (index: number) => {
-    // TODO: make a delete call and repopulate table
-  };
-
   return (
     <table className="w-full table-auto capitalize">
       <thead>

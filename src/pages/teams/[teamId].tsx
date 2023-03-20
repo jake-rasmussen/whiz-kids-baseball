@@ -14,7 +14,7 @@ const TeamPage: NextPageWithLayout = () => {
   const [activeTab, setActiveTab] = useState(0);
   const router = useRouter();
   const id = router.query.teamId as string;
-  
+
   const { data, isError, isLoading } = api.team.getTeamById.useQuery({
     id,
   });

@@ -1,8 +1,9 @@
 import Tab from "../../../components/Tab";
 import EditLayout from "../../../layouts/editLayout";
-import { NextPageWithLayout } from "../../_app";
+import type { NextPageWithLayout } from "../../_app";
 import type { GetServerSideProps } from "next";
-import { ReactElement, useState } from "react";
+import type { ReactElement } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { api } from "../../../utils/api";
 import PracticeTable from "../../../components/edit/PracticeTable";
@@ -56,6 +57,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
             {activeTab === 0 ? (
               <TournamentTable
                 name={"practices"}
+                teamId={teamId.toString()}
                 entries={tournaments}
               ></TournamentTable>
             ) : (
@@ -69,16 +71,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
             ) : (
               <></>
             )}
-            {activeTab === 2 ? (
-              <Roster
-                playerData={players}
-              ></Roster>
-            ) : (
-              <></>
-            )}
-            <button className="btn-outline btn-error btn flex flex-shrink">
-              Save
-            </button>
+            {activeTab === 2 ? <Roster playerData={players}></Roster> : <></>}
           </section>
         </main>
       </div>

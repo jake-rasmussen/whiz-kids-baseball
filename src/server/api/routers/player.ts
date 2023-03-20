@@ -81,7 +81,7 @@ export const playerRouter = createTRPCRouter({
         teamId: z.string(),
       })
     )
-    .query(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
       const { firstName, lastName, graduationYear, school, positions, teamId } =
         input;
       const player = await ctx.prisma.player.create({
@@ -114,7 +114,7 @@ export const playerRouter = createTRPCRouter({
         teamId: z.string().optional(),
       })
     )
-    .query(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
       const {
         id,
         firstName,
@@ -147,7 +147,7 @@ export const playerRouter = createTRPCRouter({
 
   deletePlayer: publicProcedure
     .input(z.object({ id: z.string() }))
-    .query(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
       const { id } = input;
       const player = await ctx.prisma.player.delete({
         where: {
