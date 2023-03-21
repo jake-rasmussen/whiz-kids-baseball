@@ -153,7 +153,7 @@ const Table = (props: PropType) => {
     let datesArray: Date[] = [];
     for (let date of split) {
       date = date.trim();
-      if (date.length !== 5) {
+      if (date.length !== 5 || stringToDate(date).toString() === "Invalid Date") {
         return [];
       }
       datesArray.push(stringToDate(date));
