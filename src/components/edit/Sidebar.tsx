@@ -11,7 +11,7 @@ const NavBar: React.FC = () => {
         <Loading />
       ) : (
         <>
-          <aside className="fixed flex h-screen w-full w-60 flex-col items-center bg-dark-gray p-6 text-white">
+          <aside className="fixed flex h-screen w-60 flex-col items-center bg-dark-gray p-6 text-white">
             <nav className="flex flex-grow flex-col space-y-8 text-sm">
               <div className="space-y-2">
                 <h2 className="text-sm font-semibold uppercase tracking-widest text-light-gray">
