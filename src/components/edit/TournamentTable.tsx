@@ -44,6 +44,8 @@ const Table = (props: PropType) => {
   const deleteTournament = api.tournament.deleteTournament.useMutation({});
 
   const addTemporaryRow = (index: number) => {
+    if (editRow !== -1) return;
+
     let id = 0;
     if (tournaments.length !== 0) {
       id = tournaments[tournaments.length - 1].id + 1;
@@ -78,7 +80,7 @@ const Table = (props: PropType) => {
         {
           index: index,
           name: tempRow.name,
-          dates: stringToDate(tempRow.dates),
+          dates: stringToDates(tempRow.dates),
           location: tempRow.location,
           type: tempRow.format,
           teamId: teamId,
@@ -93,7 +95,7 @@ const Table = (props: PropType) => {
           dates:
             tempRow.dates === ""
               ? tournaments[index].dates
-              : stringToDate(tempRow.dates),
+              : stringToDates(tempRow.dates),
           location:
             tempRow.location === ""
               ? tournaments[index].location
@@ -136,21 +138,6 @@ const Table = (props: PropType) => {
     Router.reload();
   };
 
-  const month = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   const datesToString = (dates: Date[]) => {
     let str = "";
     dates.forEach((date: Date, index: number) => {
@@ -161,19 +148,28 @@ const Table = (props: PropType) => {
     return str;
   };
 
-  const stringToDate = (dates: string) => {
+  const stringToDates = (dates: string) => {
+    const split = dates.split(",");
+    let datesArray: Date[] = [];
+    for (let date of split) {
+      date = date.trim();
+      if (date.length !== 5) {
+        return [];
+      }
+      datesArray.push(stringToDate(date));
+    }
+    return datesArray;
+  };
+
+  const stringToDate = (date: string) => {
     const dateRegExp = /(\d{2})\.(\d{2})/;
-    const dateString: string = dates.replace(dateRegExp, "$2-$1");
-    return [new Date(dateString)];
+    const dateString: string = date.replace(dateRegExp, "$2-$1");
+    return new Date(dateString);
   };
 
   const checkValidInput = () => {
     if (editRow >= entries.length) {
-      if (
-        tempRow.dates.length < 5 ||
-        stringToDate(tempRow.dates)[0]?.toString() === "Invalid Date"
-      )
-        return false;
+      if (stringToDates(tempRow.dates).length === 0) return false;
       if (
         tempRow.name === "" ||
         tempRow.dates === "" ||
@@ -183,19 +179,14 @@ const Table = (props: PropType) => {
         return false;
     } else {
       if (tempRow.dates !== "" && tempRow.dates.length < 5) return false;
-      if (
-        tempRow.dates !== "" &&
-        stringToDate(tempRow.dates)[0]?.toString() === "Invalid Date"
-      )
-        return false;
+      if (tempRow.dates !== "" && stringToDates(tempRow.dates).length === 0) return false;
     }
-
     setValidInput(true);
     return true;
   };
 
   return (
-    <div className="flex min-w-full flex-col items-center justify-center overflow-x-scroll px-[5%]">
+    <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
       <input type="checkbox" id="error-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
@@ -216,7 +207,7 @@ const Table = (props: PropType) => {
       <input type="checkbox" id="delete-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">Invalid Input</h3>
+          <h3 className="text-lg font-bold">Confirm Delete</h3>
           <p className="py-4">Are you sure you want to delete this row?</p>
           <div className="modal-action">
             <label htmlFor="delete-modal" className="btn-outline btn-error btn">

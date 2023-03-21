@@ -7,7 +7,7 @@ const EditLayout: LayoutProps = ({ children }) => {
     <>
       <main className="flex flex-row">
         <Sidebar />
-        {children}
+        <main className="flex h-screen w-full pl-60">{children}</main>
       </main>
     </>
   );
