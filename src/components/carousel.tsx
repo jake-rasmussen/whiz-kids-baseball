@@ -1,12 +1,12 @@
-import type { StaticImageData } from "next/image";
-import Image from "next/image";
 import banner from "../../assets/images/whizkidsbanner.png";
-import React from "react";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
+import Autoplay from "embla-carousel-autoplay";
 import type { EmblaOptionsType } from "embla-carousel-react";
 import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
+import type { StaticImageData } from "next/image";
+import Image from "next/image";
+import React from "react";
 import { useCallback } from "react";
-import { IconChevronRight, IconChevronLeft } from "@tabler/icons";
 
 type PropType = {
   options?: EmblaOptionsType;

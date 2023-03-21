@@ -1,16 +1,13 @@
-import type { ReactElement } from "react";
-import React from "react";
-import type { NextPageWithLayout } from "./_app";
-import Carousel from "../components/carousel";
-import MainLayout from "../layouts/MainLayout";
-import { IconMapPin, IconPhone, IconMail } from "@tabler/icons";
-
 import sample1 from "../../assets/images/sample1.png";
 import sample2 from "../../assets/images/sample2.png";
-
-import Image from "next/image";
-
+import Carousel from "../components/carousel";
+import MainLayout from "../layouts/MainLayout";
+import type { NextPageWithLayout } from "./_app";
+import { IconMail, IconMapPin, IconPhone } from "@tabler/icons";
 import type { EmblaOptionsType } from "embla-carousel-react";
+import Image from "next/image";
+import type { ReactElement } from "react";
+import React from "react";
 
 const Home: NextPageWithLayout = () => {
   const images = [sample1, sample2];

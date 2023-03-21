@@ -16,10 +16,19 @@
  * processing a request
  *
  */
-import type * as trpcNext from "@trpc/server/adapters/next";
-import { getAuth, clerkClient } from "@clerk/nextjs/server";
-import type { User } from "@clerk/nextjs/dist/api";
 import { prisma } from "../db";
+import type { User } from "@clerk/nextjs/dist/api";
+import { clerkClient, getAuth } from "@clerk/nextjs/server";
+
+/**
+ * 2. INITIALIZATION
+ *
+ * This is where the trpc api is initialized, connecting the context and
+ * transformer
+ */
+import { TRPCError, initTRPC } from "@trpc/server";
+import type * as trpcNext from "@trpc/server/adapters/next";
+import superjson from "superjson";
 
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use
@@ -56,15 +65,6 @@ export const createTRPCContext = async (
 
   return createInnerTRPCContext(user);
 };
-
-/**
- * 2. INITIALIZATION
- *
- * This is where the trpc api is initialized, connecting the context and
- * transformer
- */
-import { initTRPC, TRPCError } from "@trpc/server";
-import superjson from "superjson";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,

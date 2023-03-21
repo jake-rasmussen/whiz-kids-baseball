@@ -3,14 +3,14 @@ services:
   # In Docker
   # - DATABASE_URL=postgres://prisma:prisma@postgres/
   # Outside Docker
-  # - DATABASE_URL=postgres://postgres-prisma:postgres-prisma@localhost:5432/
+  # - DATABASE_URL=postgres://prisma:prisma@localhost:5432/
 
   db:
     image: postgres:15
     restart: always
-    container_name: postgres_15-with-prisma 
+    container_name: Whiz_Kids_postgres-with-prisma
     ports:
       - "${HOST_PORT}:5432" # HOST_PORT:CONTAINER_PORT
     environment:
-      POSTGRES_USER: postgres-prisma
-      POSTGRES_PASSWORD: postgres-prisma
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma

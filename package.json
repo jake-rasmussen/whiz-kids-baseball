@@ -8,11 +8,12 @@
     "prisma:format": "prisma format",
     "prisma:generate": "prisma generate",
     "prisma:seed": "prisma db seed",
+    "prisma:push": "prisma db push",
     "prisma:dev": "yarn docker:up && dotenv -e .env -- prisma migrate dev",
     "prisma:dev:studio": "yarn docker:up && dotenv -e .env -- prisma studio",
     "prisma:dev:reset": "yarn docker:up && dotenv -e .env -- prisma migrate reset --force",
     "build": "next build",
-    "dev": "next dev",
+    "dev": "yarn prisma:dev && next dev",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"{prisma,src}/**/*.{ts,tsx}\"",
@@ -22,7 +23,7 @@
     "postinstall": "yarn prisma:generate && husky install"
   },
   "prisma": {
-    "seed": "ts-node ./prisma/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed/index.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.8.2",
@@ -51,6 +52,7 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@types/node": "^18.11.18",
     "@types/nodemailer": "^6.4.7",
     "@types/prettier": "^2.7.2",

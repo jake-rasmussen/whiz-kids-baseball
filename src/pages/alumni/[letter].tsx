@@ -1,9 +1,8 @@
 import MainLayout from "../../layouts/MainLayout";
-import type { ReactElement } from "react";
-
 import type { NextPageWithLayout } from "../_app";
 import type { GetServerSideProps } from "next";
 import Link from "next/link";
+import type { ReactElement } from "react";
 import React from "react";
 
 interface Props {
