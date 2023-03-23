@@ -1,3 +1,4 @@
+import { Tournament } from "@prisma/client";
 import {
   IconCheck,
   IconCirclePlus,
@@ -26,29 +27,49 @@ interface Change {
 }
 
 const Table = (props: PropType) => {
-  const { teamId, entries } = props;
+  const { teamId } = props;
 
-  const [tournaments, setTournaments] = useState(entries); // List of tournaments, including those to be added
+  const { data: entries } = api.tournament.getTournamnetsByTeamId.useQuery( { teamId }, {
+    onSuccess(data) {
+      setTournaments(data);
+    }
+  }
+  ) ;
+
+  const [tournaments, setTournaments] = useState<Tournament[]>([]); // List of tournaments, including those to be added
   const [editRow, setEditRow] = useState(-1); // The row index that is being modified, -1 if none
   const [deleteRow, setDeleteRow] = useState(-1); // The row index that is in contention to be deleted
   const [validInput, setValidInput] = useState(true); // Determines if the current input is in a valid state
   const [changes, setChanges] = useState<Change[]>([]); // Contains an array of the current changes
   const [tempRow] = useState({ name: "", location: "", dates: "", format: "" }); // Row that was just added
 
-  // const queryClient = api.useContext();
+  const queryClient = api.useContext();
 
-  const updateTournament = api.tournament.updateTournamentDetails.useMutation(
-    {}
-  );
-  const createTournament = api.tournament.createTournament.useMutation({});
-  const deleteTournament = api.tournament.deleteTournament.useMutation({});
+  const updateTournament = api.tournament.updateTournamentDetails.useMutation({
+    onSuccess() {
+      queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
+      console.log(teamId)
+    }
+  });
+  const createTournament = api.tournament.createTournament.useMutation({
+    onSuccess() {
+      queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
+      console.log(teamId)
+    }
+  });
+  const deleteTournament = api.tournament.deleteTournament.useMutation({
+    onSuccess() {
+      queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
+      console.log(teamId)
+    }
+  });
 
   const addTemporaryRow = (index: number) => {
     if (editRow !== -1) return;
 
     let id = 0;
     if (tournaments.length !== 0) {
-      id = tournaments[tournaments.length - 1].id + 1;
+      id = tournaments[tournaments.length - 1]!.id + 1 as unknown as number;
     }
     setTournaments([
       ...tournaments,
@@ -130,12 +151,12 @@ const Table = (props: PropType) => {
         });
       }
     }
-    Router.reload();
+    // Router.reload();
   };
 
   const handleDelete = () => {
     deleteTournament.mutate({ id: tournaments[deleteRow].id });
-    Router.reload();
+    // Router.reload();
   };
 
   const datesToString = (dates: Date[]) => {
@@ -153,7 +174,10 @@ const Table = (props: PropType) => {
     let datesArray: Date[] = [];
     for (let date of split) {
       date = date.trim();
-      if (date.length !== 5 || stringToDate(date).toString() === "Invalid Date") {
+      if (
+        date.length !== 5 ||
+        stringToDate(date).toString() === "Invalid Date"
+      ) {
         return [];
       }
       datesArray.push(stringToDate(date));
