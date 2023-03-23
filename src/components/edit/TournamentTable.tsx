@@ -1,4 +1,4 @@
-import { Tournament } from "@prisma/client";
+import type { Tournament } from "@prisma/client";
 import {
   IconCheck,
   IconCirclePlus,
@@ -6,14 +6,14 @@ import {
   IconTrash,
   IconX,
 } from "@tabler/icons";
-import Router from "next/router";
 import React, { useState } from "react";
 import { api } from "../../utils/api";
+import Loading from "../Loading";
 
 type PropType = {
   name: string;
   teamId: string;
-  entries: any;
+  entries: any; //TODO: create an entries type
 };
 
 interface Change {
@@ -26,16 +26,29 @@ interface Change {
   teamId?: string;
 }
 
-const Table = (props: PropType) => {
-  const { teamId } = props;
+const Table = ({ teamId }: PropType) => {
+  /**
+   * COMMENTS:
+   * Not sure why we use entries and tournaments, I think we can just use tournaments or entries, 
+   * I figure it because tournaments can be modified and then we push the array of tournaments to entries into the db but that doesn't really make sense to me
+   * 
+   * The save button is repetitive because we already have a save button in the edit row, I think we can just have one save button
+   * I got confused when I was using it and I made changes but the changes did not persist until after I clicked the save
+   * 
+   * 
+   * I know that the type errors and eslint can be annoying but it seems like you are ignoring them sometimes by using ! or ? spend like 5 min to make sure they are right
+   * 
+   * Also I noticed when you are validating input you allow for a string like " " to be valid, I think we should not allow that, I fixed it on line 220-224 
+   * but you may want to take a look at the lines below as I think the validation needs to happen there as well
+   * 
+   * I understand what you are doing with tempRow but I feel like we might be able to spend 5 min to try to figure a better alrenative 
+   * 
+   * 
+   * I think a lot of the logic on this page can be significantly simplified if we just have a row component that takes in the id of the object it is modifying
+   * 
+   * Also the input validation and error modals can be componentized as well
 
-  const { data: entries } = api.tournament.getTournamnetsByTeamId.useQuery( { teamId }, {
-    onSuccess(data) {
-      setTournaments(data);
-    }
-  }
-  ) ;
-
+  */
   const [tournaments, setTournaments] = useState<Tournament[]>([]); // List of tournaments, including those to be added
   const [editRow, setEditRow] = useState(-1); // The row index that is being modified, -1 if none
   const [deleteRow, setDeleteRow] = useState(-1); // The row index that is in contention to be deleted
@@ -45,36 +58,55 @@ const Table = (props: PropType) => {
 
   const queryClient = api.useContext();
 
+  const {
+    data: entries,
+    isLoading,
+    isError,
+  } = api.tournament.getTournamnetsByTeamId.useQuery(
+    { teamId },
+    {
+      onSuccess(data) {
+        setTournaments(data);
+      },
+    }
+  );
+
   const updateTournament = api.tournament.updateTournamentDetails.useMutation({
     onSuccess() {
       queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
-      console.log(teamId)
-    }
+      console.log(teamId);
+    },
   });
   const createTournament = api.tournament.createTournament.useMutation({
     onSuccess() {
       queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
-      console.log(teamId)
-    }
+      console.log(teamId);
+    },
   });
   const deleteTournament = api.tournament.deleteTournament.useMutation({
     onSuccess() {
       queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
-      console.log(teamId)
-    }
+      console.log(teamId);
+    },
   });
+
+  if (isLoading) {
+    return <Loading />;
+  } else if (isError) {
+    return <div>Error...</div>;
+  }
 
   const addTemporaryRow = (index: number) => {
     if (editRow !== -1) return;
 
     let id = 0;
-    if (tournaments.length !== 0) {
-      id = tournaments[tournaments.length - 1]!.id + 1 as unknown as number;
+    if (tournaments.length !== 0) { 
+      id = (tournaments[tournaments.length - 1]?.id + 1) as unknown as number;
     }
     setTournaments([
       ...tournaments,
       {
-        id: id,
+        id: id.toString(),
         name: "Name",
         dates: "MM-DD",
         location: "Location",
@@ -84,7 +116,7 @@ const Table = (props: PropType) => {
     setEditRow(index);
   };
 
-  const removeTemporaryRow = (index: number) => {
+  const removeTemporaryRow = () => {
     tournaments.pop();
     setEditRow(-1);
   };
@@ -132,31 +164,29 @@ const Table = (props: PropType) => {
 
   const handleSave = () => {
     for (const index in changes) {
-      const curChange = changes[index]!;
-      if (curChange.index >= entries.length) {
+      const currChange = changes[index]!;
+      if (currChange.index >= entries.length) {
         createTournament.mutate({
-          name: curChange.name,
-          dates: curChange.dates,
-          location: curChange.location,
-          type: curChange.type,
+          name: currChange.name,
+          dates: currChange.dates,
+          location: currChange.location,
+          type: currChange.type,
           teamId: teamId,
         });
       } else {
         updateTournament.mutate({
-          name: curChange.name,
-          dates: curChange.dates,
-          location: curChange.location,
-          type: curChange.type,
-          id: curChange.id!,
+          name: currChange.name,
+          dates: currChange.dates,
+          location: currChange.location,
+          type: currChange.type,
+          id: currChange.id,
         });
       }
     }
-    // Router.reload();
   };
 
   const handleDelete = () => {
     deleteTournament.mutate({ id: tournaments[deleteRow].id });
-    // Router.reload();
   };
 
   const datesToString = (dates: Date[]) => {
@@ -171,7 +201,7 @@ const Table = (props: PropType) => {
 
   const stringToDates = (dates: string) => {
     const split = dates.split(",");
-    let datesArray: Date[] = [];
+    const datesArray: Date[] = [];
     for (let date of split) {
       date = date.trim();
       if (
@@ -195,15 +225,16 @@ const Table = (props: PropType) => {
     if (editRow >= entries.length) {
       if (stringToDates(tempRow.dates).length === 0) return false;
       if (
-        tempRow.name === "" ||
-        tempRow.dates === "" ||
-        tempRow.location === "" ||
-        tempRow.format === ""
+        tempRow.name.trim().length === 0 ||
+        tempRow.dates.trim().length === 0 ||
+        tempRow.location.trim().length === 0 ||
+        tempRow.format.trim().length === 0
       )
         return false;
     } else {
       if (tempRow.dates !== "" && tempRow.dates.length < 5) return false;
-      if (tempRow.dates !== "" && stringToDates(tempRow.dates).length === 0) return false;
+      if (tempRow.dates !== "" && stringToDates(tempRow.dates).length === 0)
+        return false;
     }
     setValidInput(true);
     return true;
@@ -211,6 +242,7 @@ const Table = (props: PropType) => {
 
   return (
     <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
+      {/* Start of input error modal */}
       <input type="checkbox" id="error-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
@@ -227,7 +259,9 @@ const Table = (props: PropType) => {
           </div>
         </div>
       </div>
+      {/* End of input error modal */}
 
+      {/* This is the modal for when things are being deleted */}
       <input type="checkbox" id="delete-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
@@ -242,11 +276,13 @@ const Table = (props: PropType) => {
               className="btn"
               onClick={handleDelete}
             >
-              Yes I'm Sure
+              Yes I&apos;m Sure
             </label>
           </div>
         </div>
       </div>
+      {/* End of delete modal */}
+
       <table className="table min-w-full table-auto text-center transition duration-300 ease-in-out">
         <thead>
           <tr className="w-full">
@@ -258,7 +294,7 @@ const Table = (props: PropType) => {
           </tr>
         </thead>
         <tbody className="capitalize shadow-xl">
-          {tournaments?.map((tournament: any, index: number) => {
+          {tournaments.map((tournament: Tournament, index) => {
             return (
               <React.Fragment key={`practiceTable${index}`}>
                 <tr
@@ -293,7 +329,7 @@ const Table = (props: PropType) => {
                     <input
                       type="text"
                       placeholder={
-                        typeof tournament.dates == typeof ""
+                        typeof tournament.dates === "string"
                           ? tournament.dates
                           : datesToString(tournament.dates)
                       }
@@ -342,9 +378,7 @@ const Table = (props: PropType) => {
                             <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                           </label>
                         </button>
-                        <button
-                          onClick={() => removeTemporaryRow(tournaments.length)}
-                        >
+                        <button onClick={removeTemporaryRow}>
                           <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                         </button>
                       </div>
