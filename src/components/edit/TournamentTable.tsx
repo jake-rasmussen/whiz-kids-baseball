@@ -100,7 +100,7 @@ const Table = ({ teamId }: PropType) => {
     if (editRow !== -1) return;
 
     let id = 0;
-    if (tournaments.length !== 0) { 
+    if (tournaments.length !== 0) {
       id = (tournaments[tournaments.length - 1]?.id + 1) as unknown as number;
     }
     setTournaments([
