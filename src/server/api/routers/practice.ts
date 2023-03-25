@@ -96,4 +96,17 @@ export const practiceRouter = createTRPCRouter({
 
       return practice;
     }),
+
+  deletePractice: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { id } = input;
+      const practice = await ctx.prisma.practice.delete({
+        where: {
+          id,
+        },
+      });
+
+      return practice;
+    }),
 });
