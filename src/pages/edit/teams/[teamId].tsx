@@ -58,7 +58,7 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
               <TournamentTable
                 name={"practices"}
                 teamId={teamId.toString()}
-                entries={tournaments}
+                tournaments={tournaments}
               ></TournamentTable>
             ) : (
               <></>
