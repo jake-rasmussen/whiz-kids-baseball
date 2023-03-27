@@ -2,6 +2,7 @@ import type { Tournament } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../utils/api";
+import Modal from "./Modal";
 import TournamentRow from "./TournamentRow";
 
 type PropType = {
@@ -20,7 +21,10 @@ const Table = ({ teamId }: PropType) => {
     data: tournaments,
     isLoading,
     isError,
-  } = api.tournament.getTournamnetsByTeamId.useQuery({ teamId }, { refetchOnWindowFocus: false },);
+  } = api.tournament.getTournamnetsByTeamId.useQuery(
+    { teamId },
+    { refetchOnWindowFocus: false }
+  );
 
   const queryClient = api.useContext();
   const deleteTournament = api.tournament.deleteTournament.useMutation({
@@ -64,54 +68,28 @@ const Table = ({ teamId }: PropType) => {
   };
 
   const handleDeleteTournament = () => {
+    console.log("Here");
     if (wait) return;
-    if (tournaments.at(deleteRow) === undefined) return;
     deleteTournament.mutate({ id: tournaments.at(deleteRow)!.id });
   };
 
   return (
     <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
-      {/* Start of input error modal */}
-      <input type="checkbox" id="error-modal" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
-          <h3 className="text-lg font-bold">Invalid Input</h3>
-          <p className="py-4">
-            Please make sure that all fields of the new row have been filled
+      <Modal
+        name="error"
+        header="Invalid Input"
+        content="Please make sure that all fields of the new row have been filled
             out, that the date field is formatted properly, and that a valid
-            date has been provided
-          </p>
-          <div className="modal-action">
-            <label htmlFor="error-modal" className="btn">
-              Close
-            </label>
-          </div>
-        </div>
-      </div>
-      {/* End of input error modal */}
-
-      {/* This is the modal for when things are being deleted */}
-      <input type="checkbox" id="delete-modal" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
-          <h3 className="text-lg font-bold">Confirm Delete</h3>
-          <p className="py-4">Are you sure you want to delete this row?</p>
-          <div className="modal-action">
-            <label htmlFor="delete-modal" className="btn-outline btn-error btn">
-              Cancel
-            </label>
-            <label
-              htmlFor="delete-modal"
-              className="btn"
-              onClick={handleDeleteTournament}
-            >
-              Yes I&apos;m Sure
-            </label>
-          </div>
-        </div>
-      </div>
-      {/* End of delete modal */}
-
+            date has been provided"
+        confirmCancelButtons={false}
+      ></Modal>
+      <Modal
+        name="delete"
+        header="Confirm Delete"
+        content="Are you sure you want to delete this row?"
+        actionItem={handleDeleteTournament}
+        confirmCancelButtons={true}
+      ></Modal>
       <table className="table min-w-full table-auto text-center transition duration-300 ease-in-out">
         <thead>
           <tr className="w-full">
@@ -135,9 +113,9 @@ const Table = ({ teamId }: PropType) => {
                 removeTemporaryRow={removeTemporaryRow}
                 setNewRow={setNewRow}
                 setEditRow={setEditRow}
-                setDeleteRow={setDeleteRow}
                 wait={wait}
                 setWait={setWait}
+                setDeleteRow={setDeleteRow}
                 key={`tournamentRow${index}`}
               ></TournamentRow>
             );

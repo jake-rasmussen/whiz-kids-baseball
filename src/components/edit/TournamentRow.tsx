@@ -2,6 +2,7 @@ import { Tournament } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../utils/api";
+import Modal from "./Modal";
 
 type PropType = {
   index: number;
@@ -14,8 +15,8 @@ type PropType = {
   setNewRow: React.Dispatch<React.SetStateAction<boolean>>;
   wait: boolean;
   setWait: React.Dispatch<React.SetStateAction<boolean>>;
-  setDeleteRow: React.Dispatch<React.SetStateAction<number>>;
   removeTemporaryRow: () => void;
+  setDeleteRow: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const TournamentRow = (props: PropType) => {
@@ -117,7 +118,7 @@ const TournamentRow = (props: PropType) => {
       return;
     }
     setEditRow(-1);
-    
+
     if (
       row.name === "" &&
       row.dates === "" &&
@@ -169,7 +170,7 @@ const TournamentRow = (props: PropType) => {
   };
 
   return (
-    <React.Fragment key={`tournamentTable${index}`}>
+    <React.Fragment key={`tournamentRow${index}`}>
       <tr
         className="border-y border-light-gray text-dark-gray shadow-xl"
         key={`practiceTable${index}`}
@@ -236,10 +237,7 @@ const TournamentRow = (props: PropType) => {
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
               </button>
               <button>
-                <label
-                  htmlFor="delete-modal"
-                  onClick={() => setDeleteRow(index)}
-                >
+                <label htmlFor="delete-modal">
                   <IconTrash className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                 </label>
               </button>
@@ -260,7 +258,7 @@ const TournamentRow = (props: PropType) => {
               <button>
                 <IconEdit className="mx-1 text-light-gray" />
               </button>
-              <button>
+              <button onClick={() => setDeleteRow(index)}>
                 <IconTrash className="mx-1 text-light-gray" />
               </button>
             </div>
