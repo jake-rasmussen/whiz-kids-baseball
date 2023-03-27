@@ -20,7 +20,7 @@ const Table = ({ teamId }: PropType) => {
     data: tournaments,
     isLoading,
     isError,
-  } = api.tournament.getTournamnetsByTeamId.useQuery({ teamId });
+  } = api.tournament.getTournamnetsByTeamId.useQuery({ teamId }, { refetchOnWindowFocus: false },);
 
   const queryClient = api.useContext();
   const deleteTournament = api.tournament.deleteTournament.useMutation({
@@ -30,7 +30,7 @@ const Table = ({ teamId }: PropType) => {
     onSuccess() {
       queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
       setWait(false);
-    }
+    },
   });
 
   if (isLoading) {
