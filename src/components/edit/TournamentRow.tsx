@@ -2,7 +2,6 @@ import { Tournament } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../utils/api";
-import Modal from "./Modal";
 
 type PropType = {
   index: number;
@@ -237,7 +236,7 @@ const TournamentRow = (props: PropType) => {
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
               </button>
               <button>
-                <label htmlFor="delete-modal">
+                <label htmlFor="delete-modal"  onClick={() => setDeleteRow(index)}>
                   <IconTrash className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                 </label>
               </button>
@@ -258,7 +257,7 @@ const TournamentRow = (props: PropType) => {
               <button>
                 <IconEdit className="mx-1 text-light-gray" />
               </button>
-              <button onClick={() => setDeleteRow(index)}>
+              <button>
                 <IconTrash className="mx-1 text-light-gray" />
               </button>
             </div>

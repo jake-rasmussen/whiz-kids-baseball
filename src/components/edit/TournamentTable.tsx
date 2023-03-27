@@ -68,7 +68,7 @@ const Table = ({ teamId }: PropType) => {
   };
 
   const handleDeleteTournament = () => {
-    console.log("Here");
+    console.log(deleteRow)
     if (wait) return;
     deleteTournament.mutate({ id: tournaments.at(deleteRow)!.id });
   };
