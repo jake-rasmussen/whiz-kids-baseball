@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { api } from "../../utils/api";
 import Modal from "./Modal";
 import TournamentRow from "./TournamentRow";
-
+//Really bad practice to have two components named the same thing, like in component/team and component/edit u have the same component named and title 
+// Change this one to like TournamentTableEdit or something and also its best to have the component name match the file name
 type PropType = {
   name: string;
   teamId: string;
@@ -12,9 +13,10 @@ type PropType = {
 };
 
 const Table = ({ teamId }: PropType) => {
-  const [editRow, setEditRow] = useState(-1);
-  const [deleteRow, setDeleteRow] = useState(-1);
-  const [newRow, setNewRow] = useState(false);
+  //TODO: I changed the names but I think the naming convention needs to be better 
+  const [editRowIdx, setEditRow] = useState(-1);
+  const [deleteRowIdx, setDeleteRow] = useState(-1);
+  const [newRowCreated, setNewRow] = useState(false);
   const [wait, setWait] = useState(false);
 
   const {
@@ -37,6 +39,7 @@ const Table = ({ teamId }: PropType) => {
     },
   });
 
+  // I am pretty sure you don't need the wait thing but lets talk about it tomorrow
   if (isLoading) {
     return <>Loading...</>;
   } else if (isError) {
@@ -44,7 +47,7 @@ const Table = ({ teamId }: PropType) => {
   }
 
   const addTemporaryRow = (index: number) => {
-    if (editRow !== -1) return;
+    if (editRowIdx !== -1) return;
 
     tournaments.push({
       id: "",
@@ -62,15 +65,22 @@ const Table = ({ teamId }: PropType) => {
   };
 
   const removeTemporaryRow = () => {
-    if (newRow) tournaments.pop();
+    if (newRowCreated) tournaments.pop();
     setEditRow(-1);
     setNewRow(false);
   };
 
   const handleDeleteTournament = () => {
-    console.log(deleteRow)
+    console.log(deleteRowIdx)// TODO: remove this
     if (wait) return;
-    deleteTournament.mutate({ id: tournaments.at(deleteRow)!.id });
+    // TODO: add a check to the element is contained in the arr so you can get rid of the non-null assertion(the !)
+    const tournamentToBeDeleted = tournaments[deleteRowIdx]
+    if (tournamentToBeDeleted){
+      deleteTournament.mutate({ id: tournamentToBeDeleted.id });
+    } else {
+      // Use toast to display error
+      console.error("Tournament id not found")
+    }
   };
 
   return (
@@ -108,8 +118,8 @@ const Table = ({ teamId }: PropType) => {
                 teamId={teamId}
                 tournamentId={tournament.id}
                 tournament={tournament}
-                newRow={newRow}
-                editRow={editRow === index}
+                newRow={newRowCreated}
+                editRow={editRowIdx === index}
                 removeTemporaryRow={removeTemporaryRow}
                 setNewRow={setNewRow}
                 setEditRow={setEditRow}
@@ -123,7 +133,7 @@ const Table = ({ teamId }: PropType) => {
         </tbody>
       </table>
       <div className="flex w-full justify-end">
-        {editRow === -1 && !wait ? (
+        {editRowIdx === -1 && !wait ? (
           <button
             className="min-w-8 min-h-8 mt-4 mr-4
             transition duration-300 ease-in-out hover:scale-150 hover:text-red"
