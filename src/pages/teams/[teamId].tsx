@@ -24,9 +24,7 @@ const TeamPage: NextPageWithLayout = () => {
   } else if (isError) {
     return <div>Error...</div>;
   }
-  // I think this is fine and I understand why you did it like this, but for the future keep in mind that it would be ideal to fetch at the component that is consuming 
-  // the data. In this case it makes sense because the api call returns the player, tournament and practice data so refetching would be dumb. But keep this in mind for the future.
-  //Honestly prob on me as I think is a case of overfetching data via one route but I think its fine
+
   const { name: teamName, players, tournaments, practices } = data;
 
   return (

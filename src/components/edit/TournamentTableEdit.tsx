@@ -1,11 +1,11 @@
 import type { Tournament } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
+import { toast, Toaster } from "react-hot-toast";
 import { api } from "../../utils/api";
 import Modal from "./Modal";
-import TournamentRow from "./TournamentRow";
-//Really bad practice to have two components named the same thing, like in component/team and component/edit u have the same component named and title 
-// Change this one to like TournamentTableEdit or something and also its best to have the component name match the file name
+import TournamentRowEdit from "./TournamentRowEdit";
+
 type PropType = {
   name: string;
   teamId: string;
@@ -13,7 +13,7 @@ type PropType = {
 };
 
 const Table = ({ teamId }: PropType) => {
-  //TODO: I changed the names but I think the naming convention needs to be better 
+  //TODO: I changed the names but I think the naming convention needs to be better
   const [editRowIdx, setEditRow] = useState(-1);
   const [deleteRowIdx, setDeleteRow] = useState(-1);
   const [newRowCreated, setNewRow] = useState(false);
@@ -71,20 +71,19 @@ const Table = ({ teamId }: PropType) => {
   };
 
   const handleDeleteTournament = () => {
-    console.log(deleteRowIdx)// TODO: remove this
     if (wait) return;
     // TODO: add a check to the element is contained in the arr so you can get rid of the non-null assertion(the !)
-    const tournamentToBeDeleted = tournaments[deleteRowIdx]
-    if (tournamentToBeDeleted){
+    const tournamentToBeDeleted = tournaments[deleteRowIdx];
+    if (tournamentToBeDeleted) {
       deleteTournament.mutate({ id: tournamentToBeDeleted.id });
     } else {
-      // Use toast to display error
-      console.error("Tournament id not found")
+      toast.error("Error Deleting Tournament");
     }
   };
 
   return (
     <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
+      <Toaster position="bottom-center" />
       <Modal
         name="error"
         header="Invalid Input"
@@ -113,21 +112,21 @@ const Table = ({ teamId }: PropType) => {
         <tbody className="capitalize shadow-xl">
           {tournaments.map((tournament: Tournament, index) => {
             return (
-              <TournamentRow
+              <TournamentRowEdit
                 index={index}
                 teamId={teamId}
                 tournamentId={tournament.id}
                 tournament={tournament}
                 newRow={newRowCreated}
+                setNewRow={setNewRow}
                 editRow={editRowIdx === index}
                 removeTemporaryRow={removeTemporaryRow}
-                setNewRow={setNewRow}
                 setEditRow={setEditRow}
                 wait={wait}
                 setWait={setWait}
                 setDeleteRow={setDeleteRow}
                 key={`tournamentRow${index}`}
-              ></TournamentRow>
+              ></TournamentRowEdit>
             );
           })}
         </tbody>
