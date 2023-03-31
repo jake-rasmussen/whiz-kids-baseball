@@ -1,8 +1,10 @@
 import type { Tournament } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
+import { toast, Toaster } from "react-hot-toast";
 import { api } from "../../utils/api";
-import TournamentRow from "./TournamentRow";
+import Modal from "./Modal";
+import TournamentRowEdit from "./TournamentRowEdit";
 
 type PropType = {
   name: string;
@@ -11,16 +13,20 @@ type PropType = {
 };
 
 const Table = ({ teamId }: PropType) => {
-  const [editRow, setEditRow] = useState(-1);
-  const [deleteRow, setDeleteRow] = useState(-1);
-  const [newRow, setNewRow] = useState(false);
+  //TODO: I changed the names but I think the naming convention needs to be better
+  const [editRowIdx, setEditRow] = useState(-1);
+  const [deleteRowIdx, setDeleteRow] = useState(-1);
+  const [newRowCreated, setNewRow] = useState(false);
   const [wait, setWait] = useState(false);
 
   const {
     data: tournaments,
     isLoading,
     isError,
-  } = api.tournament.getTournamnetsByTeamId.useQuery({ teamId }, { refetchOnWindowFocus: false },);
+  } = api.tournament.getTournamnetsByTeamId.useQuery(
+    { teamId },
+    { refetchOnWindowFocus: false }
+  );
 
   const queryClient = api.useContext();
   const deleteTournament = api.tournament.deleteTournament.useMutation({
@@ -33,6 +39,7 @@ const Table = ({ teamId }: PropType) => {
     },
   });
 
+  // I am pretty sure you don't need the wait thing but lets talk about it tomorrow
   if (isLoading) {
     return <>Loading...</>;
   } else if (isError) {
@@ -40,7 +47,7 @@ const Table = ({ teamId }: PropType) => {
   }
 
   const addTemporaryRow = (index: number) => {
-    if (editRow !== -1) return;
+    if (editRowIdx !== -1) return;
 
     tournaments.push({
       id: "",
@@ -58,60 +65,40 @@ const Table = ({ teamId }: PropType) => {
   };
 
   const removeTemporaryRow = () => {
-    if (newRow) tournaments.pop();
+    if (newRowCreated) tournaments.pop();
     setEditRow(-1);
     setNewRow(false);
   };
 
   const handleDeleteTournament = () => {
     if (wait) return;
-    if (tournaments.at(deleteRow) === undefined) return;
-    deleteTournament.mutate({ id: tournaments.at(deleteRow)!.id });
+    // TODO: add a check to the element is contained in the arr so you can get rid of the non-null assertion(the !)
+    const tournamentToBeDeleted = tournaments[deleteRowIdx];
+    if (tournamentToBeDeleted) {
+      deleteTournament.mutate({ id: tournamentToBeDeleted.id });
+    } else {
+      toast.error("Error Deleting Tournament");
+    }
   };
 
   return (
     <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
-      {/* Start of input error modal */}
-      <input type="checkbox" id="error-modal" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
-          <h3 className="text-lg font-bold">Invalid Input</h3>
-          <p className="py-4">
-            Please make sure that all fields of the new row have been filled
+      <Toaster position="bottom-center" />
+      <Modal
+        name="error"
+        header="Invalid Input"
+        content="Please make sure that all fields of the new row have been filled
             out, that the date field is formatted properly, and that a valid
-            date has been provided
-          </p>
-          <div className="modal-action">
-            <label htmlFor="error-modal" className="btn">
-              Close
-            </label>
-          </div>
-        </div>
-      </div>
-      {/* End of input error modal */}
-
-      {/* This is the modal for when things are being deleted */}
-      <input type="checkbox" id="delete-modal" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
-          <h3 className="text-lg font-bold">Confirm Delete</h3>
-          <p className="py-4">Are you sure you want to delete this row?</p>
-          <div className="modal-action">
-            <label htmlFor="delete-modal" className="btn-outline btn-error btn">
-              Cancel
-            </label>
-            <label
-              htmlFor="delete-modal"
-              className="btn"
-              onClick={handleDeleteTournament}
-            >
-              Yes I&apos;m Sure
-            </label>
-          </div>
-        </div>
-      </div>
-      {/* End of delete modal */}
-
+            date has been provided"
+        confirmCancelButtons={false}
+      ></Modal>
+      <Modal
+        name="delete"
+        header="Confirm Delete"
+        content="Are you sure you want to delete this row?"
+        actionItem={handleDeleteTournament}
+        confirmCancelButtons={true}
+      ></Modal>
       <table className="table min-w-full table-auto text-center transition duration-300 ease-in-out">
         <thead>
           <tr className="w-full">
@@ -125,27 +112,27 @@ const Table = ({ teamId }: PropType) => {
         <tbody className="capitalize shadow-xl">
           {tournaments.map((tournament: Tournament, index) => {
             return (
-              <TournamentRow
+              <TournamentRowEdit
                 index={index}
                 teamId={teamId}
                 tournamentId={tournament.id}
                 tournament={tournament}
-                newRow={newRow}
-                editRow={editRow === index}
-                removeTemporaryRow={removeTemporaryRow}
+                newRow={newRowCreated}
                 setNewRow={setNewRow}
+                editRow={editRowIdx === index}
+                removeTemporaryRow={removeTemporaryRow}
                 setEditRow={setEditRow}
-                setDeleteRow={setDeleteRow}
                 wait={wait}
                 setWait={setWait}
+                setDeleteRow={setDeleteRow}
                 key={`tournamentRow${index}`}
-              ></TournamentRow>
+              ></TournamentRowEdit>
             );
           })}
         </tbody>
       </table>
       <div className="flex w-full justify-end">
-        {editRow === -1 && !wait ? (
+        {editRowIdx === -1 && !wait ? (
           <button
             className="min-w-8 min-h-8 mt-4 mr-4
             transition duration-300 ease-in-out hover:scale-150 hover:text-red"

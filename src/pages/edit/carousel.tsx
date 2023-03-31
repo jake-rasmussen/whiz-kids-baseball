@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState, ReactElement } from "react";
 import PracticeTable from "../../components/edit/PracticeTable";
 import Roster from "../../components/edit/Roster";
-import TournamentTable from "../../components/edit/TournamentTable";
+import TournamentTable from "../../components/edit/TournamentTableEdit";
 import Loading from "../../components/Loading";
 import Tab from "../../components/Tab";
 import EditLayout from "../../layouts/editLayout";

@@ -24,6 +24,7 @@ const TeamPage: NextPageWithLayout = () => {
   } else if (isError) {
     return <div>Error...</div>;
   }
+
   const { name: teamName, players, tournaments, practices } = data;
 
   return (

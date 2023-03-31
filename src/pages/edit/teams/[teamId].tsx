@@ -7,35 +7,22 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { api } from "../../../utils/api";
 import PracticeTable from "../../../components/edit/PracticeTable";
-import TournamentTable from "../../../components/edit/TournamentTable";
+import TournamentTableEdit from "../../../components/edit/TournamentTableEdit";
 import Roster from "../../../components/edit/Roster";
 import Loading from "../../../components/Loading";
 
-interface Props {
-  teamId: number;
-}
-
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
-) => {
-  const teamId = context.params?.teamId as unknown as number;
-
-  return {
-    props: {
-      teamId,
-    },
-  };
-};
-
-const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
+const TeamPage: NextPageWithLayout = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const router = useRouter();
   const id = router.query.teamId as string;
 
-  const { data, isError, isLoading } = api.team.getTeamById.useQuery({
-    id,
-  });
+  const { data, isError, isLoading } = api.team.getTeamById.useQuery(
+    {
+      id,
+    },
+    { enabled: !!id }
+  );
 
   if (isLoading) {
     return <Loading />;
@@ -55,11 +42,11 @@ const TeamPage: NextPageWithLayout<Props> = ({ teamId }) => {
 
           <section className="flex w-full flex-grow flex-col items-center justify-start overflow-x-scroll">
             {activeTab === 0 ? (
-              <TournamentTable
+              <TournamentTableEdit
                 name={"practices"}
-                teamId={teamId.toString()}
+                teamId={id}
                 tournaments={tournaments}
-              ></TournamentTable>
+              ></TournamentTableEdit>
             ) : (
               <></>
             )}

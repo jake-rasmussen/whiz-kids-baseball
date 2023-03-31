@@ -2,7 +2,11 @@ import { Tournament } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../utils/api";
-
+import {
+  stringToDates,
+  datesToString,
+  isEmptyString,
+} from "../../utils/helpers";
 type PropType = {
   index: number;
   tournamentId: string;
@@ -14,8 +18,8 @@ type PropType = {
   setNewRow: React.Dispatch<React.SetStateAction<boolean>>;
   wait: boolean;
   setWait: React.Dispatch<React.SetStateAction<boolean>>;
-  setDeleteRow: React.Dispatch<React.SetStateAction<number>>;
   removeTemporaryRow: () => void;
+  setDeleteRow: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const TournamentRow = (props: PropType) => {
@@ -38,11 +42,22 @@ const TournamentRow = (props: PropType) => {
     name: "",
     location: "",
     dates: "",
-    format: "",
+    format: ""
   });
   const [validInput, setValidInput] = useState(true); // Determines if the current input is in a valid state
 
   const queryClient = api.useContext();
+
+  const onSuccessFn = () => {
+    setRow({
+      name: "",
+      location: "",
+      dates: "",
+      format: ""
+    });
+    setEditRow(-1);
+    setWait(false);
+  };
 
   const updateTournament = api.tournament.updateTournamentDetails.useMutation({
     onMutate() {
@@ -50,14 +65,7 @@ const TournamentRow = (props: PropType) => {
     },
     onSuccess() {
       queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
-      setRow({
-        name: "",
-        location: "",
-        dates: "",
-        format: "",
-      });
-      setEditRow(-1);
-      setWait(false);
+      onSuccessFn();
     },
   });
 
@@ -67,49 +75,10 @@ const TournamentRow = (props: PropType) => {
     },
     onSuccess() {
       queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
-      setRow({
-        name: "",
-        location: "",
-        dates: "",
-        format: "",
-      });
-      setEditRow(-1);
+      onSuccessFn();
       setNewRow(false);
-      setWait(false);
     },
   });
-
-  const datesToString = (dates: Date[]) => {
-    let str = "";
-    dates.forEach((date: Date, index: number) => {
-      if (date.getMonth() + 1 < 10) str += "0";
-      str += `${date.getMonth() + 1}-${date.getDate()}`;
-      if (index != dates.length - 1) str += ", ";
-    });
-    return str;
-  };
-
-  const stringToDates = (dates: string) => {
-    const split = dates.split(",");
-    const datesArray: Date[] = [];
-    for (let date of split) {
-      date = date.trim();
-      if (
-        date.length !== 5 ||
-        stringToDate(date).toString() === "Invalid Date"
-      ) {
-        return [];
-      }
-      datesArray.push(stringToDate(date));
-    }
-    return datesArray;
-  };
-
-  const stringToDate = (date: string) => {
-    const dateRegExp = /(\d{2})\.(\d{2})/;
-    const dateString: string = date.replace(dateRegExp, "$2-$1");
-    return new Date(dateString);
-  };
 
   const handleSaveTournament = () => {
     if (!checkValidInput()) {
@@ -117,14 +86,17 @@ const TournamentRow = (props: PropType) => {
       return;
     }
     setEditRow(-1);
-    
+
     if (
-      row.name === "" &&
-      row.dates === "" &&
-      row.format === "" &&
-      row.location === ""
-    )
-      return;
+      Object.entries(row).toString() ===
+      Object.entries({
+        name: "",
+        location: "",
+        dates: "",
+        format: ""
+      }).toString()
+    ) return;
+    
 
     if (wait) return;
 
@@ -138,10 +110,14 @@ const TournamentRow = (props: PropType) => {
       });
     } else {
       updateTournament.mutate({
-        name: row.name === "" ? tournament.name : row.name,
-        dates: row.dates === "" ? tournament.dates : stringToDates(row.dates),
-        location: row.location === "" ? tournament.location : row.location,
-        type: row.format === "" ? tournament.type : row.format,
+        name: isEmptyString(row.name) ? tournament.name : row.name,
+        dates: isEmptyString(row.dates)
+          ? tournament.dates
+          : stringToDates(row.dates),
+        location: isEmptyString(row.location)
+          ? tournament.location
+          : row.location,
+        type: isEmptyString(row.format) ? tournament.type : row.format,
         id: tournamentId,
       });
     }
@@ -151,25 +127,27 @@ const TournamentRow = (props: PropType) => {
     if (newRow) {
       if (stringToDates(row.dates).length === 0) return false;
       if (
-        row.name.trim().length === 0 ||
-        row.dates.trim().length === 0 ||
-        row.location.trim().length === 0 ||
-        row.format.trim().length === 0
+        isEmptyString(row.name) ||
+        isEmptyString(row.dates) ||
+        isEmptyString(row.location) ||
+        isEmptyString(row.format)
       )
         return false;
     } else {
-      if (row.dates !== "" && row.dates.length < 5) return false;
-      if (row.dates !== "" && stringToDates(row.dates).length === 0)
+      if (
+        !isEmptyString(row.dates) &&
+        (row.dates.length < 5 || stringToDates(row.dates).length === 0)
+      )
         return false;
     }
-    if (row.dates !== "" && row.dates.at(2) != "-") return false;
+    if (!isEmptyString(row.dates) && row.dates.at(2) != "-") return false;
 
     setValidInput(true);
     return true;
   };
 
   return (
-    <React.Fragment key={`tournamentTable${index}`}>
+    <React.Fragment key={`tournamentRow${index}`}>
       <tr
         className="border-y border-light-gray text-dark-gray shadow-xl"
         key={`practiceTable${index}`}
