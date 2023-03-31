@@ -1,7 +1,9 @@
+import { alumniRouter } from "./routers/alumni";
 import { playerRouter } from "./routers/player";
 import { practiceRouter } from "./routers/practice";
 import { teamRouter } from "./routers/team";
 import { tournamentRouter } from "./routers/tournament";
+import { tryoutsRouter as tryoutRouter } from "./routers/tryout";
 import { createTRPCRouter } from "./trpc";
 
 /**
@@ -14,6 +16,8 @@ export const appRouter = createTRPCRouter({
   tournament: tournamentRouter,
   player: playerRouter,
   practice: practiceRouter,
+  tryout: tryoutRouter,
+  alumni: alumniRouter,
 });
 
 // export type definition of API
