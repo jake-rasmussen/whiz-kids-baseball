@@ -62,9 +62,6 @@ export const playerRouter = createTRPCRouter({
         where: {
           teamId,
         },
-        include: {
-          team: true,
-        },
       });
 
       return players;
@@ -77,7 +74,7 @@ export const playerRouter = createTRPCRouter({
         lastName: z.string(),
         graduationYear: z.number(),
         school: z.string(),
-        positions: z.nativeEnum(Position),
+        positions: z.nativeEnum(Position).array(),
         teamId: z.string(),
       })
     )
@@ -110,7 +107,7 @@ export const playerRouter = createTRPCRouter({
         lastName: z.string().optional(),
         graduationYear: z.number().optional(),
         school: z.string().optional(),
-        positions: z.nativeEnum(Position).optional(),
+        positions: z.nativeEnum(Position).array().optional(),
         teamId: z.string().optional(),
       })
     )

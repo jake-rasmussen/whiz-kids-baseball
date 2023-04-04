@@ -1,20 +1,25 @@
-import { Tournament } from "@prisma/client";
+import { Practice } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
-import { api } from "../../utils/api";
+import { api } from "../../../utils/api";
 import {
   stringToDates,
+  stringToDate,
   datesToString,
   isEmptyString,
-} from "../../utils/helpers";
+  daysToString,
+  stringToDays,
+  dateToTimeString,
+  stringToTimeAsDate,
+} from "../../../utils/helpers";
 type PropType = {
   index: number;
-  tournamentId: string;
+  practiceId: string;
   teamId: string;
-  tournament: Tournament;
+  practice: Practice;
   editRow: boolean;
   setEditRow: React.Dispatch<React.SetStateAction<number>>;
-  newRow: boolean;
+  newRowCreated: boolean;
   setNewRow: React.Dispatch<React.SetStateAction<boolean>>;
   wait: boolean;
   setWait: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,15 +27,15 @@ type PropType = {
   setDeleteRow: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const TournamentRow = (props: PropType) => {
+const PracticeRow = (props: PropType) => {
   const {
     index,
     teamId,
-    tournamentId,
-    tournament,
+    practiceId,
+    practice,
     editRow,
     setEditRow,
-    newRow,
+    newRowCreated: newRowCreated,
     setNewRow,
     wait,
     setWait,
@@ -38,49 +43,49 @@ const TournamentRow = (props: PropType) => {
     setDeleteRow,
   } = props;
 
-  const [row, setRow] = useState({
-    name: "",
+  const [rowEdits, setRowEdits] = useState({
     location: "",
-    dates: "",
-    format: ""
+    days: "",
+    startTime: "",
+    endTime: "",
   });
   const [validInput, setValidInput] = useState(true); // Determines if the current input is in a valid state
 
   const queryClient = api.useContext();
 
   const onSuccessFn = () => {
-    setRow({
-      name: "",
+    setRowEdits({
       location: "",
-      dates: "",
-      format: ""
+      days: "",
+      startTime: "",
+      endTime: "",
     });
     setEditRow(-1);
     setWait(false);
   };
 
-  const updateTournament = api.tournament.updateTournamentDetails.useMutation({
+  const updatePractice = api.practice.updatePractice.useMutation({
     onMutate() {
       setWait(true);
     },
     onSuccess() {
-      queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
+      queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
       onSuccessFn();
     },
   });
 
-  const createTournament = api.tournament.createTournament.useMutation({
+  const createPractice = api.practice.createPractice.useMutation({
     onMutate() {
       setWait(true);
     },
     onSuccess() {
-      queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
+      queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
       onSuccessFn();
       setNewRow(false);
     },
   });
 
-  const handleSaveTournament = () => {
+  const handleSavePractice = () => {
     if (!checkValidInput()) {
       setValidInput(false);
       return;
@@ -88,59 +93,75 @@ const TournamentRow = (props: PropType) => {
     setEditRow(-1);
 
     if (
-      Object.entries(row).toString() ===
+      Object.entries(rowEdits).toString() ===
       Object.entries({
-        name: "",
         location: "",
-        dates: "",
-        format: ""
+        days: "",
+        startTime: "",
+        endTime: "",
       }).toString()
-    ) return;
-    
+    )
+      return;
 
     if (wait) return;
 
-    if (newRow) {
-      createTournament.mutate({
-        name: row.name,
-        dates: stringToDates(row.dates),
-        location: row.location,
-        type: row.format,
+    if (newRowCreated) {
+      createPractice.mutate({
+        days: stringToDays(rowEdits.days),
+        location: rowEdits.location,
+        startTime: stringToTimeAsDate(rowEdits.startTime),
+        endTime: stringToTimeAsDate(rowEdits.endTime),
         teamId: teamId,
       });
     } else {
-      updateTournament.mutate({
-        name: isEmptyString(row.name) ? tournament.name : row.name,
-        dates: isEmptyString(row.dates)
-          ? tournament.dates
-          : stringToDates(row.dates),
-        location: isEmptyString(row.location)
-          ? tournament.location
-          : row.location,
-        type: isEmptyString(row.format) ? tournament.type : row.format,
-        id: tournamentId,
+      updatePractice.mutate({
+        id: practiceId,
+        days: isEmptyString(rowEdits.days)
+          ? practice.days
+          : stringToDays(rowEdits.days),
+        location: isEmptyString(rowEdits.location)
+          ? practice.location
+          : rowEdits.location,
+        startTime: isEmptyString(rowEdits.startTime)
+          ? practice.startTime
+          : stringToTimeAsDate(rowEdits.startTime),
+        endTime: isEmptyString(rowEdits.endTime)
+          ? practice.endTime
+          : stringToTimeAsDate(rowEdits.endTime),
+        teamId: teamId,
       });
     }
   };
 
   const checkValidInput = () => {
-    if (newRow) {
-      if (stringToDates(row.dates).length === 0) return false;
+    if (newRowCreated) {
+      if (stringToDays(rowEdits.days).length === 0) return false;
       if (
-        isEmptyString(row.name) ||
-        isEmptyString(row.dates) ||
-        isEmptyString(row.location) ||
-        isEmptyString(row.format)
+        isEmptyString(rowEdits.days) ||
+        isEmptyString(rowEdits.startTime) ||
+        isEmptyString(rowEdits.endTime) ||
+        isEmptyString(rowEdits.location)
       )
         return false;
     } else {
+      if (rowEdits.days.length > 0 && stringToDays(rowEdits.days).length == 0)
+        return false;
+      if (rowEdits.startTime.length > 0 && rowEdits.startTime.charAt(2) != ":")
+        return false;
+      if (rowEdits.endTime.length > 0 && rowEdits.endTime.charAt(2) != ":")
+        return false;
+
       if (
-        !isEmptyString(row.dates) &&
-        (row.dates.length < 5 || stringToDates(row.dates).length === 0)
+        rowEdits.startTime.length > 0 &&
+        stringToTimeAsDate(rowEdits.startTime).toString() === "Invalid Date"
+      )
+        return false;
+      if (
+        rowEdits.endTime.length > 0 &&
+        stringToTimeAsDate(rowEdits.endTime).toString() === "Invalid Date"
       )
         return false;
     }
-    if (!isEmptyString(row.dates) && row.dates.at(2) != "-") return false;
 
     setValidInput(true);
     return true;
@@ -155,24 +176,12 @@ const TournamentRow = (props: PropType) => {
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
           <input
             type="text"
-            placeholder={tournament.name}
+            placeholder={practice.location}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              row.name = e.currentTarget.value;
-            }}
-          />
-        </td>
-        <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
-          <input
-            type="text"
-            placeholder={tournament.location}
-            className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
-            text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
-            onChange={(e) => {
-              row.location = e.currentTarget.value;
+              rowEdits.location = e.currentTarget.value;
             }}
           />
         </td>
@@ -180,27 +189,47 @@ const TournamentRow = (props: PropType) => {
           <input
             type="text"
             placeholder={
-              tournament.dates.toString() === "Invalid Date"
-                ? "MM-DD"
-                : datesToString(tournament.dates)
+              practice.days.length === 0
+                ? "Weekday"
+                : daysToString(practice.days)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              row.dates = e.currentTarget.value;
+              rowEdits.days = e.currentTarget.value;
             }}
           />
         </td>
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
           <input
             type="text"
-            placeholder={tournament.type}
+            placeholder={
+              practice.startTime.toString() === "Invalid Date"
+                ? "HH:MM"
+                : dateToTimeString(practice.startTime)
+            }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              row.format = e.currentTarget.value;
+              rowEdits.startTime = e.currentTarget.value;
+            }}
+          />
+        </td>
+        <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
+          <input
+            type="text"
+            placeholder={
+              practice.endTime.toString() === "Invalid Date"
+                ? "HH:MM"
+                : dateToTimeString(practice.endTime)
+            }
+            className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
+            text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
+            disabled={!editRow}
+            onChange={(e) => {
+              rowEdits.endTime = e.currentTarget.value;
             }}
           />
         </td>
@@ -224,7 +253,7 @@ const TournamentRow = (props: PropType) => {
             </div>
           ) : editRow && !wait ? (
             <div>
-              <button onClick={handleSaveTournament}>
+              <button onClick={handleSavePractice}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
                   <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                 </label>
@@ -249,4 +278,4 @@ const TournamentRow = (props: PropType) => {
   );
 };
 
-export default TournamentRow;
+export default PracticeRow;

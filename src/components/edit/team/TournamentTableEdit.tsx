@@ -2,20 +2,18 @@ import type { Tournament } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
-import { api } from "../../utils/api";
-import Modal from "./Modal";
+import { api } from "../../../utils/api";
+import Modal from "../Modal";
 import TournamentRowEdit from "./TournamentRowEdit";
 
 type PropType = {
   name: string;
   teamId: string;
-  tournaments: Tournament[];
 };
 
 const Table = ({ teamId }: PropType) => {
-  //TODO: I changed the names but I think the naming convention needs to be better
-  const [editRowIdx, setEditRow] = useState(-1);
-  const [deleteRowIdx, setDeleteRow] = useState(-1);
+  const [editRowIndex, setEditRow] = useState(-1);
+  const [deleteRowIndex, setDeleteRow] = useState(-1);
   const [newRowCreated, setNewRow] = useState(false);
   const [wait, setWait] = useState(false);
 
@@ -36,10 +34,10 @@ const Table = ({ teamId }: PropType) => {
     onSuccess() {
       queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
       setWait(false);
+      setEditRow(-1);
     },
   });
 
-  // I am pretty sure you don't need the wait thing but lets talk about it tomorrow
   if (isLoading) {
     return <>Loading...</>;
   } else if (isError) {
@@ -47,7 +45,7 @@ const Table = ({ teamId }: PropType) => {
   }
 
   const addTemporaryRow = (index: number) => {
-    if (editRowIdx !== -1) return;
+    if (editRowIndex !== -1) return;
 
     tournaments.push({
       id: "",
@@ -72,8 +70,7 @@ const Table = ({ teamId }: PropType) => {
 
   const handleDeleteTournament = () => {
     if (wait) return;
-    // TODO: add a check to the element is contained in the arr so you can get rid of the non-null assertion(the !)
-    const tournamentToBeDeleted = tournaments[deleteRowIdx];
+    const tournamentToBeDeleted = tournaments[deleteRowIndex];
     if (tournamentToBeDeleted) {
       deleteTournament.mutate({ id: tournamentToBeDeleted.id });
     } else {
@@ -117,22 +114,22 @@ const Table = ({ teamId }: PropType) => {
                 teamId={teamId}
                 tournamentId={tournament.id}
                 tournament={tournament}
-                newRow={newRowCreated}
+                newRowCreated={newRowCreated}
                 setNewRow={setNewRow}
-                editRow={editRowIdx === index}
+                editRow={editRowIndex === index}
                 removeTemporaryRow={removeTemporaryRow}
                 setEditRow={setEditRow}
                 wait={wait}
                 setWait={setWait}
                 setDeleteRow={setDeleteRow}
                 key={`tournamentRow${index}`}
-              ></TournamentRowEdit>
+              />
             );
           })}
         </tbody>
       </table>
       <div className="flex w-full justify-end">
-        {editRowIdx === -1 && !wait ? (
+        {editRowIndex === -1 && !wait ? (
           <button
             className="min-w-8 min-h-8 mt-4 mr-4
             transition duration-300 ease-in-out hover:scale-150 hover:text-red"

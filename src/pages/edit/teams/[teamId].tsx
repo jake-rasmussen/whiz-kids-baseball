@@ -6,8 +6,8 @@ import type { ReactElement } from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { api } from "../../../utils/api";
-import PracticeTable from "../../../components/edit/PracticeTable";
-import TournamentTableEdit from "../../../components/edit/TournamentTableEdit";
+import PracticeTableEdit from "../../../components/edit/team/PracticeTableEdit";
+import TournamentTableEdit from "../../../components/edit/team/TournamentTableEdit";
 import Roster from "../../../components/edit/Roster";
 import Loading from "../../../components/Loading";
 
@@ -17,20 +17,9 @@ const TeamPage: NextPageWithLayout = () => {
   const router = useRouter();
   const id = router.query.teamId as string;
 
-  const { data, isError, isLoading } = api.team.getTeamById.useQuery(
-    {
-      id,
-    },
-    { enabled: !!id }
-  );
-
-  if (isLoading) {
+  if (id === undefined) {
     return <Loading />;
-  } else if (isError) {
-    return <div>Error...</div>;
   }
-
-  const { name: teamName, players, tournaments, practices } = data;
 
   return (
     <>
@@ -43,22 +32,21 @@ const TeamPage: NextPageWithLayout = () => {
           <section className="flex w-full flex-grow flex-col items-center justify-start overflow-x-scroll">
             {activeTab === 0 ? (
               <TournamentTableEdit
-                name={"practices"}
+                name={"tournaments"}
                 teamId={id}
-                tournaments={tournaments}
               ></TournamentTableEdit>
             ) : (
               <></>
             )}
             {activeTab === 1 ? (
-              <PracticeTable
+              <PracticeTableEdit
                 name={"practices"}
-                entries={practices}
-              ></PracticeTable>
+                teamId={id}
+              ></PracticeTableEdit>
             ) : (
               <></>
             )}
-            {activeTab === 2 ? <Roster playerData={players}></Roster> : <></>}
+            {activeTab === 2 ? <Roster teamId={id} /> : <></>}
           </section>
         </main>
       </div>
