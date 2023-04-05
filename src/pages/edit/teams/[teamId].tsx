@@ -18,7 +18,7 @@ const TeamPage: NextPageWithLayout = () => {
   const id = router.query.teamId as string;
 
   if (id === undefined) {
-    return <Loading />;
+    return <></>;
   }
 
   return (
@@ -32,7 +32,6 @@ const TeamPage: NextPageWithLayout = () => {
           <section className="flex w-full flex-grow flex-col items-center justify-start overflow-x-scroll">
             {activeTab === 0 ? (
               <TournamentTableEdit
-                name={"tournaments"}
                 teamId={id}
               ></TournamentTableEdit>
             ) : (
@@ -40,7 +39,6 @@ const TeamPage: NextPageWithLayout = () => {
             )}
             {activeTab === 1 ? (
               <PracticeTableEdit
-                name={"practices"}
                 teamId={id}
               ></PracticeTableEdit>
             ) : (

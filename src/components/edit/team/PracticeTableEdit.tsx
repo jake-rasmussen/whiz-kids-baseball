@@ -1,5 +1,5 @@
-import { Day, Practice, Tournament } from "@prisma/client";
-import { IconCheck, IconCirclePlus, IconTrash } from "@tabler/icons";
+import { Practice } from "@prisma/client";
+import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { api } from "../../../utils/api";
@@ -7,14 +7,13 @@ import Modal from "../Modal";
 import PracticeRowEdit from "./PracticeRowEdit";
 
 type PropType = {
-  name: string;
   teamId: string;
 };
 
-const Table = ({ name, teamId }: PropType) => {
-  const [editRowIndex, setEditRow] = useState(-1);
+const Table = ({ teamId }: PropType) => {
+  const [editRowIndex, setEditRowIndex] = useState(-1);
   const [deleteRowIndex, setDeleteRow] = useState(-1);
-  const [newRowCreated, setNewRow] = useState(false);
+  const [newRowCreated, setNewRowCreated] = useState(false);
   const [wait, setWait] = useState(false);
 
   const {
@@ -34,7 +33,7 @@ const Table = ({ name, teamId }: PropType) => {
     onSuccess() {
       queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
       setWait(false);
-      setEditRow(-1);
+      setEditRowIndex(-1);
     },
   });
 
@@ -58,14 +57,14 @@ const Table = ({ name, teamId }: PropType) => {
       teamId: teamId,
     });
 
-    setEditRow(index);
-    setNewRow(true);
+    setEditRowIndex(index);
+    setNewRowCreated(true);
   };
 
   const removeTemporaryRow = () => {
     if (newRowCreated) practices.pop();
-    setEditRow(-1);
-    setNewRow(false);
+    setEditRowIndex(-1);
+    setNewRowCreated(false);
   };
 
   const handleDeletePractice = () => {
@@ -114,10 +113,10 @@ const Table = ({ name, teamId }: PropType) => {
                 teamId={teamId}
                 practiceId={practice.id}
                 practice={practice}
-                editRow={editRowIndex === index}
-                setEditRow={setEditRow}
+                editRowIndex={editRowIndex === index}
+                setEditRowIndex={setEditRowIndex}
                 newRowCreated={newRowCreated}
-                setNewRow={setNewRow}
+                setNewRowCreted={setNewRowCreated}
                 wait={wait}
                 setWait={setWait}
                 removeTemporaryRow={removeTemporaryRow}

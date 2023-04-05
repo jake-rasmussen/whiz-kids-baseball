@@ -1,25 +1,20 @@
-import type { Team, Tournament } from "@prisma/client";
+import type { Team } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { api } from "../../../utils/api";
 import Modal from "../Modal";
-import TeamsTableRowEdit from "./TeamsTableRowEdit";
+import TeamsTableRowEdit from "./TeamsRowEdit";
 
 const Table = () => {
-  const [editRowIndex, setEditRow] = useState(-1);
-  const [deleteRowIndex, setDeleteRow] = useState(-1);
-  const [newRowCreated, setNewRow] = useState(false);
+  const [editRowIndex, setEditRowIndex] = useState(-1);
+  const [deleteRowIndex, setDeleteRowIndex] = useState(-1);
+  const [newRowCreated, setNewRowIndex] = useState(false);
   const [wait, setWait] = useState(false);
 
+  const { data: teams, isLoading, isError } = api.team.getAllTeams.useQuery();
+
   const queryClient = api.useContext();
-
-  const {
-    data: teams,
-    isLoading,
-    isError,
-  } = api.team.getAllTeams.useQuery();
-
   const deleteTeam = api.team.deleteTeam.useMutation({
     onMutate() {
       setWait(true);
@@ -27,15 +22,15 @@ const Table = () => {
     onSuccess() {
       queryClient.team.getAllTeams.invalidate();
       setWait(false);
-      setEditRow(-1);
+      setEditRowIndex(-1);
     },
-  })
+  });
 
   if (isLoading) {
     return <>Loading...</>;
   } else if (isError) {
     return <div>Error...</div>;
-  };
+  }
 
   const addTemporaryRow = (index: number) => {
     if (editRowIndex !== -1) return;
@@ -47,21 +42,21 @@ const Table = () => {
       updatedAt: new Date(),
     });
 
-    setEditRow(index);
-    setNewRow(true);
+    setEditRowIndex(index);
+    setNewRowIndex(true);
   };
 
   const removeTemporaryRow = () => {
     if (newRowCreated) teams.pop();
-    setEditRow(-1);
-    setNewRow(false);
+    setEditRowIndex(-1);
+    setNewRowIndex(false);
   };
 
   const handleDeleteTeam = () => {
     if (wait) return;
     const teamToBeDeleted = teams[deleteRowIndex];
     if (teamToBeDeleted) {
-      deleteTeam.mutate({ id: teamToBeDeleted.id, deletePlayers : false})
+      deleteTeam.mutate({ id: teamToBeDeleted.id, deletePlayers: false });
     } else {
       toast.error("Error Deleting Player");
     }
@@ -98,14 +93,14 @@ const Table = () => {
               <TeamsTableRowEdit
                 index={index}
                 team={team}
-                editRow={editRowIndex === index}
-                setEditRow={setEditRow}
+                editRowIndex={editRowIndex === index}
+                setEditRowIndex={setEditRowIndex}
                 newRowCreated={newRowCreated}
-                setNewRow={setNewRow}
+                setNewRowCreated={setNewRowIndex}
                 wait={wait}
                 setWait={setWait}
                 removeTemporaryRow={removeTemporaryRow}
-                setDeleteRow={setDeleteRow} 
+                setDeleteRow={setDeleteRowIndex}
                 key={`teamsRow${index}`}
               />
             );

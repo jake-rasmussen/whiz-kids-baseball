@@ -7,14 +7,13 @@ import Modal from "../Modal";
 import TournamentRowEdit from "./TournamentRowEdit";
 
 type PropType = {
-  name: string;
   teamId: string;
 };
 
 const Table = ({ teamId }: PropType) => {
-  const [editRowIndex, setEditRow] = useState(-1);
-  const [deleteRowIndex, setDeleteRow] = useState(-1);
-  const [newRowCreated, setNewRow] = useState(false);
+  const [editRowIndex, setEditRowIndex] = useState(-1);
+  const [deleteRowIndex, setDeleteRowIndex] = useState(-1);
+  const [newRowCreated, setNewRowCreated] = useState(false);
   const [wait, setWait] = useState(false);
 
   const {
@@ -34,7 +33,7 @@ const Table = ({ teamId }: PropType) => {
     onSuccess() {
       queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
       setWait(false);
-      setEditRow(-1);
+      setEditRowIndex(-1);
     },
   });
 
@@ -58,14 +57,14 @@ const Table = ({ teamId }: PropType) => {
       teamId: teamId,
     });
 
-    setEditRow(index);
-    setNewRow(true);
+    setEditRowIndex(index);
+    setNewRowCreated(true);
   };
 
   const removeTemporaryRow = () => {
     if (newRowCreated) tournaments.pop();
-    setEditRow(-1);
-    setNewRow(false);
+    setEditRowIndex(-1);
+    setNewRowCreated(false);
   };
 
   const handleDeleteTournament = () => {
@@ -115,13 +114,13 @@ const Table = ({ teamId }: PropType) => {
                 tournamentId={tournament.id}
                 tournament={tournament}
                 newRowCreated={newRowCreated}
-                setNewRow={setNewRow}
-                editRow={editRowIndex === index}
+                setNewRowCreated={setNewRowCreated}
+                editRowIndex={editRowIndex === index}
                 removeTemporaryRow={removeTemporaryRow}
-                setEditRow={setEditRow}
+                setEditRowIndex={setEditRowIndex}
                 wait={wait}
                 setWait={setWait}
-                setDeleteRow={setDeleteRow}
+                setDeleteRow={setDeleteRowIndex}
                 key={`tournamentRow${index}`}
               />
             );

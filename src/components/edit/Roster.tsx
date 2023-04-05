@@ -16,7 +16,7 @@ interface PropType {
   teamId: string;
 }
 
-const positionsMap = new Map<string, string>([
+const positionsMap = new Map<Position, string>([
   ["FIRST_BASE", "1B"],
   ["SECOND_BASE", "2B"],
   ["THIRD_BASE", "3B"],
@@ -28,7 +28,7 @@ const positionsMap = new Map<string, string>([
   ["PITCHER", "P"],
 ]);
 
-const acronymMap = new Map<string, string>([
+const acronymMap = new Map<string, Position>([
   ["1B", "FIRST_BASE"],
   ["2B", "SECOND_BASE"],
   ["3B", "THIRD_BASE"],
@@ -43,9 +43,9 @@ const acronymMap = new Map<string, string>([
 const Roster = (props: PropType) => {
   const { teamId } = props;
   const [editIndex, setEditIndex] = useState(-1);
-  const [deleteIndex, setDeleteRow] = useState(-1);
+  const [deleteIndex, setDeleteRowIndex] = useState(-1);
   const [wait, setWait] = useState(false);
-  const [newPlayerCreated, setNewPlayer] = useState(false);
+  const [newPlayerCreated, setNewPlayerCreated] = useState(false);
 
   const [playerEdits, setPlayerEdits] = useState({
     firstName: "",
@@ -68,7 +68,7 @@ const Roster = (props: PropType) => {
 
   const queryClient = api.useContext();
 
-  const onSuccessFn = () => {
+  const onSuccessFunction = () => {
     setPlayerEdits({
       firstName: "",
       lastName: "",
@@ -85,7 +85,7 @@ const Roster = (props: PropType) => {
       setWait(true);
     },
     onSuccess() {
-      onSuccessFn();
+      onSuccessFunction();
       queryClient.player.getPlayersByTeamId.invalidate({ teamId });
     },
   });
@@ -95,7 +95,7 @@ const Roster = (props: PropType) => {
       setWait(true);
     },
     onSuccess() {
-      onSuccessFn();
+      onSuccessFunction();
     },
   });
 
@@ -104,7 +104,9 @@ const Roster = (props: PropType) => {
       setWait(true);
     },
     onSuccess() {
-      onSuccessFn();
+      onSuccessFunction();
+      setNewPlayerCreated(false);
+      queryClient.player.getPlayersByTeamId.invalidate({ teamId });
     },
   });
 
@@ -130,13 +132,13 @@ const Roster = (props: PropType) => {
     });
 
     setEditIndex(index);
-    setNewPlayer(true);
+    setNewPlayerCreated(true);
   };
 
   const removeTemporaryPlayer = () => {
     if (newPlayerCreated) players.pop();
     setEditIndex(-1);
-    setNewPlayer(false);
+    setNewPlayerCreated(false);
   };
 
   const handleDeletePlayer = (index: number) => {
@@ -178,7 +180,7 @@ const Roster = (props: PropType) => {
         firstName: playerEdits.firstName,
         lastName: playerEdits.lastName,
         graduationYear: +playerEdits.gradYear,
-        school: playerEdits.gradYear,
+        school: playerEdits.school,
         positions: acronymToPositions(playerEdits.position),
         teamId: teamId,
       });
@@ -255,8 +257,8 @@ const Roster = (props: PropType) => {
   };
 
   const positionToAcronym = (position: string) => {
-    if (!positionsMap.has(position)) return "";
-    return positionsMap.get(position);
+    if (!positionsMap.has(position as Position)) return "";
+    return positionsMap.get(position as Position);
   };
 
   const acronymToPositions = (acronyms: string) => {
@@ -372,7 +374,7 @@ const Roster = (props: PropType) => {
                     </button>
                     <button>
                       <label
-                        onClick={() => setDeleteRow(index)}
+                        onClick={() => setDeleteRowIndex(index)}
                         htmlFor="delete-modal"
                       >
                         <IconTrash className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red" />

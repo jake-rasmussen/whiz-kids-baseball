@@ -5,7 +5,6 @@ import type { NextPageWithLayout } from "../_app";
 import type { ReactElement } from "react";
 
 const TeamsPage: NextPageWithLayout = () => {
-
   return (
     <>
       <div className="w-full">

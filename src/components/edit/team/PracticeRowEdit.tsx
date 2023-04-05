@@ -3,24 +3,22 @@ import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";
 import {
-  stringToDates,
-  stringToDate,
-  datesToString,
   isEmptyString,
   daysToString,
   stringToDays,
   dateToTimeString,
   stringToTimeAsDate,
 } from "../../../utils/helpers";
+
 type PropType = {
   index: number;
   practiceId: string;
   teamId: string;
   practice: Practice;
-  editRow: boolean;
-  setEditRow: React.Dispatch<React.SetStateAction<number>>;
+  editRowIndex: boolean;
+  setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
-  setNewRow: React.Dispatch<React.SetStateAction<boolean>>;
+  setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
   wait: boolean;
   setWait: React.Dispatch<React.SetStateAction<boolean>>;
   removeTemporaryRow: () => void;
@@ -33,10 +31,10 @@ const PracticeRow = (props: PropType) => {
     teamId,
     practiceId,
     practice,
-    editRow,
-    setEditRow,
-    newRowCreated: newRowCreated,
-    setNewRow,
+    editRowIndex,
+    setEditRowIndex,
+    newRowCreated,
+    setNewRowCreated,
     wait,
     setWait,
     removeTemporaryRow,
@@ -49,18 +47,18 @@ const PracticeRow = (props: PropType) => {
     startTime: "",
     endTime: "",
   });
-  const [validInput, setValidInput] = useState(true); // Determines if the current input is in a valid state
+  const [validInput, setValidInput] = useState(true);
 
   const queryClient = api.useContext();
 
-  const onSuccessFn = () => {
+  const onSuccessFunction = () => {
     setRowEdits({
       location: "",
       days: "",
       startTime: "",
       endTime: "",
     });
-    setEditRow(-1);
+    setEditRowIndex(-1);
     setWait(false);
   };
 
@@ -70,7 +68,7 @@ const PracticeRow = (props: PropType) => {
     },
     onSuccess() {
       queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
-      onSuccessFn();
+      onSuccessFunction();
     },
   });
 
@@ -80,8 +78,8 @@ const PracticeRow = (props: PropType) => {
     },
     onSuccess() {
       queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
-      onSuccessFn();
-      setNewRow(false);
+      onSuccessFunction();
+      setNewRowCreated(false);
     },
   });
 
@@ -90,7 +88,7 @@ const PracticeRow = (props: PropType) => {
       setValidInput(false);
       return;
     }
-    setEditRow(-1);
+    setEditRowIndex(-1);
 
     if (
       Object.entries(rowEdits).toString() ===
@@ -168,7 +166,7 @@ const PracticeRow = (props: PropType) => {
   };
 
   return (
-    <React.Fragment key={`tournamentRow${index}`}>
+    <React.Fragment key={`practiceRow${index}`}>
       <tr
         className="border-y border-light-gray text-dark-gray shadow-xl"
         key={`practiceTable${index}`}
@@ -179,7 +177,7 @@ const PracticeRow = (props: PropType) => {
             placeholder={practice.location}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={!editRowIndex}
             onChange={(e) => {
               rowEdits.location = e.currentTarget.value;
             }}
@@ -195,7 +193,7 @@ const PracticeRow = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={!editRowIndex}
             onChange={(e) => {
               rowEdits.days = e.currentTarget.value;
             }}
@@ -211,7 +209,7 @@ const PracticeRow = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={!editRowIndex}
             onChange={(e) => {
               rowEdits.startTime = e.currentTarget.value;
             }}
@@ -227,7 +225,7 @@ const PracticeRow = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={!editRowIndex}
             onChange={(e) => {
               rowEdits.endTime = e.currentTarget.value;
             }}
@@ -237,9 +235,9 @@ const PracticeRow = (props: PropType) => {
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRow && !wait ? (
+          {!editRowIndex && !wait ? (
             <div>
-              <button onClick={() => setEditRow(index)}>
+              <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
               </button>
               <button>
@@ -251,7 +249,7 @@ const PracticeRow = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRow && !wait ? (
+          ) : editRowIndex && !wait ? (
             <div>
               <button onClick={handleSavePractice}>
                 <label htmlFor={validInput ? "" : "error-modal"}>

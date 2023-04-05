@@ -1,4 +1,4 @@
-import { Team, Tournament } from "@prisma/client";
+import { Team } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";
@@ -6,10 +6,10 @@ import { api } from "../../../utils/api";
 type PropType = {
   index: number;
   team: Team;
-  editRow: boolean;
-  setEditRow: React.Dispatch<React.SetStateAction<number>>;
+  editRowIndex: boolean;
+  setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
-  setNewRow: React.Dispatch<React.SetStateAction<boolean>>;
+  setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
   wait: boolean;
   setWait: React.Dispatch<React.SetStateAction<boolean>>;
   removeTemporaryRow: () => void;
@@ -20,28 +20,28 @@ const TeamsRowEdit = (props: PropType) => {
   const {
     index,
     team,
-    editRow,
-    setEditRow,
-    newRowCreated: newRowCreated,
-    setNewRow,
+    editRowIndex,
+    setEditRowIndex,
+    newRowCreated,
+    setNewRowCreated,
     wait,
     setWait,
     removeTemporaryRow,
     setDeleteRow,
   } = props;
-
+  
   const [rowEdits, setRowEdits] = useState({
-    name: ""
+    name: "",
   });
-  const [validInput, setValidInput] = useState(true); // Determines if the current input is in a valid state
+  const [validInput, setValidInput] = useState(true);
 
   const queryClient = api.useContext();
 
-  const onSuccessFn = () => {
+  const onSuccessFunction = () => {
     setRowEdits({
-      name: ""
+      name: "",
     });
-    setEditRow(-1);
+    setEditRowIndex(-1);
     setWait(false);
   };
 
@@ -50,7 +50,8 @@ const TeamsRowEdit = (props: PropType) => {
       setWait(true);
     },
     onSuccess() {
-      onSuccessFn();
+      queryClient.team.getTeamById.invalidate({ id: team.id })
+      onSuccessFunction();
     },
   });
 
@@ -59,32 +60,33 @@ const TeamsRowEdit = (props: PropType) => {
       setWait(true);
     },
     onSuccess() {
-      onSuccessFn();
-      setNewRow(false);
+      queryClient.team.getTeamById.invalidate({ id: team.id })
+      onSuccessFunction();
+      setNewRowCreated(false);
     },
-  })
+  });
 
   const handleSaveTeam = () => {
     if (!checkValidInput()) {
       setValidInput(false);
       return true;
     }
-    setEditRow(-1);
+    setEditRowIndex(-1);
 
     if (rowEdits.name === "") return;
     if (wait) return;
 
     if (newRowCreated) {
       createTeam.mutate({
-        name: rowEdits.name
-      })
+        name: rowEdits.name,
+      });
     } else {
       updateTeam.mutate({
         name: rowEdits.name,
-        id: team.id
+        id: team.id,
       });
     }
-  }
+  };
 
   const checkValidInput = () => {
     if (newRowCreated) {
@@ -94,7 +96,7 @@ const TeamsRowEdit = (props: PropType) => {
   };
 
   return (
-    <React.Fragment key={`tournamentRow${index}`}>
+    <React.Fragment key={`teamRow${index}`}>
       <tr
         className="border-y border-light-gray text-dark-gray shadow-xl"
         key={`practiceTable${index}`}
@@ -105,7 +107,7 @@ const TeamsRowEdit = (props: PropType) => {
             placeholder={team.name}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={!editRowIndex}
             onChange={(e) => {
               rowEdits.name = e.currentTarget.value;
             }}
@@ -115,9 +117,9 @@ const TeamsRowEdit = (props: PropType) => {
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRow && !wait ? (
+          {!editRowIndex && !wait ? (
             <div>
-              <button onClick={() => setEditRow(index)}>
+              <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
               </button>
               <button>
@@ -129,7 +131,7 @@ const TeamsRowEdit = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRow && !wait ? (
+          ) : editRowIndex && !wait ? (
             <div>
               <button onClick={handleSaveTeam}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
