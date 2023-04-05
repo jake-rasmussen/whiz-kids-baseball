@@ -1,21 +1,22 @@
 import { Tournament } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
-import { api } from "../../utils/api";
+import { api } from "../../../utils/api";
 import {
   stringToDates,
   datesToString,
   isEmptyString,
-} from "../../utils/helpers";
+} from "../../../utils/helpers";
+
 type PropType = {
   index: number;
   tournamentId: string;
   teamId: string;
   tournament: Tournament;
-  editRow: boolean;
-  setEditRow: React.Dispatch<React.SetStateAction<number>>;
-  newRow: boolean;
-  setNewRow: React.Dispatch<React.SetStateAction<boolean>>;
+  editRowIndex: boolean;
+  setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
+  newRowCreated: boolean;
+  setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
   wait: boolean;
   setWait: React.Dispatch<React.SetStateAction<boolean>>;
   removeTemporaryRow: () => void;
@@ -28,34 +29,34 @@ const TournamentRow = (props: PropType) => {
     teamId,
     tournamentId,
     tournament,
-    editRow,
-    setEditRow,
-    newRow,
-    setNewRow,
+    editRowIndex,
+    setEditRowIndex,
+    newRowCreated,
+    setNewRowCreated,
     wait,
     setWait,
     removeTemporaryRow,
     setDeleteRow,
   } = props;
 
-  const [row, setRow] = useState({
+  const [rowEdits, setRowEdits] = useState({
     name: "",
     location: "",
     dates: "",
-    format: ""
+    format: "",
   });
-  const [validInput, setValidInput] = useState(true); // Determines if the current input is in a valid state
+  const [validInput, setValidInput] = useState(true);
 
   const queryClient = api.useContext();
 
-  const onSuccessFn = () => {
-    setRow({
+  const onSuccessFunction = () => {
+    setRowEdits({
       name: "",
       location: "",
       dates: "",
-      format: ""
+      format: "",
     });
-    setEditRow(-1);
+    setEditRowIndex(-1);
     setWait(false);
   };
 
@@ -64,8 +65,8 @@ const TournamentRow = (props: PropType) => {
       setWait(true);
     },
     onSuccess() {
+      onSuccessFunction();
       queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
-      onSuccessFn();
     },
   });
 
@@ -74,9 +75,9 @@ const TournamentRow = (props: PropType) => {
       setWait(true);
     },
     onSuccess() {
-      queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
-      onSuccessFn();
-      setNewRow(false);
+      onSuccessFunction();
+      setNewRowCreated(false);
+      // queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
     },
   });
 
@@ -85,62 +86,66 @@ const TournamentRow = (props: PropType) => {
       setValidInput(false);
       return;
     }
-    setEditRow(-1);
+    setEditRowIndex(-1);
 
     if (
-      Object.entries(row).toString() ===
+      Object.entries(rowEdits).toString() ===
       Object.entries({
         name: "",
         location: "",
         dates: "",
-        format: ""
+        format: "",
       }).toString()
-    ) return;
-    
+    )
+      return;
 
     if (wait) return;
 
-    if (newRow) {
+    if (newRowCreated) {
       createTournament.mutate({
-        name: row.name,
-        dates: stringToDates(row.dates),
-        location: row.location,
-        type: row.format,
+        name: rowEdits.name,
+        dates: stringToDates(rowEdits.dates),
+        location: rowEdits.location,
+        type: rowEdits.format,
         teamId: teamId,
       });
     } else {
       updateTournament.mutate({
-        name: isEmptyString(row.name) ? tournament.name : row.name,
-        dates: isEmptyString(row.dates)
+        name: isEmptyString(rowEdits.name) ? tournament.name : rowEdits.name,
+        dates: isEmptyString(rowEdits.dates)
           ? tournament.dates
-          : stringToDates(row.dates),
-        location: isEmptyString(row.location)
+          : stringToDates(rowEdits.dates),
+        location: isEmptyString(rowEdits.location)
           ? tournament.location
-          : row.location,
-        type: isEmptyString(row.format) ? tournament.type : row.format,
+          : rowEdits.location,
+        type: isEmptyString(rowEdits.format)
+          ? tournament.type
+          : rowEdits.format,
         id: tournamentId,
       });
     }
   };
 
   const checkValidInput = () => {
-    if (newRow) {
-      if (stringToDates(row.dates).length === 0) return false;
+    if (newRowCreated) {
+      if (stringToDates(rowEdits.dates).length === 0) return false;
       if (
-        isEmptyString(row.name) ||
-        isEmptyString(row.dates) ||
-        isEmptyString(row.location) ||
-        isEmptyString(row.format)
+        isEmptyString(rowEdits.name) ||
+        isEmptyString(rowEdits.dates) ||
+        isEmptyString(rowEdits.location) ||
+        isEmptyString(rowEdits.format)
       )
         return false;
     } else {
       if (
-        !isEmptyString(row.dates) &&
-        (row.dates.length < 5 || stringToDates(row.dates).length === 0)
+        !isEmptyString(rowEdits.dates) &&
+        (rowEdits.dates.length < 5 ||
+          stringToDates(rowEdits.dates).length === 0)
       )
         return false;
     }
-    if (!isEmptyString(row.dates) && row.dates.at(2) != "-") return false;
+    if (!isEmptyString(rowEdits.dates) && rowEdits.dates.at(2) != "-")
+      return false;
 
     setValidInput(true);
     return true;
@@ -158,9 +163,9 @@ const TournamentRow = (props: PropType) => {
             placeholder={tournament.name}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={!editRowIndex}
             onChange={(e) => {
-              row.name = e.currentTarget.value;
+              rowEdits.name = e.currentTarget.value;
             }}
           />
         </td>
@@ -170,9 +175,9 @@ const TournamentRow = (props: PropType) => {
             placeholder={tournament.location}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={!editRowIndex}
             onChange={(e) => {
-              row.location = e.currentTarget.value;
+              rowEdits.location = e.currentTarget.value;
             }}
           />
         </td>
@@ -186,9 +191,9 @@ const TournamentRow = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={!editRowIndex}
             onChange={(e) => {
-              row.dates = e.currentTarget.value;
+              rowEdits.dates = e.currentTarget.value;
             }}
           />
         </td>
@@ -198,9 +203,9 @@ const TournamentRow = (props: PropType) => {
             placeholder={tournament.type}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={!editRowIndex}
             onChange={(e) => {
-              row.format = e.currentTarget.value;
+              rowEdits.format = e.currentTarget.value;
             }}
           />
         </td>
@@ -208,9 +213,9 @@ const TournamentRow = (props: PropType) => {
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRow && !wait ? (
+          {!editRowIndex && !wait ? (
             <div>
-              <button onClick={() => setEditRow(index)}>
+              <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
               </button>
               <button>
@@ -222,7 +227,7 @@ const TournamentRow = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRow && !wait ? (
+          ) : editRowIndex && !wait ? (
             <div>
               <button onClick={handleSaveTournament}>
                 <label htmlFor={validInput ? "" : "error-modal"}>

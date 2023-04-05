@@ -27,9 +27,9 @@ export const practiceRouter = createTRPCRouter({
         where: {
           teamId,
         },
-        include: {
-          team: true,
-        },
+        // include: {
+        //   team: true,
+        // },
       });
 
       return practices;
@@ -38,7 +38,7 @@ export const practiceRouter = createTRPCRouter({
   createPractice: publicProcedure
     .input(
       z.object({
-        days: z.nativeEnum(Day),
+        days: z.nativeEnum(Day).array(),
         location: z.string(),
         startTime: z.date(),
         endTime: z.date(),
@@ -68,7 +68,7 @@ export const practiceRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        days: z.nativeEnum(Day).optional(),
+        days: z.nativeEnum(Day).array().optional(),
         location: z.string().optional(),
         startTime: z.date().optional(),
         endTime: z.date().optional(),

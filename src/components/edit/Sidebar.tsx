@@ -2,55 +2,77 @@ import { IconArrowBack } from "@tabler/icons";
 import Link from "next/link";
 import { api } from "../../utils/api";
 import Loading from "../Loading";
+import { Team } from "@prisma/client";
 const NavBar: React.FC = () => {
   const { data, isError, isLoading } = api.team.getAllTeams.useQuery();
 
+  if (isLoading) {
+    return <Loading />
+  } else if (isError) {
+    console.log('error')
+    return <>Error</>
+  }
+
   return (
     <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          <aside className="fixed flex h-screen w-60 flex-col items-center bg-dark-gray p-6 text-white">
-            <nav className="flex flex-grow flex-col space-y-8 text-sm">
-              <div className="space-y-2">
-                <h2 className="text-sm font-semibold uppercase tracking-widest text-light-gray">
-                  Getting Started
-                </h2>
-                <div className="flex flex-col space-y-1">
-                  <a rel="noopener noreferrer" href="#">
-                    Guide
-                  </a>
-                  <a rel="noopener noreferrer" href="#">
-                    Support
-                  </a>
-                </div>
+      <aside className="fixed flex h-screen w-60 flex-col items-center bg-dark-gray p-6 capitalize text-white">
+        <nav className="flex flex-grow flex-col space-y-8 text-sm">
+          <div className="space-y-2">
+            <h2 className="text-sm font-semibold uppercase tracking-widest text-light-gray">
+              Getting Started
+            </h2>
+            <div className="flex flex-col space-y-1">
+              <Link
+                rel="noopener noreferrer"
+                className="link-underline link-underline-black w-fit hover:text-red"
+                href="#"
+              >
+                Guide
+              </Link>
+              <Link
+                rel="noopener noreferrer"
+                className="link-underline link-underline-black w-fit hover:text-red"
+                href="#"
+              >
+                Support
+              </Link>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h2 className="text-sm font-semibold uppercase tracking-widest text-light-gray">
+              Edit Pages
+            </h2>
+            <div className="flex flex-col space-y-1">
+              <h2>Individual Team</h2>
+              <div className="flex flex-col pl-4">
+                {data.map((entry: Team, index: number) => (
+                  <Link
+                    href={`/edit/teams/${entry.id}`}
+                    className="link-underline link-underline-black w-fit hover:text-red"
+                    key={`team${index}`}
+                  >
+                    {entry.name}
+                  </Link>
+                ))}
               </div>
-              <div className="space-y-2">
-                <h2 className="text-sm font-semibold uppercase tracking-widest text-light-gray">
-                  Edit Pages
-                </h2>
-                <div className="flex flex-col space-y-1">
-                  <Link href="/edit/teams/0">Individual Team</Link>
-                  <div className="pl-4">
-                    {data!.map((entry: any, index: number) => (
-                      <Link href={`/edit/teams/${index}`} key={`team${index}`}>
-                        {entry.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </nav>
+            </div>
+          </div>
+          <div className="space-y-1">
             <Link
-              className="flex flex-shrink text-white transition duration-300 ease-in-out hover:scale-110"
-              href="/"
+              href="/edit/teams"
+              className="link-underline link-underline-black w-fit hover:text-red"
             >
-              <IconArrowBack className="pr-2 text-red" /> Go Back
+              Teams List
             </Link>
-          </aside>
-        </>
-      )}
+          </div>
+        </nav>
+        <Link
+          className="flex flex-shrink text-white transition duration-300 ease-in-out hover:scale-110"
+          href="/"
+        >
+          <IconArrowBack className="pr-2 text-red" /> Go Back
+        </Link>
+      </aside>
     </>
   );
 };

@@ -8,13 +8,12 @@ const generateFakeTryout = () => {
       location: faker.address.streetAddress(),
     },
   });
-}
-
+};
 
 export const generateFakeTryouts = async (num: number) => {
   for (let i = 0; i < num; i++) {
     await generateFakeTryout();
   }
-}
+};
 
 export const deleteTryouts = prisma.tryout.deleteMany();
