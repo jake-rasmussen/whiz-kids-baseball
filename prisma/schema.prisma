@@ -96,3 +96,15 @@ model Alumni {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model Training {
+  id             String   @id @default(cuid())
+  name           String
+  location       String
+  dateTime       DateTime
+  totalSlots     Int
+  availableSlots Int
+  price          Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
