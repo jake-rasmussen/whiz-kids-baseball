@@ -9,13 +9,15 @@ import {
   dateToTimeString,
   stringToTimeAsDate,
 } from "../../../utils/helpers";
+import toast from "react-hot-toast";
+import EmptyRow from "../EmptyRow";
 
 type PropType = {
   index: number;
   practiceId: string;
   teamId: string;
   practice: Practice;
-  editRowIndex: boolean;
+  editRow: boolean;
   setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
   setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,7 +33,7 @@ const PracticeRow = (props: PropType) => {
     teamId,
     practiceId,
     practice,
-    editRowIndex,
+    editRow,
     setEditRowIndex,
     newRowCreated,
     setNewRowCreated,
@@ -47,39 +49,43 @@ const PracticeRow = (props: PropType) => {
     startTime: "",
     endTime: "",
   });
+
   const [validInput, setValidInput] = useState(true);
 
   const queryClient = api.useContext();
 
-  const onSuccessFunction = () => {
+  const resetRowEdits = () => {
     setRowEdits({
       location: "",
       days: "",
       startTime: "",
       endTime: "",
     });
-    setEditRowIndex(-1);
-    setWait(false);
   };
 
-  const updatePractice = api.practice.updatePractice.useMutation({
-    onMutate() {
-      setWait(true);
-    },
-    onSuccess() {
-      queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
-      onSuccessFunction();
-    },
-  });
+  const onSuccessFunction = () => {
+    resetRowEdits();
+    queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
+  };
 
   const createPractice = api.practice.createPractice.useMutation({
     onMutate() {
       setWait(true);
     },
     onSuccess() {
-      queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
       onSuccessFunction();
       setNewRowCreated(false);
+      toast.success("Successfully Created Practice");
+    },
+  });
+
+  const updatePractice = api.practice.updatePractice.useMutation({
+    onMutate() {
+      setWait(true);
+    },
+    onSuccess() {
+      onSuccessFunction();
+      toast.success("Successfully Updated Practice");
     },
   });
 
@@ -88,7 +94,8 @@ const PracticeRow = (props: PropType) => {
       setValidInput(false);
       return;
     }
-    setEditRowIndex(-1);
+
+    if (wait) return;
 
     if (
       Object.entries(rowEdits).toString() ===
@@ -98,10 +105,10 @@ const PracticeRow = (props: PropType) => {
         startTime: "",
         endTime: "",
       }).toString()
-    )
+    ) {
+      setEditRowIndex(-1);
       return;
-
-    if (wait) return;
+    }
 
     if (newRowCreated) {
       createPractice.mutate({
@@ -129,6 +136,13 @@ const PracticeRow = (props: PropType) => {
         teamId: teamId,
       });
     }
+
+    resetRowEdits();
+  };
+
+  const handleCancelChanges = () => {
+    removeTemporaryRow();
+    resetRowEdits();
   };
 
   const checkValidInput = () => {
@@ -165,6 +179,8 @@ const PracticeRow = (props: PropType) => {
     return true;
   };
 
+  if (wait && editRow) return <EmptyRow numColumns={3} />;
+
   return (
     <React.Fragment key={`practiceRow${index}`}>
       <tr
@@ -177,7 +193,7 @@ const PracticeRow = (props: PropType) => {
             placeholder={practice.location}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRowIndex}
+            disabled={!editRow}
             onChange={(e) => {
               rowEdits.location = e.currentTarget.value;
             }}
@@ -193,10 +209,11 @@ const PracticeRow = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRowIndex}
+            disabled={!editRow}
             onChange={(e) => {
-              rowEdits.days = e.currentTarget.value;
+              setRowEdits({ ...rowEdits, days: e.currentTarget.value });
             }}
+            value={rowEdits.days}
           />
         </td>
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
@@ -209,10 +226,11 @@ const PracticeRow = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRowIndex}
+            disabled={!editRow}
             onChange={(e) => {
-              rowEdits.startTime = e.currentTarget.value;
+              setRowEdits({ ...rowEdits, startTime: e.currentTarget.value });
             }}
+            value={rowEdits.startTime}
           />
         </td>
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
@@ -225,17 +243,18 @@ const PracticeRow = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRowIndex}
+            disabled={!editRow}
             onChange={(e) => {
-              rowEdits.endTime = e.currentTarget.value;
+              setRowEdits({ ...rowEdits, endTime: e.currentTarget.value });
             }}
+            value={rowEdits.endTime}
           />
         </td>
         <td
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRowIndex && !wait ? (
+          {!editRow && !wait ? (
             <div>
               <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
@@ -249,14 +268,14 @@ const PracticeRow = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRowIndex && !wait ? (
+          ) : editRow && !wait ? (
             <div>
               <button onClick={handleSavePractice}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
                   <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                 </label>
               </button>
-              <button onClick={removeTemporaryRow}>
+              <button onClick={handleCancelChanges}>
                 <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
               </button>
             </div>

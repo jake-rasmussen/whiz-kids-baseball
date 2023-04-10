@@ -27,8 +27,8 @@ export const tournamentRouter = createTRPCRouter({
           teamId,
         },
         orderBy: {
-          dates: 'asc'
-        }
+          dates: "asc",
+        },
       });
 
       return tournaments;

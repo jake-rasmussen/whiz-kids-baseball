@@ -3,20 +3,24 @@ import Link from "next/link";
 import { api } from "../../utils/api";
 import Loading from "../Loading";
 import { Team } from "@prisma/client";
+
 const NavBar: React.FC = () => {
-  const { data, isError, isLoading } = api.team.getAllTeams.useQuery();
+  const { data, isError, isLoading } = api.team.getAllTeams.useQuery(
+    undefined,
+    { refetchOnWindowFocus: false }
+  );
 
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   } else if (isError) {
-    console.log('error')
-    return <>Error</>
+    console.log("error");
+    return <>Error</>;
   }
 
   return (
     <>
       <aside className="fixed flex h-screen w-60 flex-col items-center bg-dark-gray p-6 capitalize text-white">
-        <nav className="flex flex-grow flex-col space-y-8 text-sm">
+        <nav className="flex flex-grow flex-col space-y-2 text-sm">
           <div className="space-y-2">
             <h2 className="text-sm font-semibold uppercase tracking-widest text-light-gray">
               Getting Started
@@ -57,12 +61,28 @@ const NavBar: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="space-y-1">
+          <div>
             <Link
               href="/edit/teams"
               className="link-underline link-underline-black w-fit hover:text-red"
             >
               Teams List
+            </Link>
+          </div>
+          <div>
+            <Link
+              href="/edit/alumni"
+              className="link-underline link-underline-black w-fit hover:text-red"
+            >
+              Alumni
+            </Link>
+          </div>
+          <div>
+            <Link
+              href="/edit/alumni"
+              className="link-underline link-underline-black w-fit hover:text-red"
+            >
+              Tryout
             </Link>
           </div>
         </nav>

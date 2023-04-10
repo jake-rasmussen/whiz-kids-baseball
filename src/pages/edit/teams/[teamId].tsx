@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { api } from "../../../utils/api";
 import PracticeTableEdit from "../../../components/edit/team/PracticeTableEdit";
 import TournamentTableEdit from "../../../components/edit/team/TournamentTableEdit";
-import Roster from "../../../components/edit/Roster";
+import Roster from "../../../components/edit/team/Roster";
 import Loading from "../../../components/Loading";
 
 const TeamPage: NextPageWithLayout = () => {
@@ -29,18 +29,14 @@ const TeamPage: NextPageWithLayout = () => {
             <Tab activeTab={activeTab} setActiveTab={setActiveTab} />
           </section>
 
-          <section className="flex w-full flex-grow flex-col items-center justify-start overflow-x-scroll">
+          <section className="mb-20 flex w-full flex-grow flex-col items-center justify-start overflow-x-scroll">
             {activeTab === 0 ? (
-              <TournamentTableEdit
-                teamId={id}
-              ></TournamentTableEdit>
+              <TournamentTableEdit teamId={id}></TournamentTableEdit>
             ) : (
               <></>
             )}
             {activeTab === 1 ? (
-              <PracticeTableEdit
-                teamId={id}
-              ></PracticeTableEdit>
+              <PracticeTableEdit teamId={id}></PracticeTableEdit>
             ) : (
               <></>
             )}

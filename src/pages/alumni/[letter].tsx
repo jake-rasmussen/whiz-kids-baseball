@@ -2,79 +2,52 @@ import MainLayout from "../../layouts/MainLayout";
 import type { NextPageWithLayout } from "../_app";
 import type { GetServerSideProps } from "next";
 import Link from "next/link";
-import type { ReactElement } from "react";
+import type { ReactElement, ReactNode } from "react";
 import React from "react";
+import { useRouter } from "next/router";
+import { api } from "../../utils/api";
+import { Alumni } from "@prisma/client";
 
-interface Props {
-  letter: string;
-}
+const getYearsAndSort = (alumni: Alumni[]) => {
+  const alumniMap = new Map<number, Alumni[]>();
 
-interface AlumniData {
-  name: string;
-  team: string;
-  year: number;
-}
-
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
-) => {
-  const letter = context.params?.letter as string;
-
-  return {
-    props: {
-      letter,
-    },
-  };
-};
-
-const getYearsAndSort = (data: AlumniData[]) => {
-  const dataMap = new Map();
-
-  for (let i = 0; i < data.length; i++) {
-    if (!data[i]) {
-      return;
-    } else if (dataMap.has(data[i]?.year)) {
-      dataMap
-        .get(data[i]?.year)
-        .push({ name: data[i]?.name, team: data[i]?.team });
+  alumni.forEach((alumn: Alumni) => {
+    if (alumniMap.has(alumn.year)) {
+      alumniMap.get(alumn.year)!.push(alumn);
     } else {
-      dataMap.set(data[i]?.year, [
-        { name: data[i]?.name, team: data[i]?.team },
-      ]);
+      alumniMap.set(alumn.year, [alumn]);
     }
-  }
+  });
 
-  const sortedMap = new Map([...dataMap.entries()].sort());
-  return Array.from(sortedMap).reverse();
+  return alumniMap;
 };
 
-const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
-  const page = letter.charCodeAt(0) - 26 - 70; // 97 is hexadecimal for 'a'
+const Alumni: NextPageWithLayout = () => {
+  const router = useRouter();
+  const page = ((router.query.letter as string) || "a").toUpperCase();
 
-  if (page > 26) {
-    // TODO redirect to 404
+  const {
+    data: alumni,
+    isError,
+    isLoading,
+  } = api.alumni.getAlumniByLastNameLetter.useQuery(
+    { letter: page },
+    { refetchOnWindowFocus: false }
+  );
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  } else if (isError) {
+    return <div>Error...</div>;
   }
 
-  const mockdata: AlumniData[] = [
-    { name: "Adam Estrada", team: "USciences", year: 2019 },
-    { name: "Adam Exc", team: "USciences", year: 2019 },
-    { name: "Andrew Sicinski", team: "UMBC", year: 2019 },
-    { name: "Anthony Morabito", team: "Georgetown University", year: 2015 },
-    { name: "Addison Bliss", team: "Bucknell University", year: 2013 },
-    { name: "Mike Siani", team: "Cincinnati Reds", year: 2018 },
-  ];
-
-  const curData: AlumniData[] = mockdata.filter(
-    (data) => data.name.charAt(0).toLowerCase() === letter
-  );
-  const sortedData = getYearsAndSort(curData);
-
-  const paginationTable = [];
+  const pagination = [];
+  const pageNumber: number = page.charCodeAt(0) - "a".charCodeAt(0) + 1;
 
   for (let i = 0; i < 26; i++) {
-    paginationTable.push(
+    pagination.push(
       <React.Fragment key={i}>
-        {i + 1 === page ? (
+        {i + 1 === pageNumber ? (
           <li
             key={`key${i}`}
             className="scale-[150%] px-3 font-black text-red transition duration-300 ease-in-out"
@@ -103,6 +76,9 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
     );
   }
 
+  let sortedAlumniMap = getYearsAndSort(alumni);
+  sortedAlumniMap = new Map([...sortedAlumniMap.entries()].sort());
+
   return (
     <div className="flex flex-col md:bg-dark-gray">
       <main className="mx-auto w-[85%] bg-white pt-12">
@@ -117,53 +93,56 @@ const Alumni: NextPageWithLayout<Props> = ({ letter }) => {
       <main className="flex w-full items-center justify-center">
         <nav className="flex w-[85%] flex-row justify-center bg-white px-10 pb-12">
           <ul className="flex w-full flex-wrap items-center justify-center text-white">
-            {paginationTable}
+            {pagination}
           </ul>
         </nav>
       </main>
 
       <main className="mx-auto flex min-h-[60vh] w-full flex-col items-center bg-white md:w-[85%]">
-        {sortedData?.map((data: [][], index) => {
-          return (
-            <div className="pb-10 md:w-[60%]" key={`${index}${letter}`}>
-              <table className="w-full table-auto">
-                <thead className="border-b border-dark-gray">
-                  <tr>
-                    <th className="text-left text-5xl font-black tracking-wide text-dark-gray">
-                      {data[0]}
-                    </th>
-                  </tr>
-                  <tr className="">
-                    <th className="py-2 text-base font-black text-red">
-                      Player
-                    </th>
-                    <th className="py-2 text-base font-black text-red">
-                      School or Organization
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {data[1]?.map((playerInfo: AlumniData, playerIndex) => {
-                    return (
-                      <tr
-                        className="border-b border-dark-gray"
-                        key={`${data[0]}${letter}${playerIndex}`}
-                      >
-                        <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
-                          {playerInfo.name}
-                        </td>
-                        <td className="whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray">
-                          {playerInfo.team}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          );
-        })}
+        {Array.from(sortedAlumniMap.keys()).map(
+          (key: number, index: number) => {
+            return (
+              <div key={`key${index}`} className="w-full items-center">
+                <table className="mx-auto w-[80vh] table-auto">
+                  <thead className="border-b border-dark-gray">
+                    <tr>
+                      <th className="text-left text-5xl font-black tracking-wide text-dark-gray">
+                        {key}
+                      </th>
+                    </tr>
+                    <tr>
+                      <th className="py-2 text-base font-black text-red">
+                        Player
+                      </th>
+                      <th className="py-2 text-base font-black text-red">
+                        School or Organization
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sortedAlumniMap
+                      .get(key)
+                      ?.map((alumn: Alumni, alumnIndex: number) => {
+                        return (
+                          <tr
+                            className="border-b border-dark-gray"
+                            key={`alumn${key}${alumnIndex}`}
+                          >
+                            <td className="whitespace-nowrap py-2 text-center text-sm font-medium text-dark-gray">
+                              {alumn.lastName + ", " + alumn.firstName}
+                            </td>
+                            <td className="whitespace-nowrap py-2 text-center text-sm font-light text-dark-gray">
+                              {alumn.organization}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            );
+          }
+        )}
       </main>
     </div>
   );

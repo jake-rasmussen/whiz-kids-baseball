@@ -12,7 +12,7 @@ type PropType = {
 
 const Table = ({ teamId }: PropType) => {
   const [editRowIndex, setEditRowIndex] = useState(-1);
-  const [deleteRowIndex, setDeleteRow] = useState(-1);
+  const [deleteRowIndex, setDeleteRowIndex] = useState(-1);
   const [newRowCreated, setNewRowCreated] = useState(false);
   const [wait, setWait] = useState(false);
 
@@ -22,7 +22,13 @@ const Table = ({ teamId }: PropType) => {
     isError,
   } = api.practice.getPracticesByTeamId.useQuery(
     { teamId },
-    { refetchOnWindowFocus: false }
+    {
+      refetchOnWindowFocus: false,
+      onSuccess() {
+        setEditRowIndex(-1);
+        setWait(false);
+      },
+    }
   );
 
   const queryClient = api.useContext();
@@ -32,8 +38,6 @@ const Table = ({ teamId }: PropType) => {
     },
     onSuccess() {
       queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
-      setWait(false);
-      setEditRowIndex(-1);
     },
   });
 
@@ -79,7 +83,7 @@ const Table = ({ teamId }: PropType) => {
 
   return (
     <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
-      <Toaster position="bottom-center" />
+      <Toaster position="top-right" />
       <Modal
         name="error"
         header="Invalid Input"
@@ -113,14 +117,14 @@ const Table = ({ teamId }: PropType) => {
                 teamId={teamId}
                 practiceId={practice.id}
                 practice={practice}
-                editRowIndex={editRowIndex === index}
+                editRow={editRowIndex === index}
                 setEditRowIndex={setEditRowIndex}
                 newRowCreated={newRowCreated}
-                setNewRowCreted={setNewRowCreated}
+                setNewRowCreated={setNewRowCreated}
                 wait={wait}
                 setWait={setWait}
                 removeTemporaryRow={removeTemporaryRow}
-                setDeleteRow={setDeleteRow}
+                setDeleteRow={setDeleteRowIndex}
                 key={`practiceRow${index}`}
               />
             );
