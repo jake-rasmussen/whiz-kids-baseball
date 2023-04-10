@@ -2,11 +2,14 @@ import { Team } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";
+import Loading from "../../Loading";
+import { toast } from "react-hot-toast";
+import EmptyRow from "../EmptyRow";
 
 type PropType = {
   index: number;
   team: Team;
-  editRowIndex: boolean;
+  editRow: boolean;
   setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
   setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,7 +23,7 @@ const TeamsRowEdit = (props: PropType) => {
   const {
     index,
     team,
-    editRowIndex,
+    editRow,
     setEditRowIndex,
     newRowCreated,
     setNewRowCreated,
@@ -29,7 +32,7 @@ const TeamsRowEdit = (props: PropType) => {
     removeTemporaryRow,
     setDeleteRow,
   } = props;
-  
+
   const [rowEdits, setRowEdits] = useState({
     name: "",
   });
@@ -37,12 +40,15 @@ const TeamsRowEdit = (props: PropType) => {
 
   const queryClient = api.useContext();
 
-  const onSuccessFunction = () => {
+  const resetRowEdits = () => {
     setRowEdits({
       name: "",
     });
-    setEditRowIndex(-1);
-    setWait(false);
+  };
+
+  const onSuccessFunction = () => {
+    resetRowEdits();
+    queryClient.team.getAllTeams.invalidate();
   };
 
   const updateTeam = api.team.updateTeamName.useMutation({
@@ -50,8 +56,8 @@ const TeamsRowEdit = (props: PropType) => {
       setWait(true);
     },
     onSuccess() {
-      queryClient.team.getTeamById.invalidate({ id: team.id })
       onSuccessFunction();
+      toast.success("Successfully Updated Team");
     },
   });
 
@@ -60,9 +66,9 @@ const TeamsRowEdit = (props: PropType) => {
       setWait(true);
     },
     onSuccess() {
-      queryClient.team.getTeamById.invalidate({ id: team.id })
       onSuccessFunction();
       setNewRowCreated(false);
+      toast.success("Successfully Created Team");
     },
   });
 
@@ -71,10 +77,13 @@ const TeamsRowEdit = (props: PropType) => {
       setValidInput(false);
       return true;
     }
-    setEditRowIndex(-1);
 
-    if (rowEdits.name === "") return;
     if (wait) return;
+
+    if (rowEdits.name === "") {
+      setEditRowIndex(-1);
+      return;
+    }
 
     if (newRowCreated) {
       createTeam.mutate({
@@ -86,6 +95,13 @@ const TeamsRowEdit = (props: PropType) => {
         id: team.id,
       });
     }
+
+    resetRowEdits();
+  };
+
+  const handleCancelChanges = () => {
+    removeTemporaryRow();
+    resetRowEdits();
   };
 
   const checkValidInput = () => {
@@ -94,6 +110,8 @@ const TeamsRowEdit = (props: PropType) => {
     }
     return true;
   };
+
+  if (wait && editRow) return <EmptyRow numColumns={1} />;
 
   return (
     <React.Fragment key={`teamRow${index}`}>
@@ -107,17 +125,18 @@ const TeamsRowEdit = (props: PropType) => {
             placeholder={team.name}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRowIndex}
+            disabled={!editRow}
             onChange={(e) => {
-              rowEdits.name = e.currentTarget.value;
+              setRowEdits({ name: e.currentTarget.value });
             }}
+            value={rowEdits.name}
           />
         </td>
         <td
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRowIndex && !wait ? (
+          {!editRow && !wait ? (
             <div>
               <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
@@ -131,14 +150,14 @@ const TeamsRowEdit = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRowIndex && !wait ? (
+          ) : editRow && !wait ? (
             <div>
               <button onClick={handleSaveTeam}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
                   <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                 </label>
               </button>
-              <button onClick={removeTemporaryRow}>
+              <button onClick={handleCancelChanges}>
                 <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
               </button>
             </div>

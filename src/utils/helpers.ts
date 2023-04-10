@@ -24,10 +24,12 @@ export const stringToDates = (dates: string) => {
 };
 
 export const stringToDate = (date: string) => {
+  if (date === "" || date.length != 5) return new Date("Invalid");
+
   const dateRegExp = /(\d{2})\.(\d{2})/;
   const dateString: string = date.replace(dateRegExp, "$2-$1");
   let returnDate = new Date(dateString);
-  returnDate.setFullYear(new Date().getFullYear())
+  returnDate.setFullYear(new Date().getFullYear());
   return returnDate;
 };
 

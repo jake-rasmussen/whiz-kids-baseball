@@ -1,20 +1,20 @@
-import { Tournament } from "@prisma/client";
+import { Tryout } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
-import {
-  stringToDates,
-  datesToString,
-  isEmptyString,
-} from "../../../utils/helpers";
-import toast from "react-hot-toast";
+import Loading from "../../Loading";
+import { toast } from "react-hot-toast";
 import EmptyRow from "../EmptyRow";
+import {
+  dateToTimeString,
+  datesToString,
+  stringToDate,
+  stringToTimeAsDate,
+} from "../../../utils/helpers";
 
 type PropType = {
   index: number;
-  tournamentId: string;
-  teamId: string;
-  tournament: Tournament;
+  tryout: Tryout;
   editRow: boolean;
   setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
@@ -25,12 +25,10 @@ type PropType = {
   setDeleteRow: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const TournamentRow = (props: PropType) => {
+const TryoutRowEdit = (props: PropType) => {
   const {
     index,
-    teamId,
-    tournamentId,
-    tournament,
+    tryout,
     editRow,
     setEditRowIndex,
     newRowCreated,
@@ -42,94 +40,90 @@ const TournamentRow = (props: PropType) => {
   } = props;
 
   const [rowEdits, setRowEdits] = useState({
-    name: "",
     location: "",
-    dates: "",
-    format: "",
+    dateTime: new Date(),
   });
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+    setFullDate(date, time);
+  }, [date, time]);
+
   const [validInput, setValidInput] = useState(true);
 
   const queryClient = api.useContext();
 
   const resetRowEdits = () => {
     setRowEdits({
-      name: "",
       location: "",
-      dates: "",
-      format: "",
+      dateTime: new Date("Invalid"),
     });
+    setTime("");
+    setDate("");
   };
 
   const onSuccessFunction = () => {
     resetRowEdits();
-    queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
+    queryClient.tryout.getAllTryouts.invalidate();
   };
 
-  const createTournament = api.tournament.createTournament.useMutation({
+  const createTryout = api.tryout.createTryout.useMutation({
     onMutate() {
       setWait(true);
     },
     onSuccess() {
       onSuccessFunction();
       setNewRowCreated(false);
-      toast.success("Sucessfully Created Tournament");
+      toast.success("Successfully Created Tryout");
     },
   });
 
-  const updateTournament = api.tournament.updateTournamentDetails.useMutation({
+  const updateTryout = api.tryout.updateTryout.useMutation({
     onMutate() {
       setWait(true);
     },
     onSuccess() {
       onSuccessFunction();
-      toast.success("Successfully Updated Tournament");
+      toast.success("Successfully Updated Tryout");
     },
   });
 
-  const handleSaveTournament = () => {
+  const handleSaveTryout = () => {
     if (!checkValidInput()) {
       setValidInput(false);
-      return;
+      return true;
     }
 
     if (wait) return;
 
     if (
-      Object.entries(rowEdits).toString() ===
-      Object.entries({
-        name: "",
-        location: "",
-        dates: "",
-        format: "",
-      }).toString()
+      rowEdits.location === "" &&
+      time === "" &&
+      date === ""
     ) {
       setEditRowIndex(-1);
       return;
     }
 
     if (newRowCreated) {
-      createTournament.mutate({
-        name: rowEdits.name,
-        dates: stringToDates(rowEdits.dates),
+      createTryout.mutate({
         location: rowEdits.location,
-        type: rowEdits.format,
-        teamId: teamId,
+        dateTime: rowEdits.dateTime,
       });
     } else {
-      updateTournament.mutate({
-        name: isEmptyString(rowEdits.name) ? tournament.name : rowEdits.name,
-        dates: isEmptyString(rowEdits.dates)
-          ? tournament.dates
-          : stringToDates(rowEdits.dates),
-        location: isEmptyString(rowEdits.location)
-          ? tournament.location
-          : rowEdits.location,
-        type: isEmptyString(rowEdits.format)
-          ? tournament.type
-          : rowEdits.format,
-        id: tournamentId,
+      updateTryout.mutate({
+        location:
+          rowEdits.location === "" ? tryout.location : rowEdits.location,
+        dateTime:
+          rowEdits.dateTime.toString() === "Invalid Date"
+            ? tryout.dateTime
+            : rowEdits.dateTime,
+        id: tryout.id,
       });
     }
+
+    resetRowEdits();
   };
 
   const handleCancelChanges = () => {
@@ -137,35 +131,60 @@ const TournamentRow = (props: PropType) => {
     resetRowEdits();
   };
 
+  const setFullDate = (dateStr: string, timeStr: string) => {
+    let date = new Date();
+
+    let dateWithDate = stringToDate(dateStr);
+
+    if (dateWithDate.toString() !== "Invalid Date") {
+      date.setMonth(dateWithDate.getMonth());
+      date.setDate(dateWithDate.getDate());
+    } else {
+      date.setMonth(tryout.dateTime.getMonth());
+      date.setDate(tryout.dateTime.getDate());
+    }
+
+    let dateWithTime = stringToTimeAsDate(timeStr);
+
+    if (dateWithTime.toString() !== "Invalid Date") {
+      date.setHours(dateWithTime.getHours());
+      date.setMinutes(dateWithTime.getMinutes());
+    } else {
+      date.setHours(tryout.dateTime.getHours());
+      date.setMinutes(tryout.dateTime.getMinutes());
+    }
+
+    setRowEdits({ ...rowEdits, dateTime: date });
+  };
+
   const checkValidInput = () => {
     if (newRowCreated) {
-      if (stringToDates(rowEdits.dates).length === 0) return false;
-      if (
-        isEmptyString(rowEdits.name) ||
-        isEmptyString(rowEdits.dates) ||
-        isEmptyString(rowEdits.location) ||
-        isEmptyString(rowEdits.format)
-      )
+      if (rowEdits.location === "" || rowEdits.dateTime.toString() === "Invalid Date")
         return false;
     } else {
+      if (time.length > 0 && time.charAt(2) != ":")
+        return false;
+      if (date.length > 0 && date.charAt(2) != "-")
+        return false;
+
       if (
-        !isEmptyString(rowEdits.dates) &&
-        (rowEdits.dates.length < 5 ||
-          stringToDates(rowEdits.dates).length === 0)
+        time.length > 0 &&
+        stringToTimeAsDate(time).toString() === "Invalid Date"
+      )
+        return false;
+      if (
+        date.length > 0 &&
+        stringToDate(date).toString() === "Invalid Date"
       )
         return false;
     }
-    if (!isEmptyString(rowEdits.dates) && rowEdits.dates.at(2) != "-")
-      return false;
-
-    setValidInput(true);
     return true;
   };
 
-  if (wait && editRow) return <EmptyRow numColumns={4} />;
+  if (wait && editRow) return <EmptyRow numColumns={3} />;
 
   return (
-    <React.Fragment key={`tournamentRow${index}`}>
+    <React.Fragment key={`tryoutRow${index}`}>
       <tr
         className="border-y border-light-gray text-dark-gray shadow-xl"
         key={`practiceTable${index}`}
@@ -173,56 +192,48 @@ const TournamentRow = (props: PropType) => {
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
           <input
             type="text"
-            placeholder={tournament.name}
+            placeholder={tryout.location}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              setRowEdits({ ...rowEdits, name: e.currentTarget.value });
+              setRowEdits({ ...rowEdits, location: e.currentTarget.value });
             }}
-            value={rowEdits.name}
-          />
-        </td>
-        <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
-          <input
-            type="text"
-            placeholder={tournament.location}
-            className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
-            text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
-            onChange={(e) => {
-              rowEdits.location = e.currentTarget.value;
-            }}
+            value={rowEdits.location}
           />
         </td>
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
           <input
             type="text"
             placeholder={
-              tournament.dates.toString() === "Invalid Date"
+              tryout.dateTime.toString() === "Invalid Date"
                 ? "MM-DD"
-                : datesToString(tournament.dates)
+                : datesToString([tryout.dateTime])
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              setRowEdits({ ...rowEdits, dates: e.currentTarget.value });
+              setDate(e.currentTarget.value);
             }}
-            value={rowEdits.dates}
+            value={date}
           />
         </td>
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
           <input
             type="text"
-            placeholder={tournament.type}
+            placeholder={
+              tryout.dateTime.toString() === "Invalid Date"
+                ? "HH:MM"
+                : dateToTimeString(tryout.dateTime)
+            }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              setRowEdits({ ...rowEdits, format: e.currentTarget.value });
+              setTime(e.currentTarget.value);
             }}
-            value={rowEdits.format}
+            value={time}
           />
         </td>
         <td
@@ -245,7 +256,7 @@ const TournamentRow = (props: PropType) => {
             </div>
           ) : editRow && !wait ? (
             <div>
-              <button onClick={handleSaveTournament}>
+              <button onClick={handleSaveTryout}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
                   <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                 </label>
@@ -270,4 +281,4 @@ const TournamentRow = (props: PropType) => {
   );
 };
 
-export default TournamentRow;
+export default TryoutRowEdit;

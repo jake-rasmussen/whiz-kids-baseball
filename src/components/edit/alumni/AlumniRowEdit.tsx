@@ -1,20 +1,15 @@
-import { Tournament } from "@prisma/client";
-import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
-import React, { useState } from "react";
+import { Alumni } from "@prisma/client";
+import { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
-import {
-  stringToDates,
-  datesToString,
-  isEmptyString,
-} from "../../../utils/helpers";
+import { isEmptyString } from "../../../utils/helpers";
+import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
+import React from "react";
 import toast from "react-hot-toast";
 import EmptyRow from "../EmptyRow";
 
 type PropType = {
   index: number;
-  tournamentId: string;
-  teamId: string;
-  tournament: Tournament;
+  alumn: Alumni;
   editRow: boolean;
   setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
@@ -25,12 +20,10 @@ type PropType = {
   setDeleteRow: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const TournamentRow = (props: PropType) => {
+const AlumniRowEdit = (props: PropType) => {
   const {
     index,
-    teamId,
-    tournamentId,
-    tournament,
+    alumn,
     editRow,
     setEditRowIndex,
     newRowCreated,
@@ -42,51 +35,58 @@ const TournamentRow = (props: PropType) => {
   } = props;
 
   const [rowEdits, setRowEdits] = useState({
-    name: "",
-    location: "",
-    dates: "",
-    format: "",
+    firstName: "",
+    lastName: "",
+    organization: "",
+    year: "",
   });
+  const [fullName, setFullName] = useState("");
+
+  useEffect(() => {
+    setName(fullName);
+  }, [fullName]);
+
   const [validInput, setValidInput] = useState(true);
 
   const queryClient = api.useContext();
 
   const resetRowEdits = () => {
     setRowEdits({
-      name: "",
-      location: "",
-      dates: "",
-      format: "",
+      firstName: "",
+      lastName: "",
+      organization: "",
+      year: "",
     });
+    setFullName("");
   };
 
   const onSuccessFunction = () => {
     resetRowEdits();
-    queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
+    queryClient.alumni.getAllAlumni.invalidate();
   };
 
-  const createTournament = api.tournament.createTournament.useMutation({
+  const createAlumni = api.alumni.createAlumni.useMutation({
     onMutate() {
       setWait(true);
     },
     onSuccess() {
       onSuccessFunction();
       setNewRowCreated(false);
-      toast.success("Sucessfully Created Tournament");
+      toast.success("Successfully Created Alumni");
     },
   });
 
-  const updateTournament = api.tournament.updateTournamentDetails.useMutation({
+  const updateAlumni = api.alumni.updateAlumni.useMutation({
     onMutate() {
       setWait(true);
     },
     onSuccess() {
       onSuccessFunction();
-      toast.success("Successfully Updated Tournament");
+      toast.success("Successfully Updated Alumni");
     },
   });
 
-  const handleSaveTournament = () => {
+  const handleSaveAlumn = () => {
     if (!checkValidInput()) {
       setValidInput(false);
       return;
@@ -95,41 +95,39 @@ const TournamentRow = (props: PropType) => {
     if (wait) return;
 
     if (
-      Object.entries(rowEdits).toString() ===
-      Object.entries({
-        name: "",
-        location: "",
-        dates: "",
-        format: "",
-      }).toString()
+      rowEdits.firstName === "" &&
+      rowEdits.lastName === "" &&
+      rowEdits.organization === "" &&
+      rowEdits.year === ""
     ) {
       setEditRowIndex(-1);
       return;
     }
 
     if (newRowCreated) {
-      createTournament.mutate({
-        name: rowEdits.name,
-        dates: stringToDates(rowEdits.dates),
-        location: rowEdits.location,
-        type: rowEdits.format,
-        teamId: teamId,
+      createAlumni.mutate({
+        firstName: rowEdits.firstName,
+        lastName: rowEdits.lastName,
+        organization: rowEdits.organization,
+        year: +rowEdits.year,
       });
     } else {
-      updateTournament.mutate({
-        name: isEmptyString(rowEdits.name) ? tournament.name : rowEdits.name,
-        dates: isEmptyString(rowEdits.dates)
-          ? tournament.dates
-          : stringToDates(rowEdits.dates),
-        location: isEmptyString(rowEdits.location)
-          ? tournament.location
-          : rowEdits.location,
-        type: isEmptyString(rowEdits.format)
-          ? tournament.type
-          : rowEdits.format,
-        id: tournamentId,
+      updateAlumni.mutate({
+        id: alumn.id,
+        firstName: isEmptyString(rowEdits.firstName)
+          ? alumn.firstName
+          : rowEdits.firstName,
+        lastName: isEmptyString(rowEdits.lastName)
+          ? alumn.lastName
+          : rowEdits.lastName,
+        organization: isEmptyString(rowEdits.organization)
+          ? alumn.organization
+          : rowEdits.organization,
+        year: isEmptyString(rowEdits.year) ? alumn.year : +rowEdits.year,
       });
     }
+
+    resetRowEdits();
   };
 
   const handleCancelChanges = () => {
@@ -137,92 +135,96 @@ const TournamentRow = (props: PropType) => {
     resetRowEdits();
   };
 
-  const checkValidInput = () => {
-    if (newRowCreated) {
-      if (stringToDates(rowEdits.dates).length === 0) return false;
-      if (
-        isEmptyString(rowEdits.name) ||
-        isEmptyString(rowEdits.dates) ||
-        isEmptyString(rowEdits.location) ||
-        isEmptyString(rowEdits.format)
-      )
-        return false;
-    } else {
-      if (
-        !isEmptyString(rowEdits.dates) &&
-        (rowEdits.dates.length < 5 ||
-          stringToDates(rowEdits.dates).length === 0)
-      )
-        return false;
-    }
-    if (!isEmptyString(rowEdits.dates) && rowEdits.dates.at(2) != "-")
-      return false;
+  const setName = (fullName: string) => {
+    const split = fullName.split(" ");
+    let first = "";
+    let last = "";
 
-    setValidInput(true);
+    if (split.length === 0) return false;
+
+    if (split[0] !== undefined) {
+      first = split[0].trim();
+    }
+    if (split.length > 1 && split[1] !== undefined) {
+      last = split[1].trim();
+    }
+
+    setRowEdits({
+      ...rowEdits,
+      firstName: first,
+      lastName: last,
+    });
+
     return true;
   };
 
-  if (wait && editRow) return <EmptyRow numColumns={4} />;
+  const checkValidInput = () => {
+    if (newRowCreated) {
+      if (
+        rowEdits.firstName === "" ||
+        rowEdits.lastName === "" ||
+        rowEdits.organization === "" ||
+        rowEdits.year === ""
+      )
+        return false;
+      if (rowEdits.year.length != 4) return false;
+    } else {
+      if (rowEdits.firstName != "" && rowEdits.lastName === "") return false;
+    }
+
+    if (
+      rowEdits.year != "" &&
+      (rowEdits.year.length != 4 || Number.isNaN(+rowEdits.year))
+    )
+      return false;
+
+    return true;
+  };
+
+  if (wait && editRow) return <EmptyRow numColumns={3} />;
 
   return (
-    <React.Fragment key={`tournamentRow${index}`}>
+    <React.Fragment key={`alumniRow${index}`}>
       <tr
         className="border-y border-light-gray text-dark-gray shadow-xl"
-        key={`practiceTable${index}`}
+        key={`alumniTable${index}`}
       >
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
           <input
             type="text"
-            placeholder={tournament.name}
+            placeholder={alumn.firstName + " " + alumn.lastName}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              setRowEdits({ ...rowEdits, name: e.currentTarget.value });
+              setFullName(e.currentTarget.value);
             }}
-            value={rowEdits.name}
+            value={fullName}
           />
         </td>
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
           <input
             type="text"
-            placeholder={tournament.location}
+            placeholder={alumn.organization}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              rowEdits.location = e.currentTarget.value;
+              setRowEdits({ ...rowEdits, organization: e.currentTarget.value });
             }}
+            value={rowEdits.organization}
           />
         </td>
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
           <input
             type="text"
-            placeholder={
-              tournament.dates.toString() === "Invalid Date"
-                ? "MM-DD"
-                : datesToString(tournament.dates)
-            }
+            placeholder={alumn.year === -1 ? "YYYY" : alumn.year.toString()}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              setRowEdits({ ...rowEdits, dates: e.currentTarget.value });
+              setRowEdits({ ...rowEdits, year: e.currentTarget.value });
             }}
-            value={rowEdits.dates}
-          />
-        </td>
-        <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
-          <input
-            type="text"
-            placeholder={tournament.type}
-            className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
-            text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
-            onChange={(e) => {
-              setRowEdits({ ...rowEdits, format: e.currentTarget.value });
-            }}
-            value={rowEdits.format}
           />
         </td>
         <td
@@ -245,7 +247,7 @@ const TournamentRow = (props: PropType) => {
             </div>
           ) : editRow && !wait ? (
             <div>
-              <button onClick={handleSaveTournament}>
+              <button onClick={handleSaveAlumn}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
                   <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
                 </label>
@@ -270,4 +272,4 @@ const TournamentRow = (props: PropType) => {
   );
 };
 
-export default TournamentRow;
+export default AlumniRowEdit;

@@ -12,7 +12,17 @@ const Table = () => {
   const [newRowCreated, setNewRowIndex] = useState(false);
   const [wait, setWait] = useState(false);
 
-  const { data: teams, isLoading, isError } = api.team.getAllTeams.useQuery();
+  const {
+    data: teams,
+    isLoading,
+    isError,
+  } = api.team.getAllTeams.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+    onSuccess() {
+      setEditRowIndex(-1);
+      setWait(false);
+    },
+  });
 
   const queryClient = api.useContext();
   const deleteTeam = api.team.deleteTeam.useMutation({
@@ -21,8 +31,6 @@ const Table = () => {
     },
     onSuccess() {
       queryClient.team.getAllTeams.invalidate();
-      setWait(false);
-      setEditRowIndex(-1);
     },
   });
 
@@ -64,7 +72,7 @@ const Table = () => {
 
   return (
     <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
-      <Toaster position="bottom-center" />
+      <Toaster position="top-right" />
       <Modal
         name="error"
         header="Invalid Input"
@@ -93,7 +101,7 @@ const Table = () => {
               <TeamsTableRowEdit
                 index={index}
                 team={team}
-                editRowIndex={editRowIndex === index}
+                editRow={editRowIndex === index}
                 setEditRowIndex={setEditRowIndex}
                 newRowCreated={newRowCreated}
                 setNewRowCreated={setNewRowIndex}

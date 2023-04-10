@@ -1,15 +1,15 @@
-import TeamsTableEdit from "../../components/edit/teams/TeamsTableEdit";
+import TeamsTableEdit from "../../components/edit/tryouts/TryoutTableEdit";
 import EditLayout from "../../layouts/editLayout";
 import { api } from "../../utils/api";
 import type { NextPageWithLayout } from "../_app";
 import type { ReactElement } from "react";
 
-const TeamsPage: NextPageWithLayout = () => {
+const TeamsPageEdit: NextPageWithLayout = () => {
   return (
     <>
       <div className="w-full">
         <main className="flex min-h-screen min-w-full flex-col items-center justify-center">
-          <section className="flex w-full items-center overflow-x-scroll">
+          <section className="my-20 flex w-full items-center overflow-x-scroll">
             <TeamsTableEdit />
           </section>
         </main>
@@ -18,7 +18,7 @@ const TeamsPage: NextPageWithLayout = () => {
   );
 };
 
-TeamsPage.getLayout = (page: ReactElement) => {
+TeamsPageEdit.getLayout = (page: ReactElement) => {
   return (
     <>
       <EditLayout>{page}</EditLayout>
@@ -26,4 +26,4 @@ TeamsPage.getLayout = (page: ReactElement) => {
   );
 };
 
-export default TeamsPage;
+export default TeamsPageEdit;

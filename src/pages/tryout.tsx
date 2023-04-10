@@ -1,4 +1,4 @@
-import sample from "../../assets/images/sample2.png";
+import image from "../../assets/images/sample2.png";
 import MainLayout from "../layouts/MainLayout";
 import type { NextPageWithLayout } from "./_app";
 import Image from "next/image";
@@ -38,7 +38,7 @@ const Tryouts: NextPageWithLayout = () => {
     <>
       <section className="relative w-full text-white">
         <div className="flex flex-col bg-dark-gray p-8 md:flex-row md:p-0">
-          <div className="flex flex-col items-center justify-center space-y-8 bg-dark-gray p-4 md:min-h-[93vh] md:max-w-[40vh] md:p-10 md:px-12 lg:max-w-[60vh] xl:px-24">
+          <div className="flex flex-col items-center justify-center space-y-8 bg-dark-gray p-4 md:min-h-[93vh] md:max-w-[40vh] md:p-10 md:px-12 lg:max-w-[60vh]">
             <h1 className="text-center text-4xl font-bold leading-none text-white lg:text-6xl">
               Interested in becoming a{" "}
               <span className="text-red">Whiz Kid</span>?
@@ -48,12 +48,12 @@ const Tryouts: NextPageWithLayout = () => {
               interest form below!
             </p>
           </div>
-          <div className="lg:w-1/2 xl:w-3/5">
+          <div className="overflow-x-hidden">
             <Image
               priority
-              src={sample}
+              src={image}
               alt="Whiz Kids Photo"
-              className="fixed hidden h-full w-full object-cover md:block"
+              className="fixed hidden h-full w-auto object-cover md:block"
             />
           </div>
         </div>
