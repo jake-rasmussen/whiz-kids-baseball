@@ -2,14 +2,14 @@ import { Tryout } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
-import Loading from "../../Loading";
+import Loading from "../../LoadingPage";
 import { toast } from "react-hot-toast";
 import EmptyRow from "../EmptyRow";
 import {
-  dateToTimeString,
-  datesToString,
-  stringToDate,
-  stringToTimeAsDate,
+  dateToTimeStringRaw,
+  dateToStringRaw,
+  dateStringToDate,
+  timeStringToTimeAsDate,
 } from "../../../utils/helpers";
 
 type PropType = {
@@ -97,11 +97,7 @@ const TryoutRowEdit = (props: PropType) => {
 
     if (wait) return;
 
-    if (
-      rowEdits.location === "" &&
-      time === "" &&
-      date === ""
-    ) {
+    if (rowEdits.location === "" && time === "" && date === "") {
       setEditRowIndex(-1);
       return;
     }
@@ -134,7 +130,7 @@ const TryoutRowEdit = (props: PropType) => {
   const setFullDate = (dateStr: string, timeStr: string) => {
     let date = new Date();
 
-    let dateWithDate = stringToDate(dateStr);
+    let dateWithDate = dateStringToDate(dateStr);
 
     if (dateWithDate.toString() !== "Invalid Date") {
       date.setMonth(dateWithDate.getMonth());
@@ -144,7 +140,7 @@ const TryoutRowEdit = (props: PropType) => {
       date.setDate(tryout.dateTime.getDate());
     }
 
-    let dateWithTime = stringToTimeAsDate(timeStr);
+    let dateWithTime = timeStringToTimeAsDate(timeStr);
 
     if (dateWithTime.toString() !== "Invalid Date") {
       date.setHours(dateWithTime.getHours());
@@ -159,25 +155,27 @@ const TryoutRowEdit = (props: PropType) => {
 
   const checkValidInput = () => {
     if (newRowCreated) {
-      if (rowEdits.location === "" || rowEdits.dateTime.toString() === "Invalid Date")
+      if (
+        rowEdits.location === "" ||
+        rowEdits.dateTime.toString() === "Invalid Date"
+      )
         return false;
     } else {
-      if (time.length > 0 && time.charAt(2) != ":")
-        return false;
-      if (date.length > 0 && date.charAt(2) != "-")
-        return false;
-
       if (
         time.length > 0 &&
-        stringToTimeAsDate(time).toString() === "Invalid Date"
+        timeStringToTimeAsDate(time).toString() === "Invalid Date"
       )
         return false;
       if (
         date.length > 0 &&
-        stringToDate(date).toString() === "Invalid Date"
+        dateStringToDate(date).toString() === "Invalid Date"
       )
         return false;
     }
+
+    if (time.length > 0 && time.charAt(2) != ":") return false;
+    if (date.length > 0 && date.charAt(2) != "-") return false;
+
     return true;
   };
 
@@ -208,7 +206,7 @@ const TryoutRowEdit = (props: PropType) => {
             placeholder={
               tryout.dateTime.toString() === "Invalid Date"
                 ? "MM-DD"
-                : datesToString([tryout.dateTime])
+                : dateToStringRaw(tryout.dateTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
@@ -225,7 +223,7 @@ const TryoutRowEdit = (props: PropType) => {
             placeholder={
               tryout.dateTime.toString() === "Invalid Date"
                 ? "HH:MM"
-                : dateToTimeString(tryout.dateTime)
+                : dateToTimeStringRaw(tryout.dateTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"

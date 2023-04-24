@@ -1,13 +1,13 @@
+import { Practice } from "@prisma/client";
 import { IconInfoCircle } from "@tabler/icons";
 import React from "react";
+import { dateToTimeStringRaw } from "../../utils/helpers";
 
 type PropType = {
-  practiceData: any;
+  practices: Practice[];
 };
 
-const Table = (props: PropType) => {
-  const { practiceData: data } = props;
-
+const Table = ({ practices }: PropType) => {
   return (
     <table className="w-full table-auto capitalize">
       <thead>
@@ -28,7 +28,7 @@ const Table = (props: PropType) => {
       </thead>
 
       <tbody>
-        {data?.map((entry: any, index: number) => {
+        {practices.map((practice: Practice, index: number) => {
           return (
             <React.Fragment key={`practiceTable${index}`}>
               <tr
@@ -38,7 +38,7 @@ const Table = (props: PropType) => {
                 <td className="py-2 px-5 text-center text-sm font-medium text-dark-gray">
                   <div className="flex flex-row flex-nowrap items-center justify-center">
                     <span className="w-[20vh] px-2 py-4 text-center text-sm font-light text-dark-gray">
-                      {entry.location}
+                      {practice.location}
                     </span>
                     <button className="bg-transparent"></button>
                     <input
@@ -55,26 +55,22 @@ const Table = (props: PropType) => {
                           ✕
                         </label>
                         <h1 className="py-4 px-5 font-black uppercase leading-tight tracking-wide text-red">
-                          {entry.location}
+                          {practice.location}
                         </h1>
                         <p className="px-4 py-1 text-lg text-white">
                           Days:{" "}
-                          {entry.days.map((day: string, index: number) => (
+                          {practice.days.map((day: string, index: number) => (
                             <React.Fragment key={`day0${index}`}>
-                              {index != entry.days.length - 1
+                              {index != practice.days.length - 1
                                 ? `${day.toLowerCase()}, `
                                 : `${day.toLowerCase()}`}
                             </React.Fragment>
                           ))}
                         </p>
                         <p className="px-4 py-1 text-lg text-white">
-                          Time: {entry.startTime.getHours() % 12}:
-                          {entry.startTime.getMinutes()}
-                          {entry.startTime.getHours() > 12 ? "AM" : "PM"}
+                          Time: {dateToTimeStringRaw(practice.startTime)}
                           <span className="lowercase"> to </span>
-                          {entry.endTime.getHours() % 12}:
-                          {entry.endTime.getMinutes()}
-                          {entry.endTime.getHours() > 12 ? "AM" : "PM"}
+                          {dateToTimeStringRaw(practice.endTime)}
                         </p>
                       </div>
                     </div>
@@ -88,21 +84,18 @@ const Table = (props: PropType) => {
                 </td>
 
                 <td className="hidden whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray md:table-cell">
-                  {entry.days.map((day: string, index: number) => (
+                  {practice.days.map((day: string, index: number) => (
                     <React.Fragment key={`day1${index}`}>
-                      {index != entry.days.length - 1
+                      {index != practice.days.length - 1
                         ? `${day.toLowerCase()}, `
                         : `${day.toLowerCase()}`}
                     </React.Fragment>
                   ))}
                 </td>
                 <td className="hidden whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray md:table-cell">
-                  {entry.startTime.getHours() % 12}:
-                  {entry.startTime.getMinutes()}
-                  {entry.startTime.getHours() > 12 ? "AM" : "PM"}
+                  {dateToTimeStringRaw(practice.startTime)}
                   <span className="lowercase"> to </span>
-                  {entry.endTime.getHours() % 12}:{entry.endTime.getMinutes()}
-                  {entry.endTime.getHours() > 12 ? "AM" : "PM"}
+                  {dateToTimeStringRaw(practice.endTime)}
                 </td>
               </tr>
             </React.Fragment>

@@ -5,6 +5,7 @@ import { toast, Toaster } from "react-hot-toast";
 import { api } from "../../../utils/api";
 import Modal from "../Modal";
 import AlumniRowEdit from "./AlumniRowEdit";
+import Loading from "../../LoadingPage";
 
 const Table = () => {
   const [editRowIndex, setEditRowIndex] = useState(-1);
@@ -35,7 +36,9 @@ const Table = () => {
   });
 
   if (isLoading) {
-    return <>Loading...</>;
+    return (
+      <></>
+    );
   } else if (isError) {
     return <div>Error...</div>;
   }

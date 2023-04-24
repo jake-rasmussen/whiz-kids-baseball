@@ -7,6 +7,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { api } from "../../utils/api";
 import { Alumni } from "@prisma/client";
+import Loading from "../../components/LoadingPage";
 
 const getYearsAndSort = (alumni: Alumni[]) => {
   const alumniMap = new Map<number, Alumni[]>();
@@ -36,7 +37,7 @@ const Alumni: NextPageWithLayout = () => {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   } else if (isError) {
     return <div>Error...</div>;
   }

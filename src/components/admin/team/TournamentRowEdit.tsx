@@ -3,8 +3,8 @@ import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";
 import {
-  stringToDates,
-  datesToString,
+  dateStringToDates,
+  datesToStringRaw,
   isEmptyString,
 } from "../../../utils/helpers";
 import toast from "react-hot-toast";
@@ -110,7 +110,7 @@ const TournamentRow = (props: PropType) => {
     if (newRowCreated) {
       createTournament.mutate({
         name: rowEdits.name,
-        dates: stringToDates(rowEdits.dates),
+        dates: dateStringToDates(rowEdits.dates),
         location: rowEdits.location,
         type: rowEdits.format,
         teamId: teamId,
@@ -120,7 +120,7 @@ const TournamentRow = (props: PropType) => {
         name: isEmptyString(rowEdits.name) ? tournament.name : rowEdits.name,
         dates: isEmptyString(rowEdits.dates)
           ? tournament.dates
-          : stringToDates(rowEdits.dates),
+          : dateStringToDates(rowEdits.dates),
         location: isEmptyString(rowEdits.location)
           ? tournament.location
           : rowEdits.location,
@@ -139,7 +139,7 @@ const TournamentRow = (props: PropType) => {
 
   const checkValidInput = () => {
     if (newRowCreated) {
-      if (stringToDates(rowEdits.dates).length === 0) return false;
+      if (dateStringToDates(rowEdits.dates).length === 0) return false;
       if (
         isEmptyString(rowEdits.name) ||
         isEmptyString(rowEdits.dates) ||
@@ -151,7 +151,7 @@ const TournamentRow = (props: PropType) => {
       if (
         !isEmptyString(rowEdits.dates) &&
         (rowEdits.dates.length < 5 ||
-          stringToDates(rowEdits.dates).length === 0)
+          dateStringToDates(rowEdits.dates).length === 0)
       )
         return false;
     }
@@ -201,7 +201,7 @@ const TournamentRow = (props: PropType) => {
             placeholder={
               tournament.dates.toString() === "Invalid Date"
                 ? "MM-DD"
-                : datesToString(tournament.dates)
+                : datesToStringRaw(tournament.dates)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"

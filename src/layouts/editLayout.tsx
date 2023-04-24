@@ -1,5 +1,5 @@
-import Sidebar from "../components/edit/Sidebar";
-import Footer from "../components/footer";
+import Sidebar from "../components/admin/Sidebar";
+import Footer from "../components/Footer";
 import type { LayoutProps } from "../types/pageWithLayout";
 
 const EditLayout: LayoutProps = ({ children }) => {

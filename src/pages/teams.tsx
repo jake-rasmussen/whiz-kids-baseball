@@ -1,15 +1,17 @@
+import { Team } from "@prisma/client";
 import MainLayout from "../layouts/MainLayout";
 import { api } from "../utils/api";
 import type { NextPageWithLayout } from "./_app";
 import Link from "next/link";
 import type { ReactElement } from "react";
 import React from "react";
+import Loading from "../components/LoadingPage";
 
 const Teams: NextPageWithLayout = () => {
-  const { data, isError, isLoading } = api.team.getAllTeams.useQuery();
+  const { data: teams, isError, isLoading } = api.team.getAllTeams.useQuery();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   } else if (isError) {
     return <div>Error...</div>;
   }
@@ -26,13 +28,13 @@ const Teams: NextPageWithLayout = () => {
               Select Your Team
             </div>
             <div className="flex flex-col items-center justify-center text-center">
-              {data.map((entry: any, index: number) => (
+              {teams.map((team: Team, index: number) => (
                 <Link
-                  href={`/teams/${index}`}
+                  href={`/teams/${team.id}`}
                   className="tracking-none tracking-none py-4 text-lg font-black uppercase text-dark-gray hover:text-red"
                   key={`team${index}`}
                 >
-                  {entry.name}
+                  {team.name}
                 </Link>
               ))}
             </div>
