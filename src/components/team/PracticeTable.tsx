@@ -1,4 +1,4 @@
-import { Practice } from "@prisma/client";
+import type { Practice } from "@prisma/client";
 import { IconInfoCircle } from "@tabler/icons";
 import React from "react";
 import { dateToTimeStringRaw } from "../../utils/helpers";

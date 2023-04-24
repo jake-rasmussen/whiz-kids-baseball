@@ -1,4 +1,4 @@
-import { Tryout } from "@prisma/client";
+import type { Tryout } from "@prisma/client";
 import image from "../../assets/images/sample2.png";
 import MainLayout from "../layouts/MainLayout";
 import { api } from "../utils/api";
@@ -6,7 +6,7 @@ import type { NextPageWithLayout } from "./_app";
 import Image from "next/image";
 import type { ReactElement } from "react";
 import React from "react";
-import { dateToTimeStringRaw, dateToStringRaw, dateToStringFormatted, dateToTimeStringFormatted } from "../utils/helpers";
+import { dateToStringFormatted, dateToTimeStringFormatted } from "../utils/helpers";
 import Loading from "../components/LoadingPage";
 
 const Tryouts: NextPageWithLayout = () => {

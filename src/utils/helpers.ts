@@ -1,4 +1,4 @@
-import { Day, Position } from "@prisma/client";
+import type { Day, Position } from "@prisma/client";
 
 export const isEmptyString = (str: string) => {
   return str.trim().length === 0 ? true : false;
@@ -44,13 +44,13 @@ export const dateStringToDate = (date: string) => {
 
   const dateRegExp = /(\d{2})\.(\d{2})/;
   const dateString: string = date.replace(dateRegExp, "$2-$1");
-  let returnDate = new Date(dateString);
+  const returnDate = new Date(dateString);
   returnDate.setFullYear(new Date().getFullYear());
   return returnDate;
 };
 
 export const dayToStringFormatted = (day: Day) => {
-  let str = day.toString().toLowerCase();
+  const str = day.toString().toLowerCase();
   str.charAt(0).toUpperCase();
   return str;
 };
@@ -117,7 +117,7 @@ export const timeStringToTimeAsDate = (time: string) => {
 
   if (meridiem === "PM" && hour <= 12) hour += 12;
 
-  let date = new Date();
+  const date = new Date();
   date.setHours(hour);
   date.setMinutes(minute);
 

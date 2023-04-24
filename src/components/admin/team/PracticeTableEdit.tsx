@@ -1,4 +1,4 @@
-import { Practice } from "@prisma/client";
+import type { Practice } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";

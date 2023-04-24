@@ -1,4 +1,4 @@
-import { Team } from "@prisma/client";
+import type { Team } from "@prisma/client";
 import MainLayout from "../layouts/MainLayout";
 import { api } from "../utils/api";
 import type { NextPageWithLayout } from "./_app";

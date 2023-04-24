@@ -1,10 +1,10 @@
 import React from "react";
 
 type PropType = {
-  name: String;
-  header: String;
-  content: String;
-  actionItem?: any;
+  name: string;
+  header: string;
+  content: string;
+  actionItem?: () => {};
   confirmCancelButtons: boolean;
 };
 

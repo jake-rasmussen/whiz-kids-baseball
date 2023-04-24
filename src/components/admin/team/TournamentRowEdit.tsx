@@ -1,4 +1,4 @@
-import { Tournament } from "@prisma/client";
+import type { Tournament } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";

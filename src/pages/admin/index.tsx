@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import EditLayout from "../../layouts/editLayout";
 import Link from "next/link";
 
@@ -10,7 +10,7 @@ const EditGuide = () => {
           <span className="text-red"> Admin Edit</span>
         </h1>
         <p className="mt-8 mb-12 text-lg">
-          Use the Sidebar to navigate to which page you want to edit, the use each table to modify the page's data. 
+          Use the Sidebar to navigate to which page you want to edit, the use each table to modify the page&rsquo;s data. 
           Please note that any changes will automatically be sent to the page to be updated, so be careful when editing.
         </p>
         <div className="flex flex-wrap justify-center">

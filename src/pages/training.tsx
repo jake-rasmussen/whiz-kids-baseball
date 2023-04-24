@@ -5,7 +5,7 @@ import type { ReactElement } from "react";
 import React from "react";
 import { api } from "../utils/api";
 import { Training } from "@prisma/client";
-import { dateToTimeStringRaw, dateToStringRaw, dateToStringFormatted, dateToTimeStringFormatted } from "../utils/helpers";
+import { dateToStringFormatted, dateToTimeStringFormatted } from "../utils/helpers";
 import Loading from "../components/LoadingPage";
 
 const Training: NextPageWithLayout = () => {

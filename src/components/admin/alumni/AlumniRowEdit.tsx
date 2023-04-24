@@ -1,4 +1,4 @@
-import { Alumni } from "@prisma/client";
+import type { Alumni } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
 import { isEmptyString } from "../../../utils/helpers";

@@ -1,11 +1,9 @@
 import Tab from "../../../components/Tab";
 import EditLayout from "../../../layouts/editLayout";
 import type { NextPageWithLayout } from "../../_app";
-import type { GetServerSideProps } from "next";
 import type { ReactElement } from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { api } from "../../../utils/api";
 import PracticeTableEdit from "../../../components/admin/team/PracticeTableEdit";
 import TournamentTableEdit from "../../../components/admin/team/TournamentTableEdit";
 import Roster from "../../../components/admin/team/Roster";

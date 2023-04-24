@@ -1,4 +1,4 @@
-import { Tryout } from "@prisma/client";
+import type { Tryout } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
@@ -128,9 +128,9 @@ const TryoutRowEdit = (props: PropType) => {
   };
 
   const setFullDate = (dateStr: string, timeStr: string) => {
-    let date = new Date();
+    const date = new Date();
 
-    let dateWithDate = dateStringToDate(dateStr);
+    const dateWithDate = dateStringToDate(dateStr);
 
     if (dateWithDate.toString() !== "Invalid Date") {
       date.setMonth(dateWithDate.getMonth());
@@ -140,7 +140,7 @@ const TryoutRowEdit = (props: PropType) => {
       date.setDate(tryout.dateTime.getDate());
     }
 
-    let dateWithTime = timeStringToTimeAsDate(timeStr);
+    const dateWithTime = timeStringToTimeAsDate(timeStr);
 
     if (dateWithTime.toString() !== "Invalid Date") {
       date.setHours(dateWithTime.getHours());

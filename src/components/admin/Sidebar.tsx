@@ -2,7 +2,7 @@ import { IconArrowBack } from "@tabler/icons";
 import Link from "next/link";
 import { api } from "../../utils/api";
 import Loading from "../LoadingPage";
-import { Team } from "@prisma/client";
+import type { Team } from "@prisma/client";
 
 const NavBar: React.FC = () => {
   const { data, isError, isLoading } = api.team.getAllTeams.useQuery(

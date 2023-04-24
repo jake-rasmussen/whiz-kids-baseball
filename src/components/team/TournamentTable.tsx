@@ -3,7 +3,7 @@ import {
 } from "@tabler/icons";
 import React from "react";
 import { datesToStringFormatted } from "../../utils/helpers";
-import { Tournament } from "@prisma/client";
+import type { Tournament } from "@prisma/client";
 
 type PropType = {
   tournaments: Tournament[];

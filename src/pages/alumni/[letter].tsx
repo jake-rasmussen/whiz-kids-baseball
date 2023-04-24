@@ -1,8 +1,7 @@
 import MainLayout from "../../layouts/MainLayout";
 import type { NextPageWithLayout } from "../_app";
-import type { GetServerSideProps } from "next";
 import Link from "next/link";
-import type { ReactElement, ReactNode } from "react";
+import type { ReactElement } from "react";
 import React from "react";
 import { useRouter } from "next/router";
 import { api } from "../../utils/api";
@@ -14,7 +13,7 @@ const getYearsAndSort = (alumni: Alumni[]) => {
 
   alumni.forEach((alumn: Alumni) => {
     if (alumniMap.has(alumn.year)) {
-      alumniMap.get(alumn.year)!.push(alumn);
+      alumniMap.get(alumn.year)?.push(alumn);
     } else {
       alumniMap.set(alumn.year, [alumn]);
     }
