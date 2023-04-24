@@ -1,10 +1,10 @@
-import type { Tryout } from "@prisma/client";
+import type { Training, Tryout } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { api } from "../../../utils/api";
 import Modal from "../Modal";
-import TryoutRowEdit from "./TryoutRowEdit";
+import TrainingRowEdit from "./TrainingRowEdit";
 
 const Table = () => {
   const [editRowIndex, setEditRowIndex] = useState(-1);
@@ -13,10 +13,10 @@ const Table = () => {
   const [wait, setWait] = useState(false);
 
   const {
-    data: tryouts,
+    data: trainings,
     isLoading,
     isError,
-  } = api.tryout.getAllTryouts.useQuery(undefined, {
+  } = api.training.getAllTrainings.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess() {
       setEditRowIndex(-1);
@@ -26,17 +26,17 @@ const Table = () => {
 
   const queryClient = api.useContext();
 
-  const deleteTryout = api.tryout.deleteTryout.useMutation({
+  const deleteTraining = api.training.deleteTraining.useMutation({
     onMutate() {
       setWait(true);
     },
     onSuccess() {
-      queryClient.tryout.getAllTryouts.invalidate();
+      queryClient.training.getAllTrainings.invalidate();
     },
   });
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <></>;
   } else if (isError) {
     return <div>Error...</div>;
   }
@@ -44,10 +44,14 @@ const Table = () => {
   const addTemporaryRow = (index: number) => {
     if (editRowIndex !== -1) return;
 
-    tryouts.push({
+    trainings.push({
       id: "",
+      name: "Name",
       location: "Location",
       dateTime: new Date("Invalid"),
+      totalSlots: -1,
+      availableSlots: -1,
+      price: -1,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
@@ -57,18 +61,18 @@ const Table = () => {
   };
 
   const removeTemporaryRow = () => {
-    if (newRowCreated) tryouts.pop();
+    if (newRowCreated) trainings.pop();
     setEditRowIndex(-1);
     setNewRowIndex(false);
   };
 
   const handleDeleteTryout = () => {
     if (wait) return;
-    const tryoutToBeDeleted = tryouts[deleteRowIndex];
-    if (tryoutToBeDeleted) {
-      deleteTryout.mutate({ id: tryoutToBeDeleted.id });
+    const trainingToBeDeleted = trainings[deleteRowIndex];
+    if (trainingToBeDeleted) {
+      deleteTraining.mutate({ id: trainingToBeDeleted.id });
     } else {
-      toast.error("Error Deleting Tryout");
+      toast.error("Error Deleting Training");
     }
   };
 
@@ -93,18 +97,21 @@ const Table = () => {
       <table className="table min-w-full table-auto text-center transition duration-300 ease-in-out">
         <thead>
           <tr className="w-full">
+            <th className="px-5 text-xl font-black text-red">Name</th>
             <th className="px-5 text-xl font-black text-red">Location</th>
             <th className="px-5 text-xl font-black text-red">Date</th>
             <th className="px-5 text-xl font-black text-red">Time</th>
+            <th className="px-5 text-xl font-black text-red">Slots</th>
+            <th className="px-5 text-xl font-black text-red">Price</th>
             <th className="px-5 text-xl font-black text-red">Edit</th>
           </tr>
         </thead>
         <tbody className="capitalize shadow-xl">
-          {tryouts.map((tryout: Tryout, index) => {
+          {trainings.map((training: Training, index: number) => {
             return (
-              <TryoutRowEdit
+              <TrainingRowEdit
                 index={index}
-                tryout={tryout}
+                training={training}
                 editRow={editRowIndex === index}
                 setEditRowIndex={setEditRowIndex}
                 newRowCreated={newRowCreated}
@@ -113,7 +120,7 @@ const Table = () => {
                 setWait={setWait}
                 removeTemporaryRow={removeTemporaryRow}
                 setDeleteRow={setDeleteRowIndex}
-                key={`teamsRow${index}`}
+                key={`trainingRow${index}`}
               />
             );
           })}
@@ -124,7 +131,7 @@ const Table = () => {
           <button
             className="min-w-8 min-h-8 mt-4 mr-4
             transition duration-300 ease-in-out hover:scale-150 hover:text-red"
-            onClick={() => addTemporaryRow(tryouts.length)}
+            onClick={() => addTemporaryRow(trainings.length)}
           >
             <IconCirclePlus />
           </button>

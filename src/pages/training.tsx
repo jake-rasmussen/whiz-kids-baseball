@@ -3,53 +3,23 @@ import type { NextPageWithLayout } from "./_app";
 import { IconInfoCircle } from "@tabler/icons";
 import type { ReactElement } from "react";
 import React from "react";
-
-interface TrainingData {
-  training: string;
-  location: string;
-  date: string;
-  time: string;
-  price: number;
-}
+import { api } from "../utils/api";
+import { Training } from "@prisma/client";
+import { dateToTimeStringRaw, dateToStringRaw, dateToStringFormatted, dateToTimeStringFormatted } from "../utils/helpers";
+import Loading from "../components/LoadingPage";
 
 const Training: NextPageWithLayout = () => {
-  const mockdata: TrainingData[] = [
-    {
-      training: "Catchers",
-      location: "Steelyard",
-      date: "10/24/2023",
-      time: "7:00PM",
-      price: 400,
-    },
-    {
-      training: "Catchers",
-      location: "Steelyard",
-      date: "10/24/2023",
-      time: "7:00PM",
-      price: 400,
-    },
-    {
-      training: "Catchers",
-      location: "Steelyard",
-      date: "10/24/2023",
-      time: "7:00PM",
-      price: 400,
-    },
-    {
-      training: "Catchers",
-      location: "Steelyard",
-      date: "10/24/2023",
-      time: "7:00PM",
-      price: 400,
-    },
-    {
-      training: "Catchers",
-      location: "Steelyard",
-      date: "10/24/2023",
-      time: "7:00PM",
-      price: 400,
-    },
-  ];
+  const {
+    data: training,
+    isLoading,
+    isError,
+  } = api.training.getAllTrainings.useQuery();
+
+  if (isLoading) {
+    return <Loading />;
+  } else if (isError) {
+    return <div>Error...</div>;
+  }
 
   return (
     <>
@@ -94,7 +64,7 @@ const Training: NextPageWithLayout = () => {
                   Location
                 </th>
                 <th className="hidden py-2 px-5 text-base font-black text-red md:table-cell">
-                  Dates
+                  Date
                 </th>
                 <th className="hidden py-2 px-5 text-base font-black text-red md:table-cell">
                   Time
@@ -109,13 +79,13 @@ const Training: NextPageWithLayout = () => {
             </thead>
 
             <tbody>
-              {mockdata?.map((trainingInfo: TrainingData, index) => {
+              {training.map((training: Training, index) => {
                 return (
                   <React.Fragment key={index}>
                     <tr className="  border-y border-light-gray">
                       <td className="py-2 text-center text-sm font-medium text-white">
                         <div className="flex flex-row justify-center">
-                          {trainingInfo.training}
+                          {training.name}
                           <button className="bg-transparent"></button>
 
                           <label htmlFor="modal">
@@ -139,32 +109,32 @@ const Training: NextPageWithLayout = () => {
                                 Training Session
                               </h1>
                               <p className="px-4 py-1 text-lg">
-                                Location: {trainingInfo.location}
+                                Location: {training.location}
                               </p>
                               <p className="px-4 py-1 text-lg">
-                                Date: {trainingInfo.date}
+                                Date: {dateToStringRaw(training.dateTime)}
                               </p>
                               <p className="px-4 py-1 text-lg">
-                                Time: {trainingInfo.time}
+                                Time: {dateToTimeStringRaw(training.dateTime)}
                               </p>
                               <p className="py- px-4 text-lg">
-                                Price: ${trainingInfo.price}
+                                Price: ${training.price}
                               </p>
                             </div>
                           </div>
                         </div>
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
-                        {trainingInfo.location}
+                        {training.location}
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
-                        {trainingInfo.date}
+                        {dateToStringFormatted(training.dateTime)}
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
-                        {trainingInfo.time}
+                        {dateToTimeStringFormatted(training.dateTime)}
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
-                        {`$${trainingInfo.price}`}
+                        {`$${training.price}`}
                       </td>
                       <td className="whitespace-nowrap py-2 text-center text-sm font-light text-white">
                         <button

@@ -6,19 +6,19 @@ import type { ReactElement } from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { api } from "../../../utils/api";
-import PracticeTableEdit from "../../../components/edit/team/PracticeTableEdit";
-import TournamentTableEdit from "../../../components/edit/team/TournamentTableEdit";
-import Roster from "../../../components/edit/team/Roster";
-import Loading from "../../../components/Loading";
+import PracticeTableEdit from "../../../components/admin/team/PracticeTableEdit";
+import TournamentTableEdit from "../../../components/admin/team/TournamentTableEdit";
+import Roster from "../../../components/admin/team/Roster";
+import Loading from "../../../components/LoadingPage";
 
-const TeamPage: NextPageWithLayout = () => {
+const TeamEditPage: NextPageWithLayout = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const router = useRouter();
   const id = router.query.teamId as string;
 
   if (id === undefined) {
-    return <></>;
+    return <Loading />;
   }
 
   return (
@@ -48,7 +48,7 @@ const TeamPage: NextPageWithLayout = () => {
   );
 };
 
-TeamPage.getLayout = (page: ReactElement) => {
+TeamEditPage.getLayout = (page: ReactElement) => {
   return (
     <>
       <EditLayout>{page}</EditLayout>
@@ -56,4 +56,4 @@ TeamPage.getLayout = (page: ReactElement) => {
   );
 };
 
-export default TeamPage;
+export default TeamEditPage;

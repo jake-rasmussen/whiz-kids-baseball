@@ -8,32 +8,15 @@ import {
   IconTrash,
 } from "@tabler/icons";
 import React, { type ReactNode, useState } from "react";
+import { datesToStringFormatted } from "../../utils/helpers";
+import { Tournament } from "@prisma/client";
 
 type PropType = {
-  tournamentData: any;
+  tournaments: Tournament[];
 };
 
 const Table = (props: PropType) => {
-  const { tournamentData: data } = props;
-
-  const month = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const handleRemove = (index: number) => {
-    // TODO: make a delete call and repopulate table
-  };
+  const { tournaments } = props;
 
   return (
     <table className="w-full table-auto capitalize">
@@ -56,7 +39,7 @@ const Table = (props: PropType) => {
       </thead>
 
       <tbody>
-        {data?.map((entry: any, index: number) => {
+        {tournaments.map((tournament: Tournament, index: number) => {
           return (
             <React.Fragment key={`tournamentTable${index}`}>
               <tr
@@ -66,7 +49,7 @@ const Table = (props: PropType) => {
                 <td className="py-2 px-5 text-center text-sm font-medium text-dark-gray">
                   <div className="flex flex-row flex-nowrap items-center justify-center">
                     <span className="w-[20vh] px-2 py-4 text-center text-sm font-light text-dark-gray">
-                      {entry.name}
+                      {tournament.name}
                     </span>
                     <button className="bg-transparent"></button>
                     <input
@@ -83,18 +66,16 @@ const Table = (props: PropType) => {
                           ✕
                         </label>
                         <h1 className="py-4 px-5 font-black uppercase leading-tight tracking-wide text-red">
-                          {entry.name}
+                          {tournament.name}
                         </h1>
                         <p className="px-4 py-1 text-lg text-white">
-                          Location: {entry.location}
+                          Location: {tournament.location}
                         </p>
                         <p className="px-4 py-1 text-lg text-white">
-                          {`Date: ${
-                            month[entry.dates[0]?.getMonth()]
-                          } ${entry.dates[0]?.getDate()}`}
+                          {`Date: ${datesToStringFormatted(tournament.dates)}`}
                         </p>
                         <p className="px-4 py-1 text-lg text-white">
-                          Time: {entry.type}
+                          Time: {tournament.type}
                         </p>
                       </div>
                     </div>
@@ -108,15 +89,13 @@ const Table = (props: PropType) => {
                 </td>
 
                 <td className="hidden whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray md:table-cell">
-                  {entry.location}
+                  {tournament.location}
                 </td>
                 <td className="hidden whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray md:table-cell">
-                  {`${
-                    month[entry.dates[0]?.getMonth()]
-                  } ${entry.dates[0]?.getDate()}`}
+                  {`${datesToStringFormatted(tournament.dates)}`}
                 </td>
                 <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
-                  {entry.type}
+                  {tournament.type}
                 </td>
               </tr>
             </React.Fragment>

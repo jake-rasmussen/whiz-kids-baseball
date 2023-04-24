@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { api } from "../../../utils/api";
 import {
   isEmptyString,
-  daysToString,
-  stringToDays,
-  dateToTimeString,
-  stringToTimeAsDate,
+  daysToStringFormatted,
+  dayStringToDays,
+  dateToTimeStringRaw,
+  timeStringToTimeAsDate,
 } from "../../../utils/helpers";
 import toast from "react-hot-toast";
 import EmptyRow from "../EmptyRow";
@@ -112,10 +112,10 @@ const PracticeRow = (props: PropType) => {
 
     if (newRowCreated) {
       createPractice.mutate({
-        days: stringToDays(rowEdits.days),
+        days: dayStringToDays(rowEdits.days),
         location: rowEdits.location,
-        startTime: stringToTimeAsDate(rowEdits.startTime),
-        endTime: stringToTimeAsDate(rowEdits.endTime),
+        startTime: timeStringToTimeAsDate(rowEdits.startTime),
+        endTime: timeStringToTimeAsDate(rowEdits.endTime),
         teamId: teamId,
       });
     } else {
@@ -123,16 +123,16 @@ const PracticeRow = (props: PropType) => {
         id: practiceId,
         days: isEmptyString(rowEdits.days)
           ? practice.days
-          : stringToDays(rowEdits.days),
+          : dayStringToDays(rowEdits.days),
         location: isEmptyString(rowEdits.location)
           ? practice.location
           : rowEdits.location,
         startTime: isEmptyString(rowEdits.startTime)
           ? practice.startTime
-          : stringToTimeAsDate(rowEdits.startTime),
+          : timeStringToTimeAsDate(rowEdits.startTime),
         endTime: isEmptyString(rowEdits.endTime)
           ? practice.endTime
-          : stringToTimeAsDate(rowEdits.endTime),
+          : timeStringToTimeAsDate(rowEdits.endTime),
         teamId: teamId,
       });
     }
@@ -147,7 +147,7 @@ const PracticeRow = (props: PropType) => {
 
   const checkValidInput = () => {
     if (newRowCreated) {
-      if (stringToDays(rowEdits.days).length === 0) return false;
+      if (dayStringToDays(rowEdits.days).length === 0) return false;
       if (
         isEmptyString(rowEdits.days) ||
         isEmptyString(rowEdits.startTime) ||
@@ -156,7 +156,10 @@ const PracticeRow = (props: PropType) => {
       )
         return false;
     } else {
-      if (rowEdits.days.length > 0 && stringToDays(rowEdits.days).length == 0)
+      if (
+        rowEdits.days.length > 0 &&
+        dayStringToDays(rowEdits.days).length == 0
+      )
         return false;
       if (rowEdits.startTime.length > 0 && rowEdits.startTime.charAt(2) != ":")
         return false;
@@ -165,12 +168,12 @@ const PracticeRow = (props: PropType) => {
 
       if (
         rowEdits.startTime.length > 0 &&
-        stringToTimeAsDate(rowEdits.startTime).toString() === "Invalid Date"
+        timeStringToTimeAsDate(rowEdits.startTime).toString() === "Invalid Date"
       )
         return false;
       if (
         rowEdits.endTime.length > 0 &&
-        stringToTimeAsDate(rowEdits.endTime).toString() === "Invalid Date"
+        timeStringToTimeAsDate(rowEdits.endTime).toString() === "Invalid Date"
       )
         return false;
     }
@@ -205,7 +208,7 @@ const PracticeRow = (props: PropType) => {
             placeholder={
               practice.days.length === 0
                 ? "Weekday"
-                : daysToString(practice.days)
+                : daysToStringFormatted(practice.days)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
@@ -222,7 +225,7 @@ const PracticeRow = (props: PropType) => {
             placeholder={
               practice.startTime.toString() === "Invalid Date"
                 ? "HH:MM"
-                : dateToTimeString(practice.startTime)
+                : dateToTimeStringRaw(practice.startTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
@@ -239,7 +242,7 @@ const PracticeRow = (props: PropType) => {
             placeholder={
               practice.endTime.toString() === "Invalid Date"
                 ? "HH:MM"
-                : dateToTimeString(practice.endTime)
+                : dateToTimeStringRaw(practice.endTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"

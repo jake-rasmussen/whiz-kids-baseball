@@ -12,6 +12,7 @@ import Modal from "../Modal";
 import { isEmptyString } from "../../../utils/helpers";
 import { Player, Position } from "@prisma/client";
 import RosterCard from "./RosterCard";
+import LoadingComponent from "../../LoadingComponent";
 
 interface PropType {
   teamId: string;
@@ -51,7 +52,7 @@ const Roster = (props: PropType) => {
   });
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <LoadingComponent />;
   } else if (isError) {
     return <div>Error...</div>;
   }

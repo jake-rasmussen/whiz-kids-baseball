@@ -1,10 +1,11 @@
-import { Practice } from "@prisma/client";
+import type { Tournament } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { api } from "../../../utils/api";
 import Modal from "../Modal";
-import PracticeRowEdit from "./PracticeRowEdit";
+import TournamentRowEdit from "./TournamentRowEdit";
+import LoadingComponent from "../../LoadingComponent";
 
 type PropType = {
   teamId: string;
@@ -17,10 +18,10 @@ const Table = ({ teamId }: PropType) => {
   const [wait, setWait] = useState(false);
 
   const {
-    data: practices,
+    data: tournaments,
     isLoading,
     isError,
-  } = api.practice.getPracticesByTeamId.useQuery(
+  } = api.tournament.getTournamnetsByTeamId.useQuery(
     { teamId },
     {
       refetchOnWindowFocus: false,
@@ -32,30 +33,30 @@ const Table = ({ teamId }: PropType) => {
   );
 
   const queryClient = api.useContext();
-  const deletePractice = api.practice.deletePractice.useMutation({
+  const deleteTournament = api.tournament.deleteTournament.useMutation({
     onMutate() {
       setWait(true);
     },
     onSuccess() {
-      queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
+      queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
     },
   });
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <LoadingComponent />;
   } else if (isError) {
     return <div>Error...</div>;
   }
 
   const addTemporaryRow = (index: number) => {
-    if (editRowIndex !== -1 || wait) return;
+    if (editRowIndex !== -1) return;
 
-    practices.push({
+    tournaments.push({
       id: "",
-      days: [],
+      name: "Name",
+      dates: [new Date("Invalid")],
       location: "Location",
-      startTime: new Date("Invalid"),
-      endTime: new Date("Invalid"),
+      type: "Type",
       createdAt: new Date(),
       updatedAt: new Date(),
       teamId: teamId,
@@ -66,18 +67,18 @@ const Table = ({ teamId }: PropType) => {
   };
 
   const removeTemporaryRow = () => {
-    if (newRowCreated) practices.pop();
+    if (newRowCreated) tournaments.pop();
     setEditRowIndex(-1);
     setNewRowCreated(false);
   };
 
-  const handleDeletePractice = () => {
+  const handleDeleteTournament = () => {
     if (wait) return;
-    const practiceToBeDeleted = practices[deleteRowIndex];
-    if (practiceToBeDeleted) {
-      deletePractice.mutate({ id: practiceToBeDeleted.id });
+    const tournamentToBeDeleted = tournaments[deleteRowIndex];
+    if (tournamentToBeDeleted) {
+      deleteTournament.mutate({ id: tournamentToBeDeleted.id });
     } else {
-      toast.error("Error Deleting Practice");
+      toast.error("Error Deleting Tournament");
     }
   };
 
@@ -96,36 +97,36 @@ const Table = ({ teamId }: PropType) => {
         name="delete"
         header="Confirm Delete"
         content="Are you sure you want to delete this row?"
-        actionItem={handleDeletePractice}
+        actionItem={handleDeleteTournament}
         confirmCancelButtons={true}
       ></Modal>
       <table className="table min-w-full table-auto text-center transition duration-300 ease-in-out">
         <thead>
           <tr className="w-full">
+            <th className="px-5 text-xl font-black text-red">Name</th>
             <th className="px-5 text-xl font-black text-red">Location</th>
-            <th className="px-5 text-xl font-black text-red">Weekday</th>
-            <th className="px-5 text-xl font-black text-red">Start Time</th>
-            <th className="px-5 text-xl font-black text-red">End Time</th>
+            <th className="px-5 text-xl font-black text-red">Date</th>
+            <th className="px-5 text-xl font-black text-red">Format</th>
             <th className="px-5 text-xl font-black text-red">Edit</th>
           </tr>
         </thead>
         <tbody className="capitalize shadow-xl">
-          {practices.map((practice: Practice, index) => {
+          {tournaments.map((tournament: Tournament, index) => {
             return (
-              <PracticeRowEdit
+              <TournamentRowEdit
                 index={index}
                 teamId={teamId}
-                practiceId={practice.id}
-                practice={practice}
-                editRow={editRowIndex === index}
-                setEditRowIndex={setEditRowIndex}
+                tournamentId={tournament.id}
+                tournament={tournament}
                 newRowCreated={newRowCreated}
                 setNewRowCreated={setNewRowCreated}
+                editRow={editRowIndex === index}
+                removeTemporaryRow={removeTemporaryRow}
+                setEditRowIndex={setEditRowIndex}
                 wait={wait}
                 setWait={setWait}
-                removeTemporaryRow={removeTemporaryRow}
                 setDeleteRow={setDeleteRowIndex}
-                key={`practiceRow${index}`}
+                key={`tournamentRow${index}`}
               />
             );
           })}
@@ -136,7 +137,7 @@ const Table = ({ teamId }: PropType) => {
           <button
             className="min-w-8 min-h-8 mt-4 mr-4
             transition duration-300 ease-in-out hover:scale-150 hover:text-red"
-            onClick={() => addTemporaryRow(practices.length)}
+            onClick={() => addTemporaryRow(tournaments.length)}
           >
             <IconCirclePlus />
           </button>

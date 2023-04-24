@@ -1,6 +1,10 @@
 import { Player, Position } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
-import { isEmptyString } from "../../../utils/helpers";
+import {
+  acronymToPositions,
+  isEmptyString,
+  positionsToString,
+} from "../../../utils/helpers";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "../../../utils/api";
@@ -20,30 +24,6 @@ type PropType = {
   setDeleteRowIndex: React.Dispatch<React.SetStateAction<number>>;
   removeTemporyPlayer: () => void;
 };
-
-const positionsMap = new Map<Position, string>([
-  ["FIRST_BASE", "1B"],
-  ["SECOND_BASE", "2B"],
-  ["THIRD_BASE", "3B"],
-  ["SHORTSTOP", "SS"],
-  ["CATCHER", "C"],
-  ["LEFT_FIELD", "LF"],
-  ["CENTER_FIELD", "CF"],
-  ["RIGHT_FIELD", "RF"],
-  ["PITCHER", "P"],
-]);
-
-const acronymMap = new Map<string, Position>([
-  ["1B", "FIRST_BASE"],
-  ["2B", "SECOND_BASE"],
-  ["3B", "THIRD_BASE"],
-  ["SS", "SHORTSTOP"],
-  ["C", "CATCHER"],
-  ["LF", "LEFT_FIELD"],
-  ["CF", "CENTER_FIELD"],
-  ["RF", "RIGHT_FIELD"],
-  ["P", "PITCHER"],
-]);
 
 const RosterCard = (props: PropType) => {
   const {
@@ -232,34 +212,6 @@ const RosterCard = (props: PropType) => {
 
     setValidInput(true);
     return true;
-  };
-
-  const positionToAcronym = (position: string) => {
-    if (!positionsMap.has(position as Position)) return "";
-    return positionsMap.get(position as Position);
-  };
-
-  const acronymToPositions = (acronyms: string) => {
-    const split = acronyms.split(",");
-    const positionArray: Position[] = [];
-    for (let acronym of split) {
-      acronym = acronym.trim();
-      acronym = acronym.toUpperCase();
-      if (!acronymMap.has(acronym)) return [];
-      positionArray.push(acronymMap.get(acronym) as Position);
-    }
-    return positionArray;
-  };
-
-  const positionsToString = (positions: Position[]) => {
-    let str = "";
-    positions.forEach((position: Position, index: number) => {
-      str +=
-        index != positions.length - 1
-          ? `${positionToAcronym(position)}, `
-          : `${positionToAcronym(position)}`;
-    });
-    return str;
   };
 
   if (wait && editRow) return <EmptyCard />;

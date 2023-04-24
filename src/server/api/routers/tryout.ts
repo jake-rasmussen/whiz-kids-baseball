@@ -76,5 +76,5 @@ export const tryoutsRouter = createTRPCRouter({
       return tryout;
     }),
 
-    //TODO: Add tryout registration once user table is created
+  //TODO: Add tryout registration once user table is created
 });

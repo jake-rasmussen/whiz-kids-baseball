@@ -1,38 +1,26 @@
+import { Tryout } from "@prisma/client";
 import image from "../../assets/images/sample2.png";
 import MainLayout from "../layouts/MainLayout";
+import { api } from "../utils/api";
 import type { NextPageWithLayout } from "./_app";
 import Image from "next/image";
 import type { ReactElement } from "react";
 import React from "react";
-
-interface TryoutData {
-  location: string;
-  date: string;
-  time: string;
-  ages: string;
-}
+import { dateToTimeStringRaw, dateToStringRaw, dateToStringFormatted, dateToTimeStringFormatted } from "../utils/helpers";
+import Loading from "../components/LoadingPage";
 
 const Tryouts: NextPageWithLayout = () => {
-  const mockdata: TryoutData[] = [
-    {
-      location: "Proving Grounds",
-      date: "10/24/2023",
-      time: "5:00PM",
-      ages: "14U-17U",
-    },
-    {
-      location: "Proving Grounds",
-      date: "10/24/2023",
-      time: "5:00PM",
-      ages: "14U-17U",
-    },
-    {
-      location: "Proving Grounds",
-      date: "10/24/2023",
-      time: "5:00PM",
-      ages: "14U-17U",
-    },
-  ];
+  const {
+    data: tryouts,
+    isLoading,
+    isError,
+  } = api.tryout.getAllTryouts.useQuery();
+
+  if (isLoading) {
+    return <Loading />;
+  } else if (isError) {
+    return <div>Error...</div>;
+  }
 
   return (
     <>
@@ -79,7 +67,7 @@ const Tryouts: NextPageWithLayout = () => {
           </thead>
 
           <tbody>
-            {mockdata?.map((tryoutData: TryoutData, index) => {
+            {tryouts.map((tryout: Tryout, index: number) => {
               return (
                 <React.Fragment key={index}>
                   <tr
@@ -87,13 +75,13 @@ const Tryouts: NextPageWithLayout = () => {
                     key={`tryout${index}`}
                   >
                     <td className="whitespace-nowrap py-8 text-center text-base font-light text-dark-gray md:text-lg">
-                      {tryoutData.location}
+                      {tryout.location}
                     </td>
                     <td className="whitespace-nowrap py-8 text-center text-base font-light text-dark-gray md:text-lg">
-                      {tryoutData.date}
+                      {dateToStringFormatted(tryout.dateTime)}
                     </td>
                     <td className="whitespace-nowrap py-8 text-center text-base font-light text-dark-gray md:text-lg">
-                      {tryoutData.time}
+                      {dateToTimeStringFormatted(tryout.dateTime)}
                     </td>
                   </tr>
                 </React.Fragment>

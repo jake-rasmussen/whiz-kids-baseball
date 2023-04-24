@@ -1,3 +1,4 @@
+import Loading from "../../components/LoadingPage";
 import Tab from "../../components/Tab";
 import PracticeTable from "../../components/team/PracticeTable";
 import Roster from "../../components/team/Roster";
@@ -15,12 +16,14 @@ const TeamPage: NextPageWithLayout = () => {
   const router = useRouter();
   const id = router.query.teamId as string;
 
+  // TODO: figure out how to handle if id is undefined
+
   const { data, isError, isLoading } = api.team.getTeamById.useQuery({
     id,
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   } else if (isError) {
     return <div>Error...</div>;
   }
@@ -44,7 +47,7 @@ const TeamPage: NextPageWithLayout = () => {
               <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
                 Tournament Schedule
               </h1>
-              <TournamentTable tournamentData={tournaments} />
+              <TournamentTable tournaments={tournaments} />
             </section>
           ) : (
             <></>
@@ -54,7 +57,7 @@ const TeamPage: NextPageWithLayout = () => {
               <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
                 Practice Schedule
               </h1>
-              <PracticeTable practiceData={practices} />
+              <PracticeTable practices={practices} />
             </section>
           ) : (
             <></>

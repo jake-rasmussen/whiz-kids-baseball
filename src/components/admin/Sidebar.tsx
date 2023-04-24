@@ -1,7 +1,7 @@
 import { IconArrowBack } from "@tabler/icons";
 import Link from "next/link";
 import { api } from "../../utils/api";
-import Loading from "../Loading";
+import Loading from "../LoadingPage";
 import { Team } from "@prisma/client";
 
 const NavBar: React.FC = () => {
@@ -13,8 +13,7 @@ const NavBar: React.FC = () => {
   if (isLoading) {
     return <Loading />;
   } else if (isError) {
-    console.log("error");
-    return <>Error</>;
+    return <>Error...</>;
   }
 
   return (
@@ -29,14 +28,14 @@ const NavBar: React.FC = () => {
               <Link
                 rel="noopener noreferrer"
                 className="link-underline link-underline-black w-fit hover:text-red"
-                href="#"
+                href="/admin/guide"
               >
                 Guide
               </Link>
               <Link
                 rel="noopener noreferrer"
                 className="link-underline link-underline-black w-fit hover:text-red"
-                href="#"
+                href="/admin/support"
               >
                 Support
               </Link>
@@ -51,7 +50,7 @@ const NavBar: React.FC = () => {
               <div className="flex flex-col pl-4">
                 {data.map((entry: Team, index: number) => (
                   <Link
-                    href={`/edit/teams/${entry.id}`}
+                    href={`/admin/teams/${entry.id}`}
                     className="link-underline link-underline-black w-fit hover:text-red"
                     key={`team${index}`}
                   >
@@ -63,27 +62,43 @@ const NavBar: React.FC = () => {
           </div>
           <div>
             <Link
-              href="/edit/teams"
-              className="link-underline link-underline-black w-fit hover:text-red"
+              href="/admin/teams"
+              className="link-underline link-underline-black w-fit hover:text-red py-0.5"
             >
               Teams List
             </Link>
-          </div>
           <div>
             <Link
-              href="/edit/alumni"
-              className="link-underline link-underline-black w-fit hover:text-red"
+              href="/admin/alumni"
+              className="link-underline link-underline-black w-fit hover:text-red py-0.5"
             >
               Alumni
             </Link>
           </div>
           <div>
             <Link
-              href="/edit/alumni"
-              className="link-underline link-underline-black w-fit hover:text-red"
+              href="/admin/tryout"
+              className="link-underline link-underline-black w-fit hover:text-red py-0.5"
             >
               Tryout
             </Link>
+          </div>
+          <div>
+            <Link
+              href="/admin/training"
+              className="link-underline link-underline-black w-fit hover:text-red py-0.5"
+            >
+              Training
+            </Link>
+          </div>
+          <div>
+            <Link
+              href="/admin/newsletter-email"
+              className="link-underline link-underline-black w-fit hover:text-red py-0.5"
+            >
+              Newsletter Email
+            </Link>
+          </div>
           </div>
         </nav>
         <Link

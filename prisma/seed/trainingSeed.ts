@@ -6,7 +6,7 @@ const generateFakeTraining = () => {
     data: {
       name: faker.name.firstName(),
       location: faker.address.city(),
-      dateTime: faker.date.future(), 
+      dateTime: faker.date.future(),
       totalSlots: faker.datatype.number({ min: 10, max: 20 }),
       availableSlots: faker.datatype.number({ min: 0, max: 10 }),
       price: faker.datatype.number({ min: 100, max: 500 }),
