@@ -1,6 +1,6 @@
 import sample1 from "../../assets/images/sample1.png";
 import sample2 from "../../assets/images/sample2.png";
-import Carousel from "../components/carousel";
+import Carousel from "../components/Carousel";
 import MainLayout from "../layouts/MainLayout";
 import type { NextPageWithLayout } from "./_app";
 import { IconMail, IconMapPin, IconPhone } from "@tabler/icons";
@@ -19,11 +19,11 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="h-screen w-full bg-dark-gray">
-        <main className="fixed flex h-screen min-w-full flex-col items-center justify-center overflow-hidden">
+      <main className="h-screen w-full bg-dark-gray">
+        <div className="fixed flex h-screen min-w-full flex-col items-center justify-center overflow-hidden">
           <Carousel images={images} options={options} />
-        </main>
-      </div>
+        </div>
+      </main>
 
       <main className="relative flex w-full flex-col items-center bg-dark-gray">
         <section className="my-8 text-white">
@@ -108,43 +108,39 @@ const Home: NextPageWithLayout = () => {
         <section className="w-full py-20 text-white">
           <div className="mx-auto grid max-w-6xl grid-cols-1 px-6 md:grid-cols-2 md:divide-x lg:px-8">
             <div className="py-6 md:py-0 md:px-6">
-              <h1 className="text-4xl font-bold">Get in touch</h1>
-              <p className="pt-2 pb-4">
+              <div className="py-8 text-dark-gray">
+                <p className="text-3xl font-black uppercase tracking-wide text-white">
+                  Get in touch
+                </p>
+                <p className="text-md text-light-gray">
                 Fill in the form to start a conversation
-              </p>
+                </p>
+              </div>
+              
               <div className="space-y-4">
                 <p className="flex items-center">
-                  <IconMapPin className="mr-2 h-8 w-8 justify-start p-1 text-white" />
+                  <IconMapPin className="mr-2 h-8 w-8 justify-start p-1 text-red" />
                   <span>Conshohocken, PA 19428</span>
                 </p>
                 <p className="flex items-center">
-                  <IconPhone className="mr-2 h-8 w-8 justify-start p-1 text-white" />
+                  <IconPhone className="mr-2 h-8 w-8 justify-start p-1 text-red" />
                   <span>(267) 228-3615</span>
                 </p>
                 <p className="flex items-center">
-                  <IconMail className="mr-2 h-8 w-8 justify-start p-1 text-white" />
+                  <IconMail className="mr-2 h-8 w-8 justify-start p-1 text-red" />
                   <span>angelabing@aol.com</span>
                 </p>
               </div>
             </div>
             <form className="ng-untouched ng-pristine ng-valid flex flex-col space-y-6 py-6 md:py-0 md:px-6">
               {" "}
-              {/* TODO: figure out how to get rid of Google Autofill Discoloration  */}
               <label className="block">
                 <span className="mb-1">Full name</span>
-                <input
-                  type="name"
-                  placeholder="John Smith"
-                  className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm"
-                />
+                <input className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm" />
               </label>
               <label className="block">
                 <span className="mb-1">Email address</span>
-                <input
-                  type="email"
-                  placeholder="info@email.com"
-                  className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm"
-                />
+                <input className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm" />
               </label>
               <label className="block">
                 <span className="mb-1">Message</span>

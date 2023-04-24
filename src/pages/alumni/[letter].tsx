@@ -104,7 +104,7 @@ const Alumni: NextPageWithLayout = () => {
           (key: number, index: number) => {
             return (
               <div key={`key${index}`} className="w-full items-center">
-                <table className="mx-auto w-[80vh] table-auto">
+                <table className="mx-auto w-[80%]">
                   <thead className="border-b border-dark-gray">
                     <tr>
                       <th className="text-left text-5xl font-black tracking-wide text-dark-gray">

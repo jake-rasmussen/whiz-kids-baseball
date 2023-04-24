@@ -1,7 +1,7 @@
 const Footer: React.FC = () => {
   return (
     <>
-      <footer className="relative bg-white pt-4 text-center">
+      <footer className="relative bg-white pt-4 text-center border-t-2 border-dark-gray">
         <div className="flex justify-center">
           <a href="https://www.facebook.com/WhizKidsBaseball/" className="mx-5">
             <svg

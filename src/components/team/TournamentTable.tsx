@@ -1,13 +1,7 @@
 import {
-  IconCheck,
-  IconCircleCheck,
-  IconCirclePlus,
-  IconEdit,
   IconInfoCircle,
-  IconSquareRoundedPlus,
-  IconTrash,
 } from "@tabler/icons";
-import React, { type ReactNode, useState } from "react";
+import React from "react";
 import { datesToStringFormatted } from "../../utils/helpers";
 import { Tournament } from "@prisma/client";
 

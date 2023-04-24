@@ -53,12 +53,18 @@ const Training: NextPageWithLayout = () => {
           </div>
         </section>
 
-        <main className="flex w-full items-center bg-dark-gray py-[8vh]">
-          <table className="mx-[10%] w-full table-auto pb-[10vh]">
+        <main className="flex flex-col w-full justify-center items-center bg-dark-gray py-10">
+          <h1 className="p-4 text-center text-3xl font-black uppercase leading-none tracking-wide text-white md:text-4xl">
+            Training Dates
+          </h1>
+          <table className="pb-[10vh] w-[80%]">
             <thead>
               <tr className="w-full">
                 <th className="py-2 px-5 text-base font-black text-red">
                   Training Session
+                </th>
+                <th className="text-md table-cell px-5 font-black text-red md:hidden md:text-xl">
+                  {/* Info */}
                 </th>
                 <th className="hidden py-2 px-5 text-base font-black text-red md:table-cell">
                   Location
@@ -82,40 +88,40 @@ const Training: NextPageWithLayout = () => {
               {training.map((training: Training, index) => {
                 return (
                   <React.Fragment key={index}>
-                    <tr className="  border-y border-light-gray">
+                    <tr className="border-y border-light-gray">
                       <td className="py-2 text-center text-sm font-medium text-white">
+                        {training.name}
+                      </td>
+                      <td className="py-2 text-sm font-medium text-white table-cell md:hidden">
                         <div className="flex flex-row justify-center">
-                          {training.name}
-                          <button className="bg-transparent"></button>
-
-                          <label htmlFor="modal">
-                            <IconInfoCircle className="mx-2 text-white transition duration-300 ease-in-out hover:text-red md:hidden" />
+                          <label htmlFor="modal" className="hover:cursor-pointer">
+                            <IconInfoCircle className="mx-2 text-white transition duration-300 ease-in-out hover:text-red" />
                           </label>
-
+                          
                           <input
                             type="checkbox"
                             id="modal"
                             className="modal-toggle"
                           />
                           <div className="modal">
-                            <div className="modal-box relative bg-dark-gray text-left">
+                            <div className="modal-box relative bg-white text-dark-gray text-left shadow-xl">
                               <label
                                 htmlFor="modal"
                                 className="btn-ghost btn-sm btn absolute right-2 top-2"
                               >
                                 ✕
                               </label>
-                              <h1 className="py-4 px-5 font-black uppercase leading-tight tracking-wide text-red">
+                              <h1 className="py-4 pl-4 font-black uppercase leading-tight tracking-wide text-2xl text-red">
                                 Training Session
                               </h1>
                               <p className="px-4 py-1 text-lg">
                                 Location: {training.location}
                               </p>
                               <p className="px-4 py-1 text-lg">
-                                Date: {dateToStringRaw(training.dateTime)}
+                                Date: {dateToStringFormatted(training.dateTime)}
                               </p>
                               <p className="px-4 py-1 text-lg">
-                                Time: {dateToTimeStringRaw(training.dateTime)}
+                                Time: {dateToTimeStringFormatted(training.dateTime)}
                               </p>
                               <p className="py- px-4 text-lg">
                                 Price: ${training.price}

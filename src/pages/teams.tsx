@@ -24,9 +24,9 @@ const Teams: NextPageWithLayout = () => {
             <h1 className="text-center text-5xl font-bold">
               Our <span className="text-red">Teams</span>
             </h1>
-            <div className="tracking-none divider font-black text-light-gray">
+            <h3 className="tracking-none divider font-black text-light-gray">
               Select Your Team
-            </div>
+            </h3>
             <div className="flex flex-col items-center justify-center text-center">
               {teams.map((team: Team, index: number) => (
                 <Link

@@ -47,11 +47,11 @@ const Tryouts: NextPageWithLayout = () => {
         </div>
       </section>
 
-      <main className="relative flex flex-col items-center bg-white py-10 md:p-10 md:pb-20">
+      <main className="relative flex flex-col items-center bg-white py-10">
         <h1 className="p-4 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
           Tryout Dates
         </h1>
-        <table className="w-full table-auto md:w-7/12">
+        <table className="w-[80%] md:w-[60%]">
           <thead>
             <tr className="w-full">
               <th className="text-md px-5 font-black text-red md:text-xl">
@@ -74,13 +74,13 @@ const Tryouts: NextPageWithLayout = () => {
                     className="border-y border-light-gray text-dark-gray"
                     key={`tryout${index}`}
                   >
-                    <td className="whitespace-nowrap py-8 text-center text-base font-light text-dark-gray md:text-lg">
+                    <td className="whitespace-nowrap py-4 text-center text-base font-light text-dark-gray md:text-lg">
                       {tryout.location}
                     </td>
-                    <td className="whitespace-nowrap py-8 text-center text-base font-light text-dark-gray md:text-lg">
+                    <td className="whitespace-nowrap py-4 text-center text-base font-light text-dark-gray md:text-lg">
                       {dateToStringFormatted(tryout.dateTime)}
                     </td>
-                    <td className="whitespace-nowrap py-8 text-center text-base font-light text-dark-gray md:text-lg">
+                    <td className="whitespace-nowrap py-4 text-center text-base font-light text-dark-gray md:text-lg">
                       {dateToTimeStringFormatted(tryout.dateTime)}
                     </td>
                   </tr>
@@ -199,7 +199,7 @@ const Tryouts: NextPageWithLayout = () => {
               <div className="form-control col-span-2 col-start-3 items-center md:col-start-6">
                 <button
                   className="btn m-5 mx-3 self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red px-8 py-3 text-lg font-black uppercase tracking-wide
-                    text-light-gray transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                    text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                 >
                   Submit
                 </button>
