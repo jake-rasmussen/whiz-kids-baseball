@@ -109,9 +109,9 @@ const Home: NextPageWithLayout = () => {
           <div className="mx-auto grid max-w-6xl grid-cols-1 px-6 md:grid-cols-2 md:divide-x lg:px-8">
             <div className="py-6 md:py-0 md:px-6">
               <div className="py-8 text-dark-gray">
-                <p className="text-3xl font-black uppercase tracking-wide text-white">
+                <h1 className="text-3xl font-black uppercase tracking-wide text-white">
                   Get in touch
-                </p>
+                </h1>
                 <p className="text-md text-light-gray">
                 Fill in the form to start a conversation
                 </p>

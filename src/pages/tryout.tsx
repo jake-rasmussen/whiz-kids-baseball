@@ -1,4 +1,4 @@
-import type { Tryout } from "@prisma/client";
+import type { Team, Tryout } from "@prisma/client";
 import image from "../../assets/images/sample2.png";
 import MainLayout from "../layouts/MainLayout";
 import { api } from "../utils/api";
@@ -12,14 +12,29 @@ import Loading from "../components/LoadingPage";
 const Tryouts: NextPageWithLayout = () => {
   const {
     data: tryouts,
-    isLoading,
-    isError,
+    isLoading: isLoadingTryouts,
+    isError: isErrorTryouts,
   } = api.tryout.getAllTryouts.useQuery();
 
-  if (isLoading) {
+  const {
+    data: teams,
+    isLoading: isLoadingTeams,
+    isError: isErrorTeams,
+  } = api.team.getAllTeams.useQuery();
+
+  if (isLoadingTryouts || isLoadingTeams) {
     return <Loading />;
-  } else if (isError) {
+  } else if (isErrorTryouts || isErrorTeams) {
     return <div>Error...</div>;
+  }
+
+  // Strange glitch with chrome and TailwindCSS where you can't
+  // capitalize option text, so created helper method
+  const capitalizeString = (str: string) => {
+    return str.toLowerCase()
+    .split(' ')
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(' ');
   }
 
   return (
@@ -130,11 +145,13 @@ const Tryouts: NextPageWithLayout = () => {
                   defaultValue={"Pick One"}
                 >
                   <option disabled value={"Pick One"}></option>{" "}
-                  {/* // TODO: Use actual Team Data */}
-                  <option value={"Whiz Kids American"}>
-                    Whiz Kids American
-                  </option>
-                  <option value={"Whiz Kids Future"}>Whiz Kids Future</option>
+                  {teams.map((team: Team) => {
+                    return (
+                      <option value={`${team.name}`} key={`${team.name}`}>
+                        {capitalizeString(team.name)}
+                      </option>
+                    )
+                  })}
                 </select>
               </div>
               <div className="col-span-full sm:col-span-2">
