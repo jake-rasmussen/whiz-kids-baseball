@@ -136,15 +136,15 @@ const Home: NextPageWithLayout = () => {
               {" "}
               <label className="block">
                 <span className="mb-1">Full name</span>
-                <input className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm" />
+                <input className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm font-semibold" />
               </label>
               <label className="block">
                 <span className="mb-1">Email address</span>
-                <input className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm" />
+                <input className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm font-semibold" />
               </label>
               <label className="block">
                 <span className="mb-1">Message</span>
-                <textarea className="textarea-bordered textarea block w-full rounded-md bg-white text-dark-gray"></textarea>
+                <textarea className="textarea-bordered textarea block w-full rounded-md bg-white text-dark-gray font-semibold text-md"></textarea>
               </label>
               <button
                 className="btn mx-3 self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red px-8 py-3 text-lg font-black uppercase tracking-wide text-white

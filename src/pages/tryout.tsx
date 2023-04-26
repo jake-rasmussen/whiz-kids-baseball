@@ -63,7 +63,7 @@ const Tryouts: NextPageWithLayout = () => {
       </section>
 
       <main className="relative flex flex-col items-center bg-white py-10">
-        <h1 className="p-4 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
+        <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
           Tryout Dates
         </h1>
         <table className="w-[80%] md:w-[60%]">
@@ -126,14 +126,14 @@ const Tryouts: NextPageWithLayout = () => {
                 <label className="text-sm">Player Name</label>
                 <input
                   type="name"
-                  className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
+                  className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
                 />
               </div>
               <div className="col-span-full sm:col-span-3">
                 <label className="text-sm">Email</label>
                 <input
                   type="email"
-                  className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
+                  className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
                 />
               </div>
               <div className="col-span-full">
@@ -158,28 +158,28 @@ const Tryouts: NextPageWithLayout = () => {
                 <label className="text-sm">City or Town</label>
                 <input
                   type="home"
-                  className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
+                  className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
                 />
               </div>
               <div className="col-span-full sm:col-span-2">
                 <label className="text-sm">Current School</label>
                 <input
                   type="school"
-                  className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
+                  className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
                 />
               </div>
               <div className="col-span-full sm:col-span-2">
                 <label className="text-sm">Date Of Birth</label>
                 <input
                   type="home"
-                  className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
+                  className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
                 />
               </div>
               <div className="col-span-full sm:col-span-2">
                 <label className="text-sm">Position (Up to 3)</label>
                 <input
                   type="position"
-                  className="input-bordered input block w-full rounded-md bg-white font-black text-dark-gray shadow-sm"
+                  className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
                 />
               </div>
               <div className="col-span-full sm:col-span-2">

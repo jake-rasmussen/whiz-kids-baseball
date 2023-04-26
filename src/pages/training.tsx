@@ -54,7 +54,7 @@ const Training: NextPageWithLayout = () => {
         </section>
 
         <main className="flex flex-col w-full justify-center items-center bg-dark-gray py-10">
-          <h1 className="p-4 text-center text-3xl font-black uppercase leading-none tracking-wide text-white md:text-4xl">
+          <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-white md:text-4xl">
             Training Dates
           </h1>
           <table className="pb-[10vh] w-[80%]">

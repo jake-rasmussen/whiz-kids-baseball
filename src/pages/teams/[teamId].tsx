@@ -86,7 +86,7 @@ const TeamPage: NextPageWithLayout = () => {
             <input
               type="text"
               placeholder="example@email.com"
-              className="w-3/5 rounded-l-lg bg-white p-3 sm:w-2/3"
+              className="w-3/5 rounded-l-lg bg-white p-3 sm:w-2/3 focus:outline-none "
             />
             <button
               type="button"
