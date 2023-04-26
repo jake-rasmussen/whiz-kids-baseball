@@ -15,6 +15,7 @@ export const trainingRouter = createTRPCRouter({
       return training;
     }),
 
+//TODO: FIX THIS ROUTE
   getTrainingWithAvailability: publicProcedure.query(async ({ ctx }) => {
     const training = await ctx.prisma.training.findMany({
       where: {
@@ -51,7 +52,6 @@ export const trainingRouter = createTRPCRouter({
           location,
           dateTime,
           totalSlots,
-          availableSlots: totalSlots,
           price,
         },
       });
