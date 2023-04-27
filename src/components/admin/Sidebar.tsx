@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
   return (
     <>
       <aside className="fixed flex h-screen w-60 flex-col items-center bg-dark-gray p-6 capitalize text-white">
-        <nav className="flex flex-grow flex-col space-y-2 text-md">
+        <nav className="text-md flex flex-grow flex-col space-y-2">
           <div className="space-y-2">
             <h2 className="text-lg font-semibold uppercase tracking-widest text-light-gray">
               Getting Started
@@ -62,7 +62,7 @@ const NavBar: React.FC = () => {
             <div>
               <Link
                 href="/admin/teams"
-                className="link-underline link-underline-black w-fit hover:text-red py-0.5"
+                className="link-underline link-underline-black w-fit py-0.5 hover:text-red"
               >
                 Teams List
               </Link>
@@ -70,7 +70,7 @@ const NavBar: React.FC = () => {
             <div>
               <Link
                 href="/admin/alumni"
-                className="link-underline link-underline-black w-fit hover:text-red py-0.5"
+                className="link-underline link-underline-black w-fit py-0.5 hover:text-red"
               >
                 Alumni
               </Link>
@@ -78,7 +78,7 @@ const NavBar: React.FC = () => {
             <div>
               <Link
                 href="/admin/tryout"
-                className="link-underline link-underline-black w-fit hover:text-red py-0.5"
+                className="link-underline link-underline-black w-fit py-0.5 hover:text-red"
               >
                 Tryout
               </Link>
@@ -86,7 +86,7 @@ const NavBar: React.FC = () => {
             <div>
               <Link
                 href="/admin/training"
-                className="link-underline link-underline-black w-fit hover:text-red py-0.5"
+                className="link-underline link-underline-black w-fit py-0.5 hover:text-red"
               >
                 Training
               </Link>
@@ -98,7 +98,7 @@ const NavBar: React.FC = () => {
           <div>
             <Link
               href="/admin/newsletter-email"
-              className="link-underline link-underline-black w-fit hover:text-red py-0.5"
+              className="link-underline link-underline-black w-fit py-0.5 hover:text-red"
             >
               Newsletter Email
             </Link>

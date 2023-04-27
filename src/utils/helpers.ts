@@ -6,9 +6,9 @@ export const isEmptyString = (str: string) => {
 
 export const dateToStringRaw = (date: Date) => {
   let str = "";
-  if (date.getMonth() + 1 < 10) str += "0";
+  if (date.getMonth() + 1 <= 10) str += "0";
   str += `${date.getMonth() + 1}-`;
-  if (date.getDate() + 1 < 10) str += "0";
+  if (date.getDate() + 1 <= 10) str += "0";
   str += `${date.getDate()}`;
 
   return str;
@@ -93,12 +93,12 @@ export const dateToTimeStringRaw = (date: Date) => {
   if (date.getHours() < 10 || (date.getHours() > 12 && date.getHours() < 22))
     str += "0";
 
-    str += date.getHours() <= 12 ? date.getHours() : date.getHours() - 12;
-    str += ":";
-  
-    if (date.getMinutes() < 10) str += "0";
-    str += date.getMinutes();
-    str += date.getHours() >= 12 ? "PM" : "AM";
+  str += date.getHours() <= 12 ? date.getHours() : date.getHours() - 12;
+  str += ":";
+
+  if (date.getMinutes() < 10) str += "0";
+  str += date.getMinutes();
+  str += date.getHours() >= 12 ? "PM" : "AM";
 
   return str;
 };
@@ -165,7 +165,7 @@ export const dateToTimeStringFormatted = (date: Date) => {
   str += date.getHours() >= 12 ? " PM" : " AM";
 
   return str;
-}
+};
 
 const positionsMap = new Map<Position, string>([
   ["FIRST_BASE", "1B"],

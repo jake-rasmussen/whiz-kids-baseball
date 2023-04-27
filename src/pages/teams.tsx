@@ -19,7 +19,7 @@ const Teams: NextPageWithLayout = () => {
   return (
     <>
       <div className="flex min-h-[83vh] w-full justify-center bg-dark-gray">
-        <div className="card w-full overflow-scroll rounded-none bg-white p-2 shadow-xl sm:my-20 sm:w-auto sm:rounded-xl">
+        <div className="card w-full overflow-scroll rounded-none bg-white p-2 px-20 shadow-xl sm:my-20 sm:w-auto sm:rounded-xl">
           <div className="card-body flex flex-col justify-center">
             <h1 className="text-center text-5xl font-bold">
               Our <span className="text-red">Teams</span>
@@ -31,7 +31,7 @@ const Teams: NextPageWithLayout = () => {
               {teams.map((team: Team, index: number) => (
                 <Link
                   href={`/teams/${team.id}`}
-                  className="tracking-none tracking-none py-4 text-lg font-black uppercase text-dark-gray hover:text-red"
+                  className="tracking-none tracking-none py-4 text-lg font-black uppercase text-dark-gray transition  duration-300 ease-in-out hover:scale-110 hover:text-red"
                   key={`team${index}`}
                 >
                   {team.name}

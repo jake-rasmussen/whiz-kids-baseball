@@ -5,7 +5,6 @@ import { toast, Toaster } from "react-hot-toast";
 import { api } from "../../../utils/api";
 import Modal from "../Modal";
 import AlumniRowEdit from "./AlumniRowEdit";
-import Loading from "../../LoadingPage";
 
 const Table = () => {
   const [editRowIndex, setEditRowIndex] = useState(-1);
@@ -36,9 +35,7 @@ const Table = () => {
   });
 
   if (isLoading) {
-    return (
-      <></>
-    );
+    return <></>;
   } else if (isError) {
     return <div>Error...</div>;
   }
@@ -91,7 +88,7 @@ const Table = () => {
         name="delete"
         header="Confirm Delete"
         content="Are you sure you want to delete this row?"
-        actionItem={handleDeleteTeam}
+        actionItem={() => handleDeleteTeam}
         confirmCancelButtons={true}
       ></Modal>
       <table className="table min-w-full table-auto text-center transition duration-300 ease-in-out">

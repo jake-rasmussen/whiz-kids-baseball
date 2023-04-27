@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import sample1 from "../../assets/images/sample1.png";
 import sample2 from "../../assets/images/sample2.png";
 import Carousel from "../components/Carousel";
@@ -6,11 +7,26 @@ import type { NextPageWithLayout } from "./_app";
 import { IconMail, IconMapPin, IconPhone } from "@tabler/icons";
 import type { EmblaOptionsType } from "embla-carousel-react";
 import Image from "next/image";
-import type { ReactElement } from "react";
+import { ReactElement } from "react";
 import React from "react";
+import { useInView } from "react-intersection-observer";
 
 const Home: NextPageWithLayout = () => {
   const images = [sample1, sample2];
+
+  const { ref: refTeams, inView: inViewTeams } = useInView({
+    threshold: 0.8,
+    triggerOnce: true,
+  });
+  const { ref: refTournaments, inView: inViewTournaments } = useInView({
+    threshold: 0.8,
+    triggerOnce: true,
+  });
+  const { ref: refPlayers, inView: inViewPlayers } = useInView({
+    threshold: 0.8,
+    triggerOnce: true,
+  });
+
   const options: EmblaOptionsType = {
     inViewThreshold: 0,
     loop: true,
@@ -45,14 +61,24 @@ const Home: NextPageWithLayout = () => {
       <main className="relative flex w-full flex-col items-center bg-dark-gray">
         <section className="w-full bg-white p-4 dark:text-gray-100 lg:p-8">
           <div className="container mx-auto space-y-12">
-            <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row">
+            <motion.div
+              ref={refTeams}
+              initial="hidden"
+              animate={inViewTeams ? "visible" : "hidden"}
+              variants={{
+                visible: { opacity: 1, x: 0 },
+                hidden: { opacity: 0, x: "-5rem" },
+              }}
+              transition={{ duration: 1 }}
+              className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row"
+            >
               <Image
                 src={sample2}
                 className="h-80 w-auto object-cover dark:bg-gray-500"
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-3xl font-bold">
+                <h3 className="text-4xl font-bold">
                   Numerous Competitive Teams
                 </h3>
                 <div className="h-0.5 w-[30%] bg-red" />
@@ -62,15 +88,20 @@ const Home: NextPageWithLayout = () => {
                   practices throughout the season
                 </p>
               </div>
-            </div>
-            <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row-reverse">
-              <Image
-                src={sample1}
-                className="h-80 w-auto object-cover dark:bg-gray-500"
-                alt="Whiz Kids Photo"
-              />
+            </motion.div>
+            <motion.div
+              ref={refTournaments}
+              initial="hidden"
+              animate={inViewTournaments ? "visible" : "hidden"}
+              variants={{
+                visible: { opacity: 1, x: 0 },
+                hidden: { opacity: 0, x: "5rem" },
+              }}
+              transition={{ duration: 1 }}
+              className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row"
+            >
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-3xl font-bold">
+                <h3 className="text-4xl font-bold">
                   Robust Tournament Schedule
                 </h3>
                 <div className="h-0.5 w-[30%] bg-red" />
@@ -81,15 +112,30 @@ const Home: NextPageWithLayout = () => {
                   and tournaments, depending on the team&apos;s age
                 </p>
               </div>
-            </div>
-            <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row">
+              <Image
+                src={sample1}
+                className="h-80 w-auto object-cover dark:bg-gray-500"
+                alt="Whiz Kids Photo"
+              />
+            </motion.div>
+            <motion.div
+              ref={refPlayers}
+              initial="hidden"
+              animate={inViewPlayers ? "visible" : "hidden"}
+              variants={{
+                visible: { opacity: 1, x: 0 },
+                hidden: { opacity: 0, x: "-5rem" },
+              }}
+              transition={{ duration: 1 }}
+              className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row"
+            >
               <Image
                 src={sample2}
                 className="h-80 w-auto object-cover dark:bg-gray-500"
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-3xl font-bold">
+                <h3 className="text-4xl font-bold">
                   Hundreds of Passionate Players
                 </h3>
                 <div className="h-0.5 w-[30%] bg-red" />
@@ -99,7 +145,7 @@ const Home: NextPageWithLayout = () => {
                   that frequently contribute to the organization today
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>
@@ -113,10 +159,10 @@ const Home: NextPageWithLayout = () => {
                   Get in touch
                 </h1>
                 <p className="text-md text-light-gray">
-                Fill in the form to start a conversation
+                  Fill in the form to start a conversation
                 </p>
               </div>
-              
+
               <div className="space-y-4">
                 <p className="flex items-center">
                   <IconMapPin className="mr-2 h-8 w-8 justify-start p-1 text-red" />
@@ -136,15 +182,15 @@ const Home: NextPageWithLayout = () => {
               {" "}
               <label className="block">
                 <span className="mb-1">Full name</span>
-                <input className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm font-semibold" />
+                <input className="input-bordered input block h-10 w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm" />
               </label>
               <label className="block">
                 <span className="mb-1">Email address</span>
-                <input className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm font-semibold" />
+                <input className="input-bordered input block h-10 w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm" />
               </label>
               <label className="block">
                 <span className="mb-1">Message</span>
-                <textarea className="textarea-bordered textarea block w-full rounded-md bg-white text-dark-gray font-semibold text-md"></textarea>
+                <textarea className="text-md textarea-bordered textarea block w-full rounded-md bg-white font-semibold text-dark-gray"></textarea>
               </label>
               <button
                 className="btn mx-3 self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red px-8 py-3 text-lg font-black uppercase tracking-wide text-white

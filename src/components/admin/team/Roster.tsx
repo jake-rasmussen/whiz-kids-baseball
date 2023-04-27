@@ -10,7 +10,7 @@ import { api } from "../../../utils/api";
 import { Toaster, toast } from "react-hot-toast";
 import Modal from "../Modal";
 import { isEmptyString } from "../../../utils/helpers";
-import type { Player} from "@prisma/client";
+import type { Player } from "@prisma/client";
 import { Position } from "@prisma/client";
 import RosterCard from "./RosterCard";
 import LoadingComponent from "../../LoadingComponent";
@@ -108,7 +108,7 @@ const Roster = (props: PropType) => {
         name="delete"
         header="Confirm Delete"
         content="Are you sure you want to delete this player?"
-        actionItem={handleDeletePlayer}
+        actionItem={() => handleDeletePlayer}
         confirmCancelButtons={true}
       ></Modal>
       {players.map((player: Player, index: number) => (

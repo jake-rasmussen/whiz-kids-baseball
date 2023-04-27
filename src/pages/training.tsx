@@ -1,11 +1,14 @@
 import MainLayout from "../layouts/MainLayout";
 import type { NextPageWithLayout } from "./_app";
 import { IconInfoCircle } from "@tabler/icons";
-import type { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import React from "react";
 import { api } from "../utils/api";
 import { Training } from "@prisma/client";
-import { dateToStringFormatted, dateToTimeStringFormatted } from "../utils/helpers";
+import {
+  dateToStringFormatted,
+  dateToTimeStringFormatted,
+} from "../utils/helpers";
 import Loading from "../components/LoadingPage";
 
 const Training: NextPageWithLayout = () => {
@@ -53,11 +56,11 @@ const Training: NextPageWithLayout = () => {
           </div>
         </section>
 
-        <main className="flex flex-col w-full justify-center items-center bg-dark-gray py-10">
+        <main className="flex w-full flex-col items-center justify-center bg-dark-gray py-10">
           <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-white md:text-4xl">
             Training Dates
           </h1>
-          <table className="pb-[10vh] w-[80%]">
+          <table className="w-[80%] pb-[10vh]">
             <thead>
               <tr className="w-full">
                 <th className="py-2 px-5 text-base font-black text-red">
@@ -92,26 +95,29 @@ const Training: NextPageWithLayout = () => {
                       <td className="py-2 text-center text-sm font-medium text-white">
                         {training.name}
                       </td>
-                      <td className="py-2 text-sm font-medium text-white table-cell md:hidden">
+                      <td className="table-cell py-2 text-sm font-medium text-white md:hidden">
                         <div className="flex flex-row justify-center">
-                          <label htmlFor="modal" className="hover:cursor-pointer">
+                          <label
+                            htmlFor="modal"
+                            className="hover:cursor-pointer"
+                          >
                             <IconInfoCircle className="mx-2 text-white transition duration-300 ease-in-out hover:text-red" />
                           </label>
-                          
+
                           <input
                             type="checkbox"
                             id="modal"
                             className="modal-toggle"
                           />
                           <div className="modal">
-                            <div className="modal-box relative bg-white text-dark-gray text-left shadow-xl">
+                            <div className="modal-box relative bg-white text-left text-dark-gray shadow-xl">
                               <label
                                 htmlFor="modal"
                                 className="btn-ghost btn-sm btn absolute right-2 top-2"
                               >
                                 ✕
                               </label>
-                              <h1 className="py-4 pl-4 font-black uppercase leading-tight tracking-wide text-2xl text-red">
+                              <h1 className="py-4 pl-4 text-2xl font-black uppercase leading-tight tracking-wide text-red">
                                 Training Session
                               </h1>
                               <p className="px-4 py-1 text-lg">
@@ -121,7 +127,8 @@ const Training: NextPageWithLayout = () => {
                                 Date: {dateToStringFormatted(training.dateTime)}
                               </p>
                               <p className="px-4 py-1 text-lg">
-                                Time: {dateToTimeStringFormatted(training.dateTime)}
+                                Time:{" "}
+                                {dateToTimeStringFormatted(training.dateTime)}
                               </p>
                               <p className="py- px-4 text-lg">
                                 Price: ${training.price}

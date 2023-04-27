@@ -10,17 +10,16 @@ import { useRouter } from "next/router";
 import type { ReactElement } from "react";
 import { useState } from "react";
 import React from "react";
+import { motion } from "framer-motion";
 
 const TeamPage: NextPageWithLayout = () => {
   const [activeTab, setActiveTab] = useState(0);
   const router = useRouter();
   const id = router.query.teamId as string;
 
-  // TODO: figure out how to handle if id is undefined
-
   const { data, isError, isLoading } = api.team.getTeamById.useQuery({
     id,
-  });
+  }, { enabled: !!id });
 
   if (isLoading) {
     return <Loading />;
@@ -44,30 +43,57 @@ const TeamPage: NextPageWithLayout = () => {
         <section>
           {activeTab == 0 ? (
             <section className="pb-20">
-              <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
-                Tournament Schedule
-              </h1>
-              <TournamentTable tournaments={tournaments} />
+              <motion.div
+                variants={{
+                  initial: { opacity: 0 },
+                  animate: { opacity: 1 },
+                }}
+                initial="initial"
+                animate="animate"
+              >
+                <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
+                  Tournament Schedule
+                </h1>
+                <TournamentTable tournaments={tournaments} />
+              </motion.div>
             </section>
           ) : (
             <></>
           )}
           {activeTab == 1 ? (
             <section className="pb-20">
-              <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
-                Practice Schedule
-              </h1>
-              <PracticeTable practices={practices} />
+              <motion.div
+                variants={{
+                  initial: { opacity: 0 },
+                  animate: { opacity: 1 },
+                }}
+                initial="initial"
+                animate="animate"
+              >
+                <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
+                  Practice Schedule
+                </h1>
+                <PracticeTable practices={practices} />
+              </motion.div>
             </section>
           ) : (
             <></>
           )}
           {activeTab == 2 ? (
             <section className="pb-20">
-              <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
-                Team Roster
-              </h1>
-              <Roster playerData={players} />
+              <motion.div
+                variants={{
+                  initial: { opacity: 0 },
+                  animate: { opacity: 1 },
+                }}
+                initial="initial"
+                animate="animate"
+              >
+                <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
+                  Team Roster
+                </h1>
+                <Roster playerData={players} />
+              </motion.div>
             </section>
           ) : (
             <></>
@@ -86,7 +112,7 @@ const TeamPage: NextPageWithLayout = () => {
             <input
               type="text"
               placeholder="example@email.com"
-              className="w-3/5 rounded-l-lg bg-white p-3 sm:w-2/3 focus:outline-none "
+              className="w-3/5 rounded-l-lg bg-white p-3 focus:outline-none sm:w-2/3 "
             />
             <button
               type="button"

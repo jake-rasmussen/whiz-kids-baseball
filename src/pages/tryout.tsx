@@ -6,7 +6,10 @@ import type { NextPageWithLayout } from "./_app";
 import Image from "next/image";
 import type { ReactElement } from "react";
 import React from "react";
-import { dateToStringFormatted, dateToTimeStringFormatted } from "../utils/helpers";
+import {
+  dateToStringFormatted,
+  dateToTimeStringFormatted,
+} from "../utils/helpers";
 import Loading from "../components/LoadingPage";
 
 const Tryouts: NextPageWithLayout = () => {
@@ -31,11 +34,12 @@ const Tryouts: NextPageWithLayout = () => {
   // Strange glitch with chrome and TailwindCSS where you can't
   // capitalize option text, so created helper method
   const capitalizeString = (str: string) => {
-    return str.toLowerCase()
-    .split(' ')
-    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-    .join(' ');
-  }
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+      .join(" ");
+  };
 
   return (
     <>
@@ -44,7 +48,7 @@ const Tryouts: NextPageWithLayout = () => {
           <div className="flex flex-col items-center justify-center space-y-8 bg-dark-gray p-4 md:min-h-[93vh] md:max-w-[40vh] md:p-10 md:px-12 lg:max-w-[60vh]">
             <h1 className="text-center text-4xl font-bold leading-none text-white lg:text-6xl">
               Interested in becoming a{" "}
-              <span className="text-red">Whiz Kid</span>?
+              <span className="whitespace-nowrap text-red">Whiz Kid</span>?
             </h1>
             <p className="pt-2 pb-8 text-center text-xl font-medium text-white lg:text-2xl">
               Check out our available tryout schedule below, and fill out the
@@ -150,7 +154,7 @@ const Tryouts: NextPageWithLayout = () => {
                       <option value={`${team.name}`} key={`${team.name}`}>
                         {capitalizeString(team.name)}
                       </option>
-                    )
+                    );
                   })}
                 </select>
               </div>
@@ -210,7 +214,10 @@ const Tryouts: NextPageWithLayout = () => {
                   <span className="text-white">
                     Have You Played Whiz Kids Before?
                   </span>
-                  <input type="checkbox" className="checkbox m-5 bg-white" />
+                  <input
+                    type="checkbox"
+                    className="checkbox-primary checkbox m-5 bg-white"
+                  />
                 </label>
               </div>
               <div className="form-control col-span-2 col-start-3 items-center md:col-start-6">

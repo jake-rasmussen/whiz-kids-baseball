@@ -1,4 +1,4 @@
-import type { Player} from "@prisma/client";
+import type { Player } from "@prisma/client";
 import { Position } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import {

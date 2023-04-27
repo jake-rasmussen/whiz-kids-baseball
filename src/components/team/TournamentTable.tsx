@@ -1,6 +1,4 @@
-import {
-  IconInfoCircle,
-} from "@tabler/icons";
+import { IconInfoCircle } from "@tabler/icons";
 import React from "react";
 import { datesToStringFormatted } from "../../utils/helpers";
 import type { Tournament } from "@prisma/client";
