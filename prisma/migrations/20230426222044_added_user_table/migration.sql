@@ -16,15 +16,15 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "TraingsOnUsers" (
+CREATE TABLE "TrainingsOnUsers" (
     "userId" TEXT NOT NULL,
     "trainingId" TEXT NOT NULL,
 
-    CONSTRAINT "TraingsOnUsers_pkey" PRIMARY KEY ("userId","trainingId")
+    CONSTRAINT "TrainingsOnUsers_pkey" PRIMARY KEY ("userId","trainingId")
 );
 
 -- AddForeignKey
-ALTER TABLE "TraingsOnUsers" ADD CONSTRAINT "TraingsOnUsers_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("clerkId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "TrainingsOnUsers" ADD CONSTRAINT "TrainingsOnUsers_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("clerkId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "TraingsOnUsers" ADD CONSTRAINT "TraingsOnUsers_trainingId_fkey" FOREIGN KEY ("trainingId") REFERENCES "Training"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "TrainingsOnUsers" ADD CONSTRAINT "TrainingsOnUsers_trainingId_fkey" FOREIGN KEY ("trainingId") REFERENCES "Training"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

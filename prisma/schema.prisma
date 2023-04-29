@@ -33,9 +33,9 @@ enum Day {
 }
 
 model User {
-  clerkId  String           @id
-  isAdmin  Boolean          @default(false)
-  training TraingsOnUsers[]
+  clerkId   String             @id
+  isAdmin   Boolean            @default(false)
+  trainings TrainingsOnUsers[]
 }
 
 model Team {
@@ -104,18 +104,18 @@ model Alumni {
 }
 
 model Training {
-  id         String           @id @default(cuid())
-  name       String
-  location   String
-  dateTime   DateTime
-  totalSlots Int
-  price      Int
-  users      TraingsOnUsers[]
-  createdAt  DateTime         @default(now())
-  updatedAt  DateTime         @updatedAt
+  id           String             @id @default(cuid())
+  name         String
+  location     String
+  dateTime     DateTime
+  totalSlots   Int
+  price        Int
+  participants TrainingsOnUsers[]
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
 }
 
-model TraingsOnUsers {
+model TrainingsOnUsers {
   user       User     @relation(fields: [userId], references: [clerkId])
   userId     String
   training   Training @relation(fields: [trainingId], references: [id])

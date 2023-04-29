@@ -15,21 +15,32 @@ export const trainingRouter = createTRPCRouter({
       return training;
     }),
 
-//TODO: FIX THIS ROUTE
   getTrainingWithAvailability: publicProcedure.query(async ({ ctx }) => {
-    const training = await ctx.prisma.training.findMany({
-      where: {
-        availableSlots: {
-          gt: 0,
-        },
+    const allTrainings = await ctx.prisma.training.findMany({
+      include: {
+        participants: true,
+      },
+      orderBy: {
+        dateTime: "asc",
       },
     });
 
-    return training;
+    const availableTrainings = allTrainings.map((training) => {
+      if (training.participants.length < training.totalSlots) {
+        const { participants: _, ...modifiedTraining } = training;
+        return modifiedTraining;
+      }
+    });
+
+    return availableTrainings;
   }),
 
   getAllTrainings: publicProcedure.query(async ({ ctx }) => {
-    const training = await ctx.prisma.training.findMany();
+    const training = await ctx.prisma.training.findMany({
+      orderBy: {
+        dateTime: "asc",
+      },
+    });
 
     return training;
   }),

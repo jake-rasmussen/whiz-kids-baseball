@@ -88,6 +88,7 @@ export const createTRPCContext = async (
     };
     return createInnerTRPCContext(modifiedUser);
   }
+
   return createInnerTRPCContext(null);
 };
 
