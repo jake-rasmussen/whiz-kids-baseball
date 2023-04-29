@@ -43,18 +43,18 @@ const Table = ({ practices }: PropType) => {
                     <button className="bg-transparent"></button>
                     <input
                       type="checkbox"
-                      id="modal"
+                      id={`modal${index}`}
                       className="modal-toggle"
                     />
                     <div className="modal">
                       <div className="modal-box relative gap-0 bg-dark-gray text-left">
                         <label
-                          htmlFor="modal"
+                          htmlFor={`modal${index}`}
                           className="btn-ghost btn-sm btn absolute right-2 top-2 text-white"
                         >
                           ✕
                         </label>
-                        <h1 className="py-4 px-5 font-black uppercase leading-tight tracking-wide text-red">
+                        <h1 className="py-4 pl-4 text-2xl font-black uppercase leading-tight tracking-wide text-red">
                           {practice.location}
                         </h1>
                         <p className="px-4 py-1 text-lg text-white">
@@ -78,7 +78,7 @@ const Table = ({ practices }: PropType) => {
                 </td>
 
                 <td className="table-cell whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray md:hidden">
-                  <label htmlFor="modal">
+                  <label htmlFor={`modal${index}`}>
                     <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red md:hidden" />
                   </label>
                 </td>

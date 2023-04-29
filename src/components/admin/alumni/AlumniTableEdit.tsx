@@ -1,4 +1,4 @@
-import type { Alumni, Team } from "@prisma/client";
+import type { Alumni } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
@@ -63,7 +63,7 @@ const Table = () => {
     setNewRowCreated(false);
   };
 
-  const handleDeleteTeam = () => {
+  const handleDeleteAlumni = () => {
     if (wait) return;
     const alumnToBeDeleted = alumni[deleteRowIndex];
     if (alumnToBeDeleted) {
@@ -74,7 +74,7 @@ const Table = () => {
   };
 
   return (
-    <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
+    <div className="z-0 flex min-w-full flex-col items-center justify-center px-[5%]">
       <Toaster position="top-right" />
       <Modal
         name="error"
@@ -88,7 +88,7 @@ const Table = () => {
         name="delete"
         header="Confirm Delete"
         content="Are you sure you want to delete this row?"
-        actionItem={() => handleDeleteTeam}
+        actionItem={handleDeleteAlumni}
         confirmCancelButtons={true}
       ></Modal>
       <table className="table min-w-full table-auto text-center transition duration-300 ease-in-out">

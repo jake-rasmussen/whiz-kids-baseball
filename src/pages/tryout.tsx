@@ -11,6 +11,7 @@ import {
   dateToTimeStringFormatted,
 } from "../utils/helpers";
 import Loading from "../components/LoadingPage";
+import { motion } from "framer-motion";
 
 const Tryouts: NextPageWithLayout = () => {
   const {
@@ -45,16 +46,26 @@ const Tryouts: NextPageWithLayout = () => {
     <>
       <section className="relative w-full text-white">
         <div className="flex flex-col bg-dark-gray p-8 md:flex-row md:p-0">
-          <div className="flex flex-col items-center justify-center space-y-8 bg-dark-gray p-4 md:min-h-[93vh] md:max-w-[40vh] md:p-10 md:px-12 lg:max-w-[60vh]">
-            <h1 className="text-center text-4xl font-bold leading-none text-white lg:text-6xl">
-              Interested in becoming a{" "}
-              <span className="whitespace-nowrap text-red">Whiz Kid</span>?
-            </h1>
-            <p className="pt-2 pb-8 text-center text-xl font-medium text-white lg:text-2xl">
-              Check out our available tryout schedule below, and fill out the
-              interest form below!
-            </p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 1.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+            className="flex flex-col items-center justify-center space-y-8 bg-dark-gray p-4 md:min-h-[93vh] md:max-w-[40vh] md:p-10 md:px-12 lg:max-w-[60vh]"
+          >
+            <div>
+              <h1 className="text-center text-4xl font-bold leading-none text-white lg:text-6xl">
+                Interested in becoming a{" "}
+                <span className="whitespace-nowrap text-red">Whiz Kid</span>?
+              </h1>
+              <p className="pt-2 pb-8 text-center text-xl font-medium text-white lg:text-2xl">
+                Check out our available tryout schedule below, and fill out the
+                interest form below!
+              </p>
+            </div>
+          </motion.div>
           <div className="overflow-x-hidden">
             <Image
               priority
@@ -66,7 +77,7 @@ const Tryouts: NextPageWithLayout = () => {
         </div>
       </section>
 
-      <main className="relative flex flex-col items-center bg-white py-10">
+      <main className="relative flex flex-col items-center overflow-x-scroll bg-white py-10">
         <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
           Tryout Dates
         </h1>

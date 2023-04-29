@@ -5,6 +5,7 @@ import { api } from "../../../utils/api";
 import Loading from "../../LoadingPage";
 import { toast } from "react-hot-toast";
 import EmptyRow from "../EmptyRow";
+import { isEmptyString, isWhitespace } from "../../../utils/helpers";
 
 type PropType = {
   index: number;
@@ -106,8 +107,11 @@ const TeamsRowEdit = (props: PropType) => {
 
   const checkValidInput = () => {
     if (newRowCreated) {
-      if (rowEdits.name === "") return false;
+      if (isEmptyString(rowEdits.name)) return false;
     }
+
+    if (isWhitespace(rowEdits.name)) return false;
+
     return true;
   };
 

@@ -10,6 +10,8 @@ import {
   dateToStringRaw,
   dateStringToDate,
   timeStringToTimeAsDate,
+  isEmptyString,
+  isWhitespace,
 } from "../../../utils/helpers";
 
 type PropType = {
@@ -156,7 +158,7 @@ const TryoutRowEdit = (props: PropType) => {
   const checkValidInput = () => {
     if (newRowCreated) {
       if (
-        rowEdits.location === "" ||
+        isEmptyString(rowEdits.location) ||
         rowEdits.dateTime.toString() === "Invalid Date"
       )
         return false;
@@ -175,6 +177,8 @@ const TryoutRowEdit = (props: PropType) => {
 
     if (time.length > 0 && time.charAt(2) != ":") return false;
     if (date.length > 0 && date.charAt(2) != "-") return false;
+
+    if (isWhitespace(rowEdits.location)) return false;
 
     return true;
   };

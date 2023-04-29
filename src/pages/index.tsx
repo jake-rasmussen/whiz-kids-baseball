@@ -15,15 +15,15 @@ const Home: NextPageWithLayout = () => {
   const images = [sample1, sample2];
 
   const { ref: refTeams, inView: inViewTeams } = useInView({
-    threshold: 0.8,
+    threshold: 0.5,
     triggerOnce: true,
   });
   const { ref: refTournaments, inView: inViewTournaments } = useInView({
-    threshold: 0.8,
+    threshold: 0.5,
     triggerOnce: true,
   });
   const { ref: refPlayers, inView: inViewPlayers } = useInView({
-    threshold: 0.8,
+    threshold: 0.5,
     triggerOnce: true,
   });
 
@@ -58,7 +58,7 @@ const Home: NextPageWithLayout = () => {
         </section>
       </main>
 
-      <main className="relative flex w-full flex-col items-center bg-dark-gray">
+      <main className="relative flex w-full flex-col items-center overflow-x-hidden bg-dark-gray">
         <section className="w-full bg-white p-4 dark:text-gray-100 lg:p-8">
           <div className="container mx-auto space-y-12">
             <motion.div
@@ -100,6 +100,11 @@ const Home: NextPageWithLayout = () => {
               transition={{ duration: 1 }}
               className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row"
             >
+              <Image
+                src={sample1}
+                className="block h-80 w-auto object-cover dark:bg-gray-500 lg:hidden"
+                alt="Whiz Kids Photo"
+              />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
                 <h3 className="text-4xl font-bold">
                   Robust Tournament Schedule
@@ -114,7 +119,7 @@ const Home: NextPageWithLayout = () => {
               </div>
               <Image
                 src={sample1}
-                className="h-80 w-auto object-cover dark:bg-gray-500"
+                className="hidden h-80 w-auto object-cover dark:bg-gray-500 lg:block"
                 alt="Whiz Kids Photo"
               />
             </motion.div>

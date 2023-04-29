@@ -1,12 +1,11 @@
 import MainLayout from "../../layouts/MainLayout";
 import type { NextPageWithLayout } from "../_app";
 import Link from "next/link";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import React from "react";
 import { useRouter } from "next/router";
 import { api } from "../../utils/api";
 import { Alumni } from "@prisma/client";
-import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import LoadingComponent from "../../components/LoadingComponent";
 import AlumniTable from "../../components/AlumniTable";
 
@@ -26,22 +25,26 @@ const getYearsAndSort = (alumni: Alumni[]) => {
 
 const Alumni: NextPageWithLayout = () => {
   const router = useRouter();
-  const page = ((router.query.letter as string) || "a").toUpperCase();
+  let page = ((router.query.letter as string) || "a").toUpperCase();
 
   const {
     data: alumni,
     isError,
-    isLoading
+    isLoading,
   } = api.alumni.getAlumniByLastNameLetter.useQuery(
     { letter: page },
-    { refetchOnWindowFocus: true },
+    { refetchOnWindowFocus: false }
   );
 
   if (isError) {
     return <div>Error...</div>;
   }
 
-  const pagination: [JSX.Element[], JSX.Element[], JSX.Element[]] = [[], [], []];
+  const pagination: [JSX.Element[], JSX.Element[], JSX.Element[]] = [
+    [],
+    [],
+    [],
+  ];
   const pageNumber: number = page.charCodeAt(0) - "a".charCodeAt(0) + 1;
 
   for (let i = 0; i < 26; i++) {
@@ -53,10 +56,10 @@ const Alumni: NextPageWithLayout = () => {
 
     pagination[paginationRow]?.push(
       <React.Fragment key={i}>
-        {i + 1 === pageNumber ? (
+        {i + 1 === pageNumber || (pageNumber == -31 && i === 0) ? (
           <li
             key={`key${i}`}
-            className="scale-[150%] px-3 font-black text-red transition duration-300 ease-in-out"
+            className="scale-[150%] px-2 text-base font-black text-red transition duration-300 ease-in-out sm:px-3 md:text-xl"
           >
             <Link
               key={`link${i}`}
@@ -68,7 +71,7 @@ const Alumni: NextPageWithLayout = () => {
         ) : (
           <li
             key={`key${i}`}
-            className="px-3 font-black text-dark-gray transition duration-300 ease-in-out hover:scale-[150%] hover:text-red"
+            className="px-2 text-base font-black text-dark-gray transition duration-300 ease-in-out hover:scale-[150%] hover:text-red sm:px-3 md:text-lg"
           >
             <Link
               key={`link${i}`}
@@ -88,16 +91,7 @@ const Alumni: NextPageWithLayout = () => {
   };
 
   return (
-    <motion.div 
-      variants={{
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-      }}
-      initial="initial"
-      animate="animate"
-      exit="initial"
-      className="flex flex-col md:bg-dark-gray"
-    >
+    <div className="flex flex-col overflow-x-scroll md:bg-dark-gray">
       <main className="mx-auto w-[85%] bg-white pt-12">
         <div className="inline-flex w-full items-center justify-center">
           <h1 className="text-center text-4xl font-black uppercase leading-none tracking-wide text-dark-gray lg:text-6xl">
@@ -111,13 +105,20 @@ const Alumni: NextPageWithLayout = () => {
         <nav className="flex w-[85%] flex-row justify-center bg-white px-10 pb-12">
           <ul className="flex w-full flex-wrap items-center justify-center text-white">
             {pagination.map((row: JSX.Element[], index: number) => {
-              return <div className="flex items-center justify-center" key={`pagination${index}`}>{row}</div>
+              return (
+                <div
+                  className="flex items-center justify-center"
+                  key={`pagination${index}`}
+                >
+                  {row}
+                </div>
+              );
             })}
           </ul>
         </nav>
       </main>
 
-      <main className="mx-auto flex min-h-[60vh] w-full flex-col items-center bg-white md:w-[85%]">
+      <main className="mx-auto flex min-h-[60vh] w-full flex-col items-center overflow-x-scroll bg-white md:w-[85%]">
         {isLoading ? (
           <div className="py-20">
             <LoadingComponent />
@@ -127,15 +128,12 @@ const Alumni: NextPageWithLayout = () => {
             {Array.from(createAlumniSortedMap(alumni).keys()).map(
               (key: number, index: number) => {
                 return (
-                  <div
-                    key={`key${index}`} 
-                    className="w-full items-center py-4"
-                  >
-                      <AlumniTable 
-                        letter={router.query.letter as string}
-                        year={key} 
-                        alumni={createAlumniSortedMap(alumni)} 
-                      />
+                  <div key={`key${index}`} className="w-full items-center pb-4">
+                    <AlumniTable
+                      letter={router.query.letter as string}
+                      year={key}
+                      alumni={createAlumniSortedMap(alumni)}
+                    />
                   </div>
                 );
               }
@@ -143,7 +141,7 @@ const Alumni: NextPageWithLayout = () => {
           </div>
         )}
       </main>
-    </motion.div>
+    </div>
   );
 };
 

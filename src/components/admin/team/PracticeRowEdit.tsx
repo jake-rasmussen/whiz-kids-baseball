@@ -8,6 +8,7 @@ import {
   dayStringToDays,
   dateToTimeStringRaw,
   timeStringToTimeAsDate,
+  isWhitespace,
 } from "../../../utils/helpers";
 import toast from "react-hot-toast";
 import EmptyRow from "../EmptyRow";
@@ -178,11 +179,19 @@ const PracticeRow = (props: PropType) => {
         return false;
     }
 
+    if (
+      isWhitespace(rowEdits.days) ||
+      isWhitespace(rowEdits.startTime) ||
+      isWhitespace(rowEdits.endTime) ||
+      isWhitespace(rowEdits.location)
+    )
+      return false;
+
     setValidInput(true);
     return true;
   };
 
-  if (wait && editRow) return <EmptyRow numColumns={3} />;
+  if (wait && editRow) return <EmptyRow numColumns={4} />;
 
   return (
     <React.Fragment key={`practiceRow${index}`}>
@@ -198,8 +207,9 @@ const PracticeRow = (props: PropType) => {
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              rowEdits.location = e.currentTarget.value;
+              setRowEdits({ ...rowEdits, location: e.currentTarget.value });
             }}
+            value={rowEdits.location}
           />
         </td>
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
@@ -224,7 +234,7 @@ const PracticeRow = (props: PropType) => {
             type="text"
             placeholder={
               practice.startTime.toString() === "Invalid Date"
-                ? "HH:MM"
+                ? "HH:MMAP"
                 : dateToTimeStringRaw(practice.startTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
@@ -241,7 +251,7 @@ const PracticeRow = (props: PropType) => {
             type="text"
             placeholder={
               practice.endTime.toString() === "Invalid Date"
-                ? "HH:MM"
+                ? "HH:MMAP"
                 : dateToTimeStringRaw(practice.endTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize

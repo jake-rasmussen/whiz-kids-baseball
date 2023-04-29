@@ -10,6 +10,8 @@ import {
   dateToStringRaw,
   dateStringToDate,
   timeStringToTimeAsDate,
+  isEmptyString,
+  isWhitespace,
 } from "../../../utils/helpers";
 
 type PropType = {
@@ -180,10 +182,10 @@ const TrainingRowEdit = (props: PropType) => {
   const checkValidInput = () => {
     if (newRowCreated) {
       if (
-        rowEdits.location === "" ||
-        time === "" ||
-        date === "" ||
-        rowEdits.name === "" ||
+        isEmptyString(rowEdits.location) ||
+        isEmptyString(time) ||
+        isEmptyString(date) ||
+        isEmptyString(rowEdits.name) ||
         rowEdits.totalSlots === -1 ||
         rowEdits.price === -1 ||
         rowEdits.dateTime.toString() === "Invalid Date"
@@ -204,6 +206,14 @@ const TrainingRowEdit = (props: PropType) => {
 
     if (time.length > 0 && time.charAt(2) != ":") return false;
     if (date.length > 0 && date.charAt(2) != "-") return false;
+
+    if (
+      isWhitespace(rowEdits.location) ||
+      isWhitespace(time) ||
+      isWhitespace(date) ||
+      isWhitespace(rowEdits.name)
+    )
+      return false;
 
     return true;
   };

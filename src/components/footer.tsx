@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
           © 2023 Copyright:
           <a className="text-red" href="http://www.whizkidsbaseball.com/">
             {" "}
-            Whiz Kids Baseball
+            <span className="sm:whitespace-nowrap">Whiz Kids Baseball</span>
           </a>
         </div>
       </footer>

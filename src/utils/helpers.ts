@@ -4,9 +4,19 @@ export const isEmptyString = (str: string) => {
   return str.trim().length === 0 ? true : false;
 };
 
+export const isWhitespace = (str: string) => {
+  if (str.length === 0) return false;
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] != " ") return false;
+  }
+
+  return true;
+};
+
 export const dateToStringRaw = (date: Date) => {
   let str = "";
-  if (date.getMonth() + 1 <= 10) str += "0";
+  if (date.getMonth() + 1 < 10) str += "0";
   str += `${date.getMonth() + 1}-`;
   if (date.getDate() + 1 <= 10) str += "0";
   str += `${date.getDate()}`;
@@ -93,7 +103,9 @@ export const dateToTimeStringRaw = (date: Date) => {
   if (date.getHours() < 10 || (date.getHours() > 12 && date.getHours() < 22))
     str += "0";
 
-  str += date.getHours() <= 12 ? date.getHours() : date.getHours() - 12;
+  if (date.getHours() === 0) str += "12";
+  else str += date.getHours() <= 12 ? date.getHours() : date.getHours() - 12;
+
   str += ":";
 
   if (date.getMinutes() < 10) str += "0";
@@ -115,7 +127,8 @@ export const timeStringToTimeAsDate = (time: string) => {
 
   if (hour > 12 && meridiem === "AM") return new Date("Invalid");
 
-  if (meridiem === "PM" && hour <= 12) hour += 12;
+  if (meridiem === "PM" && hour < 12) hour += 12;
+  if (meridiem === "AM" && hour === 12) hour = 0;
 
   const date = new Date();
   date.setHours(hour);

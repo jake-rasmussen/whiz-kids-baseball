@@ -4,7 +4,7 @@ type PropType = {
   name: string;
   header: string;
   content: string;
-  actionItem?: () => {};
+  actionItem?: () => void;
   confirmCancelButtons: boolean;
 };
 

@@ -85,7 +85,7 @@ const Table = () => {
         name="delete"
         header="Confirm Delete"
         content="Are you sure you want to delete this row?"
-        actionItem={() => handleDeleteTeam}
+        actionItem={handleDeleteTeam}
         confirmCancelButtons={true}
       ></Modal>
       <table className="table min-w-full table-auto text-center transition duration-300 ease-in-out">

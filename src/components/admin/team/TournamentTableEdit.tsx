@@ -83,7 +83,7 @@ const Table = ({ teamId }: PropType) => {
   };
 
   return (
-    <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
+    <div className="z-0 flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
       <Toaster position="top-right" />
       <Modal
         name="error"
@@ -97,7 +97,7 @@ const Table = ({ teamId }: PropType) => {
         name="delete"
         header="Confirm Delete"
         content="Are you sure you want to delete this row?"
-        actionItem={() => handleDeleteTournament}
+        actionItem={handleDeleteTournament}
         confirmCancelButtons={true}
       ></Modal>
       <table className="table min-w-full table-auto text-center transition duration-300 ease-in-out">
