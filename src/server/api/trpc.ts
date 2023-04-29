@@ -119,15 +119,10 @@ export const createTRPCRouter = t.router;
  * tRPC API. It does not guarantee that a user querying is authorized, but you
  * can still access user session data if they are logged in
  */
-const consoleMiddleware = t.middleware(({ ctx, next }) => {
-  console.log(ctx.user);
-  return next();
-});
-
-export const publicProcedure = t.procedure.use(consoleMiddleware);
+export const publicProcedure = t.procedure;
 
 const isAuthed = t.middleware(({ next, ctx }) => {
-  if (!ctx.user?.isAdmin) {
+  if (!ctx.user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
@@ -140,3 +135,17 @@ const isAuthed = t.middleware(({ next, ctx }) => {
 
 // export this procedure to be used anywhere in your application
 export const protectedProcedure = t.procedure.use(isAuthed);
+
+const isAdmin = t.middleware(({ next, ctx }) => {
+  if (!ctx.user?.isAdmin) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  return next({
+    ctx: {
+      user: ctx.user,
+    },
+  });
+});
+
+export const adminProcedure = t.procedure.use(isAdmin);

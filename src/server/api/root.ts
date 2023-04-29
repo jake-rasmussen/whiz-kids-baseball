@@ -7,6 +7,8 @@ import { trainingRouter } from "./routers/training";
 import { tryoutsRouter as tryoutRouter } from "./routers/tryout";
 import { createTRPCRouter } from "./trpc";
 
+//TODO: Add protection to api routes
+
 /**
  * This is the primary router for your server.
  *
