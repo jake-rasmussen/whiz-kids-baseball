@@ -1,4 +1,4 @@
-import { Practice } from "@prisma/client";
+import type { Practice } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -83,7 +83,7 @@ const Table = ({ teamId }: PropType) => {
   };
 
   return (
-    <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
+    <div className="z-0 flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
       <Toaster position="top-right" />
       <Modal
         name="error"

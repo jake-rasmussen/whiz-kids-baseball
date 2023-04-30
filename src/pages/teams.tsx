@@ -1,4 +1,4 @@
-import { Team } from "@prisma/client";
+import type { Team } from "@prisma/client";
 import MainLayout from "../layouts/MainLayout";
 import { api } from "../utils/api";
 import type { NextPageWithLayout } from "./_app";
@@ -21,17 +21,17 @@ const Teams: NextPageWithLayout = () => {
       <div className="flex min-h-[83vh] w-full justify-center bg-dark-gray">
         <div className="card w-full overflow-scroll rounded-none bg-white p-2 shadow-xl sm:my-20 sm:w-auto sm:rounded-xl">
           <div className="card-body flex flex-col justify-center">
-            <h1 className="text-center text-5xl font-bold">
+            <h1 className="text-center text-5xl font-bold sm:px-24">
               Our <span className="text-red">Teams</span>
             </h1>
-            <div className="tracking-none divider font-black text-light-gray">
+            <h3 className="tracking-none divider font-black text-light-gray">
               Select Your Team
-            </div>
+            </h3>
             <div className="flex flex-col items-center justify-center text-center">
               {teams.map((team: Team, index: number) => (
                 <Link
                   href={`/teams/${team.id}`}
-                  className="tracking-none tracking-none py-4 text-lg font-black uppercase text-dark-gray hover:text-red"
+                  className="tracking-none tracking-none py-4 text-lg font-black uppercase text-dark-gray transition  duration-300 ease-in-out hover:scale-110 hover:text-red"
                   key={`team${index}`}
                 >
                   {team.name}

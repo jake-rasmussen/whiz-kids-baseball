@@ -3,14 +3,15 @@ import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@cl
 import { IconMenu2, IconX } from "@tabler/icons";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import BurgerMenu from "./Burger";
 
 const NavBar: React.FC = () => {
   const [displayMenu, setDisplayMenu] = useState(false);
 
   return (
     <>
-      <div className="sticky top-0 z-20 flex min-h-[7vh] w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl">
+      <div className="sticky top-0 z-20 flex min-h-[7vh] w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl" id="menu">
         <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
 
         <div className="hidden grow flex-row text-lg md:flex">
@@ -73,7 +74,7 @@ const NavBar: React.FC = () => {
         </div>
 
         <div className="flex grow justify-end md:hidden">
-          <div className="flex flex-col items-center justify-center">
+          {/* <div className="flex flex-col items-center justify-center">
             <div>
               <label className="swap btn-link swap-rotate btn text-dark-gray">
                 <input
@@ -125,7 +126,8 @@ const NavBar: React.FC = () => {
                 <></>
               )}
             </div>
-          </div>
+          </div> */}
+          <BurgerMenu />
         </div>
       </div>
     </>

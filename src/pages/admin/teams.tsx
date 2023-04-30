@@ -1,4 +1,4 @@
-import TeamsTableEdit from "../../components/admin/tryouts/TryoutTableEdit";
+import TeamsTableEdit from "../../components/admin/teams/TeamsTableEdit";
 import EditLayout from "../../layouts/editLayout";
 import type { NextPageWithLayout } from "../_app";
 import type { ReactElement } from "react";

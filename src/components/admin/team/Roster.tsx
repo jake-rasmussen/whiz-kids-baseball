@@ -5,12 +5,11 @@ import {
   IconTrash,
   IconX,
 } from "@tabler/icons";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { api } from "../../../utils/api";
 import { Toaster, toast } from "react-hot-toast";
 import Modal from "../Modal";
-import { isEmptyString } from "../../../utils/helpers";
-import { Player, Position } from "@prisma/client";
+import type { Player } from "@prisma/client";
 import RosterCard from "./RosterCard";
 import LoadingComponent from "../../LoadingComponent";
 

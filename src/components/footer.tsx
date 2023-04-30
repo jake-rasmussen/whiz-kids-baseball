@@ -1,7 +1,7 @@
 const Footer: React.FC = () => {
   return (
     <>
-      <footer className="relative bg-white pt-4 text-center">
+      <footer className="relative border-t-2 border-dark-gray bg-white pt-4 text-center">
         <div className="flex justify-center">
           <a href="https://www.facebook.com/WhizKidsBaseball/" className="mx-5">
             <svg
@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
           © 2023 Copyright:
           <a className="text-red" href="http://www.whizkidsbaseball.com/">
             {" "}
-            Whiz Kids Baseball
+            <span className="sm:whitespace-nowrap">Whiz Kids Baseball</span>
           </a>
         </div>
       </footer>

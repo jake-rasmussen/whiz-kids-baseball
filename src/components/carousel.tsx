@@ -3,6 +3,7 @@ import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
 import Autoplay from "embla-carousel-autoplay";
 import type { EmblaOptionsType } from "embla-carousel-react";
 import useEmblaCarousel from "embla-carousel-react";
+import { motion } from "framer-motion";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import React from "react";
@@ -46,25 +47,30 @@ const Carousel = (props: PropType) => {
           ))}
         </div>
         <button
-          className="embla__prev absolute left-0 top-[50%] hidden md:block"
+          className="embla__prev absolute left-0 top-[50%] hidden transition duration-300 ease-in-out hover:scale-[200%] md:block"
           onClick={scrollPrev}
         >
           <IconChevronLeft className="h-20 w-20 text-white" />
         </button>
         <button
-          className="embla__next absolute right-0 top-[50%] hidden md:block"
+          className="embla__next absolute right-0 top-[50%] hidden transition duration-300 ease-in-out hover:scale-[200%] md:block"
           onClick={scrollNext}
         >
           <IconChevronRight className="h-20 w-20 text-white" />
         </button>
       </div>
 
-      <Image
-        className="absolute h-auto w-[75vh] "
-        src={banner}
-        alt="Whiz Kids Banner"
-        priority
-      />
+      <motion.div
+        initial={{ opacity: 0, x: "-10rem" }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{
+          duration: 1.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+        className="absolute h-auto w-[75%] md:w-[75vh]"
+      >
+        <Image src={banner} alt="Whiz Kids Banner" priority />
+      </motion.div>
     </>
   );
 };
