@@ -15,15 +15,15 @@ const Home: NextPageWithLayout = () => {
   const images = [sample1, sample2];
 
   const { ref: refTeams, inView: inViewTeams } = useInView({
-    threshold: 0.5,
+    threshold: 0.3,
     triggerOnce: true,
   });
   const { ref: refTournaments, inView: inViewTournaments } = useInView({
-    threshold: 0.5,
+    threshold: 0.3,
     triggerOnce: true,
   });
   const { ref: refPlayers, inView: inViewPlayers } = useInView({
-    threshold: 0.5,
+    threshold: 0.3,
     triggerOnce: true,
   });
 
@@ -67,7 +67,7 @@ const Home: NextPageWithLayout = () => {
               animate={inViewTeams ? "visible" : "hidden"}
               variants={{
                 visible: { opacity: 1, x: 0 },
-                hidden: { opacity: 0, x: "-5rem" },
+                hidden: { opacity: 0, x: "-2rem" },
               }}
               transition={{ duration: 1 }}
               className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row"
@@ -95,7 +95,7 @@ const Home: NextPageWithLayout = () => {
               animate={inViewTournaments ? "visible" : "hidden"}
               variants={{
                 visible: { opacity: 1, x: 0 },
-                hidden: { opacity: 0, x: "5rem" },
+                hidden: { opacity: 0, x: "2rem" },
               }}
               transition={{ duration: 1 }}
               className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row"
@@ -129,7 +129,7 @@ const Home: NextPageWithLayout = () => {
               animate={inViewPlayers ? "visible" : "hidden"}
               variants={{
                 visible: { opacity: 1, x: 0 },
-                hidden: { opacity: 0, x: "-5rem" },
+                hidden: { opacity: 0, x: "-2rem" },
               }}
               transition={{ duration: 1 }}
               className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row"

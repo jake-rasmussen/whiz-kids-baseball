@@ -10,8 +10,6 @@ type PropType = {
 const AlumniTable = (props: PropType) => {
   const { letter, year, alumni } = props;
 
-  console.log(letter);
-
   return (
     <motion.div
       variants={{
