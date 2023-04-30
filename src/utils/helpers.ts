@@ -1,14 +1,24 @@
-import { Day, Position } from "@prisma/client";
+import type { Day, Position } from "@prisma/client";
 
 export const isEmptyString = (str: string) => {
   return str.trim().length === 0 ? true : false;
+};
+
+export const isWhitespace = (str: string) => {
+  if (str.length === 0) return false;
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] != " ") return false;
+  }
+
+  return true;
 };
 
 export const dateToStringRaw = (date: Date) => {
   let str = "";
   if (date.getMonth() + 1 < 10) str += "0";
   str += `${date.getMonth() + 1}-`;
-  if (date.getDate() + 1 < 10) str += "0";
+  if (date.getDate() + 1 <= 10) str += "0";
   str += `${date.getDate()}`;
 
   return str;
@@ -44,13 +54,13 @@ export const dateStringToDate = (date: string) => {
 
   const dateRegExp = /(\d{2})\.(\d{2})/;
   const dateString: string = date.replace(dateRegExp, "$2-$1");
-  let returnDate = new Date(dateString);
+  const returnDate = new Date(dateString);
   returnDate.setFullYear(new Date().getFullYear());
   return returnDate;
 };
 
 export const dayToStringFormatted = (day: Day) => {
-  let str = day.toString().toLowerCase();
+  const str = day.toString().toLowerCase();
   str.charAt(0).toUpperCase();
   return str;
 };
@@ -93,12 +103,14 @@ export const dateToTimeStringRaw = (date: Date) => {
   if (date.getHours() < 10 || (date.getHours() > 12 && date.getHours() < 22))
     str += "0";
 
-    str += date.getHours() <= 12 ? date.getHours() : date.getHours() - 12;
-    str += ":";
-  
-    if (date.getMinutes() < 10) str += "0";
-    str += date.getMinutes();
-    str += date.getHours() >= 12 ? "PM" : "AM";
+  if (date.getHours() === 0) str += "12";
+  else str += date.getHours() <= 12 ? date.getHours() : date.getHours() - 12;
+
+  str += ":";
+
+  if (date.getMinutes() < 10) str += "0";
+  str += date.getMinutes();
+  str += date.getHours() >= 12 ? "PM" : "AM";
 
   return str;
 };
@@ -115,9 +127,10 @@ export const timeStringToTimeAsDate = (time: string) => {
 
   if (hour > 12 && meridiem === "AM") return new Date("Invalid");
 
-  if (meridiem === "PM" && hour <= 12) hour += 12;
+  if (meridiem === "PM" && hour < 12) hour += 12;
+  if (meridiem === "AM" && hour === 12) hour = 0;
 
-  let date = new Date();
+  const date = new Date();
   date.setHours(hour);
   date.setMinutes(minute);
 
@@ -165,7 +178,7 @@ export const dateToTimeStringFormatted = (date: Date) => {
   str += date.getHours() >= 12 ? " PM" : " AM";
 
   return str;
-}
+};
 
 const positionsMap = new Map<Position, string>([
   ["FIRST_BASE", "1B"],

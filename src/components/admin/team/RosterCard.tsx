@@ -1,8 +1,10 @@
-import { Player, Position } from "@prisma/client";
+import type { Player } from "@prisma/client";
+import { Position } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import {
   acronymToPositions,
   isEmptyString,
+  isWhitespace,
   positionsToString,
 } from "../../../utils/helpers";
 import React, { useEffect, useState } from "react";
@@ -181,15 +183,20 @@ const RosterCard = (props: PropType) => {
   const checkValidInput = () => {
     if (newPlayerCreated) {
       if (
-        playerEdits.firstName === "" ||
-        playerEdits.lastName === "" ||
-        playerEdits.gradYear === "" ||
-        playerEdits.position === "" ||
-        playerEdits.school === ""
+        isEmptyString(playerEdits.firstName) ||
+        isEmptyString(playerEdits.lastName) ||
+        isEmptyString(playerEdits.gradYear) ||
+        isEmptyString(playerEdits.position) ||
+        isEmptyString(playerEdits.school)
       )
         return false;
       if (playerEdits.gradYear.length != 4) return false;
       if (acronymToPositions(playerEdits.position).length === 0) return false;
+      if (
+        playerEdits.lastName.length === 0 ||
+        playerEdits.lastName.length === 0
+      )
+        return false;
     } else {
       if (
         !isEmptyString(playerEdits.gradYear) &&
@@ -209,6 +216,20 @@ const RosterCard = (props: PropType) => {
       )
         return false;
     }
+
+    if (
+      isWhitespace(playerEdits.gradYear) ||
+      isWhitespace(playerEdits.position) ||
+      isWhitespace(playerEdits.school)
+    )
+      return false;
+
+    if (
+      fullName.length !== 0 &&
+      (playerEdits.firstName.trim().length === 0 ||
+        playerEdits.lastName.trim().length === 0)
+    )
+      return false;
 
     setValidInput(true);
     return true;

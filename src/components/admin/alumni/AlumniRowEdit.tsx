@@ -1,7 +1,7 @@
-import { Alumni } from "@prisma/client";
+import type { Alumni } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
-import { isEmptyString } from "../../../utils/helpers";
+import { isEmptyString, isWhitespace } from "../../../utils/helpers";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React from "react";
 import toast from "react-hot-toast";
@@ -161,10 +161,10 @@ const AlumniRowEdit = (props: PropType) => {
   const checkValidInput = () => {
     if (newRowCreated) {
       if (
-        rowEdits.firstName === "" ||
-        rowEdits.lastName === "" ||
-        rowEdits.organization === "" ||
-        rowEdits.year === ""
+        isEmptyString(rowEdits.firstName) ||
+        isEmptyString(rowEdits.lastName) ||
+        isEmptyString(rowEdits.organization) ||
+        isEmptyString(rowEdits.year)
       )
         return false;
       if (rowEdits.year.length != 4) return false;
@@ -175,6 +175,16 @@ const AlumniRowEdit = (props: PropType) => {
     if (
       rowEdits.year != "" &&
       (rowEdits.year.length != 4 || Number.isNaN(+rowEdits.year))
+    )
+      return false;
+
+    if (isWhitespace(rowEdits.organization) || isWhitespace(rowEdits.year))
+      return false;
+
+    if (
+      fullName.length !== 0 &&
+      (rowEdits.firstName.trim().length === 0 ||
+        rowEdits.lastName.trim().length === 0)
     )
       return false;
 
@@ -225,6 +235,7 @@ const AlumniRowEdit = (props: PropType) => {
             onChange={(e) => {
               setRowEdits({ ...rowEdits, year: e.currentTarget.value });
             }}
+            value={rowEdits.year}
           />
         </td>
         <td

@@ -1,4 +1,4 @@
-import { Tournament } from "@prisma/client";
+import type { Tournament } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";
@@ -6,6 +6,7 @@ import {
   dateStringToDates,
   datesToStringRaw,
   isEmptyString,
+  isWhitespace,
 } from "../../../utils/helpers";
 import toast from "react-hot-toast";
 import EmptyRow from "../EmptyRow";
@@ -158,6 +159,14 @@ const TournamentRow = (props: PropType) => {
     if (!isEmptyString(rowEdits.dates) && rowEdits.dates.at(2) != "-")
       return false;
 
+    if (
+      isWhitespace(rowEdits.name) ||
+      isWhitespace(rowEdits.dates) ||
+      isWhitespace(rowEdits.location) ||
+      isWhitespace(rowEdits.format)
+    )
+      return false;
+
     setValidInput(true);
     return true;
   };
@@ -191,8 +200,9 @@ const TournamentRow = (props: PropType) => {
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              rowEdits.location = e.currentTarget.value;
+              setRowEdits({ ...rowEdits, location: e.currentTarget.value });
             }}
+            value={rowEdits.location}
           />
         </td>
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
