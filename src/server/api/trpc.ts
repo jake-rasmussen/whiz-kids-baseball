@@ -17,8 +17,9 @@
  *
  */
 import { prisma } from "../db";
-import type { User } from "@clerk/nextjs/dist/api";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
+import type { ModifiedClerkUser } from "../../types/modifiedUserType";
+import type { User as ClerkUser } from "@clerk/nextjs/dist/api";
 
 /**
  * 2. INITIALIZATION
@@ -39,11 +40,27 @@ import superjson from "superjson";
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = (user: User | null) => {
+const createInnerTRPCContext = (user: ModifiedClerkUser | null) => {
   return {
     prisma,
     user,
   };
+};
+
+const userIsAdmin = async (user: ClerkUser) => {
+  async function upsertUser(user: ClerkUser) {
+    return await prisma.user.upsert({
+      where: {
+        clerkId: user.id,
+      },
+      update: {},
+      create: {
+        clerkId: user.id,
+      },
+    });
+  }
+
+  return (await upsertUser(user)).isAdmin;
 };
 
 /**
@@ -61,9 +78,18 @@ export const createTRPCContext = async (
     const user = userId ? await clerkClient.users.getUser(userId) : null;
     return user;
   }
+
   const user = await getUser();
 
-  return createInnerTRPCContext(user);
+  if (user) {
+    const modifiedUser = {
+      ...user,
+      isAdmin: user ? await userIsAdmin(user) : undefined,
+    };
+    return createInnerTRPCContext(modifiedUser);
+  }
+
+  return createInnerTRPCContext(null);
 };
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
@@ -99,6 +125,7 @@ const isAuthed = t.middleware(({ next, ctx }) => {
   if (!ctx.user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
+
   return next({
     ctx: {
       user: ctx.user,
@@ -108,3 +135,17 @@ const isAuthed = t.middleware(({ next, ctx }) => {
 
 // export this procedure to be used anywhere in your application
 export const protectedProcedure = t.procedure.use(isAuthed);
+
+const isAdmin = t.middleware(({ next, ctx }) => {
+  if (!ctx.user?.isAdmin) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  return next({
+    ctx: {
+      user: ctx.user,
+    },
+  });
+});
+
+export const adminProcedure = t.procedure.use(isAdmin);

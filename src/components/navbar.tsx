@@ -1,5 +1,5 @@
 import logo from "../../assets/images/logo.png";
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { IconMenu2, IconX } from "@tabler/icons";
 import Image from "next/image";
 import Link from "next/link";
@@ -50,22 +50,27 @@ const NavBar: React.FC = () => {
         </div>
 
         <div className="hidden justify-self-end md:flex">
-          <SignInButton mode="modal">
-            <button
-              className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button
+                className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
               transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-            >
-              Log in
-            </button>
-          </SignInButton>
-          <SignUpButton mode="modal">
-            <button
-              className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
+              >
+                Log in
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <button
+                className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
               transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-            >
-              Sign up
-            </button>
-          </SignUpButton>
+              >
+                Sign up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton/>
+          </SignedIn>
         </div>
 
         <div className="flex grow justify-end md:hidden">

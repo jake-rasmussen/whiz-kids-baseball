@@ -2,13 +2,13 @@ import { motion } from "framer-motion";
 import sample1 from "../../assets/images/sample1.png";
 import sample2 from "../../assets/images/sample2.png";
 import Carousel from "../components/Carousel";
-import MainLayout from "../layouts/MainLayout";
 import type { NextPageWithLayout } from "./_app";
 import { IconMail, IconMapPin, IconPhone } from "@tabler/icons";
 import type { EmblaOptionsType } from "embla-carousel-react";
 import Image from "next/image";
 import { ReactElement } from "react";
 import React from "react";
+import MainLayout from "../layouts/mainLayout";
 import { useInView } from "react-intersection-observer";
 
 const Home: NextPageWithLayout = () => {

@@ -1,7 +1,8 @@
 import Sidebar from "../components/admin/Sidebar";
-import type { LayoutProps } from "../types/pageWithLayout";
+import withAdminPrivelage from "../HOC/withAdminPrivelage";
+import type { Layout } from "../types/pageWithLayout";
 
-const EditLayout: LayoutProps = ({ children }) => {
+const EditLayout: Layout = ({ children }) => {
   return (
     <>
       <main className="flex hidden flex-row md:contents">
@@ -26,4 +27,4 @@ const EditLayout: LayoutProps = ({ children }) => {
   );
 };
 
-export default EditLayout;
+export default withAdminPrivelage(EditLayout);

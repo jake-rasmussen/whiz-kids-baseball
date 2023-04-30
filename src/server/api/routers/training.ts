@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { z } from "zod";
 
 export const trainingRouter = createTRPCRouter({
@@ -16,24 +16,37 @@ export const trainingRouter = createTRPCRouter({
     }),
 
   getTrainingWithAvailability: publicProcedure.query(async ({ ctx }) => {
+    const allTrainings = await ctx.prisma.training.findMany({
+      include: {
+        participants: true,
+      },
+      orderBy: {
+        dateTime: "asc",
+      },
+    });
+
+    const availableTrainings = allTrainings.map((training) => {
+      if (training.participants.length < training.totalSlots) {
+        const { participants: _, ...modifiedTraining } = training;
+        return modifiedTraining;
+      }
+    });
+
+    return availableTrainings;
+  }),
+  
+  //TODO: make this an admin procedute after switching frontend to use get all trainings with availability
+  getAllTrainings: publicProcedure.query(async ({ ctx }) => {
     const training = await ctx.prisma.training.findMany({
-      where: {
-        availableSlots: {
-          gt: 0,
-        },
+      orderBy: {
+        dateTime: "asc",
       },
     });
 
     return training;
   }),
 
-  getAllTrainings: publicProcedure.query(async ({ ctx }) => {
-    const training = await ctx.prisma.training.findMany();
-
-    return training;
-  }),
-
-  createTraining: publicProcedure
+  createTraining: adminProcedure
     .input(
       z.object({
         name: z.string(),
@@ -51,7 +64,6 @@ export const trainingRouter = createTRPCRouter({
           location,
           dateTime,
           totalSlots,
-          availableSlots: totalSlots,
           price,
         },
       });
@@ -59,7 +71,7 @@ export const trainingRouter = createTRPCRouter({
       return training;
     }),
 
-  updateTraining: publicProcedure
+  updateTraining: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -88,7 +100,7 @@ export const trainingRouter = createTRPCRouter({
       return training;
     }),
 
-  deleteTraining: publicProcedure
+  deleteTraining: adminProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = input;

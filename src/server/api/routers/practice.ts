@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { Day } from "@prisma/client";
 import { z } from "zod";
 
@@ -35,7 +35,7 @@ export const practiceRouter = createTRPCRouter({
       return practices;
     }),
 
-  createPractice: publicProcedure
+  createPractice: adminProcedure 
     .input(
       z.object({
         days: z.nativeEnum(Day).array(),
@@ -64,7 +64,7 @@ export const practiceRouter = createTRPCRouter({
       return practice;
     }),
 
-  updatePractice: publicProcedure
+  updatePractice: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -97,7 +97,7 @@ export const practiceRouter = createTRPCRouter({
       return practice;
     }),
 
-  deletePractice: publicProcedure
+  deletePractice: adminProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = input;

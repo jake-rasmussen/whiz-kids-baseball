@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { Position } from "@prisma/client";
 import { z } from "zod";
 
@@ -67,7 +67,7 @@ export const playerRouter = createTRPCRouter({
       return players;
     }),
 
-  createPlayer: publicProcedure
+  createPlayer: adminProcedure 
     .input(
       z.object({
         firstName: z.string(),
@@ -99,7 +99,7 @@ export const playerRouter = createTRPCRouter({
       return player;
     }),
 
-  updatePlayer: publicProcedure
+  updatePlayer: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -142,7 +142,7 @@ export const playerRouter = createTRPCRouter({
       return player;
     }),
 
-  deletePlayer: publicProcedure
+  deletePlayer: adminProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = input;

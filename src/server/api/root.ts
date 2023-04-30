@@ -5,7 +5,10 @@ import { teamRouter } from "./routers/team";
 import { tournamentRouter } from "./routers/tournament";
 import { trainingRouter } from "./routers/training";
 import { tryoutsRouter as tryoutRouter } from "./routers/tryout";
+import { userRouter } from "./routers/user";
 import { createTRPCRouter } from "./trpc";
+
+//TODO: Add protection to api routes
 
 /**
  * This is the primary router for your server.
@@ -20,6 +23,7 @@ export const appRouter = createTRPCRouter({
   tryout: tryoutRouter,
   alumni: alumniRouter,
   training: trainingRouter,
+  user: userRouter,
 });
 
 // export type definition of API
