@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { z } from "zod";
 
 export const trainingRouter = createTRPCRouter({
@@ -34,7 +34,8 @@ export const trainingRouter = createTRPCRouter({
 
     return availableTrainings;
   }),
-
+  
+  //TODO: make this an admin procedute after switching frontend to use get all trainings with availability
   getAllTrainings: publicProcedure.query(async ({ ctx }) => {
     const training = await ctx.prisma.training.findMany({
       orderBy: {
@@ -45,7 +46,7 @@ export const trainingRouter = createTRPCRouter({
     return training;
   }),
 
-  createTraining: publicProcedure
+  createTraining: adminProcedure
     .input(
       z.object({
         name: z.string(),
@@ -70,7 +71,7 @@ export const trainingRouter = createTRPCRouter({
       return training;
     }),
 
-  updateTraining: publicProcedure
+  updateTraining: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -99,7 +100,7 @@ export const trainingRouter = createTRPCRouter({
       return training;
     }),
 
-  deleteTraining: publicProcedure
+  deleteTraining: adminProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = input;

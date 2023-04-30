@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 
 export const alumniRouter = createTRPCRouter({
   getAlumniById: publicProcedure
@@ -36,7 +36,7 @@ export const alumniRouter = createTRPCRouter({
     return alumni;
   }),
 
-  createAlumni: publicProcedure
+  createAlumni: adminProcedure 
     .input(
       z.object({
         firstName: z.string(),
@@ -59,7 +59,7 @@ export const alumniRouter = createTRPCRouter({
       return alumni;
     }),
 
-  updateAlumni: publicProcedure
+  updateAlumni: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -86,7 +86,7 @@ export const alumniRouter = createTRPCRouter({
       return alumni;
     }),
 
-  deleteAlumni: publicProcedure
+  deleteAlumni: adminProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = input;

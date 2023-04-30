@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { z } from "zod";
 
 export const tournamentRouter = createTRPCRouter({
@@ -34,7 +34,7 @@ export const tournamentRouter = createTRPCRouter({
       return tournaments;
     }),
 
-  createTournament: publicProcedure
+  createTournament: adminProcedure 
     .input(
       z.object({
         name: z.string(),
@@ -63,7 +63,7 @@ export const tournamentRouter = createTRPCRouter({
       return tournament;
     }),
 
-  updateTournamentDetails: publicProcedure
+  updateTournamentDetails: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -90,7 +90,7 @@ export const tournamentRouter = createTRPCRouter({
       return tournament;
     }),
 
-  changeTournamentTeam: publicProcedure
+  changeTournamentTeam: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -115,7 +115,7 @@ export const tournamentRouter = createTRPCRouter({
       return tournament;
     }),
 
-  deleteTournament: publicProcedure
+  deleteTournament: adminProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = input;

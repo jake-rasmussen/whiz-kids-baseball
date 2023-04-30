@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 
 export const tryoutsRouter = createTRPCRouter({
   getTryoutsById: publicProcedure
@@ -21,7 +21,7 @@ export const tryoutsRouter = createTRPCRouter({
     return tryouts;
   }),
 
-  createTryout: publicProcedure
+  createTryout: adminProcedure 
     .input(
       z.object({
         dateTime: z.date(),
@@ -40,7 +40,7 @@ export const tryoutsRouter = createTRPCRouter({
       return tryout;
     }),
 
-  updateTryout: publicProcedure
+  updateTryout: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -63,7 +63,7 @@ export const tryoutsRouter = createTRPCRouter({
       return tryout;
     }),
 
-  deleteTryout: publicProcedure
+  deleteTryout: adminProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = input;
