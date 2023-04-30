@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import BurgerMenu from "./Burger";
 
 const NavBar: React.FC = () => {
-  const [displayMenu, setDisplayMenu] = useState(false);
-
   return (
     <>
       <div className="sticky top-0 z-20 flex min-h-[7vh] w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl" id="menu">
@@ -74,59 +72,6 @@ const NavBar: React.FC = () => {
         </div>
 
         <div className="flex grow justify-end md:hidden">
-          {/* <div className="flex flex-col items-center justify-center">
-            <div>
-              <label className="swap btn-link swap-rotate btn text-dark-gray">
-                <input
-                  type="checkbox"
-                  onClick={() => setDisplayMenu(!displayMenu)}
-                />
-                <IconMenu2 className="swap-off fill-current" />
-                <IconX className="swap-on fill-current" />
-              </label>
-
-              {displayMenu ? (
-                <ul
-                  tabIndex={0}
-                  className="menu rounded-box absolute right-1 mt-4 w-52 bg-white p-4 text-xl shadow
-                  transition duration-300 ease-in-out"
-                >
-                  <Link
-                    href="/"
-                    className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
-                  >
-                    Home
-                  </Link>
-                  <Link
-                    href="/teams"
-                    className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
-                  >
-                    Teams
-                  </Link>
-                  <Link
-                    href="/training"
-                    className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
-                  >
-                    Training
-                  </Link>
-                  <Link
-                    href="/tryout"
-                    className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
-                  >
-                    Tryout
-                  </Link>
-                  <Link
-                    href="/alumni/a"
-                    className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
-                  >
-                    Alumni
-                  </Link>
-                </ul>
-              ) : (
-                <></>
-              )}
-            </div>
-          </div> */}
           <BurgerMenu />
         </div>
       </div>

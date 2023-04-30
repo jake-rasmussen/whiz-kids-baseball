@@ -3,17 +3,6 @@ import MenuList from './MenuList';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IconMenu2, IconX } from '@tabler/icons';
 
-const icon = {
-  hidden: {
-    pathLength: 0,
-    fill: "rgba(255, 255, 255, 0)"
-  },
-  visible: {
-    pathLength: 1,
-    fill: "rgba(255, 255, 255, 1)"
-  }
-}
-
 const BurgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 

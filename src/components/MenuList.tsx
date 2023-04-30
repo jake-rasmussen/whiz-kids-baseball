@@ -9,7 +9,7 @@ const MenuList = ({ isOpen }: { isOpen: boolean }) => {
       animate={isOpen ? 'open' : 'closed'}
       variants={{
         open: { opacity: 1, x: 0 },
-        closed: { opacity: 0, x: '100%' },
+        closed: { opacity: 0, x: '10px' },
       }}
       className="absolute top-full bg-white right-0 w-full mt-4"
       id='menu'

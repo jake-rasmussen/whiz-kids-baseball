@@ -54,7 +54,7 @@ const Table = ({ practices }: PropType) => {
                         >
                           ✕
                         </label>
-                        <h1 className="py-4 pl-4 text-2xl font-black uppercase leading-tight tracking-wide text-red">
+                        <h1 className="py-4 pl-4 text-2xl font-black uppercase leading-tight tracking-wide text-red underline">
                           {practice.location}
                         </h1>
                         <p className="px-4 py-1 text-lg text-white">

@@ -11,7 +11,7 @@ const Table = (props: PropType) => {
   const { tournaments } = props;
 
   return (
-    <table className="w-full table-auto capitalize">
+    <table className="w-full table-auto">
       <thead>
         <tr className="w-full">
           <th className="text-md px-5 font-black text-red md:text-xl">Name</th>
@@ -19,7 +19,7 @@ const Table = (props: PropType) => {
             Location
           </th>
           <th className="text-md hidden px-5 font-black text-red md:table-cell md:text-xl">
-            Date
+            Date<span className="font-bold">(</span>s<span className="font-bold">)</span>
           </th>
           <th className="text-md table-cell px-5 font-black text-red md:hidden md:text-xl">
             {/* Info */}
@@ -35,7 +35,7 @@ const Table = (props: PropType) => {
           return (
             <React.Fragment key={`tournamentTable${index}`}>
               <tr
-                className="border-y border-light-gray text-dark-gray"
+                className="border-y border-light-gray text-dark-gray capitalize"
                 key={`tournamentTable${index}`}
               >
                 <td className="py-2 px-5 text-center text-sm font-medium text-dark-gray">
@@ -57,7 +57,7 @@ const Table = (props: PropType) => {
                         >
                           ✕
                         </label>
-                        <h1 className="py-4 px-5 text-2xl font-black uppercase leading-tight tracking-wide text-red">
+                        <h1 className="py-4 px-5 text-2xl font-black uppercase leading-tight tracking-wide text-red underline">
                           {tournament.name}
                         </h1>
                         <p className="px-4 py-1 text-lg text-white">
