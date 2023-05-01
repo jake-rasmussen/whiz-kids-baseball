@@ -1,5 +1,5 @@
 import type { Team } from "@prisma/client";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../layouts/mainLayout";
 import { api } from "../utils/api";
 import type { NextPageWithLayout } from "./_app";
 import Link from "next/link";
