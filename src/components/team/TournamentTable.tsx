@@ -76,7 +76,7 @@ const Table = (props: PropType) => {
 
                 <td className="table-cell whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray md:hidden">
                   <label htmlFor={`modal${index}`}>
-                    <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red md:hidden" />
+                    <IconInfoCircle className="mx-2 text-dark-gray transition duration-300 ease-in-out hover:text-red hover:cursor-pointer md:hidden" />
                   </label>
                 </td>
 

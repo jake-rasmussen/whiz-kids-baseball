@@ -1,4 +1,4 @@
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../layouts/mainLayout";
 import type { NextPageWithLayout } from "./_app";
 import { IconInfoCircle } from "@tabler/icons";
 import { ReactElement, useState } from "react";
@@ -102,7 +102,7 @@ const Training: NextPageWithLayout = () => {
                             htmlFor="modal"
                             className="hover:cursor-pointer"
                           >
-                            <IconInfoCircle className="mx-2 text-white transition duration-300 ease-in-out hover:text-red" />
+                            <IconInfoCircle className="mx-2 text-white transition duration-300 ease-in-out hover:cursor-pointer hover:text-red" />
                           </label>
 
                           <input

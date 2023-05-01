@@ -49,7 +49,7 @@ const NavBar: React.FC = () => {
 
         <div className="hidden justify-self-end md:flex">
           <SignedOut>
-            <SignInButton mode="modal">
+            <SignInButton>
               <button
                 className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
               transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
@@ -57,7 +57,7 @@ const NavBar: React.FC = () => {
                 Log in
               </button>
             </SignInButton>
-            <SignUpButton mode="modal">
+            <SignUpButton>
               <button
                 className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
               transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
@@ -67,11 +67,14 @@ const NavBar: React.FC = () => {
             </SignUpButton>
           </SignedOut>
           <SignedIn>
-            <UserButton/>
+            <UserButton />
           </SignedIn>
         </div>
 
-        <div className="flex grow justify-end md:hidden">
+        <div className="flex grow justify-end md:hidden items-center gap-12">
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
           <BurgerMenu />
         </div>
       </div>

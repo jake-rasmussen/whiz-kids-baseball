@@ -1,5 +1,5 @@
-import Footer from "../components/footer";
-import NavBar from "../components/navbar";
+import Footer from "../components/Footer";
+import NavBar from "../components/Navbar";
 import type { Layout } from "../types/pageWithLayout";
 
 const MainLayout: Layout = ({ children }) => {
