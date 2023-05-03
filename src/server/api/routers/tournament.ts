@@ -34,7 +34,7 @@ export const tournamentRouter = createTRPCRouter({
       return tournaments;
     }),
 
-  createTournament: adminProcedure 
+  createTournament: adminProcedure
     .input(
       z.object({
         name: z.string(),

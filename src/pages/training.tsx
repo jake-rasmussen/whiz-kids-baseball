@@ -26,10 +26,9 @@ const Training: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="flex w-full flex-col items-center bg-dark-gray overflow-x-scroll">
+      <div className="flex w-full flex-col items-center overflow-x-scroll bg-dark-gray">
         <div className=" invisible h-0 md:visible md:h-[60vh] md:w-full">
           <main className="flex h-full w-full w-full justify-center">
-
             <iframe
               src={
                 "https://www.youtube.com/embed/XF_q1VIMXTk?controls=0&showinfo=0&autoplay=1&loop=1&mute=1&playlist=XF_q1VIMXTk"

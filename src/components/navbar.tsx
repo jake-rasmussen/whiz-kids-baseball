@@ -1,15 +1,27 @@
 import logo from "../../assets/images/logo.png";
-import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { IconMenu2, IconX } from "@tabler/icons";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import BurgerMenu from "./Burger";
+import { api } from "../utils/api";
 
 const NavBar: React.FC = () => {
+  const { data: isAdmin, isLoading } = api.user.isUserAdmin.useQuery();
+
+  console.log(isAdmin);
+
   return (
     <>
-      <div className="sticky top-0 z-20 flex min-h-[7vh] w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl" id="menu">
+      <div
+        className="sticky top-0 z-20 flex min-h-[7vh] w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl"
+        id="menu"
+      >
         <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
 
         <div className="hidden grow flex-row text-lg md:flex">
@@ -66,16 +78,46 @@ const NavBar: React.FC = () => {
               </button>
             </SignUpButton>
           </SignedOut>
+
           <SignedIn>
-            <UserButton />
+            <div className="mx-5">
+              {isAdmin ? (
+                <div className="flex-row text-lg">
+                  <Link
+                    href="/admin"
+                    className="link-underline link-underline-black mx-2 hidden font-extrabold text-red hover:text-red md:block"
+                  >
+                    Admin Edit
+                  </Link>
+                </div>
+              ) : (
+                <div>
+                  {!isLoading ? (
+                    <div className="flex-row text-lg">
+                      <Link
+                        href="/"
+                        className="link-underline link-underline-black mx-2 hidden font-extrabold text-dark-gray hover:text-red md:block"
+                      >
+                        My Trainings
+                      </Link>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              )}
+            </div>
+            
+            <div className="flex mr-4">
+              <UserButton />
+            </div>
           </SignedIn>
         </div>
 
-        <div className="flex grow justify-end md:hidden items-center gap-12">
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-          <BurgerMenu />
+        <div className="block flex flex-grow flex-row justify-end gap-12 md:hidden">
+          <div className="mr-4 flex items-center justify-end md:hidden">
+            <BurgerMenu />
+          </div>
         </div>
       </div>
     </>

@@ -1,8 +1,10 @@
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs';
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
+import { api } from "../utils/api";
 
 const MenuList = ({ isOpen }: { isOpen: boolean }) => {
+  const { data: isAdmin } = api.user.isUserAdmin.useQuery();
 
   return (
     <motion.ul
@@ -10,15 +12,17 @@ const MenuList = ({ isOpen }: { isOpen: boolean }) => {
       animate={isOpen ? "open" : "closed"}
       variants={{
         open: { opacity: 1, x: 0 },
-        closed: { opacity: 0, x: '10px' },
+        closed: { opacity: 0, x: "10px" },
       }}
-      className="absolute top-full bg-white right-0 w-full mt-4"
+      className="absolute top-full right-0 mt-4 w-full bg-white"
       id="menu"
     >
       <div
         tabIndex={0}
         className={`menu rounded-box absolute right-0 mt-4 items-center bg-white py-4 text-xl shadow-xl
-        transition duration-300 ease-in-out ${!isOpen ? "pointer-events-none" : ""}`}
+        transition duration-300 ease-in-out ${
+          !isOpen ? "pointer-events-none" : ""
+        }`}
       >
         <div className="flex flex-col justify-center px-10 ">
           <Link
@@ -52,7 +56,7 @@ const MenuList = ({ isOpen }: { isOpen: boolean }) => {
             Alumni
           </Link>
         </div>
-        
+
         <div className="flex flex-row">
           <SignedOut>
             <SignInButton>

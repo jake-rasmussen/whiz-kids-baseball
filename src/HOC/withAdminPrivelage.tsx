@@ -11,7 +11,7 @@ const withAdminPrivelage = (WrappedComponent: any) => {
       error,
     } = api.user.isUserAdmin.useQuery();
 
-    if (isLoading) return <Loading/>;
+    if (isLoading) return <Loading />;
     else if (isError)
       return <Error statusCode={error.data?.httpStatus || 500} />;
     else if (!isAdmin) return <Error statusCode={403} />;

@@ -1,6 +1,6 @@
 import type { Team, Tryout } from "@prisma/client";
 import image from "../../assets/images/sample2.png";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../layouts/mainLayout";
 import { api } from "../utils/api";
 import type { NextPageWithLayout } from "./_app";
 import Image from "next/image";

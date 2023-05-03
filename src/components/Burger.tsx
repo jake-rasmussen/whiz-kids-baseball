@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import MenuList from './MenuList';
-import { AnimatePresence, motion } from 'framer-motion';
-import { IconMenu2, IconX } from '@tabler/icons';
+import { useEffect, useState } from "react";
+import MenuList from "./MenuList";
+import { AnimatePresence, motion } from "framer-motion";
+import { IconMenu2, IconX } from "@tabler/icons";
 
 const BurgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,10 +14,10 @@ const BurgerMenu = () => {
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutsideMenu);
+    document.addEventListener("mousedown", handleClickOutsideMenu);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutsideMenu);
+      document.removeEventListener("mousedown", handleClickOutsideMenu);
     };
   }, []);
 
@@ -26,11 +26,23 @@ const BurgerMenu = () => {
       <button onClick={() => setIsOpen(!isOpen)}>
         <AnimatePresence>
           {isOpen ? (
-            <motion.div className="absolute top-0 right-0" key="first" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div
+              className="absolute top-0 right-0"
+              key="first"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
               <IconX />
             </motion.div>
           ) : (
-            <motion.div className="absolute top-0 right-0" key="second" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div
+              className="absolute top-0 right-0"
+              key="second"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
               <IconMenu2 />
             </motion.div>
           )}
@@ -38,7 +50,6 @@ const BurgerMenu = () => {
       </button>
 
       <MenuList isOpen={isOpen} />
-
     </div>
   );
 };

@@ -29,7 +29,7 @@ const NavBar: React.FC = () => {
 
   return (
     <nav className="flex">
-      <div className="fixed z-10 flex h-full min-h-screen w-60 flex-col items-center bg-dark-gray p-6 capitalize text-white overflow-x-hidden overflow-y-auto">
+      <div className="fixed z-10 flex h-full min-h-screen w-60 flex-col items-center overflow-y-auto overflow-x-hidden bg-dark-gray p-6 capitalize text-white">
         <div className="flex items-center space-x-4 p-2">
           <Image
             src={whizkidsw}
@@ -66,13 +66,12 @@ const NavBar: React.FC = () => {
 
         <div className="mx-4 w-full">
           <ul className="space-y-1 text-sm">
-            <button
-              className="btn-ghost btn flex w-full items-center justify-start space-x-3 rounded-md p-2 disabled:text-light-gray"
-              disabled
-            >
-              <IconBallBaseball className="flex items-center space-x-3 rounded-md text-white" />
-              <span>Teams</span>
-            </button>
+            <Link href="/admin/teams">
+              <button className="btn-ghost btn flex w-full items-center justify-start space-x-3 rounded-md p-2">
+                <IconBallBaseball className="flex items-center space-x-3 rounded-md text-white" />
+                <span>Teams</span>
+              </button>
+            </Link>
             {data.map((entry: Team, index: number) => (
               <Link href={`/admin/teams/${entry.id}`} key={`team${index}`}>
                 <button className="btn-ghost btn-sm btn flex w-full items-center justify-start space-x-3 rounded-md text-left text-xs">
@@ -122,7 +121,7 @@ const NavBar: React.FC = () => {
           </ul>
         </div>
 
-        <div className="mx-4 w-full h-full flex flex-col justify-end">
+        <div className="mx-4 flex h-full w-full flex-col justify-end">
           <ul className="space-y-1 pb-2 text-sm">
             <li className="w-full text-white">
               <Link href="/">
