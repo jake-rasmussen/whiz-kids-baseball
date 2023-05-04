@@ -17,7 +17,7 @@ const EditGuide = () => {
           careful when editing.
         </p>
         <div className="flex flex-wrap justify-center">
-          <button className="btn btn-active btn-lg bg-dark-gray text-white">
+          <button className="btn-active btn-lg btn bg-dark-gray text-white">
             <Link href={"/admin/support"}>Questions?</Link>
           </button>
         </div>

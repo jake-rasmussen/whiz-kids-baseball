@@ -1,5 +1,5 @@
 import Sidebar from "../components/admin/Sidebar";
-import withAdminPrivelage from "../HOC/withAdminPrivelage";
+import withAdminPrivilege from "../HOC/withAdminPrivilege";
 import type { Layout } from "../types/pageWithLayout";
 
 const EditLayout: Layout = ({ children }) => {
@@ -27,4 +27,4 @@ const EditLayout: Layout = ({ children }) => {
   );
 };
 
-export default withAdminPrivelage(EditLayout);
+export default withAdminPrivilege(EditLayout);

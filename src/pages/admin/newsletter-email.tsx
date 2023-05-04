@@ -28,7 +28,7 @@ const Email = () => {
               className="btn mx-3 self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red px-8 py-3 text-lg font-black uppercase tracking-wide text-white
                 text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
             >
-              Submit
+              Send Email
             </button>
           </div>
         </form>

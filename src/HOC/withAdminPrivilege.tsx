@@ -2,8 +2,8 @@ import Error from "next/error";
 import { api } from "../utils/api";
 import Loading from "../components/LoadingPage";
 
-const withAdminPrivelage = (WrappedComponent: any) => {
-  return function withAdminPrivelage(props: any) {
+const withAdminPrivilege = (WrappedComponent: any) => {
+  return function withAdminPrivilege(props: any) {
     const {
       data: isAdmin,
       isLoading,
@@ -11,7 +11,7 @@ const withAdminPrivelage = (WrappedComponent: any) => {
       error,
     } = api.user.isUserAdmin.useQuery();
 
-    if (isLoading) return <Loading/>;
+    if (isLoading) return <Loading />;
     else if (isError)
       return <Error statusCode={error.data?.httpStatus || 500} />;
     else if (!isAdmin) return <Error statusCode={403} />;
@@ -21,4 +21,4 @@ const withAdminPrivelage = (WrappedComponent: any) => {
   };
 };
 
-export default withAdminPrivelage;
+export default withAdminPrivilege;

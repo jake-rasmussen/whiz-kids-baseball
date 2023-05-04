@@ -165,7 +165,7 @@ export const datesToStringFormatted = (dates: Date[]) => {
     } else {
       str += date.getDate();
     }
-    
+
     if (index != dates.length - 1) {
       str += ", ";
     }

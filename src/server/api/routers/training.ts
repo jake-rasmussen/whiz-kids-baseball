@@ -34,7 +34,7 @@ export const trainingRouter = createTRPCRouter({
 
     return availableTrainings;
   }),
-  
+
   //TODO: make this an admin procedute after switching frontend to use get all trainings with availability
   getAllTrainings: publicProcedure.query(async ({ ctx }) => {
     const training = await ctx.prisma.training.findMany({

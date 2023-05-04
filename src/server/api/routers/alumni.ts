@@ -36,7 +36,7 @@ export const alumniRouter = createTRPCRouter({
     return alumni;
   }),
 
-  createAlumni: adminProcedure 
+  createAlumni: adminProcedure
     .input(
       z.object({
         firstName: z.string(),

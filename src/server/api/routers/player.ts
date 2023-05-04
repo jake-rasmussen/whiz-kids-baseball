@@ -67,7 +67,7 @@ export const playerRouter = createTRPCRouter({
       return players;
     }),
 
-  createPlayer: adminProcedure 
+  createPlayer: adminProcedure
     .input(
       z.object({
         firstName: z.string(),

@@ -35,7 +35,7 @@ export const practiceRouter = createTRPCRouter({
       return practices;
     }),
 
-  createPractice: adminProcedure 
+  createPractice: adminProcedure
     .input(
       z.object({
         days: z.nativeEnum(Day).array(),

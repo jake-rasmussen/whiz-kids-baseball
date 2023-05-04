@@ -21,7 +21,7 @@ export const tryoutsRouter = createTRPCRouter({
     return tryouts;
   }),
 
-  createTryout: adminProcedure 
+  createTryout: adminProcedure
     .input(
       z.object({
         dateTime: z.date(),
