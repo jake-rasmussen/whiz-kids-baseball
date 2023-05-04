@@ -1,4 +1,5 @@
 import { alumniRouter } from "./routers/alumni";
+import { emailRouter } from "./routers/email";
 import { playerRouter } from "./routers/player";
 import { practiceRouter } from "./routers/practice";
 import { teamRouter } from "./routers/team";
@@ -24,6 +25,7 @@ export const appRouter = createTRPCRouter({
   alumni: alumniRouter,
   training: trainingRouter,
   user: userRouter,
+  email: emailRouter,
 });
 
 // export type definition of API
