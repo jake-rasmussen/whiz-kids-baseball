@@ -36,6 +36,7 @@ model User {
   clerkId   String             @id
   isAdmin   Boolean            @default(false)
   trainings TrainingsOnUsers[]
+  email     String?
 }
 
 model Team {

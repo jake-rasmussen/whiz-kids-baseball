@@ -17,9 +17,7 @@
  *
  */
 import { prisma } from "../db";
-import { clerkClient, getAuth } from "@clerk/nextjs/server";
-import type { ModifiedClerkUser } from "../../types/modifiedUserType";
-import type { User as ClerkUser } from "@clerk/nextjs/dist/api";
+import { getAuth } from "@clerk/nextjs/server";
 
 /**
  * 2. INITIALIZATION
@@ -30,6 +28,7 @@ import type { User as ClerkUser } from "@clerk/nextjs/dist/api";
 import { TRPCError, initTRPC } from "@trpc/server";
 import type * as trpcNext from "@trpc/server/adapters/next";
 import superjson from "superjson";
+import type { User } from "@prisma/client";
 
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use
@@ -40,27 +39,28 @@ import superjson from "superjson";
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = (user: ModifiedClerkUser | null) => {
+const createInnerTRPCContext = (user: User | null) => {
   return {
     prisma,
     user,
   };
 };
 
-const userIsAdmin = async (user: ClerkUser) => {
-  async function upsertUser(user: ClerkUser) {
+const getUser = async (userId: string, userEmail: string) => {
+  async function upsertUser() {
     return await prisma.user.upsert({
       where: {
-        clerkId: user.id,
+        clerkId: userId,
       },
       update: {},
       create: {
-        clerkId: user.id,
+        clerkId: userId,
+        email: userEmail,
       },
     });
   }
 
-  return (await upsertUser(user)).isAdmin;
+  return await upsertUser();
 };
 
 /**
@@ -71,22 +71,12 @@ const userIsAdmin = async (user: ClerkUser) => {
 export const createTRPCContext = async (
   opts: trpcNext.CreateNextContextOptions
 ) => {
-  async function getUser() {
-    // get userId from request
-    const { userId } = getAuth(opts.req);
-    // get full user object
-    const user = userId ? await clerkClient.users.getUser(userId) : null;
-    return user;
-  }
+  const { userId, sessionClaims } = getAuth(opts.req);
 
-  const user = await getUser();
-
-  if (user) {
-    const modifiedUser = {
-      ...user,
-      isAdmin: user ? await userIsAdmin(user) : undefined,
-    };
-    return createInnerTRPCContext(modifiedUser);
+  if (userId && sessionClaims) {
+    const userPrimaryEmail = sessionClaims.email as string;
+    const user = await getUser(userId, userPrimaryEmail);
+    return createInnerTRPCContext(user);
   }
 
   return createInnerTRPCContext(null);

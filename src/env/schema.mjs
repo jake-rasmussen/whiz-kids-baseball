@@ -6,31 +6,16 @@ import { z } from "zod";
  * This way you can ensure the app isn't built with invalid env vars.
  */
 export const serverSchema = z.object({
-  DATABASE_URL: z.string().url(),
-  HOST_PORT: z.string(),
+  DATABASE_URL: z.string().url().min(1),
+  HOST_PORT: z.string().min(4),
   NODE_ENV: z.enum(["development", "test", "production"]),
-  CLERK_SECRET_KEY: z.string(),
+  CLERK_SECRET_KEY: z.string().min(1),
+  EMAIL_USER_ADDRESS: z.string().email().min(1),
+  EMAIL_CLIENT_ID: z.string().min(1),
+  EMAIL_CLIENT_SECRET: z.string().min(1),
+  EMAIL_REFRESH_TOKEN: z.string().min(1),
+  EMAIL_ACCESS_TOKEN: z.string().min(1),
 
-  EMAIL_SERVER_HOST:
-    process.env.NODE_ENV === "production"
-      ? z.string().min(1)
-      : z.string().min(1).optional(),
-  EMAIL_SERVER_PORT:
-    process.env.NODE_ENV === "production"
-      ? z.string()
-      : z.string().optional(),
-  EMAIL_SERVER_USER:
-    process.env.NODE_ENV === "production"
-      ? z.string().min(1)
-      : z.string().min(1).optional(),
-  EMAIL_SERVER_PASSWORD:
-    process.env.NODE_ENV === "production"
-      ? z.string().min(1)
-      : z.string().min(1).optional(),
-  EMAIL_FROM:
-    process.env.NODE_ENV === "production"
-      ? z.string().min(1)
-      : z.string().min(1).optional(),
 });
 
 /**
@@ -45,11 +30,11 @@ export const serverEnv = {
 
   CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
 
-  EMAIL_SERVER_HOST: process.env.EMAIL_SERVER_HOST,
-  EMAIL_SERVER_PORT: process.env.EMAIL_SERVER_PORT,
-  EMAIL_SERVER_PASSWORD: process.env.EMAIL_SERVER_PASSWORD,
-  EMAIL_SERVER_USER: process.env.EMAIL_SERVER_PORT,
-  EMAIL_FROM: process.env.EMAIL_FROM,
+  EMAIL_USER_ADDRESS: process.env.EMAIL_USER_ADDRESS,
+  EMAIL_CLIENT_ID: process.env.EMAIL_CLIENT_ID,
+  EMAIL_CLIENT_SECRET: process.env.EMAIL_CLIENT_SECRET,
+  EMAIL_REFRESH_TOKEN: process.env.EMAIL_REFRESH_TOKEN,
+  EMAIL_ACCESS_TOKEN: process.env.EMAIL_ACCESS_TOKEN,
 };
 
 /**
