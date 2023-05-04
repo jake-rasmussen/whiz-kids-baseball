@@ -14,7 +14,10 @@ import { api } from "../utils/api";
 
 const NavBar: React.FC = () => {
   const { isSignedIn } = useUser();
-  const { data: isAdmin, isLoading } = api.user.isUserAdmin.useQuery(undefined, { enabled: !!isSignedIn });
+  const { data: isAdmin, isLoading } = api.user.isUserAdmin.useQuery(
+    undefined,
+    { enabled: !!isSignedIn }
+  );
 
   return (
     <>
@@ -58,69 +61,67 @@ const NavBar: React.FC = () => {
             Alumni
           </Link>
         </div>
-        
-        
 
-        <div className="hidden justify-self-end lg:flex">
-          <SignedOut>
-            <SignInButton>
-              <button
-                className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
-              transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-              >
-                Log in
-              </button>
-            </SignInButton>
-            <SignUpButton>
-              <button
-                className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
-              transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-              >
-                Sign up
-              </button>
-            </SignUpButton>
-          </SignedOut>
+        <div className="flex w-full justify-end">
+          <div className="flex hidden lg:block">
+            <SignedOut>
+              <SignInButton>
+                <button
+                  className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
+                transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                >
+                  Log in
+                </button>
+              </SignInButton>
+              <SignUpButton>
+                <button
+                  className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
+                transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                >
+                  Sign up
+                </button>
+              </SignUpButton>
+            </SignedOut>
 
-          <SignedIn>
-            <div className="mx-5 my-2">
-              {isAdmin ? (
-                <div className="flex-row text-lg">
-                  <Link
-                    href="/admin"
-                    className="link-underline link-underline-black mx-2 hidden font-extrabold text-red hover:text-red md:block "
-                  >
-                    Admin Edit
-                  </Link>
-                </div>
-              ) : (
-                <div>
-                  {!isLoading ? (
-                    <div className="flex-row text-lg">
-                      <Link
-                        href="/"
-                        className="link-underline link-underline-black mx-2 hidden font-extrabold text-dark-gray hover:text-red md:block"
-                      >
-                        My Trainings
-                      </Link>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              )}
-            </div>
-          </SignedIn>
-        </div>
-        
-        <div className="flex justify-end mx-4 grow lg:shrink-1">
-          <SignedIn>
-            <div className="mr-4">
+            <SignedIn>
+              <div className="mx-5 my-2">
+                {isAdmin ? (
+                  <div className="flex-row text-lg">
+                    <Link
+                      href="/admin"
+                      className="link-underline link-underline-black mx-2 hidden font-extrabold text-red hover:text-red md:block "
+                    >
+                      Admin Edit
+                    </Link>
+                  </div>
+                ) : (
+                  <div>
+                    {!isLoading ? (
+                      <div className="flex-row text-lg">
+                        <Link
+                          href="/"
+                          className="link-underline link-underline-black mx-2 hidden font-extrabold text-dark-gray hover:text-red md:block"
+                        >
+                          My Trainings
+                        </Link>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                )}
+              </div>
+            </SignedIn>
+          </div>
+
+          <div className="mx-4 flex flex-row items-center justify-end gap-12">
+            <SignedIn>
               <UserButton />
-            </div>
-          </SignedIn>
+            </SignedIn>
 
-          <div className="mr-4 flex items-center justify-end lg:hidden">
-            <BurgerMenu isAdmin={isAdmin ?? false} />
+            <div className="block lg:hidden">
+              <BurgerMenu isAdmin={isAdmin ?? false} />
+            </div>
           </div>
         </div>
       </div>

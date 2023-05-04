@@ -63,14 +63,16 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
           </Link>
 
           <SignedIn>
-            <div className="divider my-0"></div>
             {!isAdmin && (
-              <Link
-                href="#"
-                className="tracking-none btn-ghost btn-wide btn  text-xl font-black text-dark-gray hover:text-red"
-              >
-                My Trainings
-              </Link>
+              <>
+                <div className="divider my-0"></div>
+                <Link
+                  href="#"
+                  className="tracking-none btn-ghost btn-wide btn  text-xl font-black text-dark-gray hover:text-red"
+                >
+                  My Trainings
+                </Link>
+              </>
             )}
           </SignedIn>
         </div>
