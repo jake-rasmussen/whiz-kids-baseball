@@ -1,4 +1,9 @@
 import nodemailer from "nodemailer";
+import {
+  ContactUsFormInput,
+  InterestFormInput,
+} from "../types/emailInputTypes";
+import { text } from "stream/consumers";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -15,7 +20,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const blastEmailToUsers = async (
+export const blastEmailToUsers = async (
   bcc: string[],
   subject: string,
   text: string
@@ -28,8 +33,53 @@ const blastEmailToUsers = async (
   });
 };
 
-const emailAdmin = async (_html: string) => {
-  return;
+export const emailAdmin = async (
+  formType: "Interest" | "Contact Us",
+  info: ContactUsFormInput | InterestFormInput
+) => {
+  let subject = `${formType} Form Submission`;
+  let text = "";
+  if (formType === "Interest") {
+    const {
+      playerName,
+      userEmail,
+      teamInterest,
+      cityOrTown,
+      currentSchool,
+      dateOfBirth,
+      positions,
+      bats,
+      throws,
+      playedAtWhizKids,
+    } = info as InterestFormInput;
+
+    subject += ` - ${playerName}`;
+    text += `Player Name: ${playerName}\n
+    Email: ${userEmail}\n
+    Team Interest: ${teamInterest}\n
+    City or Town: ${cityOrTown}\n
+    Current School: ${currentSchool}\n
+    Date of Birth: ${dateOfBirth}\n
+    Position: ${positions}\n
+    Bats: ${bats}\n
+    Throws: ${throws} handed\n
+    Played for Whiz Kids Before: ${playedAtWhizKids ? "Yes" : "No"}
+    `;
+  } else {
+    const { fullName, userEmail, message } = info as ContactUsFormInput;
+    subject += ` - ${fullName}`;
+    text = `Full Name: ${fullName}\n
+    Email: ${userEmail}\n
+    Message:\n
+    ${message}
+    `;
+  }
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER_ADDRESS,
+    to: process.env.EMAIL_USER_ADDRESS,
+    subject,
+    text,
+  });
 };
 
 export const testEmail = async () => {
