@@ -16,7 +16,7 @@ const Table = () => {
     data: trainings,
     isLoading,
     isError,
-  } = api.training.getAllTrainings.useQuery(undefined, {
+  } = api.training.getAllTrainingsForAdmin.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess() {
       setEditRowIndex(-1);
@@ -31,7 +31,7 @@ const Table = () => {
       setWait(true);
     },
     onSuccess() {
-      queryClient.training.getAllTrainings.invalidate();
+      queryClient.training.getAllTrainingsForAdmin.invalidate();
     },
   });
 

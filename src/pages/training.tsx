@@ -16,7 +16,7 @@ const Training: NextPageWithLayout = () => {
     data: training,
     isLoading,
     isError,
-  } = api.training.getAllTrainings.useQuery();
+  } = api.training.getTrainingsForUsers.useQuery();
 
   if (isLoading) {
     return <Loading />;

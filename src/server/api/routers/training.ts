@@ -1,4 +1,9 @@
-import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../trpc";
 import { z } from "zod";
 
 export const trainingRouter = createTRPCRouter({
@@ -15,8 +20,13 @@ export const trainingRouter = createTRPCRouter({
       return training;
     }),
 
-  getTrainingWithAvailability: publicProcedure.query(async ({ ctx }) => {
+  getTrainingsForUsers: publicProcedure.query(async ({ ctx }) => {
     const allTrainings = await ctx.prisma.training.findMany({
+      where: {
+        dateTime: {
+          gte: new Date(),
+        },
+      },
       include: {
         participants: true,
       },
@@ -27,7 +37,11 @@ export const trainingRouter = createTRPCRouter({
 
     const availableTrainings = allTrainings.map((training) => {
       if (training.participants.length < training.totalSlots) {
-        const { participants: _, ...modifiedTraining } = training;
+        const { participants: _, ...trainingWithoutParticipants } = training;
+        const modifiedTraining = {
+          ...trainingWithoutParticipants,
+          availableSlots: training.totalSlots - training.participants.length,
+        };
         return modifiedTraining;
       }
     });
@@ -36,7 +50,7 @@ export const trainingRouter = createTRPCRouter({
   }),
 
   //TODO: make this an admin procedute after switching frontend to use get all trainings with availability
-  getAllTrainings: publicProcedure.query(async ({ ctx }) => {
+  getAllTrainingsForAdmin: adminProcedure.query(async ({ ctx }) => {
     const training = await ctx.prisma.training.findMany({
       orderBy: {
         dateTime: "asc",
@@ -45,6 +59,22 @@ export const trainingRouter = createTRPCRouter({
 
     return training;
   }),
+
+  getTrainingByIdForAdmin: adminProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const { id } = input;
+      const training = await ctx.prisma.training.findUniqueOrThrow({
+        where: {
+          id,
+        },
+        include: {
+          participants: true,
+        },
+      });
+
+      return training;
+    }),
 
   createTraining: adminProcedure
     .input(
@@ -111,5 +141,48 @@ export const trainingRouter = createTRPCRouter({
       });
 
       return training;
+    }),
+
+  registerForTraining: protectedProcedure
+    .input(z.object({ trainingId: z.string(), playerName: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { trainingId, playerName } = input;
+      const clerkId = ctx.user.clerkId;
+      return await ctx.prisma.trainingsOnUsers.create({
+        data: {
+          trainingId,
+          userId: clerkId,
+          playerName,
+        },
+      });
+    }),
+
+  unregisterFromTrainingAsUser: protectedProcedure
+    .input(z.object({ trainingId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { trainingId } = input;
+      const clerkId = ctx.user.clerkId;
+      return await ctx.prisma.trainingsOnUsers.delete({
+        where: {
+          userId_trainingId: {
+            userId: clerkId,
+            trainingId,
+          },
+        },
+      });
+    }),
+
+  unregisterPlayerFromTrainingAsAdmin: adminProcedure
+    .input(z.object({ trainingId: z.string(), userId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { trainingId, userId } = input;
+      return await ctx.prisma.trainingsOnUsers.delete({
+        where: {
+          userId_trainingId: {
+            userId,
+            trainingId,
+          },
+        },
+      });
     }),
 });

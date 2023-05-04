@@ -25,13 +25,25 @@ export const alumniRouter = createTRPCRouter({
             startsWith: letter,
           },
         },
+        orderBy: {
+          lastName: "asc",
+        },
       });
 
       return alumni;
     }),
 
   getAllAlumni: publicProcedure.query(async ({ ctx }) => {
-    const alumni = await ctx.prisma.alumni.findMany();
+    const alumni = await ctx.prisma.alumni.findMany({
+      orderBy: [
+        {
+          year: "asc",
+        },
+        {
+          lastName: "asc",
+        },
+      ],
+    });
 
     return alumni;
   }),

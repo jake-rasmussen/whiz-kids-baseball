@@ -21,7 +21,11 @@ export const teamRouter = createTRPCRouter({
     }),
 
   getAllTeams: publicProcedure.query(async ({ ctx }) => {
-    const teams = await ctx.prisma.team.findMany();
+    const teams = await ctx.prisma.team.findMany({
+      orderBy: {
+        name: "asc",
+      },
+    });
     return teams;
   }),
 

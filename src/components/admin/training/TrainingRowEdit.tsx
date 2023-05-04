@@ -75,7 +75,7 @@ const TrainingRowEdit = (props: PropType) => {
 
   const onSuccessFunction = () => {
     resetRowEdits();
-    queryClient.training.getAllTrainings.invalidate();
+    queryClient.training.getAllTrainingsForAdmin.invalidate();
   };
 
   const createTraining = api.training.createTraining.useMutation({
