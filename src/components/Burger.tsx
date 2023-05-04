@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import MenuList from "./MenuList";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons";
-
-const BurgerMenu = (isAdmin: boolean) => {
+type Props = { isAdmin: boolean };
+const BurgerMenu = ({ isAdmin }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {

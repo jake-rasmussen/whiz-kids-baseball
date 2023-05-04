@@ -5,6 +5,7 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
+  useUser,
 } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,7 +13,8 @@ import BurgerMenu from "./Burger";
 import { api } from "../utils/api";
 
 const NavBar: React.FC = () => {
-  const { data: isAdmin, isLoading } = api.user.isUserAdmin.useQuery();
+  const { isSignedIn } = useUser();
+  const { data: isAdmin, isLoading } = api.user.isUserAdmin.useQuery(undefined, { enabled: !!isSignedIn });
 
   return (
     <>
@@ -118,7 +120,7 @@ const NavBar: React.FC = () => {
           </SignedIn>
 
           <div className="mr-4 flex items-center justify-end lg:hidden">
-            <BurgerMenu isAdmin={isAdmin} />
+            <BurgerMenu isAdmin={isAdmin ?? false} />
           </div>
         </div>
       </div>
