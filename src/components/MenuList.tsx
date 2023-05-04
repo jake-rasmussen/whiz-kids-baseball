@@ -4,7 +4,7 @@ import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import { api } from "../utils/api";
 
 const MenuList = ({ isOpen }: { isOpen: boolean }) => {
-  const { data: isAdmin } = api.user.isUserAdmin.useQuery();
+  // const { data: isAdmin } = api.user.isUserAdmin.useQuery();
 
   return (
     <motion.ul
