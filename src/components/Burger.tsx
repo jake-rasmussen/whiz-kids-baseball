@@ -3,7 +3,7 @@ import MenuList from "./MenuList";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons";
 
-const BurgerMenu = () => {
+const BurgerMenu = (isAdmin: boolean) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const BurgerMenu = () => {
         </AnimatePresence>
       </button>
 
-      <MenuList isOpen={isOpen} />
+      <MenuList isOpen={isOpen} isAdmin={isAdmin} />
     </div>
   );
 };

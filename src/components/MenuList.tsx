@@ -1,11 +1,17 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 import { api } from "../utils/api";
 
-const MenuList = ({ isOpen }: { isOpen: boolean }) => {
-  const { data: isAdmin } = api.user.isUserAdmin.useQuery();
+type Props = { isOpen: boolean; isAdmin: boolean };
 
+const MenuList = ({ isOpen, isAdmin }: Props) => {
   return (
     <motion.ul
       initial="closed"
@@ -55,6 +61,18 @@ const MenuList = ({ isOpen }: { isOpen: boolean }) => {
           >
             Alumni
           </Link>
+
+          <SignedIn>
+            <div className="divider my-0"></div>
+            {!isAdmin && (
+              <Link
+                href="#"
+                className="tracking-none btn-ghost btn-wide btn  text-xl font-black text-dark-gray hover:text-red"
+              >
+                My Trainings
+              </Link>
+            )}
+          </SignedIn>
         </div>
 
         <div className="flex flex-row">

@@ -14,8 +14,6 @@ import { api } from "../utils/api";
 const NavBar: React.FC = () => {
   const { data: isAdmin, isLoading } = api.user.isUserAdmin.useQuery();
 
-  console.log(isAdmin);
-
   return (
     <>
       <div
@@ -24,7 +22,7 @@ const NavBar: React.FC = () => {
       >
         <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
 
-        <div className="hidden grow flex-row text-lg md:flex">
+        <div className="hidden grow flex-row text-lg lg:flex">
           <Link
             href="/"
             className="link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
@@ -58,8 +56,10 @@ const NavBar: React.FC = () => {
             Alumni
           </Link>
         </div>
+        
+        
 
-        <div className="hidden justify-self-end md:flex">
+        <div className="hidden justify-self-end lg:flex">
           <SignedOut>
             <SignInButton>
               <button
@@ -80,12 +80,12 @@ const NavBar: React.FC = () => {
           </SignedOut>
 
           <SignedIn>
-            <div className="mx-5">
+            <div className="mx-5 my-2">
               {isAdmin ? (
                 <div className="flex-row text-lg">
                   <Link
                     href="/admin"
-                    className="link-underline link-underline-black mx-2 hidden font-extrabold text-red hover:text-red md:block"
+                    className="link-underline link-underline-black mx-2 hidden font-extrabold text-red hover:text-red md:block "
                   >
                     Admin Edit
                   </Link>
@@ -107,16 +107,18 @@ const NavBar: React.FC = () => {
                 </div>
               )}
             </div>
-            
-            <div className="flex mr-4">
+          </SignedIn>
+        </div>
+        
+        <div className="flex justify-end mx-4 grow lg:shrink-1">
+          <SignedIn>
+            <div className="mr-4">
               <UserButton />
             </div>
           </SignedIn>
-        </div>
 
-        <div className="block flex flex-grow flex-row justify-end gap-12 md:hidden">
-          <div className="mr-4 flex items-center justify-end md:hidden">
-            <BurgerMenu />
+          <div className="mr-4 flex items-center justify-end lg:hidden">
+            <BurgerMenu isAdmin={isAdmin} />
           </div>
         </div>
       </div>
