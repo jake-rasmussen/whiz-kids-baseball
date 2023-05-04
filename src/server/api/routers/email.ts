@@ -8,10 +8,6 @@ import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 
 export const emailRouter = createTRPCRouter({
-  testEmail: publicProcedure.mutation(async () => {
-    await testEmail();
-    return true;
-  }),
 
   blastEmailToUsers: adminProcedure
     .input(

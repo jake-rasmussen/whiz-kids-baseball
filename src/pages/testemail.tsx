@@ -3,12 +3,15 @@ import { api } from "../utils/api";
 type Props = {};
 
 const testemail = (props: Props) => {
-  const testBlastEmail = api.email.testEmail.useMutation();
+  const testBlastEmail = api.email.blastEmailToUsers.useMutation();
   const contactUsEmail = api.email.sendContactUsEmail.useMutation();
   const interestEmail = api.email.sendInterestEmail.useMutation();
   const handleTestBlastEmail = (event: React.MouseEvent) => {
     event.preventDefault();
-    testBlastEmail.mutate();
+    testBlastEmail.mutate({
+      subject: "test",
+      text: "test",
+    });
   };
   const handleContactUsEmail = (event: React.MouseEvent) => {
     event.preventDefault();
