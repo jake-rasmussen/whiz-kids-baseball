@@ -1,9 +1,5 @@
 import {
-  IconCheck,
   IconCirclePlus,
-  IconEdit,
-  IconTrash,
-  IconX,
 } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";

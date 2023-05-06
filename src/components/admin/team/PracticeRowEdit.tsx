@@ -156,28 +156,30 @@ const PracticeRow = (props: PropType) => {
         isEmptyString(rowEdits.location)
       )
         return false;
-    } else {
-      if (
-        rowEdits.days.length > 0 &&
-        dayStringToDays(rowEdits.days).length == 0
-      )
-        return false;
-      if (rowEdits.startTime.length > 0 && rowEdits.startTime.charAt(2) != ":")
-        return false;
-      if (rowEdits.endTime.length > 0 && rowEdits.endTime.charAt(2) != ":")
-        return false;
-
-      if (
-        rowEdits.startTime.length > 0 &&
-        timeStringToTimeAsDate(rowEdits.startTime).toString() === "Invalid Date"
-      )
-        return false;
-      if (
-        rowEdits.endTime.length > 0 &&
-        timeStringToTimeAsDate(rowEdits.endTime).toString() === "Invalid Date"
-      )
-        return false;
     }
+    
+    if (
+      rowEdits.days.length > 0 &&
+      dayStringToDays(rowEdits.days).length == 0
+    )
+      return false;
+
+
+    if (rowEdits.startTime.length > 0 && rowEdits.startTime.charAt(2) != ":")
+      return false;
+    if (rowEdits.endTime.length > 0 && rowEdits.endTime.charAt(2) != ":")
+      return false;
+
+    if (
+      rowEdits.startTime.length > 0 &&
+      timeStringToTimeAsDate(rowEdits.startTime).toString() === "Invalid Date"
+    )
+      return false;
+    if (
+      rowEdits.endTime.length > 0 &&
+      timeStringToTimeAsDate(rowEdits.endTime).toString() === "Invalid Date"
+    )
+      return false;
 
     if (
       isWhitespace(rowEdits.days) ||
@@ -285,11 +287,11 @@ const PracticeRow = (props: PropType) => {
             <div>
               <button onClick={handleSavePractice}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
-                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
                 </label>
               </button>
               <button onClick={handleCancelChanges}>
-                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
               </button>
             </div>
           ) : (

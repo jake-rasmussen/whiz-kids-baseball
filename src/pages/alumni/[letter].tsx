@@ -1,4 +1,4 @@
-import MainLayout from "../../layouts/MainLayout";
+import MainLayout from "../../layouts/mainLayout";
 import type { NextPageWithLayout } from "../_app";
 import Link from "next/link";
 import { ReactElement } from "react";
@@ -45,7 +45,7 @@ const Alumni: NextPageWithLayout = () => {
     [],
     [],
   ];
-  const pageNumber: number = page.charCodeAt(0) - "a".charCodeAt(0) + 1;
+  const pageNumber: number = page.charCodeAt(0) - "A".charCodeAt(0) + 1;
 
   for (let i = 0; i < 26; i++) {
     let paginationRow = 0;

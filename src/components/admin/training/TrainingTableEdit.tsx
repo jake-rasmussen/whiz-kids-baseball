@@ -1,4 +1,4 @@
-import type { Training, Tryout } from "@prisma/client";
+import type { Training } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
@@ -50,7 +50,6 @@ const Table = () => {
       location: "Location",
       dateTime: new Date("Invalid"),
       totalSlots: -1,
-      availableSlots: -1,
       price: -1,
       createdAt: new Date(),
       updatedAt: new Date(),

@@ -21,7 +21,7 @@ module.exports = {
       },
       colors: {
         "red": "#CC0007",
-        "secondary-red": "#FF141A",
+        "secondary-red": "#F50008",
         "dark-gray": "#1F1F1F",
         "light-gray": "#C2C2C2",
       },
