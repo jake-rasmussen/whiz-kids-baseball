@@ -252,7 +252,7 @@ const AlumniRowEdit = (props: PropType) => {
                   htmlFor="delete-modal"
                   onClick={() => setDeleteRow(index)}
                 >
-                  <IconTrash className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                  <IconTrash className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                 </label>
               </button>
             </div>
@@ -260,11 +260,11 @@ const AlumniRowEdit = (props: PropType) => {
             <div>
               <button onClick={handleSaveAlumn}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
-                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
                 </label>
               </button>
               <button onClick={handleCancelChanges}>
-                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
               </button>
             </div>
           ) : (

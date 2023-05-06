@@ -24,7 +24,7 @@ const Teams: NextPageWithLayout = () => {
             <h1 className="text-center text-5xl font-bold sm:px-24">
               Our <span className="text-red">Teams</span>
             </h1>
-            <h3 className="tracking-none divider font-black text-light-gray">
+            <h3 className="tracking-none divider font-black uppercase text-light-gray">
               Select Your Team
             </h3>
             <div className="flex flex-col items-center justify-center text-center">

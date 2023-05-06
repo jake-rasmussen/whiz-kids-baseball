@@ -8,7 +8,6 @@ import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 
 export const emailRouter = createTRPCRouter({
-
   blastEmailToUsers: adminProcedure
     .input(
       z.object({
@@ -57,7 +56,7 @@ export const emailRouter = createTRPCRouter({
         await emailAdmin("Contact Us", emailAdminParams);
         return "Email sent";
       } catch (e) {
-        console.log(e)
+        console.log(e);
         throw new TRPCError({
           message: "Error sending emails",
           code: "INTERNAL_SERVER_ERROR",

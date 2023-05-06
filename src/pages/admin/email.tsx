@@ -10,7 +10,7 @@ const Email = () => {
         </h1>
         <p className="mt-8 mb-12 text-lg">
           Please note that when send is clicked, the email will be sent to all
-          emails signed up for the newsletter
+          emails signed up with an account
         </p>
       </div>
       <section className="p-6 dark:text-gray-100">
@@ -26,7 +26,7 @@ const Email = () => {
           <div>
             <button
               className="btn mx-3 self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red px-8 py-3 text-lg font-black uppercase tracking-wide text-white
-                text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                text-white transition duration-300 ease-in-out hover:scale-110"
             >
               Send Email
             </button>

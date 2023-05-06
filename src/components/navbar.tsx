@@ -68,7 +68,7 @@ const NavBar: React.FC = () => {
               <SignInButton>
                 <button
                   className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
-                transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                transition duration-300 ease-in-out hover:scale-120"
                 >
                   Log in
                 </button>
@@ -76,7 +76,7 @@ const NavBar: React.FC = () => {
               <SignUpButton>
                 <button
                   className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
-                transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                transition duration-300 ease-in-out hover:scale-120"
                 >
                   Sign up
                 </button>
