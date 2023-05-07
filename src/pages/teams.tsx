@@ -6,14 +6,15 @@ import Link from "next/link";
 import type { ReactElement } from "react";
 import React from "react";
 import Loading from "../components/LoadingPage";
+import Error from "next/error";
 
 const Teams: NextPageWithLayout = () => {
-  const { data: teams, isError, isLoading } = api.team.getAllTeams.useQuery();
+  const { data: teams, isError, isLoading, error } = api.team.getAllTeams.useQuery();
 
   if (isLoading) {
     return <Loading />;
   } else if (isError) {
-    return <div>Error...</div>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   return (

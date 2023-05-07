@@ -4,9 +4,10 @@ import Loading from "./LoadingComponentRed";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { isEmptyString } from "../utils/helpers";
+import Error from "next/error";
 
 const InterestForm = () => {
-  const { data: teams, isLoading, isError } = api.team.getAllTeams.useQuery();
+  const { data: teams, isLoading, isError, error } = api.team.getAllTeams.useQuery();
 
   const [formData, setFormData] = useState({
     playerName: "",
@@ -100,7 +101,7 @@ const InterestForm = () => {
   if (isLoading) {
     return <div className="py-20"><Loading /></div>;
   } else if (isError) {
-    return <>Error...</>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   return (

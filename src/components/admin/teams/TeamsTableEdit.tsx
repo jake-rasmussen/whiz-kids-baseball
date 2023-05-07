@@ -5,6 +5,8 @@ import { toast, Toaster } from "react-hot-toast";
 import { api } from "../../../utils/api";
 import Modal from "../Modal";
 import TeamsTableRowEdit from "./TeamsRowEdit";
+import Error from "next/error";
+import LoadingComponent from "../../LoadingComponent";
 
 const Table = () => {
   const [editRowIndex, setEditRowIndex] = useState(-1);
@@ -16,6 +18,7 @@ const Table = () => {
     data: teams,
     isLoading,
     isError,
+    error
   } = api.team.getAllTeams.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess() {
@@ -35,9 +38,9 @@ const Table = () => {
   });
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <></>
   } else if (isError) {
-    return <div>Error...</div>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   const addTemporaryRow = (index: number) => {

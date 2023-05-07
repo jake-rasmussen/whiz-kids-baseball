@@ -8,6 +8,7 @@ import { api } from "../../utils/api";
 import { Alumni } from "@prisma/client";
 import LoadingComponent from "../../components/LoadingComponent";
 import AlumniTable from "../../components/AlumniTable";
+import Error from "next/error";
 
 const getYearsAndSort = (alumni: Alumni[]) => {
   const alumniMap = new Map<number, Alumni[]>();
@@ -31,13 +32,14 @@ const Alumni: NextPageWithLayout = () => {
     data: alumni,
     isError,
     isLoading,
+    error
   } = api.alumni.getAlumniByLastNameLetter.useQuery(
     { letter: page },
     { refetchOnWindowFocus: false }
   );
 
   if (isError) {
-    return <div>Error...</div>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   const pagination: [JSX.Element[], JSX.Element[], JSX.Element[]] = [

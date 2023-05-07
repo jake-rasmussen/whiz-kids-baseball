@@ -11,13 +11,14 @@ import type { ReactElement } from "react";
 import { useState } from "react";
 import React from "react";
 import { motion } from "framer-motion";
+import Error from "next/error";
 
 const TeamPage: NextPageWithLayout = () => {
   const [activeTab, setActiveTab] = useState(0);
   const router = useRouter();
   const id = router.query.teamId as string;
 
-  const { data, isError, isLoading } = api.team.getTeamById.useQuery(
+  const { data, isError, isLoading, error } = api.team.getTeamById.useQuery(
     {
       id,
     },
@@ -27,7 +28,7 @@ const TeamPage: NextPageWithLayout = () => {
   if (isLoading) {
     return <Loading />;
   } else if (isError) {
-    return <div>Error...</div>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   const { name: teamName, players, tournaments, practices } = data;
