@@ -49,6 +49,8 @@ const ContactForm = () => {
       return;
     }
 
+    console.log(formData.message);
+
     sendEmail.mutate({
       fullName: formData.fullName,
       userEmail: formData.userEmail,
@@ -75,6 +77,7 @@ const ContactForm = () => {
           <span className="mb-1">Email address</span>
           <input
             className="input-bordered input block h-10 w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
+            type="email"
             onChange={(e) =>
               setFormData({ ...formData, userEmail: e.currentTarget.value })
             }
