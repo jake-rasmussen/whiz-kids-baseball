@@ -1,7 +1,7 @@
 import MainLayout from "../layouts/mainLayout";
 import type { NextPageWithLayout } from "./_app";
 import { IconInfoCircle } from "@tabler/icons";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import React from "react";
 import { api } from "../utils/api";
 import { Training } from "@prisma/client";
@@ -10,24 +10,57 @@ import {
   dateToTimeStringFormatted,
 } from "../utils/helpers";
 import Loading from "../components/LoadingPage";
+import Error from "next/error";
 
 const Trainings: NextPageWithLayout = () => {
   const {
     data: trainings,
     isLoading,
     isError,
+    error
   } = api.training.getTrainingWithAvailability.useQuery();
+
+  const [playerName, setPlayerName] = useState("");
 
   if (isLoading) {
     return <Loading />;
   } else if (isError) {
-    return <div>Error...</div>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   return (
     <>
+      <input type="checkbox" id="register-modal" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box relative bg-white text-left text-dark-gray shadow-xl">
+          <h1 className="py-4 pl-4 text-2xl font-black uppercase leading-tight tracking-wide text-red underline">
+            Training Session
+          </h1>
+          <p className="px-4 py-1 text-lg">
+            Player Name
+          </p>
+          <form>
+            <input
+              type="name"
+              className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
+              value={playerName}
+              onChange={(e) => setPlayerName(e.currentTarget.value)}
+              required
+            />
+
+            <div className="modal-action py-4">
+              <label htmlFor="register-modal" className="btn">
+                Cancel
+              </label>
+              <button type="submit" className="btn">
+                Confirm
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
       <div className="flex w-full flex-col items-center overflow-x-scroll bg-dark-gray">
-        <div className=" invisible h-0 md:visible md:h-[60vh] md:w-full">
+        <div className="invisible h-0 md:visible md:h-[60vh] md:w-full">
           <main className="flex h-full w-full w-full justify-center">
             <iframe
               src={
@@ -121,43 +154,44 @@ const Trainings: NextPageWithLayout = () => {
                                 <h1 className="py-4 pl-4 text-2xl font-black uppercase leading-tight tracking-wide text-red underline">
                                   Training Session
                                 </h1>
-                                <p className="px-4 py-1 text-lg">
+                                <p className="px-4 py-1 text-lg capitalize">
                                   Location: {training.location}
                                 </p>
-                                <p className="px-4 py-1 text-lg">
+                                <p className="px-4 py-1 text-lg capitalize">
                                   Date:{" "}
                                   {dateToStringFormatted(training.dateTime)}
                                 </p>
-                                <p className="px-4 py-1 text-lg">
+                                <p className="px-4 py-1 text-lg capitalize">
                                   Time:{" "}
                                   {dateToTimeStringFormatted(training.dateTime)}
                                 </p>
-                                <p className="py- px-4 text-lg">
+                                <p className="py- px-4 text-lg capitalize">
                                   Price: ${training.price}
                                 </p>
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
+                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell capitalize">
                           {training.location}
                         </td>
-                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
+                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell capitalize">
                           {dateToStringFormatted(training.dateTime)}
                         </td>
-                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
+                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell capitalize">
                           {dateToTimeStringFormatted(training.dateTime)}
                         </td>
-                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell">
+                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell capitalize">
                           {`$${training.price}`}
                         </td>
                         <td className="whitespace-nowrap py-2 text-center text-sm font-light text-white">
-                          <button
+                          <label
                             className="text-md btn self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red font-black uppercase tracking-wide text-white
-                            transition duration-300 ease-in-out hover:scale-110"
+                            transition duration-300 ease-in-out hover:scale-110 hover:cursor-pointer"
+                            htmlFor="register-modal"
                           >
                             Register
-                          </button>
+                          </label>
                         </td>
                       </tr>
                     </React.Fragment>

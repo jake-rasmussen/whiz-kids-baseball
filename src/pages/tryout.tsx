@@ -13,18 +13,20 @@ import {
 import Loading from "../components/LoadingPage";
 import { motion } from "framer-motion";
 import InterestForm from "../components/InterestForm";
+import Error from "next/error";
 
 const Tryouts: NextPageWithLayout = () => {
   const {
     data: tryouts,
-    isLoading: isLoadingTryouts,
-    isError: isErrorTryouts,
+    isLoading,
+    isError,
+    error
   } = api.tryout.getAllTryouts.useQuery();
 
-  if (isLoadingTryouts) {
+  if (isLoading) {
     return <Loading />;
-  } else if (isErrorTryouts) {
-    return <div>Error...</div>;
+  } else if (isError) {
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   return (

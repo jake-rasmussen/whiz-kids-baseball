@@ -14,9 +14,10 @@ import Loading from "../LoadingPage";
 import type { Team } from "@prisma/client";
 import whizkidsw from "../../../assets/images/whizkidsw.png";
 import Image from "next/image";
+import Error from "next/error";
 
 const NavBar: React.FC = () => {
-  const { data, isError, isLoading } = api.team.getAllTeams.useQuery(
+  const { data, isError, isLoading, error } = api.team.getAllTeams.useQuery(
     undefined,
     { refetchOnWindowFocus: false }
   );
@@ -24,7 +25,7 @@ const NavBar: React.FC = () => {
   if (isLoading) {
     return <Loading />;
   } else if (isError) {
-    return <>Error...</>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   return (
