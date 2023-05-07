@@ -82,7 +82,7 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
             <SignInButton>
               <button
                 className="btn m-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
-              transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+              transition duration-300 ease-in-out hover:scale-110"
               >
                 Log in
               </button>
@@ -90,7 +90,7 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
             <SignUpButton>
               <button
                 className="btn m-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
-              transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+              transition duration-300 ease-in-out hover:scale-110"
               >
                 Sign up
               </button>

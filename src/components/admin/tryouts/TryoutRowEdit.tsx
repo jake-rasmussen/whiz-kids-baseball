@@ -162,19 +162,19 @@ const TryoutRowEdit = (props: PropType) => {
         rowEdits.dateTime.toString() === "Invalid Date"
       )
         return false;
-    } else {
-      if (
-        time.length > 0 &&
-        timeStringToTimeAsDate(time).toString() === "Invalid Date"
-      )
-        return false;
-      if (
-        date.length > 0 &&
-        dateStringToDate(date).toString() === "Invalid Date"
-      )
-        return false;
     }
 
+    if (
+      time.length > 0 &&
+      timeStringToTimeAsDate(time).toString() === "Invalid Date"
+    )
+      return false;
+    if (
+      date.length > 0 &&
+      dateStringToDate(date).toString() === "Invalid Date"
+    )
+      return false;
+    
     if (time.length > 0 && time.charAt(2) != ":") return false;
     if (date.length > 0 && date.charAt(2) != "-") return false;
 
@@ -226,7 +226,7 @@ const TryoutRowEdit = (props: PropType) => {
             type="text"
             placeholder={
               tryout.dateTime.toString() === "Invalid Date"
-                ? "HH:MM"
+                ? "HH:MMAP"
                 : dateToTimeStringRaw(tryout.dateTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
@@ -252,7 +252,7 @@ const TryoutRowEdit = (props: PropType) => {
                   htmlFor="delete-modal"
                   onClick={() => setDeleteRow(index)}
                 >
-                  <IconTrash className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                  <IconTrash className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                 </label>
               </button>
             </div>
@@ -260,11 +260,11 @@ const TryoutRowEdit = (props: PropType) => {
             <div>
               <button onClick={handleSaveTryout}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
-                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
                 </label>
               </button>
               <button onClick={handleCancelChanges}>
-                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
               </button>
             </div>
           ) : (

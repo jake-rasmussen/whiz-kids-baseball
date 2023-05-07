@@ -6,14 +6,15 @@ import Link from "next/link";
 import type { ReactElement } from "react";
 import React from "react";
 import Loading from "../components/LoadingPage";
+import Error from "next/error";
 
 const Teams: NextPageWithLayout = () => {
-  const { data: teams, isError, isLoading } = api.team.getAllTeams.useQuery();
+  const { data: teams, isError, isLoading, error } = api.team.getAllTeams.useQuery();
 
   if (isLoading) {
     return <Loading />;
   } else if (isError) {
-    return <div>Error...</div>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   return (
@@ -24,7 +25,7 @@ const Teams: NextPageWithLayout = () => {
             <h1 className="text-center text-5xl font-bold sm:px-24">
               Our <span className="text-red">Teams</span>
             </h1>
-            <h3 className="tracking-none divider font-black text-light-gray">
+            <h3 className="tracking-none divider font-black uppercase text-light-gray">
               Select Your Team
             </h3>
             <div className="flex flex-col items-center justify-center text-center">

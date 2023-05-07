@@ -10,6 +10,8 @@ import { ReactElement } from "react";
 import React from "react";
 import MainLayout from "../layouts/mainLayout";
 import { useInView } from "react-intersection-observer";
+import ContactForm from "../components/ContactForm";
+import { Toaster } from "react-hot-toast";
 
 const Home: NextPageWithLayout = () => {
   const images = [sample1, sample2];
@@ -35,6 +37,7 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <>
+      <Toaster />
       <main className="h-screen w-full bg-dark-gray">
         <div className="fixed flex h-screen min-w-full flex-col items-center justify-center overflow-hidden">
           <Carousel images={images} options={options} />
@@ -42,19 +45,14 @@ const Home: NextPageWithLayout = () => {
       </main>
 
       <main className="relative flex w-full flex-col items-center bg-dark-gray">
-        <section className="my-8 text-white">
-          <div className="container mx-auto flex flex-col items-center justify-center space-y-8 p-4 md:p-10 md:px-12 xl:px-24">
-            <h1 className="text-center text-3xl font-bold leading-none md:text-5xl">
-              All substance, <span className="text-red">little show</span>
-            </h1>
-            <p className="pt-2 pb-8 text-center text-xl font-medium">
-              This is an environment where normal baseball players with big
-              dreams show up to work consistently and ultimately transform
-              themselves. We aim to mentor players who eventually get recruited.
-              We are passionate, straight forward and very well informed. Our
-              mission is to always be equipped to push you further.
-            </p>
-          </div>
+        <section className="container my-8 text-white flex flex-col items-center justify-center w-full space-y-8 p-4 md:p-10 md:px-12 xl:px-24">
+          <h1 className="text-center text-3xl font-bold leading-none md:text-6xl">
+            All substance, <span className="text-red">little show</span>
+          </h1>
+          <p className="divider before:bg-light-gray after:bg-light-gray py-8 text-center text-2xl">
+            We are passionate, straight forward and very well informed. <br />
+            Our mission is to always be equipped to push you further.
+          </p>
         </section>
       </main>
 
@@ -78,10 +76,9 @@ const Home: NextPageWithLayout = () => {
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-4xl font-bold">
+                <h3 className="text-4xl font-bold underline decoration-red">
                   Numerous Competitive Teams
                 </h3>
-                <div className="h-0.5 w-[30%] bg-red" />
                 <p className="my-6 dark:text-gray-400">
                   We have 12 teams, which range from ages 12U to 18U. Each team
                   is equipped with a dedicated coaching staff and will have many
@@ -106,10 +103,9 @@ const Home: NextPageWithLayout = () => {
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-4xl font-bold">
+                <h3 className="text-4xl font-bold underline decoration-red">
                   Robust Tournament Schedule
                 </h3>
-                <div className="h-0.5 w-[30%] bg-red" />
                 <p className="my-6 dark:text-gray-400">
                   Each team will play in 8+ summer tournaments and 6+ fall
                   tournaments ranging across the east coast to gain exposure.
@@ -140,10 +136,9 @@ const Home: NextPageWithLayout = () => {
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-4xl font-bold">
+                <h3 className="text-4xl font-bold underline decoration-red">
                   Hundreds of Passionate Players
                 </h3>
-                <div className="h-0.5 w-[30%] bg-red" />
                 <p className="my-6 dark:text-gray-400">
                   We are proud to have well over 300 active players within our
                   Whiz Kids family, and boast a large supporting alumni network
@@ -157,7 +152,7 @@ const Home: NextPageWithLayout = () => {
 
       <main className="relative flex w-full flex-col items-center bg-dark-gray">
         <section className="w-full py-20 text-white">
-          <div className="mx-auto grid max-w-6xl grid-cols-1 px-6 md:grid-cols-2 md:divide-x lg:px-8">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 px-6 md:grid-cols-2 md:divide-x-2 divide-light-gray lg:px-8">
             <div className="py-6 md:py-0 md:px-6">
               <div className="py-8 text-dark-gray">
                 <h1 className="text-3xl font-black uppercase tracking-wide text-white">
@@ -183,27 +178,7 @@ const Home: NextPageWithLayout = () => {
                 </p>
               </div>
             </div>
-            <form className="ng-untouched ng-pristine ng-valid flex flex-col space-y-6 py-6 md:py-0 md:px-6">
-              {" "}
-              <label className="block">
-                <span className="mb-1">Full name</span>
-                <input className="input-bordered input block h-10 w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm" />
-              </label>
-              <label className="block">
-                <span className="mb-1">Email address</span>
-                <input className="input-bordered input block h-10 w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm" />
-              </label>
-              <label className="block">
-                <span className="mb-1">Message</span>
-                <textarea className="text-md textarea-bordered textarea block w-full rounded-md bg-white font-semibold text-dark-gray"></textarea>
-              </label>
-              <button
-                className="btn mx-3 self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red px-8 py-3 text-lg font-black uppercase tracking-wide text-white
-                  text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
-              >
-                Submit
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </section>
       </main>

@@ -16,7 +16,7 @@ const EditSupport = () => {
           <span className="whitespace-nowrap font-semibold text-red">
             (610) 316-7252
           </span>
-          , and I will get back to you as soon as possible
+          , and I will get back to you as soon as possible.
         </p>
       </div>
     </section>

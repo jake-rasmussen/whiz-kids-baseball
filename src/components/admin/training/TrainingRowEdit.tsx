@@ -42,7 +42,7 @@ const TrainingRowEdit = (props: PropType) => {
   } = props;
 
   const [rowEdits, setRowEdits] = useState({
-    name: "",
+    fullName: "",
     location: "",
     dateTime: new Date("Invalid"),
     totalSlots: -1,
@@ -62,7 +62,7 @@ const TrainingRowEdit = (props: PropType) => {
 
   const resetRowEdits = () => {
     setRowEdits({
-      name: "",
+      fullName: "",
       location: "",
       dateTime: new Date("Invalid"),
       totalSlots: -1,
@@ -111,7 +111,7 @@ const TrainingRowEdit = (props: PropType) => {
       rowEdits.location === "" &&
       time === "" &&
       date === "" &&
-      rowEdits.name === "" &&
+      rowEdits.fullName === "" &&
       rowEdits.totalSlots === -1 &&
       rowEdits.price === -1
     ) {
@@ -121,7 +121,7 @@ const TrainingRowEdit = (props: PropType) => {
 
     if (newRowCreated) {
       createTraining.mutate({
-        name: rowEdits.name,
+        name: rowEdits.fullName,
         location: rowEdits.location,
         dateTime: rowEdits.dateTime,
         totalSlots: rowEdits.totalSlots,
@@ -129,7 +129,7 @@ const TrainingRowEdit = (props: PropType) => {
       });
     } else {
       updateTraining.mutate({
-        name: rowEdits.name === "" ? training.name : rowEdits.name,
+        name: rowEdits.fullName === "" ? training.name : rowEdits.fullName,
         location:
           rowEdits.location === "" ? training.location : rowEdits.location,
         dateTime:
@@ -185,25 +185,25 @@ const TrainingRowEdit = (props: PropType) => {
         isEmptyString(rowEdits.location) ||
         isEmptyString(time) ||
         isEmptyString(date) ||
-        isEmptyString(rowEdits.name) ||
+        isEmptyString(rowEdits.fullName) ||
         rowEdits.totalSlots === -1 ||
         rowEdits.price === -1 ||
         rowEdits.dateTime.toString() === "Invalid Date"
       )
         return false;
-    } else {
-      if (
-        time.length > 0 &&
-        timeStringToTimeAsDate(time).toString() === "Invalid Date"
-      )
-        return false;
-      if (
-        date.length > 0 &&
-        dateStringToDate(date).toString() === "Invalid Date"
-      )
-        return false;
-    }
+    } 
 
+    if (
+      time.length > 0 &&
+      timeStringToTimeAsDate(time).toString() === "Invalid Date"
+    )
+      return false;
+    if (
+      date.length > 0 &&
+      dateStringToDate(date).toString() === "Invalid Date"
+    )
+      return false;
+    
     if (time.length > 0 && time.charAt(2) != ":") return false;
     if (date.length > 0 && date.charAt(2) != "-") return false;
 
@@ -211,7 +211,7 @@ const TrainingRowEdit = (props: PropType) => {
       isWhitespace(rowEdits.location) ||
       isWhitespace(time) ||
       isWhitespace(date) ||
-      isWhitespace(rowEdits.name)
+      isWhitespace(rowEdits.fullName)
     )
       return false;
 
@@ -234,9 +234,9 @@ const TrainingRowEdit = (props: PropType) => {
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
             disabled={!editRow}
             onChange={(e) => {
-              setRowEdits({ ...rowEdits, name: e.currentTarget.value });
+              setRowEdits({ ...rowEdits, fullName: e.currentTarget.value });
             }}
-            value={rowEdits.name}
+            value={rowEdits.fullName}
           />
         </td>
         <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
@@ -274,7 +274,7 @@ const TrainingRowEdit = (props: PropType) => {
             type="text"
             placeholder={
               training.dateTime.toString() === "Invalid Date"
-                ? "HH:MM"
+                ? "HH:MMAP"
                 : dateToTimeStringRaw(training.dateTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
@@ -344,7 +344,7 @@ const TrainingRowEdit = (props: PropType) => {
                   htmlFor="delete-modal"
                   onClick={() => setDeleteRow(index)}
                 >
-                  <IconTrash className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                  <IconTrash className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                 </label>
               </button>
             </div>
@@ -352,11 +352,11 @@ const TrainingRowEdit = (props: PropType) => {
             <div>
               <button onClick={handleSaveTraining}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
-                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
                 </label>
               </button>
               <button onClick={handleCancelChanges}>
-                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
               </button>
             </div>
           ) : (

@@ -197,26 +197,26 @@ const RosterCard = (props: PropType) => {
         playerEdits.lastName.length === 0
       )
         return false;
-    } else {
-      if (
-        !isEmptyString(playerEdits.gradYear) &&
-        playerEdits.gradYear.length != 4
-      )
-        return false;
+    } 
 
-      if (
-        !isEmptyString(playerEdits.position) &&
-        acronymToPositions(playerEdits.position).length === 0
-      )
-        return false;
+    if (
+      !isEmptyString(playerEdits.gradYear) &&
+      playerEdits.gradYear.length != 4
+    )
+      return false;
 
-      if (
-        !isEmptyString(playerEdits.firstName) &&
-        isEmptyString(playerEdits.lastName)
-      )
-        return false;
-    }
+    if (
+      !isEmptyString(playerEdits.position) &&
+      acronymToPositions(playerEdits.position).length === 0
+    )
+      return false;
 
+    if (
+      !isEmptyString(playerEdits.firstName) &&
+      isEmptyString(playerEdits.lastName)
+    )
+      return false;
+   
     if (
       isWhitespace(playerEdits.gradYear) ||
       isWhitespace(playerEdits.position) ||
@@ -336,11 +336,11 @@ const RosterCard = (props: PropType) => {
               <div className="flex flex-col p-2">
                 <button onClick={handleSavePlayer}>
                   <label htmlFor={validInput ? "" : "error-modal"}>
-                    <IconCheck className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                    <IconCheck className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
                   </label>
                 </button>
                 <button onClick={handleCancelChanges}>
-                  <IconX className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                  <IconX className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
                 </button>
               </div>
             ) : (

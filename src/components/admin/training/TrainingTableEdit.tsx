@@ -1,10 +1,11 @@
-import type { Training, Tryout } from "@prisma/client";
+import type { Training } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { api } from "../../../utils/api";
 import Modal from "../Modal";
 import TrainingRowEdit from "./TrainingRowEdit";
+import Error from "next/error";
 
 const Table = () => {
   const [editRowIndex, setEditRowIndex] = useState(-1);
@@ -16,6 +17,7 @@ const Table = () => {
     data: trainings,
     isLoading,
     isError,
+    error
   } = api.training.getAllTrainingsForAdmin.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess() {
@@ -38,7 +40,7 @@ const Table = () => {
   if (isLoading) {
     return <></>;
   } else if (isError) {
-    return <div>Error...</div>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   const addTemporaryRow = (index: number) => {
@@ -50,7 +52,6 @@ const Table = () => {
       location: "Location",
       dateTime: new Date("Invalid"),
       totalSlots: -1,
-      availableSlots: -1,
       price: -1,
       createdAt: new Date(),
       updatedAt: new Date(),

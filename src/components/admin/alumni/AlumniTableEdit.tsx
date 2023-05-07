@@ -5,6 +5,7 @@ import { toast, Toaster } from "react-hot-toast";
 import { api } from "../../../utils/api";
 import Modal from "../Modal";
 import AlumniRowEdit from "./AlumniRowEdit";
+import Error from "next/error";
 
 const Table = () => {
   const [editRowIndex, setEditRowIndex] = useState(-1);
@@ -16,6 +17,7 @@ const Table = () => {
     data: alumni,
     isLoading,
     isError,
+    error
   } = api.alumni.getAllAlumni.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess() {
@@ -37,7 +39,7 @@ const Table = () => {
   if (isLoading) {
     return <></>;
   } else if (isError) {
-    return <div>Error...</div>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   const addTemporaryRow = (index: number) => {

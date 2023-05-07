@@ -1,9 +1,5 @@
 import {
-  IconCheck,
   IconCirclePlus,
-  IconEdit,
-  IconTrash,
-  IconX,
 } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";
@@ -12,6 +8,7 @@ import Modal from "../Modal";
 import type { Player } from "@prisma/client";
 import RosterCard from "./RosterCard";
 import LoadingComponent from "../../LoadingComponent";
+import Error from "next/error";
 
 interface PropType {
   teamId: string;
@@ -28,6 +25,7 @@ const Roster = (props: PropType) => {
     data: players,
     isLoading,
     isError,
+    error
   } = api.player.getPlayersByTeamId.useQuery(
     { teamId },
     {
@@ -53,7 +51,7 @@ const Roster = (props: PropType) => {
   if (isLoading) {
     return <LoadingComponent />;
   } else if (isError) {
-    return <div>Error...</div>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   const addTemporaryPlayer = (index: number) => {

@@ -6,6 +6,7 @@ import { api } from "../../../utils/api";
 import Modal from "../Modal";
 import PracticeRowEdit from "./PracticeRowEdit";
 import LoadingComponent from "../../LoadingComponent";
+import Error from "next/error";
 
 type PropType = {
   teamId: string;
@@ -21,6 +22,7 @@ const Table = ({ teamId }: PropType) => {
     data: practices,
     isLoading,
     isError,
+    error
   } = api.practice.getPracticesByTeamId.useQuery(
     { teamId },
     {
@@ -45,7 +47,7 @@ const Table = ({ teamId }: PropType) => {
   if (isLoading) {
     return <LoadingComponent />;
   } else if (isError) {
-    return <div>Error...</div>;
+    return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
   const addTemporaryRow = (index: number) => {
