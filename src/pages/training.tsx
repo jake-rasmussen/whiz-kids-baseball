@@ -4,25 +4,31 @@ import { IconInfoCircle } from "@tabler/icons";
 import { ReactElement, useState } from "react";
 import React from "react";
 import { api } from "../utils/api";
-import { Training } from "@prisma/client";
 import {
   dateToStringFormatted,
   dateToTimeStringFormatted,
 } from "../utils/helpers";
 import Loading from "../components/LoadingPage";
 import Error from "next/error";
+import { useUser } from "@clerk/nextjs";
 
 const Trainings: NextPageWithLayout = () => {
   const {
     data: trainings,
-    isLoading,
+    isLoading: isLoadingTrainings,
     isError,
     error
   } = api.training.getTrainingWithAvailability.useQuery();
 
+  const { isSignedIn } = useUser();
+  const { data: isAdmin, isLoading: isLoadingAdmin } = api.user.isUserAdmin.useQuery(
+    undefined,
+    { enabled: !!isSignedIn }
+  );
+
   const [playerName, setPlayerName] = useState("");
 
-  if (isLoading) {
+  if (isLoadingTrainings || isLoadingAdmin) {
     return <Loading />;
   } else if (isError) {
     return <Error statusCode={error.data?.httpStatus || 500} />;
@@ -188,7 +194,7 @@ const Trainings: NextPageWithLayout = () => {
                           <label
                             className="text-md btn self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red font-black uppercase tracking-wide text-white
                             transition duration-300 ease-in-out hover:scale-110 hover:cursor-pointer"
-                            htmlFor="register-modal"
+                            htmlFor={!isAdmin ? "register-modal" : ""}
                           >
                             Register
                           </label>
