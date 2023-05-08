@@ -27,7 +27,7 @@ const Trainings: NextPageWithLayout = () => {
   );
 
   const [playerName, setPlayerName] = useState("");
-
+  
   if (isLoadingTrainings || isLoadingAdmin) {
     return <Loading />;
   } else if (isError) {

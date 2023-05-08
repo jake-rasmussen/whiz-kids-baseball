@@ -121,6 +121,7 @@ model TrainingsOnUsers {
   userId     String
   training   Training @relation(fields: [trainingId], references: [id])
   trainingId String
+  playerName String
 
   @@id([userId, trainingId])
 }
