@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import BurgerMenu from "./Burger";
 import { api } from "../utils/api";
+import { AnimatePresence, motion } from "framer-motion";
 
 const NavBar: React.FC = () => {
   const { isSignedIn } = useUser();
@@ -67,16 +68,16 @@ const NavBar: React.FC = () => {
             <SignedOut>
               <SignInButton>
                 <button
-                  className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
-                transition duration-300 ease-in-out hover:scale-120"
+                  className="hover:scale-120 btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide
+                text-white transition duration-300 ease-in-out"
                 >
                   Log in
                 </button>
               </SignInButton>
               <SignUpButton>
                 <button
-                  className="btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
-                transition duration-300 ease-in-out hover:scale-120"
+                  className="hover:scale-120 btn mx-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide
+                text-white transition duration-300 ease-in-out"
                 >
                   Sign up
                 </button>
@@ -87,23 +88,37 @@ const NavBar: React.FC = () => {
               <div className="mx-5 my-2">
                 {isAdmin ? (
                   <div className="flex-row text-lg">
-                    <Link
-                      href="/admin"
-                      className="link-underline link-underline-black mx-2 hidden font-extrabold text-red hover:text-red md:block "
-                    >
-                      Admin Edit
-                    </Link>
+                    <AnimatePresence>
+                      <motion.div
+                        initial={{ opacity: 0, x: "-2rem" }}
+                        animate={{ opacity: 1, x: 0 }}
+                      >
+                        <Link
+                          href="/admin"
+                          className="link-underline link-underline-black mx-2 hidden font-extrabold text-red hover:text-red md:block "
+                        >
+                          Admin Edit
+                        </Link>
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                 ) : (
                   <div>
                     {!isLoading ? (
                       <div className="flex-row text-lg">
-                        <Link
-                          href="/"
-                          className="link-underline link-underline-black mx-2 hidden font-extrabold text-dark-gray hover:text-red md:block"
-                        >
-                          My Trainings
-                        </Link>
+                        <AnimatePresence>
+                          <motion.div
+                            initial={{ opacity: 0, x: "-2rem" }}
+                            animate={{ opacity: 1, x: 0 }}
+                          >
+                            <Link
+                              href="/user/training"
+                              className="link-underline link-underline-black mx-2 hidden font-extrabold text-dark-gray hover:text-red md:block"
+                            >
+                              My Trainings
+                            </Link>
+                          </motion.div>
+                        </AnimatePresence>
                       </div>
                     ) : (
                       <></>
@@ -116,7 +131,14 @@ const NavBar: React.FC = () => {
 
           <div className="mx-4 flex flex-row items-center justify-end gap-12">
             <SignedIn>
-              <UserButton />
+              <AnimatePresence>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  <UserButton />
+                </motion.div>
+              </AnimatePresence>
             </SignedIn>
 
             <div className="block lg:hidden">

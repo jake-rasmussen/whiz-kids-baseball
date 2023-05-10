@@ -45,11 +45,11 @@ const Home: NextPageWithLayout = () => {
       </main>
 
       <main className="relative flex w-full flex-col items-center bg-dark-gray">
-        <section className="container my-8 text-white flex flex-col items-center justify-center w-full space-y-8 p-4 md:p-10 md:px-12 xl:px-24">
+        <section className="container my-8 flex w-full flex-col items-center justify-center space-y-8 p-4 text-white md:p-10 md:px-12 xl:px-24">
           <h1 className="text-center text-3xl font-bold leading-none md:text-6xl">
             All substance, <span className="text-red">little show</span>
           </h1>
-          <p className="divider before:bg-light-gray after:bg-light-gray py-8 text-center text-2xl">
+          <p className="divider py-8 text-center text-2xl before:bg-light-gray after:bg-light-gray">
             We are passionate, straight forward and very well informed. <br />
             Our mission is to always be equipped to push you further.
           </p>
@@ -152,7 +152,7 @@ const Home: NextPageWithLayout = () => {
 
       <main className="relative flex w-full flex-col items-center bg-dark-gray">
         <section className="w-full py-20 text-white">
-          <div className="mx-auto grid max-w-6xl grid-cols-1 px-6 md:grid-cols-2 md:divide-x-2 divide-light-gray lg:px-8">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 divide-light-gray px-6 md:grid-cols-2 md:divide-x-2 lg:px-8">
             <div className="py-6 md:py-0 md:px-6">
               <div className="py-8 text-dark-gray">
                 <h1 className="text-3xl font-black uppercase tracking-wide text-white">

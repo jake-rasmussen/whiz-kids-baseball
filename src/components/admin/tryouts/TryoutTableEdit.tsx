@@ -17,7 +17,7 @@ const Table = () => {
     data: tryouts,
     isLoading,
     isError,
-    error
+    error,
   } = api.tryout.getAllTryouts.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess() {
@@ -31,9 +31,12 @@ const Table = () => {
   const deleteTryout = api.tryout.deleteTryout.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Deleting Tryout...");
     },
     onSuccess() {
       queryClient.tryout.getAllTryouts.invalidate();
+      toast.dismiss();
+      toast.success("Successfully Deleted Tryout!");
     },
   });
 
@@ -70,6 +73,7 @@ const Table = () => {
     if (tryoutToBeDeleted) {
       deleteTryout.mutate({ id: tryoutToBeDeleted.id });
     } else {
+      toast.dismiss();
       toast.error("Error Deleting Tryout");
     }
   };

@@ -18,7 +18,7 @@ const Table = () => {
     data: teams,
     isLoading,
     isError,
-    error
+    error,
   } = api.team.getAllTeams.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess() {
@@ -31,14 +31,17 @@ const Table = () => {
   const deleteTeam = api.team.deleteTeam.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Deleting Team...");
     },
     onSuccess() {
       queryClient.team.getAllTeams.invalidate();
+      toast.dismiss();
+      toast.success("Successfully Deleted Team!");
     },
   });
 
   if (isLoading) {
-    return <></>
+    return <></>;
   } else if (isError) {
     return <Error statusCode={error.data?.httpStatus || 500} />;
   }
@@ -69,6 +72,7 @@ const Table = () => {
     if (teamToBeDeleted) {
       deleteTeam.mutate({ id: teamToBeDeleted.id, deletePlayers: false });
     } else {
+      toast.dismiss();
       toast.error("Error Deleting Player");
     }
   };

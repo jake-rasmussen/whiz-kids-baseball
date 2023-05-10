@@ -22,7 +22,7 @@ const Table = ({ teamId }: PropType) => {
     data: practices,
     isLoading,
     isError,
-    error
+    error,
   } = api.practice.getPracticesByTeamId.useQuery(
     { teamId },
     {
@@ -38,9 +38,12 @@ const Table = ({ teamId }: PropType) => {
   const deletePractice = api.practice.deletePractice.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Deleting Practice...");
     },
     onSuccess() {
       queryClient.practice.getPracticesByTeamId.invalidate({ teamId });
+      toast.dismiss();
+      toast.success("Successfully Deleted Practice!");
     },
   });
 
@@ -80,6 +83,7 @@ const Table = ({ teamId }: PropType) => {
     if (practiceToBeDeleted) {
       deletePractice.mutate({ id: practiceToBeDeleted.id });
     } else {
+      toast.dismiss();
       toast.error("Error Deleting Practice");
     }
   };

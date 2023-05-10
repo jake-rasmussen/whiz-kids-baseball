@@ -7,7 +7,12 @@ import { isEmptyString } from "../utils/helpers";
 import Error from "next/error";
 
 const InterestForm = () => {
-  const { data: teams, isLoading, isError, error } = api.team.getAllTeams.useQuery();
+  const {
+    data: teams,
+    isLoading,
+    isError,
+    error,
+  } = api.team.getAllTeams.useQuery();
 
   const [formData, setFormData] = useState({
     playerName: "",
@@ -35,7 +40,7 @@ const InterestForm = () => {
       throws: "",
       playedAtWhizKids: false,
     });
-  }
+  };
 
   const sendEmail = api.email.sendInterestEmail.useMutation({
     onMutate() {
@@ -47,6 +52,7 @@ const InterestForm = () => {
       resetForm();
     },
     onError() {
+      toast.dismiss();
       toast.error("Error Sending Form");
     },
   });
@@ -60,14 +66,14 @@ const InterestForm = () => {
       isEmptyString(formData.currentSchool) ||
       isEmptyString(formData.dateOfBirth) ||
       isEmptyString(formData.positions) ||
-      isEmptyString(formData.bats) || 
+      isEmptyString(formData.bats) ||
       isEmptyString(formData.throws)
     ) {
       return false;
     }
 
     return true;
-  }
+  };
 
   const handleSend = () => {
     if (!checkValidInput()) {
@@ -76,7 +82,7 @@ const InterestForm = () => {
 
     sendEmail.mutate({
       playerName: formData.playerName,
-      userEmail:formData.userEmail,
+      userEmail: formData.userEmail,
       teamInterest: formData.teamInterest,
       cityOrTown: formData.cityOrTown,
       currentSchool: formData.currentSchool,
@@ -85,8 +91,8 @@ const InterestForm = () => {
       bats: formData.bats as "Right" | "Left" | "Both",
       throws: formData.throws as "Right" | "Left",
       playedAtWhizKids: formData.playedAtWhizKids,
-    })
-  }
+    });
+  };
 
   // Strange glitch with chrome and TailwindCSS where you can't
   // capitalize option text, so created helper method
@@ -99,7 +105,11 @@ const InterestForm = () => {
   };
 
   if (isLoading) {
-    return <div className="py-20"><Loading /></div>;
+    return (
+      <div className="py-20">
+        <Loading />
+      </div>
+    );
   } else if (isError) {
     return <Error statusCode={error.data?.httpStatus || 500} />;
   }
@@ -127,7 +137,9 @@ const InterestForm = () => {
               type="name"
               className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
               value={formData.playerName}
-              onChange={(e) => setFormData({ ...formData, playerName: e.currentTarget.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, playerName: e.currentTarget.value })
+              }
               required
             />
           </div>
@@ -137,7 +149,9 @@ const InterestForm = () => {
               type="email"
               className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
               value={formData.userEmail}
-              onChange={(e) => setFormData({ ...formData, userEmail: e.currentTarget.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, userEmail: e.currentTarget.value })
+              }
               required
             />
           </div>
@@ -148,7 +162,12 @@ const InterestForm = () => {
               name="teamSelect"
               id="teamSelect"
               value={formData.teamInterest}
-              onChange={(e) => setFormData({ ...formData, teamInterest: e.currentTarget.value})}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  teamInterest: e.currentTarget.value,
+                })
+              }
               required
             >
               <option disabled value={""}></option>{" "}
@@ -167,7 +186,9 @@ const InterestForm = () => {
               type="home"
               className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
               value={formData.cityOrTown}
-              onChange={(e) => setFormData({ ...formData, cityOrTown: e.currentTarget.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, cityOrTown: e.currentTarget.value })
+              }
               required
             />
           </div>
@@ -177,7 +198,12 @@ const InterestForm = () => {
               type="school"
               className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
               value={formData.currentSchool}
-              onChange={(e) => setFormData({ ...formData, currentSchool: e.currentTarget.value})}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  currentSchool: e.currentTarget.value,
+                })
+              }
               required
             />
           </div>
@@ -187,7 +213,9 @@ const InterestForm = () => {
               type="home"
               className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
               value={formData.dateOfBirth}
-              onChange={(e) => setFormData({ ...formData, dateOfBirth: e.currentTarget.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, dateOfBirth: e.currentTarget.value })
+              }
               required
             />
           </div>
@@ -197,7 +225,9 @@ const InterestForm = () => {
               type="position"
               className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
               value={formData.positions}
-              onChange={(e) => setFormData({ ...formData, positions: e.currentTarget.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, positions: e.currentTarget.value })
+              }
               required
             />
           </div>
@@ -208,7 +238,9 @@ const InterestForm = () => {
               name="batsSelect"
               id="batsSelect"
               value={formData.bats}
-              onChange={(e) => setFormData({ ...formData, bats: e.currentTarget.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, bats: e.currentTarget.value })
+              }
               required
             >
               <option disabled value=""></option>
@@ -224,7 +256,9 @@ const InterestForm = () => {
               name="throwSelect"
               id="throwSelect"
               value={formData.throws}
-              onChange={(e) => setFormData({ ...formData, throws: e.currentTarget.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, throws: e.currentTarget.value })
+              }
               required
             >
               <option disabled value=""></option>
@@ -240,7 +274,12 @@ const InterestForm = () => {
               <input
                 type="checkbox"
                 className="checkbox-primary checkbox m-5 bg-white"
-                onClick={() => setFormData({...formData, playedAtWhizKids: !formData.playedAtWhizKids})}
+                onClick={() =>
+                  setFormData({
+                    ...formData,
+                    playedAtWhizKids: !formData.playedAtWhizKids,
+                  })
+                }
               />
             </label>
           </div>
@@ -253,7 +292,7 @@ const InterestForm = () => {
                 if (checkValidInput()) {
                   e.preventDefault();
                 }
-               }}
+              }}
             >
               Submit
             </button>

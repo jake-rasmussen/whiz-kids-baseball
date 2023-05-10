@@ -79,10 +79,12 @@ const RosterCard = (props: PropType) => {
   const createPlayer = api.player.createPlayer.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Creating Player...");
     },
     onSuccess() {
       onSuccessFunction();
       setNewPlayerCreated(false);
+      toast.dismiss();
       toast.success("Successfully Created Player");
     },
   });
@@ -90,9 +92,11 @@ const RosterCard = (props: PropType) => {
   const updatePlayer = api.player.updatePlayer.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Updating Player...");
     },
     onSuccess() {
       onSuccessFunction();
+      toast.dismiss();
       toast.success("Successfully Updated Player");
     },
   });
@@ -197,7 +201,7 @@ const RosterCard = (props: PropType) => {
         playerEdits.lastName.length === 0
       )
         return false;
-    } 
+    }
 
     if (
       !isEmptyString(playerEdits.gradYear) &&
@@ -216,7 +220,7 @@ const RosterCard = (props: PropType) => {
       isEmptyString(playerEdits.lastName)
     )
       return false;
-   
+
     if (
       isWhitespace(playerEdits.gradYear) ||
       isWhitespace(playerEdits.position) ||
@@ -336,11 +340,11 @@ const RosterCard = (props: PropType) => {
               <div className="flex flex-col p-2">
                 <button onClick={handleSavePlayer}>
                   <label htmlFor={validInput ? "" : "error-modal"}>
-                    <IconCheck className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                    <IconCheck className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                   </label>
                 </button>
                 <button onClick={handleCancelChanges}>
-                  <IconX className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                  <IconX className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                 </button>
               </div>
             ) : (

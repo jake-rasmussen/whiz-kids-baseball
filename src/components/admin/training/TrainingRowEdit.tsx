@@ -81,10 +81,12 @@ const TrainingRowEdit = (props: PropType) => {
   const createTraining = api.training.createTraining.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Creating Training...")
     },
     onSuccess() {
       onSuccessFunction();
       setNewRowCreated(false);
+      toast.dismiss();
       toast.success("Successfully Created Training");
     },
   });
@@ -92,9 +94,11 @@ const TrainingRowEdit = (props: PropType) => {
   const updateTraining = api.training.updateTraining.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Updating Training...");
     },
     onSuccess() {
       onSuccessFunction();
+      toast.dismiss();
       toast.success("Successfully Updated Training");
     },
   });
@@ -191,19 +195,16 @@ const TrainingRowEdit = (props: PropType) => {
         rowEdits.dateTime.toString() === "Invalid Date"
       )
         return false;
-    } 
+    }
 
     if (
       time.length > 0 &&
       timeStringToTimeAsDate(time).toString() === "Invalid Date"
     )
       return false;
-    if (
-      date.length > 0 &&
-      dateStringToDate(date).toString() === "Invalid Date"
-    )
+    if (date.length > 0 && dateStringToDate(date).toString() === "Invalid Date")
       return false;
-    
+
     if (time.length > 0 && time.charAt(2) != ":") return false;
     if (date.length > 0 && date.charAt(2) != "-") return false;
 
@@ -352,11 +353,11 @@ const TrainingRowEdit = (props: PropType) => {
             <div>
               <button onClick={handleSaveTraining}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
-                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                 </label>
               </button>
               <button onClick={handleCancelChanges}>
-                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
               </button>
             </div>
           ) : (

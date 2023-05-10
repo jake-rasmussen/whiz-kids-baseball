@@ -67,7 +67,7 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
               <>
                 <div className="divider my-0"></div>
                 <Link
-                  href="#"
+                  href="/user/training"
                   className="tracking-none btn-ghost btn-wide btn  text-xl font-black text-dark-gray hover:text-red"
                 >
                   My Trainings

@@ -9,7 +9,12 @@ import Loading from "../components/LoadingPage";
 import Error from "next/error";
 
 const Teams: NextPageWithLayout = () => {
-  const { data: teams, isError, isLoading, error } = api.team.getAllTeams.useQuery();
+  const {
+    data: teams,
+    isError,
+    isLoading,
+    error,
+  } = api.team.getAllTeams.useQuery();
 
   if (isLoading) {
     return <Loading />;

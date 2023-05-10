@@ -17,7 +17,7 @@ const Table = () => {
     data: alumni,
     isLoading,
     isError,
-    error
+    error,
   } = api.alumni.getAllAlumni.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess() {
@@ -30,9 +30,12 @@ const Table = () => {
   const deleteAlumni = api.alumni.deleteAlumni.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Deleting Alumni...");
     },
     onSuccess() {
       queryClient.alumni.getAllAlumni.invalidate();
+      toast.dismiss();
+      toast.success("Succesfully Deleted Alumn!");
     },
   });
 
@@ -71,6 +74,7 @@ const Table = () => {
     if (alumnToBeDeleted) {
       deleteAlumni.mutate({ id: alumnToBeDeleted.id });
     } else {
+      toast.dismiss();
       toast.error("Error Deleting Alumn");
     }
   };

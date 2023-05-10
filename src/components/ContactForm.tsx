@@ -28,6 +28,7 @@ const ContactForm = () => {
       resetForm();
     },
     onError() {
+      toast.dismiss();
       toast.error("Error Sending Form");
     },
   });
@@ -42,14 +43,12 @@ const ContactForm = () => {
     }
 
     return true;
-  }
+  };
 
   const handleSend = () => {
     if (!checkValidInput()) {
       return;
     }
-
-    console.log(formData.message);
 
     sendEmail.mutate({
       fullName: formData.fullName,

@@ -17,7 +17,7 @@ const Table = () => {
     data: trainings,
     isLoading,
     isError,
-    error
+    error,
   } = api.training.getAllTrainingsForAdmin.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess() {
@@ -31,9 +31,12 @@ const Table = () => {
   const deleteTraining = api.training.deleteTraining.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Deleting Training...");
     },
     onSuccess() {
       queryClient.training.getAllTrainingsForAdmin.invalidate();
+      toast.dismiss();
+      toast.success("Successfully Deleted Training!");
     },
   });
 
@@ -73,6 +76,7 @@ const Table = () => {
     if (trainingToBeDeleted) {
       deleteTraining.mutate({ id: trainingToBeDeleted.id });
     } else {
+      toast.dismiss();
       toast.error("Error Deleting Training");
     }
   };

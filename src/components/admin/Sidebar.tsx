@@ -11,21 +11,31 @@ import {
 import Link from "next/link";
 import { api } from "../../utils/api";
 import Loading from "../LoadingPage";
-import type { Team } from "@prisma/client";
+import type { Team, Training } from "@prisma/client";
 import whizkidsw from "../../../assets/images/whizkidsw.png";
 import Image from "next/image";
 import Error from "next/error";
 
 const NavBar: React.FC = () => {
-  const { data, isError, isLoading, error } = api.team.getAllTeams.useQuery(
-    undefined,
-    { refetchOnWindowFocus: false }
-  );
+  const {
+    data: teams,
+    isLoading: isLoadingTeams,
+    isError: isErrorTeams,
+    error,
+  } = api.team.getAllTeams.useQuery(undefined, { refetchOnWindowFocus: false });
 
-  if (isLoading) {
+  const {
+    data: trainings,
+    isLoading: isLoadingTrainings,
+    isError: isErrorTrainings,
+  } = api.training.getAllTrainingsForAdmin.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoadingTeams || isLoadingTrainings) {
     return <Loading />;
-  } else if (isError) {
-    return <Error statusCode={error.data?.httpStatus || 500} />;
+  } else if (isErrorTeams || isErrorTrainings) {
+    return <Error statusCode={(error && error.data?.httpStatus) || 500} />;
   }
 
   return (
@@ -73,10 +83,10 @@ const NavBar: React.FC = () => {
                 <span>Teams</span>
               </button>
             </Link>
-            {data.map((entry: Team, index: number) => (
-              <Link href={`/admin/teams/${entry.id}`} key={`team${index}`}>
+            {teams.map((team: Team, index: number) => (
+              <Link href={`/admin/teams/${team.id}`} key={`team${index}`}>
                 <button className="btn-ghost btn-sm btn flex w-full items-center justify-start space-x-3 rounded-md text-left text-xs">
-                  <span className="pl-4">{entry.name}</span>
+                  <span className="pl-4">{team.name}</span>
                 </button>
               </Link>
             ))}
@@ -100,9 +110,19 @@ const NavBar: React.FC = () => {
               <Link href="/admin/training">
                 <button className="btn-ghost btn flex w-full items-center justify-start space-x-3 rounded-md p-2">
                   <IconActivity className="flex items-center space-x-3 rounded-md" />
-                  <span>Training</span>
+                  <span>Trainings</span>
                 </button>
               </Link>
+              {trainings.map((training: Training, index: number) => (
+                <Link
+                  href={`/admin/training/${training.id}`}
+                  key={`team${index}`}
+                >
+                  <button className="btn-ghost btn-sm btn flex w-full items-center justify-start space-x-3 rounded-md text-left text-xs">
+                    <span className="pl-4">{training.name}</span>
+                  </button>
+                </Link>
+              ))}
             </li>
           </ul>
         </div>

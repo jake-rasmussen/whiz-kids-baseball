@@ -20,7 +20,7 @@ const Tryouts: NextPageWithLayout = () => {
     data: tryouts,
     isLoading,
     isError,
-    error
+    error,
   } = api.tryout.getAllTryouts.useQuery();
 
   if (isLoading) {
@@ -92,7 +92,7 @@ const Tryouts: NextPageWithLayout = () => {
                       className="border-y border-light-gray text-dark-gray"
                       key={`tryout${index}`}
                     >
-                      <td className="whitespace-nowrap py-4 text-center text-base font-light text-dark-gray md:text-lg">
+                      <td className="whitespace-nowrap py-4 text-center text-base font-light capitalize text-dark-gray md:text-lg">
                         {tryout.location}
                       </td>
                       <td className="whitespace-nowrap py-4 text-center text-base font-light text-dark-gray md:text-lg">
@@ -109,7 +109,7 @@ const Tryouts: NextPageWithLayout = () => {
           </table>
         ) : (
           <>
-            <span className="text-md px-5 text-center font-semibold text-red md:text-xl w-[50%]">
+            <span className="text-md w-[50%] px-5 text-center font-semibold text-red md:text-xl">
               <div className="divider before:bg-light-gray after:bg-light-gray"></div>
               There are currently no listed tryouts, <br />
               please check back at a later date!

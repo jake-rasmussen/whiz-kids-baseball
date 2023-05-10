@@ -26,7 +26,7 @@ export const playerRouter = createTRPCRouter({
       },
       orderBy: {
         lastName: "asc",
-      }
+      },
     });
 
     return players;

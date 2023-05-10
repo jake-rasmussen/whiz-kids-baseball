@@ -22,7 +22,7 @@ const Table = ({ teamId }: PropType) => {
     data: tournaments,
     isLoading,
     isError,
-    error
+    error,
   } = api.tournament.getTournamnetsByTeamId.useQuery(
     { teamId },
     {
@@ -38,9 +38,12 @@ const Table = ({ teamId }: PropType) => {
   const deleteTournament = api.tournament.deleteTournament.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Deleting Tournament...");
     },
     onSuccess() {
       queryClient.tournament.getTournamnetsByTeamId.invalidate({ teamId });
+      toast.dismiss();
+      toast.success("Succesfully Deleted Tournament!");
     },
   });
 
@@ -80,6 +83,7 @@ const Table = ({ teamId }: PropType) => {
     if (tournamentToBeDeleted) {
       deleteTournament.mutate({ id: tournamentToBeDeleted.id });
     } else {
+      toast.dismiss();
       toast.error("Error Deleting Tournament");
     }
   };
@@ -113,7 +117,7 @@ const Table = ({ teamId }: PropType) => {
           </tr>
         </thead>
         <tbody className="capitalize shadow-xl">
-          {tournaments.map((tournament: Tournament, index) => {
+          {tournaments.map((tournament: Tournament, index: number) => {
             return (
               <TournamentRowEdit
                 index={index}

@@ -32,7 +32,7 @@ const Alumni: NextPageWithLayout = () => {
     data: alumni,
     isError,
     isLoading,
-    error
+    error,
   } = api.alumni.getAlumniByLastNameLetter.useQuery(
     { letter: page },
     { refetchOnWindowFocus: false }

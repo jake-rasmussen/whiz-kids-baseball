@@ -72,10 +72,12 @@ const PracticeRow = (props: PropType) => {
   const createPractice = api.practice.createPractice.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Creating Practice...");
     },
     onSuccess() {
       onSuccessFunction();
       setNewRowCreated(false);
+      toast.dismiss();
       toast.success("Successfully Created Practice");
     },
   });
@@ -83,9 +85,11 @@ const PracticeRow = (props: PropType) => {
   const updatePractice = api.practice.updatePractice.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Updating Practice...");
     },
     onSuccess() {
       onSuccessFunction();
+      toast.dismiss();
       toast.success("Successfully Updated Practice");
     },
   });
@@ -157,13 +161,9 @@ const PracticeRow = (props: PropType) => {
       )
         return false;
     }
-    
-    if (
-      rowEdits.days.length > 0 &&
-      dayStringToDays(rowEdits.days).length == 0
-    )
-      return false;
 
+    if (rowEdits.days.length > 0 && dayStringToDays(rowEdits.days).length == 0)
+      return false;
 
     if (rowEdits.startTime.length > 0 && rowEdits.startTime.charAt(2) != ":")
       return false;
@@ -287,11 +287,11 @@ const PracticeRow = (props: PropType) => {
             <div>
               <button onClick={handleSavePractice}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
-                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                 </label>
               </button>
               <button onClick={handleCancelChanges}>
-                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
               </button>
             </div>
           ) : (

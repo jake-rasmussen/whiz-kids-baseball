@@ -68,20 +68,25 @@ const AlumniRowEdit = (props: PropType) => {
   const createAlumni = api.alumni.createAlumni.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Creating Alumn...");
     },
     onSuccess() {
       onSuccessFunction();
       setNewRowCreated(false);
-      toast.success("Successfully Created Alumni");
+      toast.dismiss();
+      toast.success("Successfully Created Alumn");
     },
   });
 
   const updateAlumni = api.alumni.updateAlumni.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Updating Alumn...");
     },
     onSuccess() {
       onSuccessFunction();
+      
+      toast.dismiss();
       toast.success("Successfully Updated Alumni");
     },
   });
@@ -260,11 +265,11 @@ const AlumniRowEdit = (props: PropType) => {
             <div>
               <button onClick={handleSaveAlumn}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
-                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                 </label>
               </button>
               <button onClick={handleCancelChanges}>
-                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
               </button>
             </div>
           ) : (

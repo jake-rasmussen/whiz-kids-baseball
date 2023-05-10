@@ -8,6 +8,7 @@ import PracticeTableEdit from "../../../components/admin/team/PracticeTableEdit"
 import TournamentTableEdit from "../../../components/admin/team/TournamentTableEdit";
 import Roster from "../../../components/admin/team/Roster";
 import Loading from "../../../components/LoadingPage";
+import toast, { Toaster } from "react-hot-toast";
 
 const TeamEditPage: NextPageWithLayout = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -22,8 +23,9 @@ const TeamEditPage: NextPageWithLayout = () => {
   return (
     <>
       <div className="w-full">
+        <Toaster position="top-right" />
         <main className="flex min-h-screen min-w-full flex-col items-center">
-          <section className="py-[4vh]">
+          <section className="py-[4vh]" onClick={() => toast.remove()}>
             <Tab activeTab={activeTab} setActiveTab={setActiveTab} />
           </section>
 

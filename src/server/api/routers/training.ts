@@ -49,6 +49,17 @@ export const trainingRouter = createTRPCRouter({
     return availableTrainings;
   }),
 
+  getTrainingsForUserId: protectedProcedure
+    .query(async ({ ctx }) => {
+      const { clerkId } = ctx.user;
+      const trainings = await ctx.prisma.trainingsOnUsers.findMany({
+        where: { userId: clerkId },
+        include: { training: true }
+      })
+
+      return trainings;
+    }),
+
   //TODO: make this an admin procedute after switching frontend to use get all trainings with availability
   getAllTrainingsForAdmin: adminProcedure.query(async ({ ctx }) => {
     const training = await ctx.prisma.training.findMany({

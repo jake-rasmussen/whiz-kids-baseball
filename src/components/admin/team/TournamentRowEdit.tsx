@@ -69,10 +69,12 @@ const TournamentRow = (props: PropType) => {
   const createTournament = api.tournament.createTournament.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Creating Tournament...");
     },
     onSuccess() {
       onSuccessFunction();
       setNewRowCreated(false);
+      toast.dismiss();
       toast.success("Sucessfully Created Tournament");
     },
   });
@@ -80,9 +82,11 @@ const TournamentRow = (props: PropType) => {
   const updateTournament = api.tournament.updateTournamentDetails.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Updating Tournament...");
     },
     onSuccess() {
       onSuccessFunction();
+      toast.dismiss();
       toast.success("Successfully Updated Tournament");
     },
   });
@@ -148,15 +152,15 @@ const TournamentRow = (props: PropType) => {
         isEmptyString(rowEdits.format)
       )
         return false;
-    } 
-    
+    }
+
     if (
       !isEmptyString(rowEdits.dates) &&
       (rowEdits.dates.length < 5 ||
         dateStringToDates(rowEdits.dates).length === 0)
     )
       return false;
-    
+
     if (!isEmptyString(rowEdits.dates) && rowEdits.dates.at(2) != "-")
       return false;
 
@@ -258,11 +262,11 @@ const TournamentRow = (props: PropType) => {
             <div>
               <button onClick={handleSaveTournament}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
-                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                 </label>
               </button>
               <button onClick={handleCancelChanges}>
-                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
               </button>
             </div>
           ) : (

@@ -55,9 +55,11 @@ const TeamsRowEdit = (props: PropType) => {
   const updateTeam = api.team.updateTeamName.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Updating Team...")
     },
     onSuccess() {
       onSuccessFunction();
+      toast.dismiss();
       toast.success("Successfully Updated Team");
     },
   });
@@ -65,10 +67,12 @@ const TeamsRowEdit = (props: PropType) => {
   const createTeam = api.team.createTeam.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Creating Team...");
     },
     onSuccess() {
       onSuccessFunction();
       setNewRowCreated(false);
+      toast.dismiss();
       toast.success("Successfully Created Team");
     },
   });
@@ -158,11 +162,11 @@ const TeamsRowEdit = (props: PropType) => {
             <div>
               <button onClick={handleSaveTeam}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
-                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                 </label>
               </button>
               <button onClick={handleCancelChanges}>
-                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
               </button>
             </div>
           ) : (

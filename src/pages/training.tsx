@@ -7,48 +7,98 @@ import { api } from "../utils/api";
 import {
   dateToStringFormatted,
   dateToTimeStringFormatted,
+  isEmptyString,
+  isWhitespace,
 } from "../utils/helpers";
 import Loading from "../components/LoadingPage";
 import Error from "next/error";
 import { useUser } from "@clerk/nextjs";
+import Modal from "../components/admin/Modal";
+import toast, { Toaster } from "react-hot-toast";
 
 const Trainings: NextPageWithLayout = () => {
   const {
     data: trainings,
     isLoading: isLoadingTrainings,
     isError,
-    error
-  } = api.training.getTrainingWithAvailability.useQuery();
+    error,
+  } = api.training.getTrainingsForUsers.useQuery();
 
   const { isSignedIn } = useUser();
-  const { data: isAdmin, isLoading: isLoadingAdmin } = api.user.isUserAdmin.useQuery(
+  const { data: isAdmin, isLoading } = api.user.isUserAdmin.useQuery(
     undefined,
     { enabled: !!isSignedIn }
   );
 
   const [playerName, setPlayerName] = useState("");
-  
-  if (isLoadingTrainings || isLoadingAdmin) {
+  const [validName, setValidName] = useState(false);
+
+  const [targetTrainingId, setTargetTrainingId] = useState("");
+  const [wait, setWait] = useState(false);
+
+  const registerPlayer = api.training.registerForTraining.useMutation({
+    onMutate() {
+      setWait(true);
+      toast.loading("Registering Player...");
+    },
+    onSuccess() {
+      setWait(false);
+      setPlayerName("");
+      setTargetTrainingId("");
+
+      toast.dismiss();
+      toast.success("Successfully Register Player!");
+    },
+    onError(error) {
+      toast.dismiss();
+      if (error.data?.httpStatus === 500) {
+        toast.error("You've already signed up!");
+      } else {
+        toast.error("Error Registering for Training");
+      }
+    },
+  });
+
+  if (isLoadingTrainings) {
     return <Loading />;
   } else if (isError) {
     return <Error statusCode={error.data?.httpStatus || 500} />;
   }
 
+  const handleRegister = () => {
+    if (wait || targetTrainingId === "") return;
+
+    if (isEmptyString(playerName) || isWhitespace(playerName)) {
+      toast.dismiss();
+      toast.error("Please Enter a Valid Name!");
+      setValidName(false);
+      return;
+    }
+
+    setValidName(true);
+
+    console.log(validName);
+
+    registerPlayer.mutate({
+      trainingId: targetTrainingId,
+      playerName: playerName,
+    });
+  };
+
   return (
     <>
+      <Toaster position="top-center" />
       <input type="checkbox" id="register-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box relative bg-white text-left text-dark-gray shadow-xl">
           <h1 className="py-4 pl-4 text-2xl font-black uppercase leading-tight tracking-wide text-red underline">
             Training Session
           </h1>
-          <p className="px-4 py-1 text-lg">
-            Player Name
-          </p>
+          <p className="px-4 py-1 text-lg">Player Name</p>
           <form>
             <input
               type="name"
-              className="input-bordered input block w-full rounded-md bg-white font-semibold text-dark-gray shadow-sm"
+              className="input-bordered input mx-4 block w-[95%] rounded-md bg-white font-semibold text-dark-gray shadow-sm"
               value={playerName}
               onChange={(e) => setPlayerName(e.currentTarget.value)}
               required
@@ -58,11 +108,38 @@ const Trainings: NextPageWithLayout = () => {
               <label htmlFor="register-modal" className="btn">
                 Cancel
               </label>
-              <button type="submit" className="btn">
+              <label
+                htmlFor={validName ? "register-modal" : ""}
+                className="btn"
+                onClick={(e) => {
+                  handleRegister();
+                  if (validName) {
+                    e.preventDefault();
+                  }
+                }}
+              >
                 Confirm
-              </button>
+              </label>
             </div>
           </form>
+        </div>
+      </div>
+
+      <input type="checkbox" id="request-modal" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box relative gap-0 bg-white text-left">
+          <label
+            htmlFor="request-modal"
+            className="btn-ghost btn-sm btn absolute right-2 top-2 text-dark-gray"
+          >
+            ✕
+          </label>
+          <h1 className="py-4 px-5 text-2xl font-black uppercase leading-tight tracking-wide text-red underline">
+            Error Registering
+          </h1>
+          <p className="px-4 py-4 text-lg text-dark-gray">
+            Please sign in or sign up to register for a training!
+          </p>
         </div>
       </div>
       <div className="flex w-full flex-col items-center overflow-x-scroll bg-dark-gray">
@@ -178,23 +255,30 @@ const Trainings: NextPageWithLayout = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell capitalize">
+                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light capitalize text-white md:table-cell">
                           {training.location}
                         </td>
-                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell capitalize">
+                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light capitalize text-white md:table-cell">
                           {dateToStringFormatted(training.dateTime)}
                         </td>
-                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell capitalize">
+                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light capitalize text-white md:table-cell">
                           {dateToTimeStringFormatted(training.dateTime)}
                         </td>
-                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light text-white md:table-cell capitalize">
+                        <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light capitalize text-white md:table-cell">
                           {`$${training.price}`}
                         </td>
                         <td className="whitespace-nowrap py-2 text-center text-sm font-light text-white">
                           <label
                             className="text-md btn self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red font-black uppercase tracking-wide text-white
                             transition duration-300 ease-in-out hover:scale-110 hover:cursor-pointer"
-                            htmlFor={!isAdmin ? "register-modal" : ""}
+                            htmlFor={
+                              !isAdmin
+                                ? isSignedIn
+                                  ? "register-modal"
+                                  : "request-modal"
+                                : ""
+                            }
+                            onClick={() => setTargetTrainingId(training.id)}
                           >
                             Register
                           </label>
@@ -207,7 +291,7 @@ const Trainings: NextPageWithLayout = () => {
             </table>
           ) : (
             <>
-              <span className="text-md px-5 text-center font-semibold text-white md:text-xl w-[50%]">
+              <span className="text-md w-[50%] px-5 text-center font-semibold text-white md:text-xl">
                 <div className="divider before:bg-light-gray after:bg-light-gray"></div>
                 There are currently no listed trainings, <br />
                 please check back at a later date!

@@ -73,10 +73,12 @@ const TryoutRowEdit = (props: PropType) => {
   const createTryout = api.tryout.createTryout.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Creating Tryout");
     },
     onSuccess() {
       onSuccessFunction();
       setNewRowCreated(false);
+      toast.dismiss();
       toast.success("Successfully Created Tryout");
     },
   });
@@ -84,9 +86,11 @@ const TryoutRowEdit = (props: PropType) => {
   const updateTryout = api.tryout.updateTryout.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Updating Tryout...");
     },
     onSuccess() {
       onSuccessFunction();
+      toast.dismiss();
       toast.success("Successfully Updated Tryout");
     },
   });
@@ -169,12 +173,9 @@ const TryoutRowEdit = (props: PropType) => {
       timeStringToTimeAsDate(time).toString() === "Invalid Date"
     )
       return false;
-    if (
-      date.length > 0 &&
-      dateStringToDate(date).toString() === "Invalid Date"
-    )
+    if (date.length > 0 && dateStringToDate(date).toString() === "Invalid Date")
       return false;
-    
+
     if (time.length > 0 && time.charAt(2) != ":") return false;
     if (date.length > 0 && date.charAt(2) != "-") return false;
 
@@ -260,11 +261,11 @@ const TryoutRowEdit = (props: PropType) => {
             <div>
               <button onClick={handleSaveTryout}>
                 <label htmlFor={validInput ? "" : "error-modal"}>
-                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                  <IconCheck className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                 </label>
               </button>
               <button onClick={handleCancelChanges}>
-                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                <IconX className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
               </button>
             </div>
           ) : (

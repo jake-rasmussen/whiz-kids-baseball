@@ -1,6 +1,4 @@
-import {
-  IconCirclePlus,
-} from "@tabler/icons";
+import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";
 import { Toaster, toast } from "react-hot-toast";
@@ -25,7 +23,7 @@ const Roster = (props: PropType) => {
     data: players,
     isLoading,
     isError,
-    error
+    error,
   } = api.player.getPlayersByTeamId.useQuery(
     { teamId },
     {
@@ -41,9 +39,11 @@ const Roster = (props: PropType) => {
   const deletePlayer = api.player.deletePlayer.useMutation({
     onMutate() {
       setWait(true);
+      toast.loading("Deleting Player...");
     },
     onSuccess() {
       queryClient.player.getPlayersByTeamId.invalidate({ teamId });
+      toast.dismiss();
       toast.success("Successfully Deleted Player");
     },
   });
@@ -85,6 +85,7 @@ const Roster = (props: PropType) => {
     if (playerToBeDeleted) {
       deletePlayer.mutate({ id: playerToBeDeleted.id });
     } else {
+      toast.dismiss();
       toast.error("Error Deleting Player");
     }
   };
