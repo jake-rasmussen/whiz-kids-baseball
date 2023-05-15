@@ -55,7 +55,8 @@ export const dateStringToDate = (date: string) => {
   const dateRegExp = /(\d{2})\.(\d{2})/;
   const dateString: string = date.replace(dateRegExp, "$2-$1");
   const returnDate = new Date(dateString);
-  returnDate.setFullYear(new Date().getFullYear());
+  if (returnDate.toString() !== "Invalid Date")
+    returnDate.setFullYear(new Date().getFullYear());
   return returnDate;
 };
 

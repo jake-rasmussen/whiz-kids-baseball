@@ -30,7 +30,7 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
           !isOpen ? "pointer-events-none" : ""
         }`}
       >
-        <div className="flex flex-col justify-center px-10 ">
+        <div className="flex flex-col justify-center sm:px-4">
           <Link
             href="/"
             className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
@@ -81,7 +81,7 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
           <SignedOut>
             <SignInButton>
               <button
-                className="btn m-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
+                className="btn m-1 my-4 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
               transition duration-300 ease-in-out hover:scale-110"
               >
                 Log in
@@ -89,7 +89,7 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
             </SignInButton>
             <SignUpButton>
               <button
-                className="btn m-3 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
+                className="btn m-1 my-4 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
               transition duration-300 ease-in-out hover:scale-110"
               >
                 Sign up

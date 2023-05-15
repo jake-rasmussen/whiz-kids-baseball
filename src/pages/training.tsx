@@ -13,8 +13,8 @@ import {
 import Loading from "../components/LoadingPage";
 import Error from "next/error";
 import { useUser } from "@clerk/nextjs";
-import Modal from "../components/admin/Modal";
 import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const Trainings: NextPageWithLayout = () => {
   const {
@@ -156,9 +156,17 @@ const Trainings: NextPageWithLayout = () => {
           </main>
         </div>
 
-        <section className="w-full bg-white py-6">
-          <div className="container mx-auto flex flex-col items-center justify-center space-y-8 p-4 md:p-10 md:px-24 xl:px-48">
-            <h1 className="text-center text-5xl font-bold leading-none">
+        <section className="w-full bg-white py-8 md:py-0">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 1.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+            className="container mx-auto flex flex-col items-center justify-center space-y-8 p-4 md:p-10 md:px-24 xl:px-48"
+          >
+            <h1 className="text-center text-4xl md:text-6xl font-bold leading-none">
               Level up your game at one of our{" "}
               <span className="text-red">trainings</span>
             </h1>
@@ -169,7 +177,7 @@ const Trainings: NextPageWithLayout = () => {
               We are passionate, straight forward and very well informed. Our
               mission is to always be equipped to push you further.
             </p>
-          </div>
+          </motion.div>
         </section>
 
         <main className="flex w-full flex-col items-center justify-center bg-dark-gray py-10 pb-14">

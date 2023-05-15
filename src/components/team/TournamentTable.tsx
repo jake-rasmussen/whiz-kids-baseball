@@ -68,7 +68,7 @@ const Table = (props: PropType) => {
                           {`Date: ${datesToStringFormatted(tournament.dates)}`}
                         </p>
                         <p className="px-4 py-1 text-lg text-white">
-                          Time: {tournament.type}
+                          Type: {tournament.type}
                         </p>
                       </div>
                     </div>

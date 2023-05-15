@@ -25,12 +25,12 @@ const Teams: NextPageWithLayout = () => {
   return (
     <>
       <div className="flex min-h-[83vh] w-full justify-center bg-dark-gray">
-        <div className="card w-full overflow-scroll rounded-none bg-white p-2 shadow-xl sm:my-20 sm:w-auto sm:rounded-xl">
+        <div className="card w-full overflow-scroll rounded-none bg-white p-2 shadow-xl md:my-20 md:w-auto md:rounded-xl">
           <div className="card-body flex flex-col justify-center">
-            <h1 className="text-center text-5xl font-bold sm:px-24">
+            <h1 className="text-center text-5xl font-bold md:px-24">
               Our <span className="text-red">Teams</span>
             </h1>
-            <h3 className="tracking-none divider font-black uppercase text-light-gray">
+            <h3 className="tracking-none divider font-black uppercase text-light-gray mx-14 md:mx-0">
               Select Your Team
             </h3>
             <div className="flex flex-col items-center justify-center text-center">
