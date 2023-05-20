@@ -132,10 +132,7 @@ const NavBar: React.FC = () => {
           <div className="mx-4 flex flex-row items-center justify-end gap-12">
             <SignedIn>
               <AnimatePresence>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                   <UserButton />
                 </motion.div>
               </AnimatePresence>

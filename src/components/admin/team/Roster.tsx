@@ -1,7 +1,7 @@
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import Modal from "../Modal";
 import type { Player } from "@prisma/client";
 import RosterCard from "./RosterCard";
@@ -92,7 +92,6 @@ const Roster = (props: PropType) => {
 
   return (
     <div className="flex w-full flex-wrap place-content-center gap-5 pb-10">
-      <Toaster position="top-right" />
       <Modal
         name="error"
         header="Invalid Input"

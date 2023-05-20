@@ -55,7 +55,8 @@ export const dateStringToDate = (date: string) => {
   const dateRegExp = /(\d{2})\.(\d{2})/;
   const dateString: string = date.replace(dateRegExp, "$2-$1");
   const returnDate = new Date(dateString);
-  returnDate.setFullYear(new Date().getFullYear());
+  if (returnDate.toString() !== "Invalid Date")
+    returnDate.setFullYear(new Date().getFullYear());
   return returnDate;
 };
 
@@ -129,6 +130,8 @@ export const timeStringToTimeAsDate = (time: string) => {
 
   if (meridiem === "PM" && hour < 12) hour += 12;
   if (meridiem === "AM" && hour === 12) hour = 0;
+
+  if (meridiem !== "AM" && meridiem !== "PM") return new Date("Invalid");
 
   const date = new Date();
   date.setHours(hour);

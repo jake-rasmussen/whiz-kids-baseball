@@ -1,7 +1,7 @@
 import type { Practice } from "@prisma/client";
 import { IconInfoCircle } from "@tabler/icons";
 import React from "react";
-import { dateToTimeStringRaw } from "../../utils/helpers";
+import { dateToTimeStringFormatted, dateToTimeStringRaw } from "../../utils/helpers";
 
 type PropType = {
   practices: Practice[];
@@ -47,7 +47,7 @@ const Table = ({ practices }: PropType) => {
                       className="modal-toggle"
                     />
                     <div className="modal">
-                      <div className="modal-box relative gap-0 bg-dark-gray text-left">
+                      <div className="modal-box relative gap-0 bg-dark-gray py-14 text-left">
                         <label
                           htmlFor={`modal${index}`}
                           className="btn-ghost btn-sm btn absolute right-2 top-2 text-white"
@@ -93,9 +93,9 @@ const Table = ({ practices }: PropType) => {
                   ))}
                 </td>
                 <td className="hidden whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray md:table-cell">
-                  {dateToTimeStringRaw(practice.startTime)}
+                  {dateToTimeStringFormatted(practice.startTime)}
                   <span className="lowercase"> to </span>
-                  {dateToTimeStringRaw(practice.endTime)}
+                  {dateToTimeStringFormatted(practice.endTime)}
                 </td>
               </tr>
             </React.Fragment>

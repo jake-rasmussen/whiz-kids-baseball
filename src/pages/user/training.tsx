@@ -5,8 +5,6 @@ import { ReactElement, useState } from "react";
 import React from "react";
 import { api } from "../../utils/api";
 import Error from "next/error";
-import { useUser } from "@clerk/nextjs";
-import toast, { Toaster } from "react-hot-toast";
 import Loading from "../../components/LoadingPage";
 import { Training, TrainingsOnUsers } from "@prisma/client";
 

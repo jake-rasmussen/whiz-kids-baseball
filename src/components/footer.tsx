@@ -57,10 +57,9 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="p-4 text-center font-black uppercase tracking-wide text-dark-gray">
-          © 2023 Copyright:
+          <span className="whitespace-nowrap">©2023 Copyright:</span>
           <a className="text-red" href="http://www.whizkidsbaseball.com/">
-            {" "}
-            <span className="sm:whitespace-nowrap">Whiz Kids Baseball</span>
+            <span className="whitespace-nowrap"> Whiz Kids Baseball</span>
           </a>
         </div>
       </footer>

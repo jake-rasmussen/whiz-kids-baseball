@@ -61,7 +61,7 @@ const Alumni: NextPageWithLayout = () => {
         {i + 1 === pageNumber || (pageNumber == -31 && i === 0) ? (
           <li
             key={`key${i}`}
-            className="scale-[150%] px-2 text-base font-black text-red transition duration-300 ease-in-out sm:px-3 md:text-xl"
+            className="scale-[175%] px-2 text-lg font-black text-red transition duration-300 ease-in-out sm:px-3 md:text-2xl"
           >
             <Link
               key={`link${i}`}
@@ -73,7 +73,7 @@ const Alumni: NextPageWithLayout = () => {
         ) : (
           <li
             key={`key${i}`}
-            className="px-2 text-base font-black text-dark-gray transition duration-300 ease-in-out hover:scale-[150%] hover:text-red sm:px-3 md:text-lg"
+            className="px-2 text-lg font-black text-dark-gray transition duration-300 ease-in-out hover:scale-[150%] hover:text-red sm:px-3 md:text-2xl"
           >
             <Link
               key={`link${i}`}
@@ -120,7 +120,7 @@ const Alumni: NextPageWithLayout = () => {
         </nav>
       </main>
 
-      <main className="mx-auto flex min-h-[60vh] w-full flex-col items-center overflow-x-scroll bg-white md:w-[85%]">
+      <main className="mx-auto flex min-h-[54vh] w-full flex-col items-center overflow-x-scroll bg-white md:w-[85%]">
         {isLoading ? (
           <div className="py-20">
             <LoadingComponent />

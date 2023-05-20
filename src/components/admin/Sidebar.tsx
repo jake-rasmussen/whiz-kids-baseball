@@ -41,17 +41,6 @@ const NavBar: React.FC = () => {
   return (
     <nav className="flex">
       <div className="fixed z-10 flex h-full min-h-screen w-60 flex-col items-center overflow-y-auto overflow-x-hidden bg-dark-gray p-6 capitalize text-white">
-        <div className="flex items-center space-x-4 p-2">
-          <Image
-            src={whizkidsw}
-            alt="logo"
-            className="h-12 w-12 rounded-full bg-white object-contain"
-          />
-          <div>
-            <h2 className="text-lg font-semibold">Admin Edit</h2>
-          </div>
-        </div>
-
         <div className="mx-4 w-full pt-4">
           <ul className="space-y-1 text-sm">
             <li className="w-full text-white">

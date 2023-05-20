@@ -9,7 +9,7 @@ import Error from "next/error";
 import { TrainingsOnUsers } from "@prisma/client";
 import { IconTrash } from "@tabler/icons";
 import Modal from "../../../components/admin/Modal";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const TrainingEditPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -63,7 +63,6 @@ const TrainingEditPage: NextPageWithLayout = () => {
   return (
     <>
       <div className="w-full">
-        <Toaster position="top-center" />
         <Modal
           name="delete"
           header="Confirm Delete"

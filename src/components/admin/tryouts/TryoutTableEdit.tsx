@@ -1,7 +1,7 @@
 import type { Tryout } from "@prisma/client";
 import { IconCirclePlus } from "@tabler/icons";
 import React, { useState } from "react";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { api } from "../../../utils/api";
 import Modal from "../Modal";
 import TryoutRowEdit from "./TryoutRowEdit";
@@ -80,7 +80,6 @@ const Table = () => {
 
   return (
     <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
-      <Toaster position="top-right" />
       <Modal
         name="error"
         header="Invalid Input"
@@ -111,7 +110,7 @@ const Table = () => {
               <TryoutRowEdit
                 index={index}
                 tryout={tryout}
-                editRow={editRowIndex === index}
+                editRowIndex={editRowIndex}
                 setEditRowIndex={setEditRowIndex}
                 newRowCreated={newRowCreated}
                 setNewRowCreated={setNewRowIndex}
