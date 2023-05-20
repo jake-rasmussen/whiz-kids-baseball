@@ -67,7 +67,7 @@ const Carousel = (props: PropType) => {
           duration: 1.5,
           ease: [0, 0.71, 0.2, 1.01],
         }}
-        className="absolute h-auto max-w-4xl mx-20"
+        className="absolute mx-6 h-auto max-w-4xl"
       >
         <Image src={banner} alt="Whiz Kids Banner" priority />
       </motion.div>

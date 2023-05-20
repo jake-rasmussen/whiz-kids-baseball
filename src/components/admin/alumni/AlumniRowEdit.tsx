@@ -10,7 +10,7 @@ import EmptyRow from "../EmptyRow";
 type PropType = {
   index: number;
   alumn: Alumni;
-  editRow: boolean;
+  editRowIndex: number;
   setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
   setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +24,7 @@ const AlumniRowEdit = (props: PropType) => {
   const {
     index,
     alumn,
-    editRow,
+    editRowIndex,
     setEditRowIndex,
     newRowCreated,
     setNewRowCreated,
@@ -85,7 +85,7 @@ const AlumniRowEdit = (props: PropType) => {
     },
     onSuccess() {
       onSuccessFunction();
-      
+
       toast.dismiss();
       toast.success("Successfully Updated Alumni");
     },
@@ -196,7 +196,7 @@ const AlumniRowEdit = (props: PropType) => {
     return true;
   };
 
-  if (wait && editRow) return <EmptyRow numColumns={3} />;
+  if (wait && editRowIndex === index) return <EmptyRow numColumns={3} />;
 
   return (
     <React.Fragment key={`alumniRow${index}`}>
@@ -210,7 +210,7 @@ const AlumniRowEdit = (props: PropType) => {
             placeholder={alumn.firstName + " " + alumn.lastName}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setFullName(e.currentTarget.value);
             }}
@@ -223,7 +223,7 @@ const AlumniRowEdit = (props: PropType) => {
             placeholder={alumn.organization}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, organization: e.currentTarget.value });
             }}
@@ -236,7 +236,7 @@ const AlumniRowEdit = (props: PropType) => {
             placeholder={alumn.year === -1 ? "YYYY" : alumn.year.toString()}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, year: e.currentTarget.value });
             }}
@@ -247,7 +247,7 @@ const AlumniRowEdit = (props: PropType) => {
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRow && !wait ? (
+          {editRowIndex === -1 && !wait ? (
             <div>
               <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
@@ -261,7 +261,7 @@ const AlumniRowEdit = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRow && !wait ? (
+          ) : editRowIndex === index && !wait ? (
             <div>
               <button onClick={handleSaveAlumn}>
                 <label htmlFor={validInput ? "" : "error-modal"}>

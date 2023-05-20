@@ -18,7 +18,7 @@ type PropType = {
   practiceId: string;
   teamId: string;
   practice: Practice;
-  editRow: boolean;
+  editRowIndex: number;
   setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
   setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,7 +34,7 @@ const PracticeRow = (props: PropType) => {
     teamId,
     practiceId,
     practice,
-    editRow,
+    editRowIndex,
     setEditRowIndex,
     newRowCreated,
     setNewRowCreated,
@@ -193,7 +193,7 @@ const PracticeRow = (props: PropType) => {
     return true;
   };
 
-  if (wait && editRow) return <EmptyRow numColumns={4} />;
+  if (wait && editRowIndex === index) return <EmptyRow numColumns={4} />;
 
   return (
     <React.Fragment key={`practiceRow${index}`}>
@@ -207,7 +207,7 @@ const PracticeRow = (props: PropType) => {
             placeholder={practice.location}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, location: e.currentTarget.value });
             }}
@@ -224,7 +224,7 @@ const PracticeRow = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, days: e.currentTarget.value });
             }}
@@ -236,12 +236,12 @@ const PracticeRow = (props: PropType) => {
             type="text"
             placeholder={
               practice.startTime.toString() === "Invalid Date"
-                ? "HH:MMAP"
+                ? "HH:MMAA"
                 : dateToTimeStringRaw(practice.startTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, startTime: e.currentTarget.value });
             }}
@@ -253,12 +253,12 @@ const PracticeRow = (props: PropType) => {
             type="text"
             placeholder={
               practice.endTime.toString() === "Invalid Date"
-                ? "HH:MMAP"
+                ? "HH:MMAA"
                 : dateToTimeStringRaw(practice.endTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, endTime: e.currentTarget.value });
             }}
@@ -269,7 +269,7 @@ const PracticeRow = (props: PropType) => {
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRow && !wait ? (
+          {editRowIndex === -1 && !wait ? (
             <div>
               <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
@@ -283,7 +283,7 @@ const PracticeRow = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRow && !wait ? (
+          ) : editRowIndex === index && !wait ? (
             <div>
               <button onClick={handleSavePractice}>
                 <label htmlFor={validInput ? "" : "error-modal"}>

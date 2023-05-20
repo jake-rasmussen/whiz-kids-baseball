@@ -47,7 +47,7 @@ const Trainings: NextPageWithLayout = () => {
       setTargetTrainingId("");
 
       toast.dismiss();
-      toast.success("Successfully Register Player!");
+      toast.success("Successfully Registered Player!");
     },
     onError(error) {
       toast.dismiss();
@@ -76,8 +76,6 @@ const Trainings: NextPageWithLayout = () => {
     }
 
     setValidName(true);
-
-    console.log(validName);
 
     registerPlayer.mutate({
       trainingId: targetTrainingId,
@@ -127,7 +125,7 @@ const Trainings: NextPageWithLayout = () => {
 
       <input type="checkbox" id="request-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box relative gap-0 bg-white text-left">
+        <div className="modal-box relative gap-0 bg-white py-14 text-left">
           <label
             htmlFor="request-modal"
             className="btn-ghost btn-sm btn absolute right-2 top-2 text-dark-gray"
@@ -142,7 +140,8 @@ const Trainings: NextPageWithLayout = () => {
           </p>
         </div>
       </div>
-      <div className="flex w-full flex-col items-center overflow-x-scroll bg-dark-gray">
+
+      <div className="flex min-h-[82vh] w-full flex-col items-center overflow-x-scroll bg-dark-gray">
         <div className="invisible h-0 md:visible md:h-[60vh] md:w-full">
           <main className="flex h-full w-full w-full justify-center">
             <iframe
@@ -166,7 +165,7 @@ const Trainings: NextPageWithLayout = () => {
             }}
             className="container mx-auto flex flex-col items-center justify-center space-y-8 p-4 md:p-10 md:px-24 xl:px-48"
           >
-            <h1 className="text-center text-4xl md:text-6xl font-bold leading-none">
+            <h1 className="text-center text-4xl font-bold leading-none md:text-6xl">
               Level up your game at one of our{" "}
               <span className="text-red">trainings</span>
             </h1>

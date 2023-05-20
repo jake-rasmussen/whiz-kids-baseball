@@ -2,7 +2,6 @@ import type { Training } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
-import Loading from "../../LoadingPage";
 import { toast } from "react-hot-toast";
 import EmptyRow from "../EmptyRow";
 import {
@@ -17,7 +16,7 @@ import {
 type PropType = {
   index: number;
   training: Training;
-  editRow: boolean;
+  editRowIndex: number;
   setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
   setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,7 +30,7 @@ const TrainingRowEdit = (props: PropType) => {
   const {
     index,
     training,
-    editRow,
+    editRowIndex: editRowIndex,
     setEditRowIndex,
     newRowCreated,
     setNewRowCreated,
@@ -81,7 +80,7 @@ const TrainingRowEdit = (props: PropType) => {
   const createTraining = api.training.createTraining.useMutation({
     onMutate() {
       setWait(true);
-      toast.loading("Creating Training...")
+      toast.loading("Creating Training...");
     },
     onSuccess() {
       onSuccessFunction();
@@ -219,7 +218,7 @@ const TrainingRowEdit = (props: PropType) => {
     return true;
   };
 
-  if (wait && editRow) return <EmptyRow numColumns={6} />;
+  if (wait && editRowIndex === index) return <EmptyRow numColumns={6} />;
 
   return (
     <React.Fragment key={`trainingRow${index}`}>
@@ -233,7 +232,7 @@ const TrainingRowEdit = (props: PropType) => {
             placeholder={training.name}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, fullName: e.currentTarget.value });
             }}
@@ -246,7 +245,7 @@ const TrainingRowEdit = (props: PropType) => {
             placeholder={training.location}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, location: e.currentTarget.value });
             }}
@@ -263,7 +262,7 @@ const TrainingRowEdit = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setDate(e.currentTarget.value);
             }}
@@ -275,12 +274,12 @@ const TrainingRowEdit = (props: PropType) => {
             type="text"
             placeholder={
               training.dateTime.toString() === "Invalid Date"
-                ? "HH:MMAP"
+                ? "HH:MMAA"
                 : dateToTimeStringRaw(training.dateTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setTime(e.currentTarget.value);
             }}
@@ -297,7 +296,7 @@ const TrainingRowEdit = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, totalSlots: +e.currentTarget.value });
             }}
@@ -318,7 +317,7 @@ const TrainingRowEdit = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, price: +e.currentTarget.value });
             }}
@@ -335,7 +334,7 @@ const TrainingRowEdit = (props: PropType) => {
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRow && !wait ? (
+          {editRowIndex === -1 && !wait ? (
             <div>
               <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
@@ -349,7 +348,7 @@ const TrainingRowEdit = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRow && !wait ? (
+          ) : editRowIndex === index && !wait ? (
             <div>
               <button onClick={handleSaveTraining}>
                 <label htmlFor={validInput ? "" : "error-modal"}>

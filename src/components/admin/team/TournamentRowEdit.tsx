@@ -16,7 +16,7 @@ type PropType = {
   tournamentId: string;
   teamId: string;
   tournament: Tournament;
-  editRow: boolean;
+  editRowIndex: number;
   setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
   setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,7 +32,7 @@ const TournamentRow = (props: PropType) => {
     teamId,
     tournamentId,
     tournament,
-    editRow,
+    editRowIndex,
     setEditRowIndex,
     newRowCreated,
     setNewRowCreated,
@@ -176,7 +176,7 @@ const TournamentRow = (props: PropType) => {
     return true;
   };
 
-  if (wait && editRow) return <EmptyRow numColumns={4} />;
+  if (wait && editRowIndex === index) return <EmptyRow numColumns={4} />;
 
   return (
     <React.Fragment key={`tournamentRow${index}`}>
@@ -190,7 +190,7 @@ const TournamentRow = (props: PropType) => {
             placeholder={tournament.name}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, name: e.currentTarget.value });
             }}
@@ -203,7 +203,7 @@ const TournamentRow = (props: PropType) => {
             placeholder={tournament.location}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, location: e.currentTarget.value });
             }}
@@ -220,7 +220,7 @@ const TournamentRow = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, dates: e.currentTarget.value });
             }}
@@ -233,7 +233,7 @@ const TournamentRow = (props: PropType) => {
             placeholder={tournament.type}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, format: e.currentTarget.value });
             }}
@@ -244,7 +244,7 @@ const TournamentRow = (props: PropType) => {
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRow && !wait ? (
+          {editRowIndex === -1 && !wait ? (
             <div>
               <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
@@ -258,7 +258,7 @@ const TournamentRow = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRow && !wait ? (
+          ) : editRowIndex === index && !wait ? (
             <div>
               <button onClick={handleSaveTournament}>
                 <label htmlFor={validInput ? "" : "error-modal"}>

@@ -51,7 +51,7 @@ const Table = (props: PropType) => {
                       className="modal-toggle"
                     />
                     <div className="modal">
-                      <div className="modal-box relative gap-0 bg-dark-gray text-left">
+                      <div className="modal-box relative gap-0 bg-dark-gray py-14 text-left">
                         <label
                           htmlFor={`modal${index}`}
                           className="btn-ghost btn-sm btn absolute right-2 top-2 text-white"
@@ -68,7 +68,7 @@ const Table = (props: PropType) => {
                           {`Date: ${datesToStringFormatted(tournament.dates)}`}
                         </p>
                         <p className="px-4 py-1 text-lg text-white">
-                          Type: {tournament.type}
+                          Format: {tournament.type}
                         </p>
                       </div>
                     </div>

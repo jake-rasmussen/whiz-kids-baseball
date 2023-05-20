@@ -17,7 +17,7 @@ import {
 type PropType = {
   index: number;
   tryout: Tryout;
-  editRow: boolean;
+  editRowIndex: number;
   setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
   setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,7 +31,7 @@ const TryoutRowEdit = (props: PropType) => {
   const {
     index,
     tryout,
-    editRow,
+    editRowIndex,
     setEditRowIndex,
     newRowCreated,
     setNewRowCreated,
@@ -184,7 +184,7 @@ const TryoutRowEdit = (props: PropType) => {
     return true;
   };
 
-  if (wait && editRow) return <EmptyRow numColumns={3} />;
+  if (wait && editRowIndex === index) return <EmptyRow numColumns={3} />;
 
   return (
     <React.Fragment key={`tryoutRow${index}`}>
@@ -198,7 +198,7 @@ const TryoutRowEdit = (props: PropType) => {
             placeholder={tryout.location}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ ...rowEdits, location: e.currentTarget.value });
             }}
@@ -215,7 +215,7 @@ const TryoutRowEdit = (props: PropType) => {
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setDate(e.currentTarget.value);
             }}
@@ -227,12 +227,12 @@ const TryoutRowEdit = (props: PropType) => {
             type="text"
             placeholder={
               tryout.dateTime.toString() === "Invalid Date"
-                ? "HH:MMAP"
+                ? "HH:MMAA"
                 : dateToTimeStringRaw(tryout.dateTime)
             }
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setTime(e.currentTarget.value);
             }}
@@ -243,7 +243,7 @@ const TryoutRowEdit = (props: PropType) => {
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRow && !wait ? (
+          {editRowIndex === -1 && !wait ? (
             <div>
               <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
@@ -257,7 +257,7 @@ const TryoutRowEdit = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRow && !wait ? (
+          ) : editRowIndex === index && !wait ? (
             <div>
               <button onClick={handleSaveTryout}>
                 <label htmlFor={validInput ? "" : "error-modal"}>

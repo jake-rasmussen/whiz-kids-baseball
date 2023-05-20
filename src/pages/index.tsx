@@ -47,10 +47,12 @@ const Home: NextPageWithLayout = () => {
       <main className="relative flex w-full flex-col items-center bg-dark-gray">
         <section className="container my-8 flex w-full flex-col items-center justify-center space-y-8 p-4 text-white md:p-10 md:px-12 xl:px-24">
           <h1 className="text-center text-4xl font-bold leading-none md:text-6xl">
-            All substance, <span className="text-red whitespace-nowrap">little show</span>
+            All substance,{" "}
+            <span className="whitespace-nowrap text-red">little show</span>
           </h1>
-          <p className="lg:divider lg:py-8 text-center text-2xl before:bg-light-gray after:bg-light-gray">
-            We are passionate, straight forward and very well informed. <br className="hidden lg:block" />
+          <p className="text-center text-2xl lg:divider before:bg-light-gray after:bg-light-gray lg:py-8">
+            We are passionate, straight forward and very well informed.{" "}
+            <br className="hidden lg:block" />
             Our mission is to always be equipped to push you further.
           </p>
         </section>
@@ -152,7 +154,7 @@ const Home: NextPageWithLayout = () => {
 
       <main className="relative flex w-full flex-col items-center bg-dark-gray">
         <section className="w-full py-20 text-white">
-          <div className="mx-auto grid max-w-6xl grid-cols-1 divide-light-gray px-6 md:grid-cols-2 md:divide-x-2 sm:px-16">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 divide-light-gray px-6 sm:px-16 md:grid-cols-2 md:divide-x-2">
             <div className="py-6 md:py-0 md:px-6">
               <div className="py-8 text-dark-gray">
                 <h1 className="text-3xl font-black uppercase tracking-wide text-white">

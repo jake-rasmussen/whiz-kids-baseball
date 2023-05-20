@@ -131,6 +131,8 @@ export const timeStringToTimeAsDate = (time: string) => {
   if (meridiem === "PM" && hour < 12) hour += 12;
   if (meridiem === "AM" && hour === 12) hour = 0;
 
+  if (meridiem !== "AM" && meridiem !== "PM") return new Date("Invalid");
+
   const date = new Date();
   date.setHours(hour);
   date.setMinutes(minute);

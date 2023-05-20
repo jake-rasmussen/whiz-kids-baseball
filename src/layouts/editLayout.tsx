@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import Sidebar from "../components/admin/Sidebar";
 import withAdminPrivilege from "../HOC/withAdminPrivilege";
 import type { Layout } from "../types/pageWithLayout";
@@ -6,6 +7,7 @@ const EditLayout: Layout = ({ children }) => {
   return (
     <>
       <main className="flex hidden flex-row md:contents">
+        <Toaster position="top-right" />
         <Sidebar />
         <main className="z-0 ml-60 flex h-0">{children}</main>
       </main>

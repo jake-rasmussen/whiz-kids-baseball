@@ -2,7 +2,6 @@ import type { Team } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useState } from "react";
 import { api } from "../../../utils/api";
-import Loading from "../../LoadingPage";
 import { toast } from "react-hot-toast";
 import EmptyRow from "../EmptyRow";
 import { isEmptyString, isWhitespace } from "../../../utils/helpers";
@@ -10,7 +9,7 @@ import { isEmptyString, isWhitespace } from "../../../utils/helpers";
 type PropType = {
   index: number;
   team: Team;
-  editRow: boolean;
+  editRowIndex: number;
   setEditRowIndex: React.Dispatch<React.SetStateAction<number>>;
   newRowCreated: boolean;
   setNewRowCreated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +23,7 @@ const TeamsRowEdit = (props: PropType) => {
   const {
     index,
     team,
-    editRow,
+    editRowIndex,
     setEditRowIndex,
     newRowCreated,
     setNewRowCreated,
@@ -119,7 +118,7 @@ const TeamsRowEdit = (props: PropType) => {
     return true;
   };
 
-  if (wait && editRow) return <EmptyRow numColumns={1} />;
+  if (wait && editRowIndex === index) return <EmptyRow numColumns={1} />;
 
   return (
     <React.Fragment key={`teamRow${index}`}>
@@ -133,7 +132,7 @@ const TeamsRowEdit = (props: PropType) => {
             placeholder={team.name}
             className="input input-sm w-full overflow-ellipsis bg-white text-center capitalize
             text-dark-gray placeholder-light-gray disabled:border-none disabled:bg-white disabled:text-red disabled:placeholder-dark-gray"
-            disabled={!editRow}
+            disabled={editRowIndex !== index}
             onChange={(e) => {
               setRowEdits({ name: e.currentTarget.value });
             }}
@@ -144,7 +143,7 @@ const TeamsRowEdit = (props: PropType) => {
           className="whitespace-nowrap text-center text-sm font-light text-dark-gray"
           key="edit"
         >
-          {!editRow && !wait ? (
+          {editRowIndex === -1 && !wait ? (
             <div>
               <button onClick={() => setEditRowIndex(index)}>
                 <IconEdit className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
@@ -158,7 +157,7 @@ const TeamsRowEdit = (props: PropType) => {
                 </label>
               </button>
             </div>
-          ) : editRow && !wait ? (
+          ) : editRowIndex === index && !wait ? (
             <div>
               <button onClick={handleSaveTeam}>
                 <label htmlFor={validInput ? "" : "error-modal"}>

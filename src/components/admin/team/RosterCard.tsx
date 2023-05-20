@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "../../../utils/api";
 import EmptyCard from "../EmptyCard";
+import { number } from "zod";
 
 type PropType = {
   index: number;
@@ -205,7 +206,7 @@ const RosterCard = (props: PropType) => {
 
     if (
       !isEmptyString(playerEdits.gradYear) &&
-      playerEdits.gradYear.length != 4
+      (playerEdits.gradYear.length != 4 || isNaN(+playerEdits.gradYear))
     )
       return false;
 
@@ -332,7 +333,7 @@ const RosterCard = (props: PropType) => {
                     onClick={() => setDeleteRowIndex(index)}
                     htmlFor="delete-modal"
                   >
-                    <IconTrash className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red" />
+                    <IconTrash className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
                   </label>
                 </button>
               </div>

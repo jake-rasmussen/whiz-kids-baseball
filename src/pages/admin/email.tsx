@@ -1,13 +1,13 @@
 import { ReactElement, useState } from "react";
 import EditLayout from "../../layouts/editLayout";
 import { api } from "../../utils/api";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { isEmptyString } from "../../utils/helpers";
 
 const Email = () => {
   const [formData, setFormData] = useState({
     subject: "",
-    message: ""
+    message: "",
   });
 
   const resetForm = () => {
@@ -33,10 +33,7 @@ const Email = () => {
   });
 
   const checkValidInput = () => {
-    if (
-      isEmptyString(formData.subject) ||
-      isEmptyString(formData.message)
-    ) {
+    if (isEmptyString(formData.subject) || isEmptyString(formData.message)) {
       return false;
     }
 
@@ -56,7 +53,6 @@ const Email = () => {
 
   return (
     <div className="w-full">
-      <Toaster position="top-right" />
       <div className="container mx-auto flex flex-col items-center px-4 pt-20 text-center md:px-10 lg:px-32 xl:max-w-3xl">
         <h1 className="text-4xl font-bold leading-none sm:text-5xl">
           Blast Email
@@ -70,8 +66,8 @@ const Email = () => {
         <form className="container mx-auto w-full max-w-xl space-y-6 rounded-xl bg-dark-gray p-8 shadow">
           <div>
             <label className="mb-1 ml-1 block">Subject</label>
-            <input 
-              className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm" 
+            <input
+              className="input-bordered input block h-10 w-full rounded-md bg-white text-dark-gray shadow-sm"
               onChange={(e) =>
                 setFormData({ ...formData, subject: e.currentTarget.value })
               }
@@ -81,7 +77,7 @@ const Email = () => {
           </div>
           <div>
             <label className="mb-1 ml-1 block">Message</label>
-            <textarea 
+            <textarea
               className="textarea-bordered textarea block w-full rounded-md bg-white text-dark-gray"
               onChange={(e) =>
                 setFormData({ ...formData, message: e.currentTarget.value })

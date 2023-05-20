@@ -13,7 +13,7 @@ const Roster = (props: PropType) => {
     <div className="mx-auto flex w-full max-w-7xl flex-wrap place-content-center gap-5 md:pb-10">
       {playerData.map((data: Player, index: number) => (
         <div
-          className="card w-96 bg-dark-gray shadow-xl"
+          className="card w-96 bg-dark-gray shadow-xl capitalize"
           key={`roster${index}`}
         >
           <div className="card-body">
