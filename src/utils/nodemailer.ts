@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import type {
+import type {
   ContactUsFormInput,
   InterestFormInput,
 } from "../types/emailInputTypes";

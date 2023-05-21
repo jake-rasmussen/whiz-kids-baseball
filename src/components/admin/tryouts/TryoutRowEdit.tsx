@@ -2,7 +2,6 @@ import type { Tryout } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import React, { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
-import Loading from "../../LoadingPage";
 import { toast } from "react-hot-toast";
 import EmptyRow from "../EmptyRow";
 import {

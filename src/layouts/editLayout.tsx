@@ -18,7 +18,7 @@ const EditLayout: Layout = ({ children }) => {
               <span className="text-red">Admin Edit</span> needs more space
             </h1>
             <p className="mt-8 mb-12 text-lg">
-              Otherwise, it's difficult to use the interface. Because the page
+              Otherwise, it is difficult to use the interface. Because the page
               directly makes changes to the frontend, its a dangerous way to
               make modifications to the site.
             </p>

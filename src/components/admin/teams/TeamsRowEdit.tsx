@@ -54,7 +54,7 @@ const TeamsRowEdit = (props: PropType) => {
   const updateTeam = api.team.updateTeamName.useMutation({
     onMutate() {
       setWait(true);
-      toast.loading("Updating Team...")
+      toast.loading("Updating Team...");
     },
     onSuccess() {
       onSuccessFunction();

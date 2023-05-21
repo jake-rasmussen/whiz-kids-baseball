@@ -1,5 +1,5 @@
-import { Alumni } from "@prisma/client";
-import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import type { Alumni } from "@prisma/client";
+import { motion } from "framer-motion";
 
 type PropType = {
   letter: string;

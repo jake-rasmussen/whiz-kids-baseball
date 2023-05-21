@@ -1,5 +1,4 @@
 import type { Player } from "@prisma/client";
-import { Position } from "@prisma/client";
 import { IconEdit, IconTrash, IconCheck, IconX } from "@tabler/icons";
 import {
   acronymToPositions,
@@ -11,7 +10,6 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "../../../utils/api";
 import EmptyCard from "../EmptyCard";
-import { number } from "zod";
 
 type PropType = {
   index: number;
@@ -236,6 +234,9 @@ const RosterCard = (props: PropType) => {
     )
       return false;
 
+    if (fullName.split(" ").length > 2)
+      return false
+
     setValidInput(true);
     return true;
   };
@@ -333,7 +334,7 @@ const RosterCard = (props: PropType) => {
                     onClick={() => setDeleteRowIndex(index)}
                     htmlFor="delete-modal"
                   >
-                    <IconTrash className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:text-red hover:cursor-pointer" />
+                    <IconTrash className="mx-2 text-white transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
                   </label>
                 </button>
               </div>
