@@ -1,12 +1,13 @@
 import MainLayout from "../../layouts/mainLayout";
 import type { NextPageWithLayout } from "./../_app";
 import { IconInfoCircle } from "@tabler/icons";
-import { ReactElement, useState } from "react";
+import type { ReactElement } from "react";
+import { useState } from "react";
 import React from "react";
 import { api } from "../../utils/api";
 import Error from "next/error";
 import Loading from "../../components/LoadingPage";
-import { Training, TrainingsOnUsers } from "@prisma/client";
+import type { TrainingsOnUsers } from "@prisma/client";
 
 const Trainings: NextPageWithLayout = () => {
   const {

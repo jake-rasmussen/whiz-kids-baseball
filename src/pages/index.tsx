@@ -6,7 +6,7 @@ import type { NextPageWithLayout } from "./_app";
 import { IconMail, IconMapPin, IconPhone } from "@tabler/icons";
 import type { EmblaOptionsType } from "embla-carousel-react";
 import Image from "next/image";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import React from "react";
 import MainLayout from "../layouts/mainLayout";
 import { useInView } from "react-intersection-observer";

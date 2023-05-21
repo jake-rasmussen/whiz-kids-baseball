@@ -1,4 +1,4 @@
-import { Team } from "@prisma/client";
+import type { Team } from "@prisma/client";
 import { api } from "../utils/api";
 import Loading from "./LoadingComponentRed";
 import { useState } from "react";

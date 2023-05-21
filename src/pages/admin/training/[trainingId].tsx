@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import Loading from "../../../components/LoadingPage";
 import { api } from "../../../utils/api";
 import Error from "next/error";
-import { TrainingsOnUsers } from "@prisma/client";
+import type { TrainingsOnUsers } from "@prisma/client";
 import { IconTrash } from "@tabler/icons";
 import Modal from "../../../components/admin/Modal";
 import { toast } from "react-hot-toast";
@@ -100,14 +100,20 @@ const TrainingEditPage: NextPageWithLayout = () => {
                             />
                           </td>
                           <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">
-                            <button>
-                              <label
-                                htmlFor="delete-modal"
-                                onClick={() => setTargetUserId(training.userId)}
-                              >
-                                <IconTrash className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
-                              </label>
-                            </button>
+                            {!wait ? (
+                              <button>
+                                <label
+                                  htmlFor="delete-modal"
+                                  onClick={() =>
+                                    setTargetUserId(training.userId)
+                                  }
+                                >
+                                  <IconTrash className="mx-1 transition duration-300 ease-in-out hover:scale-150 hover:cursor-pointer hover:text-red" />
+                                </label>
+                              </button>
+                            ) : (
+                              <IconTrash className="mx-1 text-light-gray" />
+                            )}
                           </td>
                         </tr>
                       );

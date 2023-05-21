@@ -1,8 +1,6 @@
 import { api } from "../utils/api";
 
-type Props = {};
-
-const testemail = (props: Props) => {
+const testemail = () => {
   const testBlastEmail = api.email.blastEmailToUsers.useMutation();
   const contactUsEmail = api.email.sendContactUsEmail.useMutation();
   const interestEmail = api.email.sendInterestEmail.useMutation();

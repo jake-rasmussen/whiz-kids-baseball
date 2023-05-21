@@ -1,13 +1,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
-import { api } from "../utils/api";
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 
 type Props = { isOpen: boolean; isAdmin: boolean };
 
@@ -25,7 +18,7 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
     >
       <div
         tabIndex={0}
-        className={`menu rounded-box absolute right-0 mt-4 items-center bg-white py-4 text-xl shadow-xl
+        className={`menu rounded-box absolute right-0 mt-4 items-center bg-white p-4 text-xl shadow-xl
         transition duration-300 ease-in-out ${
           !isOpen ? "pointer-events-none" : ""
         }`}
