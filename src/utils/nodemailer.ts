@@ -1,9 +1,8 @@
 import nodemailer from "nodemailer";
-import {
+import type {
   ContactUsFormInput,
   InterestFormInput,
 } from "../types/emailInputTypes";
-import { text } from "stream/consumers";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",

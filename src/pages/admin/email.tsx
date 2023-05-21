@@ -1,4 +1,5 @@
-import { ReactElement, useState } from "react";
+import type { ReactElement } from "react";
+import { useState } from "react";
 import EditLayout from "../../layouts/editLayout";
 import { api } from "../../utils/api";
 import toast from "react-hot-toast";

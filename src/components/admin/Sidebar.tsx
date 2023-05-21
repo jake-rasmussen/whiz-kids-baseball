@@ -12,8 +12,6 @@ import Link from "next/link";
 import { api } from "../../utils/api";
 import Loading from "../LoadingPage";
 import type { Team, Training } from "@prisma/client";
-import whizkidsw from "../../../assets/images/whizkidsw.png";
-import Image from "next/image";
 import Error from "next/error";
 
 const NavBar: React.FC = () => {

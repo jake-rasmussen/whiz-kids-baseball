@@ -1,4 +1,4 @@
-import type { Team, Tryout } from "@prisma/client";
+import type { Tryout } from "@prisma/client";
 import image from "../../assets/images/sample2.png";
 import MainLayout from "../layouts/mainLayout";
 import { api } from "../utils/api";
@@ -109,9 +109,10 @@ const Tryouts: NextPageWithLayout = () => {
           </table>
         ) : (
           <>
-            <span className="text-md w-[50%] px-5 text-center font-semibold text-red md:text-xl">
+            <span className="text-md w-[50%] text-center font-semibold text-red md:px-5 md:text-xl">
               <div className="divider before:bg-light-gray after:bg-light-gray"></div>
-              There are currently no listed tryouts, <br />
+              There are currently no listed tryouts,{" "}
+              <br className="hidden md:block" />
               please check back at a later date!
               <div className="divider before:bg-light-gray after:bg-light-gray"></div>
             </span>

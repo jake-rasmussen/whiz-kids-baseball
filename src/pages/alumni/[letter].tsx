@@ -1,7 +1,7 @@
 import MainLayout from "../../layouts/mainLayout";
 import type { NextPageWithLayout } from "../_app";
 import Link from "next/link";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import React from "react";
 import { useRouter } from "next/router";
 import { api } from "../../utils/api";
@@ -26,7 +26,7 @@ const getYearsAndSort = (alumni: Alumni[]) => {
 
 const Alumni: NextPageWithLayout = () => {
   const router = useRouter();
-  let page = ((router.query.letter as string) || "a").toUpperCase();
+  const page = ((router.query.letter as string) || "a").toUpperCase();
 
   const {
     data: alumni,
@@ -88,7 +88,7 @@ const Alumni: NextPageWithLayout = () => {
   }
 
   const createAlumniSortedMap = (alumni: Alumni[]) => {
-    let sortedAlumniMap = getYearsAndSort(alumni);
+    const sortedAlumniMap = getYearsAndSort(alumni);
     return new Map([...sortedAlumniMap.entries()].sort());
   };
 

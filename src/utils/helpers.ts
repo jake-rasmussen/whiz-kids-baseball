@@ -161,7 +161,7 @@ export const dateToStringFormatted = (date: Date) => {
 
 export const datesToStringFormatted = (dates: Date[]) => {
   let str = "";
-  let monthBefore: number = -1;
+  let monthBefore = -1;
   dates.forEach((date: Date, index: number) => {
     if (date.getMonth() != monthBefore) {
       str += dateToStringFormatted(date);

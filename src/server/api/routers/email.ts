@@ -2,7 +2,6 @@ import { z } from "zod";
 import {
   blastEmailToUsers,
   emailAdmin,
-  testEmail,
 } from "../../../utils/nodemailer";
 import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
