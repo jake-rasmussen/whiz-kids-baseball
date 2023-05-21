@@ -14,7 +14,7 @@ export const serverSchema = z.object({
   EMAIL_CLIENT_ID: z.string().min(1),
   EMAIL_CLIENT_SECRET: z.string().min(1),
   EMAIL_REFRESH_TOKEN: z.string().min(1),
-  EMAIL_ACCESS_TOKEN: z.string().min(1),
+  // EMAIL_ACCESS_TOKEN: z.string().min(1),
 
 });
 
@@ -34,7 +34,7 @@ export const serverEnv = {
   EMAIL_CLIENT_ID: process.env.EMAIL_CLIENT_ID,
   EMAIL_CLIENT_SECRET: process.env.EMAIL_CLIENT_SECRET,
   EMAIL_REFRESH_TOKEN: process.env.EMAIL_REFRESH_TOKEN,
-  EMAIL_ACCESS_TOKEN: process.env.EMAIL_ACCESS_TOKEN,
+  // EMAIL_ACCESS_TOKEN: process.env.EMAIL_ACCESS_TOKEN,
 };
 
 /**

@@ -1,9 +1,13 @@
 import Error from "next/error";
 import { api } from "../utils/api";
 import Loading from "../components/LoadingPage";
+import type { Layout } from "../types/pageWithLayout";
+import type { JSXElementConstructor, ReactElement } from "react";
 
-const withAdminPrivilege = (WrappedComponent: any) => {
-  return function withAdminPrivilege(props: any) {
+const withAdminPrivilege = (WrappedComponent: Layout) => {
+  return function withAdminPrivilege(props: {
+    children: ReactElement<unknown, string | JSXElementConstructor<unknown>>;
+  }) {
     const {
       data: isAdmin,
       isLoading,

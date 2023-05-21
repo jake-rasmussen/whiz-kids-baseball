@@ -52,7 +52,7 @@ const getUser = async (userId: string, userEmail: string) => {
       where: {
         clerkId: userId,
       },
-      update: {},
+      update: { email: userEmail },
       create: {
         clerkId: userId,
         email: userEmail,
@@ -75,6 +75,7 @@ export const createTRPCContext = async (
 
   if (userId && sessionClaims) {
     const userPrimaryEmail = sessionClaims.email as string;
+    console.log(userPrimaryEmail);
     const user = await getUser(userId, userPrimaryEmail);
     return createInnerTRPCContext(user);
   }
