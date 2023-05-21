@@ -234,6 +234,9 @@ const RosterCard = (props: PropType) => {
     )
       return false;
 
+    if (fullName.split(" ").length > 2)
+      return false
+
     setValidInput(true);
     return true;
   };

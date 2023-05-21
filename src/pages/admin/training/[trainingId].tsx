@@ -48,7 +48,7 @@ const TrainingEditPage: NextPageWithLayout = () => {
     });
 
   if (isLoading) {
-    return <Loading />;
+    return <></>;
   } else if (isError) {
     return <Error statusCode={error.data?.httpStatus || 500} />;
   }
