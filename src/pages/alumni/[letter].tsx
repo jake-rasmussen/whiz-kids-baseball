@@ -89,7 +89,7 @@ const Alumni: NextPageWithLayout = () => {
 
   const createAlumniSortedMap = (alumni: Alumni[]) => {
     const sortedAlumniMap = getYearsAndSort(alumni);
-    return new Map([...sortedAlumniMap.entries()].sort());
+    return new Map([...sortedAlumniMap.entries()].sort().reverse());
   };
 
   return (

@@ -198,7 +198,7 @@ const Trainings: NextPageWithLayout = () => {
             Training Dates
           </h1>
           {trainings !== undefined && trainings.length > 0 ? (
-            <table className="w-[80%] pb-[10vh]">
+            <table className="w-[80%] pb-[10vh] capitalize">
               <thead>
                 <tr className="w-full">
                   <th className="py-2 px-5 text-base font-black text-red">
