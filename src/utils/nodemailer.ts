@@ -1,6 +1,5 @@
 import nodemailer from "nodemailer";
 import type {
-import type {
   ContactUsFormInput,
   InterestFormInput,
 } from "../types/emailInputTypes";
@@ -26,7 +25,8 @@ const createTransporter = async () => {
 
   const accessToken = await myOAuth2Client.getAccessToken();
   return nodemailer.createTransport({
-    service: "gmail",
+    //@ts-expect-error - this is a valid option
+    service: "gmail", 
     auth: {
       type: "OAuth2",
       user,
