@@ -96,8 +96,8 @@ const Roster = (props: PropType) => {
         name="error"
         header="Invalid Input"
         content="Please make sure that all fields of the new row have been filled
-            out, that the date field is formatted properly, and that a valid
-            date has been provided"
+            out, a first and last name has been provided, and that the year and positions 
+            are properly formatted"
         confirmCancelButtons={false}
       ></Modal>
       <Modal
