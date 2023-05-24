@@ -59,6 +59,7 @@ const Trainings: NextPageWithLayout = () => {
       setWait(false);
       setPlayerName("");
       setTargetTrainingId("");
+      setValidName(false);
 
       toast.dismiss();
       toast.success("Successfully Registered Player!");
@@ -82,20 +83,28 @@ const Trainings: NextPageWithLayout = () => {
   const handleRegister = () => {
     if (wait || targetTrainingId === "") return;
 
-    if (isEmptyString(playerName) || isWhitespace(playerName)) {
+    if (!validName) {
       toast.dismiss();
       toast.error("Please Enter a Valid Name!");
-      setValidName(false);
       return;
     }
-
-    setValidName(true);
 
     registerPlayer.mutate({
       trainingId: targetTrainingId,
       playerName: playerName,
     });
   };
+
+  const setPlayerNameAndCheckValid = (input: string) => {
+    setPlayerName(input);
+    
+    if (isEmptyString(playerName) || isWhitespace(playerName)) {
+      setValidName(false);
+      return;
+    }
+
+    setValidName(true);
+  }
 
   return (
     <>
@@ -112,7 +121,7 @@ const Trainings: NextPageWithLayout = () => {
               type="name"
               className="input-bordered input mx-4 block w-[95%] rounded-md bg-white font-semibold text-dark-gray shadow-sm"
               value={playerName}
-              onChange={(e) => setPlayerName(e.currentTarget.value)}
+              onChange={(e) => setPlayerNameAndCheckValid(e.currentTarget.value)}
               required
             />
 
@@ -126,7 +135,7 @@ const Trainings: NextPageWithLayout = () => {
                 onClick={(e) => {
                   handleRegister();
                   if (validName) {
-                    e.preventDefault();
+                    // e.preventDefault();
                   }
                 }}
               >
@@ -157,15 +166,19 @@ const Trainings: NextPageWithLayout = () => {
 
       <div className="flex min-h-[82vh] w-full flex-col items-center overflow-x-scroll bg-dark-gray">
         <div className="invisible h-0 md:visible md:h-[60vh] md:w-full">
-          <main className="flex h-full w-full w-full justify-center">
-            <iframe
+          <main className="flex h-full w-full justify-center bg-dark-gray">
+            {/* <iframe
               src={
                 "https://www.youtube.com/embed/XF_q1VIMXTk?controls=0&showinfo=0&autoplay=1&loop=1&mute=1&playlist=XF_q1VIMXTk"
               }
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              title="Whiz Kids Practice Video"
+              title="Whiz Kids Training Video"
               className="w-full"
-            />
+            /> */}
+            <video autoPlay muted loop>
+              <source src="/whizkids.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </main>
         </div>
 
