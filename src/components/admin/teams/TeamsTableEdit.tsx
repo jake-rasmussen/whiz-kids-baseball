@@ -82,8 +82,7 @@ const Table = () => {
         name="error"
         header="Invalid Input"
         content="Please make sure that all fields of the new row have been filled
-            out, that the date field is formatted properly, and that a valid
-            date has been provided"
+            out with a team name"
         confirmCancelButtons={false}
       ></Modal>
       <Modal

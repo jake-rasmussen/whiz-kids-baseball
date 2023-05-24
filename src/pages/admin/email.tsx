@@ -20,16 +20,16 @@ const Email = () => {
 
   const sendEmail = api.email.blastEmailToUsers.useMutation({
     onMutate() {
-      toast.loading("Sending Form...");
+      toast.loading("Sending Email...");
     },
     onSuccess() {
       toast.dismiss();
-      toast.success("Successfully Sent Form");
+      toast.success("Successfully Sent Email");
       resetForm();
     },
     onError() {
       toast.dismiss();
-      toast.error("Error Sending Form");
+      toast.error("Error Sending Email");
     },
   });
 
