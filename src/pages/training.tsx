@@ -134,8 +134,7 @@ const Trainings: NextPageWithLayout = () => {
               <label
                 htmlFor="register-modal"
                 className="btn"
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
                   resetTrainingModalStates();
                 }}
               >
