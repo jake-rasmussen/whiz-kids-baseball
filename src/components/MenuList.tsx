@@ -13,7 +13,7 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
         open: { opacity: 1, x: 0 },
         closed: { opacity: 0, x: "10px" },
       }}
-      className="absolute top-full right-0 mt-4 w-full bg-white"
+      className="absolute top-full right-0 mt-4 bg-white"
       id="menu"
     >
       <div
@@ -61,7 +61,7 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
                 <div className="divider my-0"></div>
                 <Link
                   href="/user/training"
-                  className="tracking-none btn-ghost btn-wide btn  text-xl font-black text-dark-gray hover:text-red"
+                  className="tracking-none btn-ghost btn text-lg font-black text-dark-gray hover:text-red"
                 >
                   My Trainings
                 </Link>
