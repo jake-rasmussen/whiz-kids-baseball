@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import sample1 from "../../assets/images/sample1.png";
 import sample2 from "../../assets/images/sample2.png";
-import Carousel from "../components/Carousel";
 import type { NextPageWithLayout } from "./_app";
 import { IconMail, IconMapPin, IconPhone } from "@tabler/icons";
 import type { EmblaOptionsType } from "embla-carousel-react";
@@ -12,6 +11,7 @@ import MainLayout from "../layouts/mainLayout";
 import { useInView } from "react-intersection-observer";
 import ContactForm from "../components/ContactForm";
 import { Toaster } from "react-hot-toast";
+import Carousel from "../components/carousel";
 
 const Home: NextPageWithLayout = () => {
   const images = [sample1, sample2];

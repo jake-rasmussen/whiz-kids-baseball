@@ -7,7 +7,7 @@ import React from "react";
 import { api } from "../../utils/api";
 import Error from "next/error";
 import Loading from "../../components/LoadingPage";
-import type { TrainingsOnUsers } from "@prisma/client";
+import type { Training, TrainingsOnUsers } from "@prisma/client";
 import { dateToStringFormatted, dateToTimeStringFormatted } from "../../utils/helpers";
 import { toast } from "react-hot-toast";
 
@@ -95,7 +95,7 @@ const Trainings: NextPageWithLayout = () => {
             </thead>
 
             <tbody>
-              {trainings.map((trainingOnUser: TrainingsOnUsers, index) => {
+              {trainings.map((trainingOnUser: typeof trainings[0], index) => {
                 return (
                   <React.Fragment key={index}>
                     <tr className="border-y border-light-gray">
