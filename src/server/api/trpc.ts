@@ -52,7 +52,7 @@ const getUser = async (userId: string, userEmail: string) => {
       where: {
         clerkId: userId,
       },
-      update: {},
+      update: { email: userEmail },
       create: {
         clerkId: userId,
         email: userEmail,

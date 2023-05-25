@@ -3,27 +3,47 @@ import type {
   ContactUsFormInput,
   InterestFormInput,
 } from "../types/emailInputTypes";
+import { google } from "googleapis";
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    type: "OAuth2",
-    user: process.env.EMAIL_USER_ADDRESS,
-    clientId: process.env.EMAIL_CLIENT_ID,
-    clientSecret: process.env.EMAIL_CLIENT_SECRET,
-    refreshToken: process.env.EMAIL_REFRESH_TOKEN,
-    accessToken: process.env.EMAIL_ACCESS_TOKEN,
-    expires: 1484314697598,
-  },
-});
+const user = process.env.EMAIL_USER_ADDRESS;
+const clientId = process.env.EMAIL_CLIENT_ID;
+const clientSecret = process.env.EMAIL_CLIENT_SECRET;
+const refreshToken = process.env.EMAIL_REFRESH_TOKEN;
+
+const OAuth2 = google.auth.OAuth2;
+
+const createTransporter = async () => {
+  const myOAuth2Client = new OAuth2(
+    clientId,
+    clientSecret,
+    "https://developers.google.com/oauthplayground"
+  );
+
+  myOAuth2Client.setCredentials({
+    refresh_token: refreshToken,
+  });
+
+  const accessToken = await myOAuth2Client.getAccessToken();
+  return nodemailer.createTransport({
+    //@ts-expect-error - this is a valid option
+    service: "gmail", 
+    auth: {
+      type: "OAuth2",
+      user,
+      clientId,
+      clientSecret,
+      refreshToken,
+      accessToken,
+    },
+  });
+};
 
 export const blastEmailToUsers = async (
   bcc: string[],
   subject: string,
   text: string
 ) => {
+  const transporter = await createTransporter();
   await transporter.sendMail({
     from: process.env.EMAIL_USER_ADDRESS,
     bcc,
@@ -73,6 +93,9 @@ export const emailAdmin = async (
     ${message}
     `;
   }
+
+  const transporter = await createTransporter();
+
   await transporter.sendMail({
     from: process.env.EMAIL_USER_ADDRESS,
     to: process.env.EMAIL_USER_ADDRESS,

@@ -3,7 +3,6 @@ import type { NextPageWithLayout } from "../../_app";
 import type { ReactElement } from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Loading from "../../../components/LoadingPage";
 import { api } from "../../../utils/api";
 import Error from "next/error";
 import type { TrainingsOnUsers } from "@prisma/client";

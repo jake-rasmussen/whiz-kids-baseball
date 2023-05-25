@@ -1,7 +1,7 @@
 import MainLayout from "../layouts/mainLayout";
 import type { NextPageWithLayout } from "./_app";
 import { IconInfoCircle } from "@tabler/icons";
-import type { ReactElement } from "react";
+import { ReactElement, use, useEffect } from "react";
 import { useState } from "react";
 import React from "react";
 import { api } from "../utils/api";
@@ -50,6 +50,24 @@ const Trainings: NextPageWithLayout = () => {
   const [targetTrainingId, setTargetTrainingId] = useState("");
   const [wait, setWait] = useState(false);
 
+  useEffect(() => {
+    if (isEmptyString(playerName) || isWhitespace(playerName)) {
+      setValidName(false);
+    } else {
+      setValidName(true);
+    }
+
+    return () => {
+      return;
+    };
+  }, [playerName]);
+
+  const resetTrainingModalStates = () => {
+    setPlayerName("");
+    setValidName(false);
+    setTargetTrainingId("");
+  };
+
   const registerPlayer = api.training.registerForTraining.useMutation({
     onMutate() {
       setWait(true);
@@ -57,9 +75,7 @@ const Trainings: NextPageWithLayout = () => {
     },
     onSuccess() {
       setWait(false);
-      setPlayerName("");
-      setTargetTrainingId("");
-      setValidName(false);
+      resetTrainingModalStates();
 
       toast.dismiss();
       toast.success("Successfully Registered Player!");
@@ -95,17 +111,6 @@ const Trainings: NextPageWithLayout = () => {
     });
   };
 
-  const setPlayerNameAndCheckValid = (input: string) => {
-    setPlayerName(input);
-    
-    if (isEmptyString(playerName) || isWhitespace(playerName)) {
-      setValidName(false);
-      return;
-    }
-
-    setValidName(true);
-  }
-
   return (
     <>
       <Toaster position="top-center" />
@@ -121,22 +126,27 @@ const Trainings: NextPageWithLayout = () => {
               type="name"
               className="input-bordered input mx-4 block w-[95%] rounded-md bg-white font-semibold text-dark-gray shadow-sm"
               value={playerName}
-              onChange={(e) => setPlayerNameAndCheckValid(e.currentTarget.value)}
+              onChange={(e) => setPlayerName(e.currentTarget.value)}
               required
             />
 
             <div className="modal-action py-4">
-              <label htmlFor="register-modal" className="btn">
+              <label
+                htmlFor="register-modal"
+                className="btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  resetTrainingModalStates();
+                }}
+              >
                 Cancel
               </label>
               <label
                 htmlFor={validName ? "register-modal" : ""}
                 className="btn"
                 onClick={(e) => {
+                  e.preventDefault;
                   handleRegister();
-                  if (validName) {
-                    // e.preventDefault();
-                  }
                 }}
               >
                 Confirm
@@ -167,14 +177,6 @@ const Trainings: NextPageWithLayout = () => {
       <div className="flex min-h-[82vh] w-full flex-col items-center overflow-x-scroll bg-dark-gray">
         <div className="invisible h-0 md:visible md:h-[60vh] md:w-full">
           <main className="flex h-full w-full justify-center bg-dark-gray">
-            {/* <iframe
-              src={
-                "https://www.youtube.com/embed/XF_q1VIMXTk?controls=0&showinfo=0&autoplay=1&loop=1&mute=1&playlist=XF_q1VIMXTk"
-              }
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              title="Whiz Kids Training Video"
-              className="w-full"
-            /> */}
             <video autoPlay muted loop>
               <source src="/whizkids.mp4" type="video/mp4" />
               Your browser does not support the video tag.

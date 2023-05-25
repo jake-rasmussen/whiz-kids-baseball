@@ -42,6 +42,29 @@ const AlumniRowEdit = (props: PropType) => {
   });
   const [fullName, setFullName] = useState("");
 
+  const setName = (fullName: string) => {
+    const split = fullName.split(" ");
+    let first = "";
+    let last = "";
+
+    if (split.length === 0) return false;
+
+    if (split[0] !== undefined) {
+      first = split[0].trim();
+    }
+    if (split.length > 1 && split[1] !== undefined) {
+      last = split[1].trim();
+    }
+
+    setRowEdits({
+      ...rowEdits,
+      firstName: first,
+      lastName: last,
+    });
+
+    return true;
+  };
+
   useEffect(() => {
     setName(fullName);
   }, [fullName]);
@@ -138,29 +161,6 @@ const AlumniRowEdit = (props: PropType) => {
   const handleCancelChanges = () => {
     removeTemporaryRow();
     resetRowEdits();
-  };
-
-  const setName = (fullName: string) => {
-    const split = fullName.split(" ");
-    let first = "";
-    let last = "";
-
-    if (split.length === 0) return false;
-
-    if (split[0] !== undefined) {
-      first = split[0].trim();
-    }
-    if (split.length > 1 && split[1] !== undefined) {
-      last = split[1].trim();
-    }
-
-    setRowEdits({
-      ...rowEdits,
-      firstName: first,
-      lastName: last,
-    });
-
-    return true;
   };
 
   const checkValidInput = () => {
