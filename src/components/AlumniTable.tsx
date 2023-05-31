@@ -22,7 +22,7 @@ const AlumniTable = (props: PropType) => {
       exit="initial"
       key={`${year}-${letter}`}
     >
-      <table className="mx-auto w-[70%]" key={`${year}-${letter}`}>
+      <table className="w-full" key={`${year}-${letter}`}>
         <thead className="border-b border-dark-gray">
           <tr>
             <th className="text-left text-5xl font-black tracking-wide text-dark-gray">

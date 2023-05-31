@@ -1,56 +1,67 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
+import type { Dispatch, SetStateAction } from "react";
 
-type Props = { isOpen: boolean; isAdmin: boolean };
+type Props = {
+  isOpen: boolean;
+  isAdmin: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+};
 
-const MenuList = ({ isOpen, isAdmin }: Props) => {
+const MenuList = ({ isOpen, isAdmin, setIsOpen }: Props) => {
   return (
     <motion.ul
       initial="closed"
       animate={isOpen ? "open" : "closed"}
+      transition={{ duration: 0.3 }}
       variants={{
         open: { opacity: 1, x: 0 },
-        closed: { opacity: 0, x: "10px" },
+        closed: { opacity: 0, x: "-100%" },
       }}
-      className="absolute top-full right-0 mt-4 bg-white"
+      className="absolute top-full right-0 w-full"
       id="menu"
     >
       <div
         tabIndex={0}
-        className={`menu rounded-box absolute right-0 mt-4 items-center bg-white p-4 text-xl shadow-xl
+        className={`flex h-[92vh] w-screen items-center justify-center overflow-y-scroll bg-white text-xl
         transition duration-300 ease-in-out ${
           !isOpen ? "pointer-events-none" : ""
         }`}
       >
-        <div className="flex flex-col justify-center sm:px-4">
+        <div className="mb-20 flex flex-col justify-center gap-4 px-4">
           <Link
             href="/"
             className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
+            onClick={() => setIsOpen(false)}
           >
             Home
           </Link>
           <Link
             href="/teams"
             className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
+            onClick={() => setIsOpen(false)}
           >
             Teams
           </Link>
           <Link
             href="/training"
             className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
+            onClick={() => setIsOpen(false)}
           >
             Training
           </Link>
           <Link
             href="/tryout"
             className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
+            onClick={() => setIsOpen(false)}
           >
             Tryout
           </Link>
           <Link
             href="/alumni/a"
             className="tracking-none btn-ghost btn text-3xl font-black text-dark-gray hover:text-red"
+            onClick={() => setIsOpen(false)}
           >
             Alumni
           </Link>
@@ -58,36 +69,38 @@ const MenuList = ({ isOpen, isAdmin }: Props) => {
           <SignedIn>
             {!isAdmin && (
               <>
-                <div className="divider my-0"></div>
+                <div className="divider my-0" />
                 <Link
                   href="/user/training"
-                  className="tracking-none btn-ghost btn text-lg font-black text-dark-gray hover:text-red"
+                  className="tracking-none btn-ghost btn w-full items-center text-xl font-black text-dark-gray hover:text-red"
+                  onClick={() => setIsOpen(false)}
                 >
                   My Trainings
                 </Link>
               </>
             )}
           </SignedIn>
-        </div>
 
-        <div className="flex flex-row">
           <SignedOut>
-            <SignInButton>
-              <button
-                className="btn m-1 my-4 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
-              transition duration-300 ease-in-out hover:scale-110"
-              >
-                Log in
-              </button>
-            </SignInButton>
-            <SignUpButton>
-              <button
-                className="btn m-1 my-4 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
-              transition duration-300 ease-in-out hover:scale-110"
-              >
-                Sign up
-              </button>
-            </SignUpButton>
+            <div className="divider my-0" />
+            <div className="flex flex-wrap justify-center">
+              <SignInButton>
+                <button
+                  className="btn-wide btn m-1 m-4 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
+                transition duration-300 ease-in-out hover:scale-110"
+                >
+                  Log in
+                </button>
+              </SignInButton>
+              <SignUpButton>
+                <button
+                  className="btn-wide btn m-1 m-4 rounded-lg border-none bg-gradient-to-r from-red to-secondary-red p-3 font-black uppercase tracking-wide text-white
+                  transition duration-300 ease-in-out hover:scale-110"
+                >
+                  Sign up
+                </button>
+              </SignUpButton>
+            </div>
           </SignedOut>
         </div>
       </div>

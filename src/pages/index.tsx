@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import sample1 from "../../assets/images/sample1.png";
-import sample2 from "../../assets/images/sample2.png";
 import type { NextPageWithLayout } from "./_app";
 import { IconMail, IconMapPin, IconPhone } from "@tabler/icons";
 import type { EmblaOptionsType } from "embla-carousel-react";
@@ -13,8 +11,15 @@ import ContactForm from "../components/ContactForm";
 import { Toaster } from "react-hot-toast";
 import Carousel from "../components/carousel";
 
+import CarouselPhoto1 from "../../assets/images/ThroughFence.jpg";
+import CarouselPhoto2 from "../../assets/images/SianiPhoto.png";
+
+import TeamsPhoto from "../../assets/images/TeamPhoto.png";
+import TournamentPhoto from "../../assets/images/Dugout.jpg"
+import PlayersPhoto from "../../assets/images/WhizKidsSocial.jpg";
+
 const Home: NextPageWithLayout = () => {
-  const images = [sample1, sample2];
+  const images = [CarouselPhoto1, CarouselPhoto2];
 
   const { ref: refTeams, inView: inViewTeams } = useInView({
     threshold: 0.3,
@@ -73,7 +78,7 @@ const Home: NextPageWithLayout = () => {
               className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row"
             >
               <Image
-                src={sample2}
+                src={TeamsPhoto}
                 className="h-80 w-auto object-cover dark:bg-gray-500"
                 alt="Whiz Kids Photo"
               />
@@ -100,7 +105,7 @@ const Home: NextPageWithLayout = () => {
               className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row"
             >
               <Image
-                src={sample1}
+                src={TournamentPhoto}
                 className="block h-80 w-auto object-cover dark:bg-gray-500 lg:hidden"
                 alt="Whiz Kids Photo"
               />
@@ -116,7 +121,7 @@ const Home: NextPageWithLayout = () => {
                 </p>
               </div>
               <Image
-                src={sample1}
+                src={TournamentPhoto}
                 className="hidden h-80 w-auto object-cover dark:bg-gray-500 lg:block"
                 alt="Whiz Kids Photo"
               />
@@ -133,7 +138,7 @@ const Home: NextPageWithLayout = () => {
               className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row"
             >
               <Image
-                src={sample2}
+                src={PlayersPhoto}
                 className="h-80 w-auto object-cover dark:bg-gray-500"
                 alt="Whiz Kids Photo"
               />

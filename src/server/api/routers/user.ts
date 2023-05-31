@@ -10,7 +10,7 @@ export const userRouter = createTRPCRouter({
     .input(z.object({ clerkId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { clerkId } = input;
-      
+
       if (clerkId === ctx.user.clerkId) {
         throw new Error("Cannot delete yourself");
       }

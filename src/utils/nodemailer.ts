@@ -26,7 +26,7 @@ const createTransporter = async () => {
   const accessToken = await myOAuth2Client.getAccessToken();
   return nodemailer.createTransport({
     //@ts-expect-error - this is a valid option
-    service: "gmail", 
+    service: "gmail",
     auth: {
       type: "OAuth2",
       user,

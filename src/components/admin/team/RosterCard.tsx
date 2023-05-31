@@ -51,13 +51,30 @@ const RosterCard = (props: PropType) => {
   });
   const [fullName, setFullName] = useState("");
 
-  useEffect(() => {
-    setName(fullName);
-  }, [fullName]);
-
   const [validInput, setValidInput] = useState(true);
 
   const queryClient = api.useContext();
+
+  useEffect(() => {
+    const split = fullName.split(" ");
+    let first = "";
+    let last = "";
+
+    if (split[0] !== undefined) {
+      first = split[0].trim();
+    }
+    if (split.length > 1 && split[1] !== undefined) {
+      last = split[1].trim();
+    }
+
+    setPlayerEdits((playerEdits) => {
+      return {
+        ...playerEdits,
+        firstName: first,
+        lastName: last,
+      };
+    });
+  }, [fullName]);
 
   const resetPlayerEdits = () => {
     setPlayerEdits({
@@ -161,28 +178,6 @@ const RosterCard = (props: PropType) => {
     resetPlayerEdits();
   };
 
-  const setName = (fullName: string) => {
-    const split = fullName.split(" ");
-    let first = "";
-    let last = "";
-
-    if (split.length === 0) return false;
-    if (split[0] !== undefined) {
-      first = split[0].trim();
-    }
-    if (split.length > 1 && split[1] !== undefined) {
-      last = split[1].trim();
-    }
-
-    setPlayerEdits({
-      ...playerEdits,
-      firstName: first,
-      lastName: last,
-    });
-
-    return true;
-  };
-
   const checkValidInput = () => {
     if (newPlayerCreated) {
       if (
@@ -234,8 +229,7 @@ const RosterCard = (props: PropType) => {
     )
       return false;
 
-    if (fullName.split(" ").length > 2)
-      return false
+    if (fullName.split(" ").length > 2) return false;
 
     setValidInput(true);
     return true;

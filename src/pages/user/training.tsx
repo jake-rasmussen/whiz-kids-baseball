@@ -7,9 +7,11 @@ import React from "react";
 import { api } from "../../utils/api";
 import Error from "next/error";
 import Loading from "../../components/LoadingPage";
-import type { Training, TrainingsOnUsers } from "@prisma/client";
-import { dateToStringFormatted, dateToTimeStringFormatted } from "../../utils/helpers";
-import { toast } from "react-hot-toast";
+import {
+  dateToStringFormatted,
+  dateToTimeStringFormatted,
+} from "../../utils/helpers";
+import { Toaster, toast } from "react-hot-toast";
 
 const Trainings: NextPageWithLayout = () => {
   const [wait, setWait] = useState(false);
@@ -23,25 +25,24 @@ const Trainings: NextPageWithLayout = () => {
 
   const queryClient = api.useContext();
 
-  const unregisterSelf = 
-    api.training.unregisterFromTrainingAsUser.useMutation({
-      onMutate() {
-        setWait(true);
-        toast.loading("Unregistering You...")
-      },
-      onSuccess() {
-        queryClient.training.getTrainingsForUserId.invalidate();
-        
-        setWait(false);
+  const unregisterSelf = api.training.unregisterFromTrainingAsUser.useMutation({
+    onMutate() {
+      setWait(true);
+      toast.loading("Unregistering You...");
+    },
+    onSuccess() {
+      queryClient.training.getTrainingsForUserId.invalidate();
 
-        toast.dismiss();
-        toast.success("You've Successfully Unregistered!");
-      },
-      onError() {
-        toast.dismiss();
-        toast.error("Error, Please Try Again Later");
-      }
-    })
+      setWait(false);
+
+      toast.dismiss();
+      toast.success("You've Successfully Unregistered!");
+    },
+    onError() {
+      toast.dismiss();
+      toast.error("Error, Please Try Again Later");
+    },
+  });
 
   if (isLoadingTrainings) {
     return <Loading />;
@@ -53,12 +54,13 @@ const Trainings: NextPageWithLayout = () => {
     if (wait) return;
 
     unregisterSelf.mutate({
-      trainingId
-    })
-  }
+      trainingId,
+    });
+  };
 
   return (
     <>
+      <Toaster />
       <main className="flex min-h-[82vh] w-full flex-col items-center justify-center bg-dark-gray py-10 pb-14">
         <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-white md:text-4xl">
           My Trainings
@@ -67,7 +69,7 @@ const Trainings: NextPageWithLayout = () => {
           <table className="w-[80%] pb-[10vh]">
             <thead>
               <tr className="w-full">
-               <th className="py-2 px-5 text-base font-black text-red">
+                <th className="py-2 px-5 text-base font-black text-red">
                   Training Session
                 </th>
                 <th className="hidden py-2 px-5 text-base font-black text-red md:table-cell">
@@ -88,18 +90,18 @@ const Trainings: NextPageWithLayout = () => {
                 <th className="hidden py-2 px-5 text-base font-black text-red md:table-cell">
                   Price
                 </th>
-                <th className="py-2 px-5 text-base font-black text-red">
+                <th className="py-2 px-2 text-base font-black text-red sm:px-5">
                   Unregister?
                 </th>
               </tr>
             </thead>
 
             <tbody>
-              {trainings.map((trainingOnUser: typeof trainings[0], index) => {
+              {trainings.map((trainingOnUser: (typeof trainings)[0], index) => {
                 return (
                   <React.Fragment key={index}>
                     <tr className="border-y border-light-gray">
-                      <td className="py-2 text-center text-sm font-medium text-white capitalize">
+                      <td className="py-2 text-center text-sm font-medium capitalize text-white">
                         {trainingOnUser.training?.name}
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light capitalize text-white md:table-cell">
@@ -108,21 +110,21 @@ const Trainings: NextPageWithLayout = () => {
                       <td className="table-cell py-2 text-sm font-medium text-white md:hidden">
                         <div className="flex flex-row justify-center">
                           <label
-                            htmlFor="modal"
+                            htmlFor={`modal${index}`}
                             className="hover:cursor-pointer"
                           >
-                            <IconInfoCircle className="mx-2 text-white transition duration-300 ease-in-out hover:cursor-pointer hover:text-red" />
+                            <IconInfoCircle className="text-white transition duration-300 ease-in-out hover:cursor-pointer hover:text-red" />
                           </label>
 
                           <input
                             type="checkbox"
-                            id="modal"
+                            id={`modal${index}`}
                             className="modal-toggle"
                           />
                           <div className="modal">
                             <div className="modal-box relative bg-white text-left text-dark-gray shadow-xl">
                               <label
-                                htmlFor="modal"
+                                htmlFor={`modal${index}`}
                                 className="btn-ghost btn-sm btn absolute right-2 top-2"
                               >
                                 ✕
@@ -138,7 +140,9 @@ const Trainings: NextPageWithLayout = () => {
                               </p>
                               <p className="px-4 py-1 text-lg capitalize">
                                 Date:{" "}
-                                {dateToStringFormatted(trainingOnUser.training?.dateTime)}
+                                {dateToStringFormatted(
+                                  trainingOnUser.training?.dateTime
+                                )}
                               </p>
                               <p className="px-4 py-1 text-lg capitalize">
                                 Time:{" "}
@@ -157,10 +161,14 @@ const Trainings: NextPageWithLayout = () => {
                         {trainingOnUser.training?.location}
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light capitalize text-white md:table-cell">
-                        {dateToStringFormatted(trainingOnUser.training?.dateTime)}
+                        {dateToStringFormatted(
+                          trainingOnUser.training?.dateTime
+                        )}
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light capitalize text-white md:table-cell">
-                        {dateToTimeStringFormatted(trainingOnUser.training?.dateTime)}
+                        {dateToTimeStringFormatted(
+                          trainingOnUser.training?.dateTime
+                        )}
                       </td>
                       <td className="hidden whitespace-nowrap py-2 text-center text-sm font-light capitalize text-white md:table-cell">
                         {`$${trainingOnUser.training?.price}`}
@@ -170,9 +178,11 @@ const Trainings: NextPageWithLayout = () => {
                           <label
                             className="text-md btn self-center rounded-lg rounded border-none bg-gradient-to-r from-red to-secondary-red font-black uppercase tracking-wide text-white
                             transition duration-300 ease-in-out hover:scale-110 hover:cursor-pointer"
-                            onClick={() => handleUnregisterSelf(trainingOnUser.trainingId)}
+                            onClick={() =>
+                              handleUnregisterSelf(trainingOnUser.trainingId)
+                            }
                           >
-                            Unregister
+                            Leave
                           </label>
                         </button>
                       </td>
@@ -184,7 +194,7 @@ const Trainings: NextPageWithLayout = () => {
           </table>
         ) : (
           <>
-            <span className="text-md w-[80%] md:w-[50%] px-5 text-center font-semibold text-white md:text-xl">
+            <span className="text-md w-[80%] px-5 text-center font-semibold text-white md:w-[50%] md:text-xl">
               <div className="divider before:bg-light-gray after:bg-light-gray"></div>
               You are currently not signed up for any trainings!
               <div className="divider before:bg-light-gray after:bg-light-gray"></div>

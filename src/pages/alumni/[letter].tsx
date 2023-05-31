@@ -61,7 +61,7 @@ const Alumni: NextPageWithLayout = () => {
         {i + 1 === pageNumber || (pageNumber == -31 && i === 0) ? (
           <li
             key={`key${i}`}
-            className="scale-[175%] px-2 text-lg font-black text-red transition duration-300 ease-in-out sm:px-3 md:text-2xl"
+            className="scale-[175%] px-2 text-2xl font-black text-red transition duration-300 ease-in-out sm:px-3 md:text-3xl"
           >
             <Link
               key={`link${i}`}
@@ -73,7 +73,7 @@ const Alumni: NextPageWithLayout = () => {
         ) : (
           <li
             key={`key${i}`}
-            className="px-2 text-lg font-black text-dark-gray transition duration-300 ease-in-out hover:scale-[150%] hover:text-red sm:px-3 md:text-2xl"
+            className="px-2 text-2xl font-black text-dark-gray transition duration-300 ease-in-out hover:scale-[150%] hover:text-red sm:px-3 md:text-3xl"
           >
             <Link
               key={`link${i}`}
@@ -130,7 +130,10 @@ const Alumni: NextPageWithLayout = () => {
             {Array.from(createAlumniSortedMap(alumni).keys()).map(
               (key: number, index: number) => {
                 return (
-                  <div key={`key${index}`} className="w-full items-center pb-4">
+                  <div
+                    key={`key${index}`}
+                    className="w-full items-center px-2 pb-4 sm:px-20 lg:px-60"
+                  >
                     <AlumniTable
                       letter={router.query.letter as string}
                       year={key}

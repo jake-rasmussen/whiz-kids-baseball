@@ -47,13 +47,13 @@ const Carousel = (props: PropType) => {
           ))}
         </div>
         <button
-          className="embla__prev absolute left-0 top-[50%] hidden transition duration-300 ease-in-out hover:scale-[200%] md:block"
+          className="embla__prev absolute left-0 top-[50%] hidden transition duration-300 ease-in-out hover:scale-[200%] md:block z-100"
           onClick={scrollPrev}
         >
           <IconChevronLeft className="h-20 w-20 text-white" />
         </button>
         <button
-          className="embla__next absolute right-0 top-[50%] hidden transition duration-300 ease-in-out hover:scale-[200%] md:block"
+          className="embla__next absolute right-0 top-[50%] hidden transition duration-300 ease-in-out hover:scale-[200%] md:block z-100"
           onClick={scrollNext}
         >
           <IconChevronRight className="h-20 w-20 text-white" />
@@ -67,7 +67,7 @@ const Carousel = (props: PropType) => {
           duration: 1.5,
           ease: [0, 0.71, 0.2, 1.01],
         }}
-        className="absolute mx-6 h-auto max-w-4xl"
+        className="absolute mx-6 h-auto max-w-2xl lg:max-w-3xl xl:max-w-4xl"
       >
         <Image src={banner} alt="Whiz Kids Banner" priority />
       </motion.div>

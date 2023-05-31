@@ -1,7 +1,8 @@
 import MainLayout from "../layouts/mainLayout";
 import type { NextPageWithLayout } from "./_app";
 import { IconInfoCircle } from "@tabler/icons";
-import { ReactElement, use, useEffect } from "react";
+import type { ReactElement } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import React from "react";
 import { api } from "../utils/api";
@@ -101,7 +102,7 @@ const Trainings: NextPageWithLayout = () => {
 
     if (!validName) {
       toast.dismiss();
-      toast.error("Please Enter a Valid Name!");
+      toast.error("Please Enter a Name!");
       return;
     }
 
@@ -201,8 +202,8 @@ const Trainings: NextPageWithLayout = () => {
               This is an environment where normal baseball players with big
               dreams show up to work consistently and ultimately transform
               themselves. We aim to mentor players who eventually get recruited.
-              We are passionate, straight forward and very well informed. Our
-              mission is to always be equipped to push you further.
+              We will do our best to educate you on where you currenlty stand and 
+              guide you through the process of reaching your potential.
             </p>
           </motion.div>
         </section>
@@ -251,7 +252,7 @@ const Trainings: NextPageWithLayout = () => {
                           <td className="table-cell py-2 text-sm font-medium text-white md:hidden">
                             <div className="flex flex-row justify-center">
                               <label
-                                htmlFor="modal"
+                                htmlFor={`modal${index}`}
                                 className="hover:cursor-pointer"
                               >
                                 <IconInfoCircle className="mx-2 text-white transition duration-300 ease-in-out hover:cursor-pointer hover:text-red" />
@@ -259,19 +260,19 @@ const Trainings: NextPageWithLayout = () => {
 
                               <input
                                 type="checkbox"
-                                id="modal"
+                                id={`modal${index}`}
                                 className="modal-toggle"
                               />
                               <div className="modal">
                                 <div className="modal-box relative bg-white text-left text-dark-gray shadow-xl">
                                   <label
-                                    htmlFor="modal"
+                                    htmlFor={`modal${index}`}
                                     className="btn-ghost btn-sm btn absolute right-2 top-2"
                                   >
                                     ✕
                                   </label>
                                   <h1 className="py-4 pl-4 text-2xl font-black uppercase leading-tight tracking-wide text-red underline">
-                                    Training Session
+                                    {training.name}
                                   </h1>
                                   <p className="px-4 py-1 text-lg capitalize">
                                     Location: {training.location}

@@ -1,4 +1,4 @@
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/WhizKidsLogo.png";
 import {
   SignInButton,
   SignUpButton,
@@ -130,13 +130,15 @@ const NavBar: React.FC = () => {
           </div>
 
           <div className="mx-4 flex flex-row items-center justify-end gap-12">
-            <SignedIn>
-              <AnimatePresence>
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  <UserButton />
-                </motion.div>
-              </AnimatePresence>
-            </SignedIn>
+            <div className="">
+              <SignedIn>
+                <AnimatePresence>
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                    <UserButton />
+                  </motion.div>
+                </AnimatePresence>
+              </SignedIn>
+            </div>
 
             <div className="block lg:hidden">
               <BurgerMenu isAdmin={isAdmin ?? false} />

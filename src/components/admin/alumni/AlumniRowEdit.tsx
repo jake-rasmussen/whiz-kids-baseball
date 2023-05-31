@@ -42,12 +42,10 @@ const AlumniRowEdit = (props: PropType) => {
   });
   const [fullName, setFullName] = useState("");
 
-  const setName = (fullName: string) => {
+  useEffect(() => {
     const split = fullName.split(" ");
     let first = "";
     let last = "";
-
-    if (split.length === 0) return false;
 
     if (split[0] !== undefined) {
       first = split[0].trim();
@@ -56,17 +54,13 @@ const AlumniRowEdit = (props: PropType) => {
       last = split[1].trim();
     }
 
-    setRowEdits({
-      ...rowEdits,
-      firstName: first,
-      lastName: last,
+    setRowEdits((rowEdits) => {
+      return {
+        ...rowEdits,
+        firstName: first,
+        lastName: last,
+      };
     });
-
-    return true;
-  };
-
-  useEffect(() => {
-    setName(fullName);
   }, [fullName]);
 
   const [validInput, setValidInput] = useState(true);
@@ -192,6 +186,8 @@ const AlumniRowEdit = (props: PropType) => {
         rowEdits.lastName.trim().length === 0)
     )
       return false;
+
+    if (fullName.split(" ").length > 2) return false;
 
     return true;
   };

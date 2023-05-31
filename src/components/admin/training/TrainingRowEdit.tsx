@@ -52,8 +52,35 @@ const TrainingRowEdit = (props: PropType) => {
   const [date, setDate] = useState("");
 
   useEffect(() => {
-    setFullDate(date, time);
-  }, [date, time]);
+    const dateObject = new Date();
+
+    const dateWithDate = dateStringToDate(date);
+
+    if (dateWithDate.toString() !== "Invalid Date") {
+      dateObject.setMonth(dateWithDate.getMonth());
+      dateObject.setDate(dateWithDate.getDate());
+    } else {
+      dateObject.setMonth(training.dateTime.getMonth());
+      dateObject.setDate(training.dateTime.getDate());
+    }
+
+    const dateWithTime = timeStringToTimeAsDate(time);
+
+    if (dateWithTime.toString() !== "Invalid Date") {
+      dateObject.setHours(dateWithTime.getHours());
+      dateObject.setMinutes(dateWithTime.getMinutes());
+    } else {
+      dateObject.setHours(training.dateTime.getHours());
+      dateObject.setMinutes(training.dateTime.getMinutes());
+    }
+
+    setRowEdits((rowEdits) => {
+      return { 
+        ...rowEdits, 
+        dateTime: dateObject 
+      };
+    });
+  }, [date, time, training.dateTime]);
 
   const [validInput, setValidInput] = useState(true);
 
@@ -154,32 +181,6 @@ const TrainingRowEdit = (props: PropType) => {
   const handleCancelChanges = () => {
     removeTemporaryRow();
     resetRowEdits();
-  };
-
-  const setFullDate = (dateStr: string, timeStr: string) => {
-    const date = new Date();
-
-    const dateWithDate = dateStringToDate(dateStr);
-
-    if (dateWithDate.toString() !== "Invalid Date") {
-      date.setMonth(dateWithDate.getMonth());
-      date.setDate(dateWithDate.getDate());
-    } else {
-      date.setMonth(training.dateTime.getMonth());
-      date.setDate(training.dateTime.getDate());
-    }
-
-    const dateWithTime = timeStringToTimeAsDate(timeStr);
-
-    if (dateWithTime.toString() !== "Invalid Date") {
-      date.setHours(dateWithTime.getHours());
-      date.setMinutes(dateWithTime.getMinutes());
-    } else {
-      date.setHours(training.dateTime.getHours());
-      date.setMinutes(training.dateTime.getMinutes());
-    }
-
-    setRowEdits({ ...rowEdits, dateTime: date });
   };
 
   const checkValidInput = () => {
