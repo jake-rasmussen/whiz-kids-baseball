@@ -267,7 +267,7 @@ const Trainings: NextPageWithLayout = () => {
                                 <div className="modal-box relative bg-white text-left text-dark-gray shadow-xl">
                                   <label
                                     htmlFor={`modal${index}`}
-                                    className="btn-ghost btn-sm btn absolute right-2 top-2"
+                                    className="btn-ghost btn-sm btn absolute right-2 top-2 text-2xl"
                                   >
                                     ✕
                                   </label>
