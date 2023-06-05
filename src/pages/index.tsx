@@ -15,7 +15,7 @@ import CarouselPhoto1 from "../../assets/images/ThroughFence.jpg";
 import CarouselPhoto2 from "../../assets/images/SianiPhoto.png";
 
 import TeamsPhoto from "../../assets/images/TeamPhoto.png";
-import TournamentPhoto from "../../assets/images/Dugout.jpg"
+import TournamentPhoto from "../../assets/images/Dugout.jpg";
 import PlayersPhoto from "../../assets/images/WhizKidsSocial.jpg";
 
 const Home: NextPageWithLayout = () => {
@@ -43,8 +43,8 @@ const Home: NextPageWithLayout = () => {
   return (
     <>
       <Toaster />
-      <main className="h-screen w-full bg-dark-gray">
-        <div className="fixed flex h-screen min-w-full flex-col items-center justify-center overflow-hidden">
+      <main className="h-[40rem] md:h-screen w-full bg-dark-gray">
+        <div className="fixed flex h-[40rem] md:h-screen min-w-full flex-col items-center justify-center overflow-hidden">
           <Carousel images={images} options={options} />
         </div>
       </main>

@@ -71,9 +71,9 @@ const TryoutRowEdit = (props: PropType) => {
     }
 
     setRowEdits((rowEdits) => {
-      return { 
-        ...rowEdits, 
-        dateTime: dateObject 
+      return {
+        ...rowEdits,
+        dateTime: dateObject,
       };
     });
   }, [date, time, tryout.dateTime]);

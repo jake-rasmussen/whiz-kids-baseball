@@ -54,7 +54,7 @@ const Table = (props: PropType) => {
                       <div className="modal-box relative gap-0 bg-dark-gray pb-14 pt-10 text-left">
                         <label
                           htmlFor={`modal${index}`}
-                          className="btn-ghost btn-sm btn absolute right-2 top-2 text-white"
+                          className="btn-ghost btn-sm btn absolute right-2 top-2 text-white text-2xl"
                         >
                           ✕
                         </label>
@@ -64,7 +64,7 @@ const Table = (props: PropType) => {
                         <p className="px-4 py-1 text-lg text-white">
                           Location: {tournament.location}
                         </p>
-                        <p className="px-4 py-1 text-lg text-white">
+                        <p className="px-4 py-1 text-lg normal-case text-white">
                           {`Date: ${datesToStringFormatted(tournament.dates)}`}
                         </p>
                         <p className="px-4 py-1 text-lg text-white">
@@ -84,7 +84,7 @@ const Table = (props: PropType) => {
                 <td className="hidden whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray md:table-cell">
                   {tournament.location}
                 </td>
-                <td className="hidden whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray md:table-cell">
+                <td className="hidden whitespace-nowrap py-6 px-5 text-center text-sm font-light normal-case text-dark-gray md:table-cell">
                   {`${datesToStringFormatted(tournament.dates)}`}
                 </td>
                 <td className="whitespace-nowrap py-6 px-5 text-center text-sm font-light text-dark-gray">

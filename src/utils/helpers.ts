@@ -162,18 +162,31 @@ export const dateToStringFormatted = (date: Date) => {
 export const datesToStringFormatted = (dates: Date[]) => {
   let str = "";
   let monthBefore = -1;
-  dates.forEach((date: Date, index: number) => {
-    if (date.getMonth() != monthBefore) {
-      str += dateToStringFormatted(date);
-    } else {
-      str += date.getDate();
-    }
 
-    if (index != dates.length - 1) {
-      str += ", ";
+  if (dates.length > 2) {
+    if (dates[0] !== undefined) {
+      str += dateToStringFormatted(dates[0]);
     }
-    monthBefore = date.getMonth();
-  });
+    str += " to ";
+    dates.forEach((date: Date, index: number) => {
+      if (index === dates.length - 1) {
+        str += dateToStringFormatted(date);
+      }
+    });
+  } else {
+    dates.forEach((date: Date, index: number) => {
+      if (date.getMonth() != monthBefore) {
+        str += dateToStringFormatted(date);
+      } else {
+        str += date.getDate();
+      }
+
+      if (index != dates.length - 1) {
+        str += ", ";
+      }
+      monthBefore = date.getMonth();
+    });
+  }
   return str;
 };
 

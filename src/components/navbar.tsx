@@ -26,7 +26,7 @@ const NavBar: React.FC = () => {
         className="sticky top-0 z-20 flex min-h-[7vh] w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl"
         id="menu"
       >
-        <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto" />
+        <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto"/>
 
         <div className="hidden grow flex-row text-lg lg:flex">
           <Link

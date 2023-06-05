@@ -175,9 +175,9 @@ const Trainings: NextPageWithLayout = () => {
       </div>
 
       <div className="flex min-h-[82vh] w-full flex-col items-center overflow-x-scroll bg-dark-gray">
-        <div className="invisible h-0 md:visible md:h-[60vh] md:w-full">
+        <div className="invisible md:visible md:w-full">
           <main className="flex h-full w-full justify-center bg-dark-gray">
-            <video autoPlay muted loop>
+            <video autoPlay muted loop className="h-0 md:h-[35rem]">
               <source src="/whizkids.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
@@ -202,8 +202,8 @@ const Trainings: NextPageWithLayout = () => {
               This is an environment where normal baseball players with big
               dreams show up to work consistently and ultimately transform
               themselves. We aim to mentor players who eventually get recruited.
-              We will do our best to educate you on where you currenlty stand and 
-              guide you through the process of reaching your potential.
+              We will do our best to educate you on where you currenlty stand
+              and guide you through the process of reaching your potential.
             </p>
           </motion.div>
         </section>
@@ -267,7 +267,7 @@ const Trainings: NextPageWithLayout = () => {
                                 <div className="modal-box relative bg-white text-left text-dark-gray shadow-xl">
                                   <label
                                     htmlFor={`modal${index}`}
-                                    className="btn-ghost btn-sm btn absolute right-2 top-2"
+                                    className="btn-ghost btn-sm btn absolute right-2 top-2 text-2xl"
                                   >
                                     ✕
                                   </label>
