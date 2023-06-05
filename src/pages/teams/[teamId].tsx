@@ -112,7 +112,15 @@ const TeamPage: NextPageWithLayout = () => {
                 <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-dark-gray md:text-4xl">
                   Team Roster
                 </h1>
-                <Roster playerData={players} />
+                {players.length > 0 ? (
+                  <Roster playerData={players} />
+                ) : (
+                  <>
+                    <span className="text-md px-5 text-center font-semibold text-red md:text-xl">
+                      There are currently no listed players
+                    </span>
+                  </>
+                )}
               </motion.div>
             </section>
           ) : (

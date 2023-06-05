@@ -68,13 +68,27 @@ export const dayToStringFormatted = (day: Day) => {
 
 export const daysToStringFormatted = (days: Day[]) => {
   let str = "";
-  days.forEach((day: Day, index: number) => {
-    if (index != days.length - 1) {
-      str += dayToStringFormatted(day) + ", ";
-    } else {
-      str += dayToStringFormatted(day);
+  if (days.length > 2) {
+    if (days[0] !== undefined) {
+      str += dayToStringFormatted(days[0]);
     }
-  });
+    str += " to ";
+    days.forEach((day: Day, index: number) => {
+      if (index === days.length - 1) {
+        str += dayToStringFormatted(day);
+      }
+    });
+    
+  } else {
+    days.forEach((day: Day, index: number) => {
+      if (index !== days.length - 1) {
+        str += dayToStringFormatted(day) + ", ";
+      } else {
+        str += dayToStringFormatted(day);
+      }
+    });
+  }
+
   return str;
 };
 
@@ -163,13 +177,13 @@ export const datesToStringFormatted = (dates: Date[]) => {
   let str = "";
   let monthBefore = -1;
   dates.forEach((date: Date, index: number) => {
-    if (date.getMonth() != monthBefore) {
+    if (date.getMonth() !== monthBefore) {
       str += dateToStringFormatted(date);
     } else {
       str += date.getDate();
     }
 
-    if (index != dates.length - 1) {
+    if (index !== dates.length - 1) {
       str += ", ";
     }
     monthBefore = date.getMonth();
@@ -235,7 +249,7 @@ export const positionsToString = (positions: Position[]) => {
   let str = "";
   positions.forEach((position: Position, index: number) => {
     str +=
-      index != positions.length - 1
+      index !== positions.length - 1
         ? `${positionToAcronym(position)}, `
         : `${positionToAcronym(position)}`;
   });
