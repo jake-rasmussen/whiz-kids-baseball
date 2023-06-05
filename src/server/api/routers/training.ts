@@ -1,3 +1,4 @@
+import type { PrismaClient } from "@prisma/client";
 import {
   adminProcedure,
   createTRPCRouter,
@@ -5,6 +6,16 @@ import {
   publicProcedure,
 } from "../trpc";
 import { z } from "zod";
+
+const deleteOldTrainings = async (prisma: PrismaClient, date: Date) => {
+  await prisma.training.deleteMany({
+    where: {
+      dateTime: {
+        lt: date,
+      },
+    },
+  });
+};
 
 export const trainingRouter = createTRPCRouter({
   getTrainingById: publicProcedure
@@ -21,10 +32,11 @@ export const trainingRouter = createTRPCRouter({
     }),
 
   getTrainingsForUsers: publicProcedure.query(async ({ ctx }) => {
+    const currentDate = new Date();
     const allTrainings = await ctx.prisma.training.findMany({
       where: {
         dateTime: {
-          gte: new Date(),
+          gte: currentDate,
         },
       },
       include: {
@@ -46,6 +58,8 @@ export const trainingRouter = createTRPCRouter({
       }
     });
 
+    await deleteOldTrainings(ctx.prisma, currentDate);
+
     return availableTrainings;
   }),
 
@@ -59,8 +73,9 @@ export const trainingRouter = createTRPCRouter({
     return trainings;
   }),
 
-  //TODO: make this an admin procedute after switching frontend to use get all trainings with availability
   getAllTrainingsForAdmin: adminProcedure.query(async ({ ctx }) => {
+    await deleteOldTrainings(ctx.prisma, new Date());
+
     const training = await ctx.prisma.training.findMany({
       orderBy: {
         dateTime: "asc",

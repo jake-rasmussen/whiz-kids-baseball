@@ -27,9 +27,6 @@ export const practiceRouter = createTRPCRouter({
         where: {
           teamId,
         },
-        // include: {
-        //   team: true,
-        // },
       });
 
       return practices;
