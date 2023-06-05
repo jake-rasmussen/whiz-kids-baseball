@@ -120,7 +120,7 @@ const Alumni: NextPageWithLayout = () => {
         </nav>
       </main>
 
-      <main className="mx-auto flex min-h-[54vh] w-full flex-col items-center overflow-x-scroll bg-white md:w-[85%]">
+      <main className="mx-auto flex min-h-[58vh] w-full flex-col items-center overflow-x-scroll bg-white md:w-[85%]">
         {isLoading ? (
           <div className="py-20">
             <LoadingComponent />
