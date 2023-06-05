@@ -36,10 +36,10 @@ const Carousel = (props: PropType) => {
         <div className="embla__container grid auto-cols-[100%] grid-flow-col">
           {images.map((image, index) => (
             <div className="embla__slide" key={index}>
-              <div className="absolute h-[100%] w-full bg-gradient-to-b from-red to-white opacity-40" />
+              <div className="absolute h-[100vh] w-full bg-gradient-to-b from-red to-white opacity-40" />
               <Image
                 priority
-                className="h-[100vh] object-cover"
+                className="h-screen object-cover"
                 src={image}
                 alt="Whiz Kids Photo"
               />
