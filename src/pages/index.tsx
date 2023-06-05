@@ -44,7 +44,7 @@ const Home: NextPageWithLayout = () => {
     <>
       <Toaster />
       <main className="h-screen w-full bg-dark-gray">
-        <div className="flex h-screen min-w-full flex-col items-center justify-center overflow-hidden">
+        <div className="md:fixed flex h-screen min-w-full flex-col items-center justify-center overflow-hidden">
           <Carousel images={images} options={options} />
         </div>
       </main>
