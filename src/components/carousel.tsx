@@ -39,7 +39,7 @@ const Carousel = (props: PropType) => {
               <div className="absolute h-[100vh] w-full bg-gradient-to-b from-red to-white opacity-40" />
               <Image
                 priority
-                className="object-cover"
+                className="h-screen object-cover"
                 src={image}
                 alt="Whiz Kids Photo"
               />
