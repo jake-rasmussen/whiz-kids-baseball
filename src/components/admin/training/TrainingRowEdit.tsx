@@ -75,9 +75,9 @@ const TrainingRowEdit = (props: PropType) => {
     }
 
     setRowEdits((rowEdits) => {
-      return { 
-        ...rowEdits, 
-        dateTime: dateObject 
+      return {
+        ...rowEdits,
+        dateTime: dateObject,
       };
     });
   }, [date, time, training.dateTime]);

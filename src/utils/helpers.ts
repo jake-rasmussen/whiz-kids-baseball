@@ -68,27 +68,13 @@ export const dayToStringFormatted = (day: Day) => {
 
 export const daysToStringFormatted = (days: Day[]) => {
   let str = "";
-  if (days.length > 2) {
-    if (days[0] !== undefined) {
-      str += dayToStringFormatted(days[0]);
+  days.forEach((day: Day, index: number) => {
+    if (index != days.length - 1) {
+      str += dayToStringFormatted(day) + ", ";
+    } else {
+      str += dayToStringFormatted(day);
     }
-    str += " to ";
-    days.forEach((day: Day, index: number) => {
-      if (index === days.length - 1) {
-        str += dayToStringFormatted(day);
-      }
-    });
-    
-  } else {
-    days.forEach((day: Day, index: number) => {
-      if (index !== days.length - 1) {
-        str += dayToStringFormatted(day) + ", ";
-      } else {
-        str += dayToStringFormatted(day);
-      }
-    });
-  }
-
+  });
   return str;
 };
 
@@ -176,18 +162,31 @@ export const dateToStringFormatted = (date: Date) => {
 export const datesToStringFormatted = (dates: Date[]) => {
   let str = "";
   let monthBefore = -1;
-  dates.forEach((date: Date, index: number) => {
-    if (date.getMonth() !== monthBefore) {
-      str += dateToStringFormatted(date);
-    } else {
-      str += date.getDate();
-    }
 
-    if (index !== dates.length - 1) {
-      str += ", ";
+  if (dates.length > 2) {
+    if (dates[0] !== undefined) {
+      str += dateToStringFormatted(dates[0]);
     }
-    monthBefore = date.getMonth();
-  });
+    str += " to ";
+    dates.forEach((date: Date, index: number) => {
+      if (index === dates.length - 1) {
+        str += dateToStringFormatted(date);
+      }
+    });
+  } else {
+    dates.forEach((date: Date, index: number) => {
+      if (date.getMonth() != monthBefore) {
+        str += dateToStringFormatted(date);
+      } else {
+        str += date.getDate();
+      }
+
+      if (index != dates.length - 1) {
+        str += ", ";
+      }
+      monthBefore = date.getMonth();
+    });
+  }
   return str;
 };
 
@@ -249,7 +248,7 @@ export const positionsToString = (positions: Position[]) => {
   let str = "";
   positions.forEach((position: Position, index: number) => {
     str +=
-      index !== positions.length - 1
+      index != positions.length - 1
         ? `${positionToAcronym(position)}, `
         : `${positionToAcronym(position)}`;
   });

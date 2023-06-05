@@ -15,7 +15,7 @@ import CarouselPhoto1 from "../../assets/images/ThroughFence.jpg";
 import CarouselPhoto2 from "../../assets/images/SianiPhoto.png";
 
 import TeamsPhoto from "../../assets/images/TeamPhoto.png";
-import TournamentPhoto from "../../assets/images/Dugout.jpg"
+import TournamentPhoto from "../../assets/images/Dugout.jpg";
 import PlayersPhoto from "../../assets/images/WhizKidsSocial.jpg";
 
 const Home: NextPageWithLayout = () => {

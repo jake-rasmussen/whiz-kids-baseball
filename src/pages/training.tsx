@@ -202,8 +202,8 @@ const Trainings: NextPageWithLayout = () => {
               This is an environment where normal baseball players with big
               dreams show up to work consistently and ultimately transform
               themselves. We aim to mentor players who eventually get recruited.
-              We will do our best to educate you on where you currenlty stand and 
-              guide you through the process of reaching your potential.
+              We will do our best to educate you on where you currenlty stand
+              and guide you through the process of reaching your potential.
             </p>
           </motion.div>
         </section>
