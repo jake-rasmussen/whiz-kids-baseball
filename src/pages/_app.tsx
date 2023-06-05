@@ -24,7 +24,7 @@ const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
         <title>Whiz Kids Baseball</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ClerkProvider>{getLayout(<Component {...pageProps} />)}</ClerkProvider>
+      <ClerkProvider {...pageProps}>{getLayout(<Component {...pageProps} />)}</ClerkProvider>
     </>
   );
 };
