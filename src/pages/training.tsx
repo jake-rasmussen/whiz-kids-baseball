@@ -175,9 +175,9 @@ const Trainings: NextPageWithLayout = () => {
       </div>
 
       <div className="flex min-h-[82vh] w-full flex-col items-center overflow-x-scroll bg-dark-gray">
-        <div className="invisible h-0 md:visible md:h-[60vh] md:w-full">
+        <div className="invisible md:visible md:w-full">
           <main className="flex h-full w-full justify-center bg-dark-gray">
-            <video autoPlay muted loop>
+            <video autoPlay muted loop className="h-0 md:h-[35rem]">
               <source src="/whizkids.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
