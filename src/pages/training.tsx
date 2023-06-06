@@ -174,7 +174,7 @@ const Trainings: NextPageWithLayout = () => {
         </div>
       </div>
 
-      <div className="flex min-h-[82vh] w-full flex-col items-center overflow-x-scroll bg-dark-gray">
+      <div className="flex min-h-adjusted w-full flex-col items-center overflow-x-scroll bg-dark-gray">
         <div className="invisible md:visible md:w-full">
           <main className="flex h-full w-full justify-center bg-dark-gray">
             <video autoPlay muted loop className="h-0 md:h-[35rem]">
@@ -213,7 +213,7 @@ const Trainings: NextPageWithLayout = () => {
             Training Dates
           </h1>
           {trainings !== undefined && trainings.length > 0 ? (
-            <table className="w-[80%] pb-[10vh] capitalize">
+            <table className="w-[80%] pb-[10%] capitalize">
               <thead>
                 <tr className="w-full">
                   <th className="py-2 px-5 text-base font-black text-red">

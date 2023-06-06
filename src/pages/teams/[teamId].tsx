@@ -35,7 +35,7 @@ const TeamPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <main className="flex min-h-[82vh] w-full flex-col items-center gap-8 overflow-x-hidden">
+      <main className="flex min-h-adjusted w-full flex-col items-center gap-8 overflow-x-hidden">
         <div className="inline-flex w-full items-center justify-center bg-dark-gray py-12">
           <h1 className="text-center text-2xl font-extrabold uppercase tracking-wide text-white md:min-w-max lg:text-4xl lg:text-6xl">
             {teamName}

@@ -61,12 +61,12 @@ const Trainings: NextPageWithLayout = () => {
   return (
     <>
       <Toaster />
-      <main className="flex min-h-[82vh] w-full flex-col items-center justify-center bg-dark-gray py-10 pb-14">
+      <main className="flex min-h-adjusted w-full flex-col items-center justify-center bg-dark-gray py-10 pb-14">
         <h1 className="p-4 pb-10 text-center text-3xl font-black uppercase leading-none tracking-wide text-white md:text-4xl">
           My Trainings
         </h1>
         {trainings.length > 0 ? (
-          <table className="w-[80%] pb-[10vh]">
+          <table className="w-[80%] pb-[10%]">
             <thead>
               <tr className="w-full">
                 <th className="py-2 px-5 text-base font-black text-red">

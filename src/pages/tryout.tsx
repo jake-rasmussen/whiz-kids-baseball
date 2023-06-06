@@ -41,7 +41,7 @@ const Tryouts: NextPageWithLayout = () => {
               duration: 1.5,
               ease: [0, 0.71, 0.2, 1.01],
             }}
-            className="flex flex-col items-center justify-center space-y-8 bg-dark-gray p-4 md:min-h-screen md:max-w-[40%]"
+            className="flex flex-col items-center justify-center space-y-8 bg-dark-gray p-4 md:min-h-image md:max-w-[40%]"
           >
             <div className="md:px-24">
               <h1 className="text-center text-4xl font-bold leading-none text-white lg:text-6xl">
@@ -59,7 +59,7 @@ const Tryouts: NextPageWithLayout = () => {
               priority
               src={image}
               alt="Whiz Kids Photo"
-              className="hidden h-screen w-auto object-cover md:block"
+              className="hidden h-image w-auto object-cover md:block"
             />
           </div>
         </div>
