@@ -24,7 +24,7 @@ const Teams: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="flex min-h-[82vh] w-full justify-center bg-dark-gray">
+      <div className="flex h-adjusted w-full justify-center bg-dark-gray">
         <div className="card w-full overflow-scroll rounded-none bg-white p-2 shadow-xl md:my-20 md:w-auto md:rounded-xl">
           <div className="card-body flex flex-col justify-center">
             <h1 className="text-center text-5xl font-bold md:px-24">

@@ -28,17 +28,20 @@ module.exports = {
         // 'sans': ['Oswald'],
       }
     },
+
     height: theme => ({
       auto: 'auto',
       ...theme('spacing'),
       full: '100%',
       screen: 'calc(var(--vh, 1vh) * 100)',
+      adjusted: 'calc(var(--vh, 1vh) * 82)',
     }),
     minHeight: theme => ({
       '0': '0',
       ...theme('spacing'),
       full: '100%',
       screen: 'calc(var(--vh, 1vh) * 100)',
+      adjusted: 'calc(var(--vh, 1vh) * 82)',
     }),
   },
   daisyui: {

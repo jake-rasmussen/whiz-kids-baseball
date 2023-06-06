@@ -40,7 +40,7 @@ const Table = ({ practices }: PropType) => {
               >
                 <td className="py-2 px-5 text-center text-sm font-medium text-dark-gray">
                   <div className="flex flex-row flex-nowrap items-center justify-center">
-                    <span className="w-[20vh] px-2 py-4 text-center text-sm font-light text-dark-gray">
+                    <span className="w-[20vw] px-2 py-4 text-center text-sm font-light text-dark-gray">
                       {practice.location}
                     </span>
                     <button className="bg-transparent"></button>
