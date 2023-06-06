@@ -38,7 +38,7 @@ const NavBar: React.FC = () => {
 
   return (
     <nav className="flex">
-      <div className="fixed z-10 flex h-full min-h-screen w-60 flex-col items-center overflow-y-auto overflow-x-hidden bg-dark-gray p-6 capitalize text-white">
+      <div className="z-10 flex h-full min-h-screen w-60 flex-col items-center overflow-y-auto overflow-x-hidden bg-dark-gray p-6 capitalize text-white">
         <div className="mx-4 w-full pt-4">
           <ul className="space-y-1 text-sm">
             <li className="w-full text-white">
