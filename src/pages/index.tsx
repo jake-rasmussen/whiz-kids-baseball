@@ -64,7 +64,7 @@ const Home: NextPageWithLayout = () => {
       </main>
 
       <main className="relative flex w-full flex-col items-center overflow-x-hidden bg-dark-gray">
-        <section className="w-full bg-white p-4 dark:text-gray-100 lg:p-8">
+        <section className="w-full bg-white p-4 text-white lg:p-8">
           <div className="container mx-auto space-y-12">
             <motion.div
               ref={refTeams}
