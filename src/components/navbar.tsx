@@ -12,6 +12,7 @@ import Link from "next/link";
 import BurgerMenu from "./Burger";
 import { api } from "../utils/api";
 import { AnimatePresence, motion } from "framer-motion";
+import Router from "next/router";
 
 const NavBar: React.FC = () => {
   const { isSignedIn } = useUser();
@@ -26,9 +27,13 @@ const NavBar: React.FC = () => {
         className="sticky top-0 z-20 flex min-h-[7vh] w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl"
         id="menu"
       >
-        <Image src={logo} alt="Whiz Kids Logo" className="mr-5 h-12 w-auto"/>
-
-        <div className="hidden grow flex-row text-lg lg:flex">
+        <Image 
+          src={logo} alt="Whiz Kids Logo" 
+          className="h-12 w-auto mr-5 hover:cursor-pointer"
+          onClick={() => Router.push("/")} 
+        />
+        
+        <div className="hidden flex-row text-lg w-full lg:flex">
           <Link
             href="/"
             className="link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"
