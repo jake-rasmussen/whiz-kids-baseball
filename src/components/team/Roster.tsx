@@ -1,5 +1,4 @@
 import React from "react";
-// This is no good, playerData should be specific so I fixed below, do this in the future as well
 import type { Player } from "@prisma/client";
 import { positionToAcronym } from "../../utils/helpers";
 interface PropType {

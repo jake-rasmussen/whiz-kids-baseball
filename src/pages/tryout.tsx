@@ -54,12 +54,12 @@ const Tryouts: NextPageWithLayout = () => {
               </p>
             </div>
           </motion.div>
-          <div className="overflow-x-hidden">
+          <div>
             <Image
               priority
               src={image}
               alt="Whiz Kids Photo"
-              className="absolute hidden h-full w-auto object-cover md:block"
+              className="hidden h-full w-auto object-cover md:block"
             />
           </div>
         </div>
