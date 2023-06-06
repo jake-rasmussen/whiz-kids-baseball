@@ -59,6 +59,8 @@ module.exports = {
     ],
   },
   plugins: [
-    require("@tailwindcss/typography"), require("daisyui")
+    require("@tailwindcss/typography"), 
+    require("daisyui"),
+    require('postcss-100vh-fix'),
   ],
 };

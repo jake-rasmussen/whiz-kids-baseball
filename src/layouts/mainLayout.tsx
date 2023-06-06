@@ -4,11 +4,11 @@ import type { Layout } from "../types/pageWithLayout";
 
 const MainLayout: Layout = ({ children }) => {
   return (
-    <>
+    <div className="flex-col">
       <NavBar />
       <main>{children}</main>
       <Footer />
-    </>
+    </div>
   );
 };
 
