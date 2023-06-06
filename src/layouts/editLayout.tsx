@@ -5,7 +5,7 @@ import type { Layout } from "../types/pageWithLayout";
 
 const EditLayout: Layout = ({ children }) => {
   return (
-    <>
+    <div className="absolute inset-0">
       <main className="flex hidden flex-row md:contents">
         <Toaster position="top-right" />
         <Sidebar />
@@ -25,7 +25,7 @@ const EditLayout: Layout = ({ children }) => {
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 };
 
