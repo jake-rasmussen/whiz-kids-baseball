@@ -33,7 +33,7 @@ const Carousel = (props: PropType) => {
   return (
     <>
       <div className="embla" ref={emblaRef}>
-        <div className="embla__container grid auto-cols-[100vh] grid-flow-col">
+        <div className="embla__container grid auto-cols-[100%] grid-flow-col">
           {images.map((image, index) => (
             <div className="embla__slide" key={index}>
               <div className="absolute h-[50rem] lg:h-screen w-full bg-gradient-to-b from-red to-white opacity-40" />
@@ -67,7 +67,7 @@ const Carousel = (props: PropType) => {
           duration: 1.5,
           ease: [0, 0.71, 0.2, 1.01],
         }}
-        className="absolute mx-6 h-auto max-w-2xl lg:max-w-3xl xl:max-w-4xl"
+        className="fixed mx-6 h-auto max-w-2xl lg:max-w-3xl xl:max-w-4xl"
       >
         <Image src={banner} alt="Whiz Kids Banner" priority />
       </motion.div>
