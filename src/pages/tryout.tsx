@@ -59,7 +59,7 @@ const Tryouts: NextPageWithLayout = () => {
               priority
               src={image}
               alt="Whiz Kids Photo"
-              className="hidden h-full w-auto object-cover md:block"
+              className="hidden h-screen w-auto object-cover md:block"
             />
           </div>
         </div>
