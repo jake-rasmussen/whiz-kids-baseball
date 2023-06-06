@@ -41,11 +41,11 @@ const Tryouts: NextPageWithLayout = () => {
               duration: 1.5,
               ease: [0, 0.71, 0.2, 1.01],
             }}
-            className="flex flex-col items-center justify-center space-y-8 bg-dark-gray p-4 md:min-h-[93vh] md:max-w-[40vh] md:p-10 md:px-12 lg:max-w-[60vh]"
+            className="flex flex-col items-center justify-center space-y-8 bg-dark-gray p-4 md:min-h-[93vh] md:max-w-[40%]"
           >
-            <div>
+            <div className="md:px-24">
               <h1 className="text-center text-4xl font-bold leading-none text-white lg:text-6xl">
-                Interested in becoming a{" "}
+              <span className="whitespace-nowrap">Interested in</span> becoming a{" "}
                 <span className="whitespace-nowrap text-red">Whiz Kid</span>?
               </h1>
               <p className="py-8 text-center text-xl font-medium text-white lg:text-2xl">
@@ -59,7 +59,7 @@ const Tryouts: NextPageWithLayout = () => {
               priority
               src={image}
               alt="Whiz Kids Photo"
-              className="hidden h-full w-auto object-cover md:block"
+              className="absolute hidden h-full w-auto object-cover md:block"
             />
           </div>
         </div>
