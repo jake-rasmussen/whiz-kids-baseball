@@ -45,7 +45,8 @@ const Tryouts: NextPageWithLayout = () => {
           >
             <div className="md:px-24">
               <h1 className="text-center text-4xl font-bold leading-none text-white lg:text-6xl">
-              <span className="whitespace-nowrap">Interested in</span> becoming a{" "}
+                <span className="whitespace-nowrap">Interested in</span>{" "}
+                becoming a{" "}
                 <span className="whitespace-nowrap text-red">Whiz Kid</span>?
               </h1>
               <p className="py-8 text-center text-xl font-medium text-white lg:text-2xl">
@@ -110,7 +111,7 @@ const Tryouts: NextPageWithLayout = () => {
           </table>
         ) : (
           <>
-            <span className="text-md w-[80%] md:w-[50%] text-center font-semibold text-red md:px-5 md:text-xl">
+            <span className="text-md w-[80%] text-center font-semibold text-red md:w-[50%] md:px-5 md:text-xl">
               <div className="divider before:bg-light-gray after:bg-light-gray"></div>
               There are currently no listed tryouts,{" "}
               <br className="hidden md:block" />

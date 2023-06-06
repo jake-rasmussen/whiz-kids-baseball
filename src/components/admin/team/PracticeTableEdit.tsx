@@ -141,14 +141,14 @@ const Table = ({ teamId }: PropType) => {
       <div className="flex w-full justify-end">
         {editRowIndex === -1 && !wait ? (
           <button
-            className="min-w-8 min-h-8 mt-4 mr-4
+            className="min-w-8 mt-4 mr-4 min-h-8
             transition duration-300 ease-in-out hover:scale-150 hover:text-red"
             onClick={() => addTemporaryRow(practices.length)}
           >
             <IconCirclePlus />
           </button>
         ) : (
-          <button className="min-w-8 min-h-8 mt-4 mr-4 text-light-gray">
+          <button className="min-w-8 mt-4 mr-4 min-h-8 text-light-gray">
             <IconCirclePlus />
           </button>
         )}

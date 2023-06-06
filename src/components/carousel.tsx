@@ -61,16 +61,16 @@ const Carousel = (props: PropType) => {
       </div>
 
       <motion.div
-          initial={{ opacity: 0, x: 0 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{
-            duration: 1.5,
-            ease: [0, 0.71, 0.2, 1.01],
-          }}
-          className=" mx-6 max-w-2xl lg:max-w-3xl xl:max-w-4xl"
-        >
-          <Image src={banner} alt="Whiz Kids Banner" priority />
-        </motion.div>
+        initial={{ opacity: 0, x: 0 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{
+          duration: 1.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+        className="absolute mx-6 max-w-2xl lg:max-w-3xl xl:max-w-4xl"
+      >
+        <Image src={banner} alt="Whiz Kids Banner" priority />
+      </motion.div>
     </>
   );
 };

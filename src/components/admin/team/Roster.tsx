@@ -127,14 +127,14 @@ const Roster = (props: PropType) => {
       <div className="flex w-full justify-center">
         {editIndex === -1 && !wait ? (
           <button
-            className="min-w-12 min-h-12 mt-4
+            className="min-w-12 mt-4 min-h-12
             transition duration-300 ease-in-out hover:scale-150 hover:text-red"
             onClick={() => addTemporaryPlayer(players.length)}
           >
             <IconCirclePlus />
           </button>
         ) : (
-          <button className="min-w-12 min-h-12 mt-4 text-light-gray">
+          <button className="min-w-12 mt-4 min-h-12 text-light-gray">
             <IconCirclePlus />
           </button>
         )}

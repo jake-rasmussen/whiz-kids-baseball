@@ -333,7 +333,7 @@ const Trainings: NextPageWithLayout = () => {
             </table>
           ) : (
             <>
-              <span className="text-md w-[80%] md:w-[50%] text-center font-semibold text-white md:px-5 md:text-xl">
+              <span className="text-md w-[80%] text-center font-semibold text-white md:w-[50%] md:px-5 md:text-xl">
                 <div className="divider before:bg-light-gray after:bg-light-gray"></div>
                 There are currently no listed trainings,{" "}
                 <br className="hidden md:block" />

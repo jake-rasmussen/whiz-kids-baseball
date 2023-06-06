@@ -27,13 +27,14 @@ const NavBar: React.FC = () => {
         className="sticky top-0 z-20 flex w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl"
         id="menu"
       >
-        <Image 
-          src={logo} alt="Whiz Kids Logo" 
-          className="h-12 w-auto mr-5 hover:cursor-pointer"
-          onClick={() => Router.push("/")} 
+        <Image
+          src={logo}
+          alt="Whiz Kids Logo"
+          className="mr-5 h-12 w-auto hover:cursor-pointer"
+          onClick={() => Router.push("/")}
         />
-        
-        <div className="hidden flex-row text-lg w-full lg:flex">
+
+        <div className="hidden w-full flex-row text-lg lg:flex">
           <Link
             href="/"
             className="link-underline link-underline-black mx-2 block font-extrabold text-dark-gray hover:text-red"

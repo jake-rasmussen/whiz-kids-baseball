@@ -53,7 +53,7 @@ const Table = ({ practices }: PropType) => {
                       <div className="modal-box relative gap-0 bg-dark-gray pb-14 pt-10 text-left">
                         <label
                           htmlFor={`modal${index}`}
-                          className="btn-ghost btn-sm btn absolute right-2 top-2 text-white text-2xl"
+                          className="btn-ghost btn-sm btn absolute right-2 top-2 text-2xl text-white"
                         >
                           ✕
                         </label>
