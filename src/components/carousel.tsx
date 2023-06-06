@@ -33,7 +33,7 @@ const Carousel = (props: PropType) => {
   return (
     <>
       <div className="embla" ref={emblaRef}>
-        <div className="embla__container grid auto-cols-[100%] grid-flow-col">
+        <div className="embla__container grid auto-cols-[100vh] grid-flow-col">
           {images.map((image, index) => (
             <div className="embla__slide" key={index}>
               <div className="absolute h-[50rem] lg:h-screen w-full bg-gradient-to-b from-red to-white opacity-40" />
