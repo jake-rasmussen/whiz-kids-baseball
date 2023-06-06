@@ -79,14 +79,14 @@ const Home: NextPageWithLayout = () => {
             >
               <Image
                 src={TeamsPhoto}
-                className="h-80 w-auto object-cover dark:bg-gray-500"
+                className="h-80 w-auto object-cover bg-gray-500"
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-4xl font-bold underline decoration-red">
+                <h3 className="text-4xl font-bold underline decoration-red text-white">
                   Numerous Competitive Teams
                 </h3>
-                <p className="my-6 dark:text-gray-400">
+                <p className="my-6 text-light-gray">
                   We have 12 teams, which range from ages 12U to 18U. Each team
                   is equipped with a dedicated coaching staff and will have many
                   practices throughout the season
@@ -106,14 +106,14 @@ const Home: NextPageWithLayout = () => {
             >
               <Image
                 src={TournamentPhoto}
-                className="block h-80 w-auto object-cover dark:bg-gray-500 lg:hidden"
+                className="block h-80 w-auto object-cover bg-gray-500 lg:hidden"
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-4xl font-bold underline decoration-red">
+                <h3 className="text-4xl font-bold underline decoration-red text-white">
                   Robust Tournament Schedule
                 </h3>
-                <p className="my-6 dark:text-gray-400">
+                <p className="my-6 text-light-gray">
                   Each team will play in 8+ summer tournaments and 6+ fall
                   tournaments ranging across the east coast to gain exposure.
                   These tournaments will consist of a combination of showcase
@@ -122,7 +122,7 @@ const Home: NextPageWithLayout = () => {
               </div>
               <Image
                 src={TournamentPhoto}
-                className="hidden h-80 w-auto object-cover dark:bg-gray-500 lg:block"
+                className="hidden h-80 w-auto object-cover bg-gray-500 lg:block"
                 alt="Whiz Kids Photo"
               />
             </motion.div>
@@ -143,10 +143,10 @@ const Home: NextPageWithLayout = () => {
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-4xl font-bold underline decoration-red">
+                <h3 className="text-4xl font-bold underline decoration-red text-white">
                   Hundreds of Passionate Players
                 </h3>
-                <p className="my-6 dark:text-gray-400">
+                <p className="my-6 text-light-gray">
                   We are proud to have well over 300 active players within our
                   Whiz Kids family, and boast a large supporting alumni network
                   that frequently contribute to the organization today
