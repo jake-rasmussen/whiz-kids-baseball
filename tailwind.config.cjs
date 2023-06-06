@@ -36,7 +36,7 @@ module.exports = {
       screen: 'calc(var(--vh, 1vh) * 100)',
       adjusted: 'calc(var(--vh, 1vh) * 82)',
       alumni: 'calc(var(--vh, 1vh) * 58)',
-      image: 'calc(var(--vh, 1vh) * 100)',
+      image: 'calc(var(--vh, 1vh) * 93)',
     }),
     minHeight: theme => ({
       '0': '0',
@@ -48,7 +48,7 @@ module.exports = {
       // image: 'calc(var(--vh, 1vh) * 93)',
       adjusted: 'calc(var(--vh, 1vh) * 82)',
       alumni: 'calc(var(--vh, 1vh) * 58)',
-      image: 'calc(var(--vh, 1vh) * 100)',
+      image: 'calc(var(--vh, 1vh) * 93)',
     }),
   },
   daisyui: {
