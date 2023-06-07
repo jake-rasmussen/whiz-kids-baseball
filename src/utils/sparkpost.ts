@@ -56,15 +56,14 @@ export const emailAdmin = async (
     `;
   }
 
-  await client.transmissions
-    .send({
-      content: {
-        from: fromParams,
-        subject,
-        text,
-      },
-      recipients: [{ address: adminEmailAddress }],
-    })
+  await client.transmissions.send({
+    content: {
+      from: fromParams,
+      subject,
+      text,
+    },
+    recipients: [{ address: adminEmailAddress }],
+  });
 };
 
 export const blastEmailToUsers = async (
@@ -72,13 +71,12 @@ export const blastEmailToUsers = async (
   subject: string,
   text: string
 ) => {
-  await client.transmissions
-    .send({
-      content: {
-        from: fromParams,
-        subject,
-        text,
-      },
-      recipients: recipients.map((email) => ({ address: email })),
-    })
+  await client.transmissions.send({
+    content: {
+      from: fromParams,
+      subject,
+      text,
+    },
+    recipients: recipients.map((email) => ({ address: email })),
+  });
 };

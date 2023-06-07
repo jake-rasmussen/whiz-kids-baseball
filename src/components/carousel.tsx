@@ -36,10 +36,10 @@ const Carousel = (props: PropType) => {
         <div className="embla__container grid auto-cols-[100%] grid-flow-col">
           {images.map((image, index) => (
             <div className="embla__slide flex justify-center" key={index}>
-              <div className="absolute h-[40rem] w-[100vw] bg-gradient-to-b from-red to-white opacity-40 md:h-screen z-20" />
+              <div className="absolute z-20 h-[40rem] w-[100vw] bg-gradient-to-b from-red to-white opacity-40 md:h-screen" />
               <Image
                 priority
-                className="h-[40rem] object-cover md:h-screen z-10"
+                className="z-10 h-[40rem] object-cover md:h-screen"
                 src={image}
                 alt="Whiz Kids Cover"
               />
@@ -47,13 +47,13 @@ const Carousel = (props: PropType) => {
           ))}
         </div>
         <button
-          className="embla__prev z-100 absolute left-0 top-[20rem] md:top-[30rem] hidden transition duration-300 ease-in-out hover:scale-[200%] lg:block"
+          className="embla__prev z-100 absolute left-0 top-[20rem] hidden transition duration-300 ease-in-out hover:scale-[200%] md:top-[30rem] lg:block"
           onClick={scrollPrev}
         >
           <IconChevronLeft className="h-20 w-20 text-white" />
         </button>
         <button
-          className="embla__next z-100 absolute right-0 top-[20rem] md:top-[30rem] hidden transition duration-300 ease-in-out hover:scale-[200%] lg:block"
+          className="embla__next z-100 absolute right-0 top-[20rem] hidden transition duration-300 ease-in-out hover:scale-[200%] md:top-[30rem] lg:block"
           onClick={scrollNext}
         >
           <IconChevronRight className="h-20 w-20 text-white" />
