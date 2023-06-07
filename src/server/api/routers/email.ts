@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { blastEmailToUsers, emailAdmin } from "../../../utils/nodemailer";
+import { emailAdmin, blastEmailToUsers } from "../../../utils/sparkpost";
 import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 
@@ -25,9 +25,9 @@ export const emailRouter = createTRPCRouter({
           code: "NOT_FOUND",
         });
       } else {
-        const bcc = userEmails.map((user) => user.email);
+        const recipients = userEmails.map((user) => user.email);
         try {
-          await blastEmailToUsers(bcc, subject, text);
+          await blastEmailToUsers(recipients, subject, text);
         } catch (e) {
           throw new TRPCError({
             message: "Error sending emails",
@@ -35,8 +35,7 @@ export const emailRouter = createTRPCRouter({
           });
         }
       }
-
-      return "Emails sent";
+      return { success: true };
     }),
 
   sendContactUsEmail: publicProcedure
@@ -50,14 +49,13 @@ export const emailRouter = createTRPCRouter({
     .mutation(async ({ input: emailAdminParams }) => {
       try {
         await emailAdmin("Contact Us", emailAdminParams);
-        return "Email sent";
       } catch (e) {
-        console.log(e);
         throw new TRPCError({
           message: "Error sending emails",
           code: "INTERNAL_SERVER_ERROR",
         });
       }
+      return { success: true };
     }),
 
   sendInterestEmail: publicProcedure
@@ -78,12 +76,13 @@ export const emailRouter = createTRPCRouter({
     .mutation(async ({ input: emailAdminParams }) => {
       try {
         await emailAdmin("Interest", emailAdminParams);
-        return "Email sent";
       } catch (e) {
+        console.log("hi form error in sparkpost");
         throw new TRPCError({
           message: "Error sending emails",
           code: "INTERNAL_SERVER_ERROR",
         });
       }
+      return { success: true };
     }),
 });
