@@ -6,7 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 import { useCallback } from "react";
 
 type PropType = {
@@ -36,10 +36,10 @@ const Carousel = (props: PropType) => {
         <div className="embla__container grid auto-cols-[100%] grid-flow-col">
           {images.map((image, index) => (
             <div className="embla__slide flex justify-center" key={index}>
-              <div className="absolute h-[40rem] md:h-screen w-full bg-gradient-to-b from-red to-white opacity-40" />
+              <div className="absolute h-[40rem] w-full bg-gradient-to-b from-red to-white opacity-40 md:h-screen" />
               <Image
                 priority
-                className="h-[40rem] md:h-screen object-cover"
+                className="h-[40rem] object-cover md:h-screen"
                 src={image}
                 alt="Whiz Kids Cover"
               />
@@ -47,13 +47,13 @@ const Carousel = (props: PropType) => {
           ))}
         </div>
         <button
-          className="embla__prev z-100 absolute left-0 top-[50%] hidden transition duration-300 ease-in-out hover:scale-[200%] md:block"
+          className="embla__prev z-100 absolute left-0 top-[50%] hidden transition duration-300 ease-in-out hover:scale-[200%] lg:block"
           onClick={scrollPrev}
         >
           <IconChevronLeft className="h-20 w-20 text-white" />
         </button>
         <button
-          className="embla__next z-100 absolute right-0 top-[50%] hidden transition duration-300 ease-in-out hover:scale-[200%] md:block"
+          className="embla__next z-100 absolute right-0 top-[50%] hidden transition duration-300 ease-in-out hover:scale-[200%] lg:block"
           onClick={scrollNext}
         >
           <IconChevronRight className="h-20 w-20 text-white" />

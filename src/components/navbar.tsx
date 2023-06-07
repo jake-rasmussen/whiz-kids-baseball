@@ -13,6 +13,7 @@ import BurgerMenu from "./Burger";
 import { api } from "../utils/api";
 import { AnimatePresence, motion } from "framer-motion";
 import Router from "next/router";
+import { useEffect, useState } from "react";
 
 const NavBar: React.FC = () => {
   const { isSignedIn } = useUser();
@@ -20,6 +21,8 @@ const NavBar: React.FC = () => {
     undefined,
     { enabled: !!isSignedIn }
   );
+
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   return (
     <>
@@ -31,7 +34,10 @@ const NavBar: React.FC = () => {
           src={logo}
           alt="Whiz Kids Logo"
           className="mr-5 h-12 w-auto hover:cursor-pointer"
-          onClick={() => Router.push("/")}
+          onClick={() => {
+            Router.push("/");
+            setMenuIsOpen(false);
+          }}
         />
 
         <div className="hidden w-full flex-row text-lg lg:flex">
@@ -147,7 +153,11 @@ const NavBar: React.FC = () => {
             </div>
 
             <div className="block lg:hidden">
-              <BurgerMenu isAdmin={isAdmin ?? false} />
+              <BurgerMenu
+                isAdmin={isAdmin ?? false}
+                menuIsOpen={menuIsOpen}
+                setMenuIsOpen={setMenuIsOpen}
+              />
             </div>
           </div>
         </div>

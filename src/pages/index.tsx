@@ -79,11 +79,11 @@ const Home: NextPageWithLayout = () => {
             >
               <Image
                 src={TeamsPhoto}
-                className="h-80 w-auto object-cover bg-gray-500"
+                className="h-80 w-auto bg-gray-500 object-cover"
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-4xl font-bold underline decoration-red text-white">
+                <h3 className="text-4xl font-bold text-white underline decoration-red">
                   Numerous Competitive Teams
                 </h3>
                 <p className="my-6 text-light-gray">
@@ -106,11 +106,11 @@ const Home: NextPageWithLayout = () => {
             >
               <Image
                 src={TournamentPhoto}
-                className="block h-80 w-auto object-cover bg-gray-500 lg:hidden"
+                className="block h-80 w-auto bg-gray-500 object-cover lg:hidden"
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-4xl font-bold underline decoration-red text-white">
+                <h3 className="text-4xl font-bold text-white underline decoration-red">
                   Robust Tournament Schedule
                 </h3>
                 <p className="my-6 text-light-gray">
@@ -122,7 +122,7 @@ const Home: NextPageWithLayout = () => {
               </div>
               <Image
                 src={TournamentPhoto}
-                className="hidden h-80 w-auto object-cover bg-gray-500 lg:block"
+                className="hidden h-80 w-auto bg-gray-500 object-cover lg:block"
                 alt="Whiz Kids Photo"
               />
             </motion.div>
@@ -143,7 +143,7 @@ const Home: NextPageWithLayout = () => {
                 alt="Whiz Kids Photo"
               />
               <div className="flex flex-1 flex-col justify-center bg-dark-gray p-6">
-                <h3 className="text-4xl font-bold underline decoration-red text-white">
+                <h3 className="text-4xl font-bold text-white underline decoration-red">
                   Hundreds of Passionate Players
                 </h3>
                 <p className="my-6 text-light-gray">
