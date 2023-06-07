@@ -24,7 +24,7 @@ const MenuList = ({ isOpen, isAdmin, setIsOpen }: Props) => {
     >
       <div
         tabIndex={0}
-        className={`flex h-screen w-screen items-center justify-center overflow-y-scroll bg-white text-xl
+        className={`flex h-[100vh] w-[100vw] items-center justify-center overflow-y-scroll bg-white text-xl
         transition duration-300 ease-in-out ${
           !isOpen ? "pointer-events-none" : ""
         }`}
