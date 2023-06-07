@@ -26,7 +26,7 @@ const Teams: NextPageWithLayout = () => {
     <>
       <div className="flex min-h-adjusted w-full justify-center overflow-scroll bg-dark-gray">
         <div className="card w-full rounded-none bg-white p-2 py-10 shadow-xl md:my-auto md:w-auto md:rounded-xl">
-          <div className="card-body flex-col justify-center">
+          <div className="card-body flex-col md:justify-center">
             <h1 className="text-center text-5xl font-bold md:px-24">
               Our <span className="text-red">Teams</span>
             </h1>
