@@ -43,7 +43,7 @@ const Home: NextPageWithLayout = () => {
   return (
     <>
       <Toaster />
-      <main className="w-[100vw] bg-dark-gray">
+      <main className="w-screen bg-dark-gray">
         <div className="flex min-w-full flex-col items-center justify-center overflow-hidden">
           <Carousel images={images} options={options} />
         </div>

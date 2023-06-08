@@ -23,7 +23,7 @@ const TeamEditPage: NextPageWithLayout = () => {
   return (
     <>
       <div className="w-full">
-        <main className="flex min-h-[100vh] min-w-full flex-col items-center">
+        <main className="flex min-h-screen min-w-full flex-col items-center">
           <section className="py-[4vh]" onClick={() => toast.remove()}>
             <Tab activeTab={activeTab} setActiveTab={setActiveTab} />
           </section>
