@@ -109,7 +109,7 @@ const NavBar: React.FC = () => {
                           href="/admin"
                           className="link-underline link-underline-black mx-2 hidden font-extrabold text-red hover:text-red md:block "
                         >
-                          Admin Edit
+                          Admin Page
                         </Link>
                       </motion.div>
                     </AnimatePresence>

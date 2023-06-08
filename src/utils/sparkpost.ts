@@ -8,7 +8,7 @@ import { env } from "../env/server.mjs";
 const client = new Sparkpost(env.SPARKPOST_API_KEY);
 
 const fromParams = {
-  name: "Philly Whiz Kids",
+  name: "Whiz Kids Baseball",
   email: "baseball@info.phillywhizkids.com",
 };
 
@@ -71,11 +71,23 @@ export const blastEmailToUsers = async (
   subject: string,
   text: string
 ) => {
+  const textToLines = text.split("\n");
+  text = "";
+  textToLines.forEach((line: string) => {
+    text += line + "<br />"
+  })
+
   await client.transmissions.send({
     content: {
       from: fromParams,
       subject,
-      text,
+      html: `
+      <div>
+        <h1 style="color: #1F1F1F; font-size: 3em;">${subject}</h1>
+        <p style="color: #1F1F1F; font-size: 1em;">${text}</p>
+        <img style="width: 22.5rem;" src="https://drive.google.com/uc?id=1lFfvel6F--A2gMY5HaERV3V03IX13syd" alt="Whiz Kids Baseball">
+      </div>
+    `,
     },
     recipients: recipients.map((email) => ({ address: email })),
   });
