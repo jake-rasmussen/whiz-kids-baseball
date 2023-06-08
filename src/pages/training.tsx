@@ -174,7 +174,7 @@ const Trainings: NextPageWithLayout = () => {
         </div>
       </div>
 
-      <div className="flex min-h-adjusted w-full flex-col items-center overflow-x-scroll bg-dark-gray">
+      <div className="flex min-h-[52rem] w-full flex-col items-center overflow-x-scroll bg-dark-gray">
         <div className="invisible md:visible md:w-full">
           <main className="flex h-full w-full justify-center bg-dark-gray">
             <video autoPlay muted loop className="h-0 md:h-[35rem]">

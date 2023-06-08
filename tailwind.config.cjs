@@ -28,26 +28,6 @@ module.exports = {
         // 'sans': ['Oswald'],
       }
     },
-
-    height: theme => ({
-      auto: 'auto',
-      ...theme('spacing'),
-      full: '100%',
-      adjusted: '52rem',
-      alumni: '37rem',
-      image: '55rem',
-    }),
-    minHeight: theme => ({
-      '0': '0',
-      ...theme('spacing'),
-      full: '100%',
-      // adjusted: 'calc(var(--vh, 1vh) * 82)',
-      // alumni: 'calc(var(--vh, 1vh) * 58)',
-      // image: 'calc(var(--vh, 1vh) * 93)',
-      adjusted: '52rem',
-      alumni: '37rem',
-      image: '55rem',
-    }),
   },
   daisyui: {
     themes: [

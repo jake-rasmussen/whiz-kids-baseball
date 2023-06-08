@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import { useEffect } from "react";
 import MenuList from "./MenuList";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons";
@@ -23,7 +24,7 @@ const BurgerMenu = ({ isAdmin, menuIsOpen, setMenuIsOpen }: Props) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutsideMenu);
     };
-  }, []);
+  }, [, setMenuIsOpen]);
 
   return (
     <>

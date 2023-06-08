@@ -13,7 +13,7 @@ import BurgerMenu from "./Burger";
 import { api } from "../utils/api";
 import { AnimatePresence, motion } from "framer-motion";
 import Router from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const NavBar: React.FC = () => {
   const { isSignedIn } = useUser();
