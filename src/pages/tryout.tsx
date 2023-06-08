@@ -33,7 +33,7 @@ const Tryouts: NextPageWithLayout = () => {
   return (
     <>
       <section className="relative w-full text-white">
-        <div className="flex flex-col bg-dark-gray justify-center p-8 md:flex-row md:p-0">
+        <div className="flex flex-col justify-center bg-dark-gray p-8 md:flex-row md:p-0">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

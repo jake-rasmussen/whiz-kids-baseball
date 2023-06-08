@@ -119,9 +119,9 @@ model Training {
 }
 
 model TrainingsOnUsers {
-  user       User     @relation(fields: [userId], references: [clerkId])
+  user       User     @relation(fields: [userId], references: [clerkId], onDelete: Cascade)
   userId     String
-  training   Training @relation(fields: [trainingId], references: [id])
+  training   Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
   trainingId String
   playerName String
 

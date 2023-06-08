@@ -10,12 +10,7 @@ export const serverSchema = z.object({
   HOST_PORT: z.string().min(4),
   NODE_ENV: z.enum(["development", "test", "production"]),
   CLERK_SECRET_KEY: z.string().min(1),
-  EMAIL_USER_ADDRESS: z.string().email().min(1),
-  EMAIL_CLIENT_ID: z.string().min(1),
-  EMAIL_CLIENT_SECRET: z.string().min(1),
-  EMAIL_REFRESH_TOKEN: z.string().min(1),
-  // EMAIL_ACCESS_TOKEN: z.string().min(1),
-
+  SPARKPOST_API_KEY: z.string().min(1),
 });
 
 /**
@@ -30,11 +25,7 @@ export const serverEnv = {
 
   CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
 
-  EMAIL_USER_ADDRESS: process.env.EMAIL_USER_ADDRESS,
-  EMAIL_CLIENT_ID: process.env.EMAIL_CLIENT_ID,
-  EMAIL_CLIENT_SECRET: process.env.EMAIL_CLIENT_SECRET,
-  EMAIL_REFRESH_TOKEN: process.env.EMAIL_REFRESH_TOKEN,
-  // EMAIL_ACCESS_TOKEN: process.env.EMAIL_ACCESS_TOKEN,
+  SPARKPOST_API_KEY: process.env.SPARKPOST_API_KEY,
 };
 
 /**
