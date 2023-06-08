@@ -3,7 +3,7 @@ import EditLayout from "../../layouts/editLayout";
 
 const EditSupport = () => {
   return (
-    <section className="flex h-screen w-full items-center bg-white text-dark-gray">
+    <section className="flex h-[100vh] w-full items-center bg-white text-dark-gray">
       <div className="container mx-auto flex flex-col items-center px-4 py-16 text-center md:py-32 md:px-10 lg:px-32 xl:max-w-3xl">
         <h1 className="text-4xl font-bold leading-none sm:text-5xl">
           Welcome to the Support Page

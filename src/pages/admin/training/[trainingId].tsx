@@ -69,7 +69,7 @@ const TrainingEditPage: NextPageWithLayout = () => {
           actionItem={handleUnregisterPlayer}
           confirmCancelButtons={true}
         ></Modal>
-        <main className="flex min-h-screen min-w-full flex-col items-center justify-center">
+        <main className="flex min-h-[100vh] min-w-full flex-col items-center justify-center">
           <section className="my-20 flex w-full items-center overflow-x-scroll">
             <div className="flex min-w-full flex-col items-center justify-center overflow-scroll px-[5%]">
               <table className="table min-w-full table-auto text-center transition duration-300 ease-in-out">

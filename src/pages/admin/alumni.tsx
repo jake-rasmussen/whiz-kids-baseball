@@ -6,7 +6,7 @@ import type { ReactElement } from "react";
 const AlumniPageEdit: NextPageWithLayout = () => {
   return (
     <div className="w-full">
-      <main className="flex min-h-screen min-w-full flex-col items-center justify-center">
+      <main className="flex min-h-[100vh] min-w-full flex-col items-center justify-center">
         <section className="my-20 flex w-full items-center overflow-x-scroll">
           <AlumniTableEdit />
         </section>

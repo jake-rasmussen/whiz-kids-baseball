@@ -11,7 +11,7 @@ const EditLayout: Layout = ({ children }) => {
         <Sidebar />
         <main className="z-0 ml-60 flex h-0">{children}</main>
       </main>
-      <main className="block h-screen w-screen items-center justify-center overflow-hidden md:hidden">
+      <main className="block h-[100vh] w-[100vw] items-center justify-center overflow-hidden md:hidden">
         <section className="flex h-full items-center bg-white text-dark-gray">
           <div className="container mx-auto flex flex-col items-center px-4 py-16 text-center md:py-32 md:px-10 lg:px-32 xl:max-w-3xl">
             <h1 className="text-4xl font-bold leading-none sm:text-5xl">
