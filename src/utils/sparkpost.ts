@@ -83,8 +83,7 @@ export const blastEmailToUsers = async (
       subject,
       html: `
       <div>
-        <h1 style="color: #1F1F1F; font-size: 3em;">${subject}</h1>
-        <p style="color: #1F1F1F; font-size: 1em;">${text}</p>
+        <p style="color: #1F1F1F">${text}</p>
         <img style="width: 22.5rem;" src="https://drive.google.com/uc?id=1lFfvel6F--A2gMY5HaERV3V03IX13syd" alt="Whiz Kids Baseball">
       </div>
     `,
