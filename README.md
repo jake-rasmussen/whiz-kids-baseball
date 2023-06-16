@@ -1,28 +1,27 @@
-# Create T3 App
+# Whiz Kids Website
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is a website created for a travel baseball organization based out of Philadelphia.
 
-## What's next? How do I make an app with this?
+## Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+The ultimate goal of the website was to make something with longevity that could be easily managed for years by any Whiz Kids Admins. So, we created an Admin
+backend, where the Admin has an access to CRUD operations for:
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+  - A team's tournaments, practices, and roster
+  - The actual list of teams
+  - Training and tryout schedule 
+  - List of alumni
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+The website is also equipped with Clerk, a User Management System that also provides 2FA. As a user, people can sign up for listed trainings, and also automatically
+has their accounts registered with the Newsletter, which the Admin can send out via the backend as well. Additionally, the Admin has the ability to remove user's
+from trainings if they see fit. 
 
-## Learn More
+It's important to note that all backend pages are protected, so the user must have a verified Admin account in order to see anything in the backend. 
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## About us
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+This project was made by Jake Rasmussen and Daniel Drozdov, both Computer Science majors at JHU. Here are links to our LinkedIn's, and thanks for checking
+this project out!
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+- [Jake Rasmussen](https://www.linkedin.com/in/jake-rasmussen-jhu/)
+- [Daniel Drozdov](https://www.linkedin.com/in/daniel-drozdov/)
