@@ -47,13 +47,13 @@ const Carousel = (props: PropType) => {
           ))}
         </div>
         <button
-          className="embla__prev z-100 absolute left-0 top-[20rem] hidden transition duration-300 ease-in-out hover:scale-[200%] md:top-[30rem] lg:block"
+          className="embla__prev z-30 absolute left-0 top-[20rem] hidden transition duration-300 ease-in-out hover:scale-[200%] md:top-[30rem] lg:block"
           onClick={scrollPrev}
         >
           <IconChevronLeft className="h-20 w-20 text-white" />
         </button>
         <button
-          className="embla__next z-100 absolute right-0 top-[20rem] hidden transition duration-300 ease-in-out hover:scale-[200%] md:top-[30rem] lg:block"
+          className="embla__next z-30 absolute right-0 top-[20rem] hidden transition duration-300 ease-in-out hover:scale-[200%] md:top-[30rem] lg:block"
           onClick={scrollNext}
         >
           <IconChevronRight className="h-20 w-20 text-white" />

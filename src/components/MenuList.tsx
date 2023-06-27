@@ -17,9 +17,9 @@ const MenuList = ({ isOpen, isAdmin, setIsOpen }: Props) => {
       transition={{ duration: 0.3 }}
       variants={{
         open: { opacity: 1, x: 0 },
-        closed: { opacity: 1, x: "-100%" },
+        closed: { opacity: 1, x: "-100vw" },
       }}
-      className="absolute top-full right-0 w-full"
+      className="absolute top-full right-0 w-full z-50"
       id="menu"
     >
       <div

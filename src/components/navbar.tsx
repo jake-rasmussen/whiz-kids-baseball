@@ -27,7 +27,7 @@ const NavBar: React.FC = () => {
   return (
     <>
       <div
-        className="sticky top-0 z-100 flex w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl"
+        className="sticky top-0 z-50 flex w-full flex-row items-center justify-items-stretch bg-white p-3 shadow-xl"
         id="menu"
       >
         <Image
