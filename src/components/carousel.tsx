@@ -69,7 +69,7 @@ const Carousel = (props: PropType) => {
         }}
         className="absolute mx-6 max-w-2xl lg:max-w-3xl xl:max-w-4xl"
       >
-        <Image src={banner} alt="Whiz Kids Banner" priority />
+        <Image src={banner} alt="Whiz Kids Banner" className="z-50" priority />
       </motion.div>
     </>
   );
